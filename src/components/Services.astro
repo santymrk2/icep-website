@@ -1,0 +1,45 @@
+---
+const services = [
+  {
+    title: "Reuniones de los Domingos",
+    items: [
+      { name: "Cena del Señor", time: "09:00hs - 10:00hs" },
+      { name: "Reunión de Enseñanza", time: "10:00hs - 11:00hs" },
+      { name: "Escuela Bíblica Dominical", time: "11:30hs - 13:00hs" }
+    ]
+  },
+  {
+    title: "Otras Reuniones",
+    items: [
+      { name: "Reunión de Oración", time: "20 hs (Miércoles)" },
+      { name: "Horita Feliz 'al aire libre' (Villa Rosa)", time: "Estar atento a los anuncios" },
+      { name: "ActivAdos", time: "14:30 hs (1º y 3º Sábados)" },
+      { name: "Reunión de Jóvenes", time: "19 hs (2º Sábados)" },
+      { name: "Reunión Femenina", time: "17 hs (4º Sábados)" },
+      { name: "Talleres de Varones", time: "17 hs (4º Sábados)" }
+    ]
+  }
+];
+---
+
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-2 gap-8">
+      {services.map(service => (
+        <div class="bg-slate-50 rounded-lg p-6 shadow-sm">
+          <h2 class="text-2xl font-playfair mb-6 text-accent">
+            {service.title}
+          </h2>
+          <ul class="space-y-4">
+            {service.items.map(item => (
+              <li class="flex justify-between items-center">
+                <span class="font-medium">{item.name}</span>
+                <span class="text-gray-600">{item.time}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Instituto Bíblico CEP | ICEP">
+  <Header />
+  
+  <section class="bg-accent py-12 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-playfair">Instituto Bíblico CEP</h1>
+    </div>
+  </section>
+
+  <main class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-12">
+        <div>
+          <img 
+            src="/images/theme/logo_instituto.png" 
+            alt="Logo Instituto" 
+            class="w-48 mb-6"
+          />
+          
+          <div class="prose prose-lg">
+            <p>Durante muchos años, la Iglesia Cristiana Evangélica en el Complejo Evangélico Pilar, tomó la posibilidad de la enseñanza sistemática de la Palabra de Dios, aparte de los mensajes de enseñanza y edificación de los días domingo. Durante algún tiempo, durante los meses de marzo a diciembre, los días jueves se particionó el tiempo juntos en: rondas de oración y luego el Instituto Bíblico.</p>
+            
+            <p>En sus comienzos, el Instituto Bíblico de los días jueves se realizaba bajo el auspicio y orientación del Instituto Bíblico Jorge Müller y llegado el año 2012 con la reorganización del IBJM pasamos a ser Sede incorporada.</p>
+          </div>
+        </div>
+        
+        <div>
+          <img 
+            src="/images/logo_ibjm.png" 
+            alt="Logo IBJM" 
+            class="w-64 mb-6 ml-auto"
+          />
+          
+          <div class="prose prose-lg">
+            <p>Desde el año 2020 al atravesar la Pandemia de Covid-19, la Iglesia quedó como Sede Virtual del Instituto Bíblico Jorge Müller, en modalidad vía Zoom y dos días por semana.</p>
+            
+            <p>Cada estudiante, como siempre, puede asistir como alumno-oyente o alumno bajo examen. El Instituto percibe una mínima cuota para cubrir gastos de material de estudio.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

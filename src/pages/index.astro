@@ -1,11 +1,64 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import {Image} from 'astro:assets';
+import BImage from '../assets/img.webp';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="ICEP | Iglesia Complejo Evangélico Pilar">
+  <Header />
+  <Hero />
+  
+  <main>
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <Image
+              src={BImage}
+              alt="Imagen de personas" 
+              class="rounded-lg shadow-lg"
+              weight=500
+              height=500
+            />
+          </div>
+          
+          <div>
+            <h1 class="text-4xl font-playfair text-accent mb-6">
+              Bienvenido a la Iglesia Cristiana Evangélica en Pilar
+            </h1>
+            
+            <p class="text-gray-600 mb-6">
+              Nos congregamos al sólo Nombre del Señor Jesucristo y el salón de reuniones 
+              se encuentra en el conocido Complejo Evangélico Pilar.
+            </p>
+            
+            <p class="text-gray-600 mb-6">
+              Lo que sabemos, es de vital importancia, es que usted sepa que Dios le ama tanto, 
+              que viéndonos como a Su creación caída en pecados y delitos, envió a su Hijo 
+              Unigénito para dar testimonio de Dios y Su amor.
+            </p>
+            
+            <a 
+              href="/contacto" 
+              class="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-accent transition-colors duration-200"
+            >
+              Contáctanos
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <Services />
+    <Contact />
+  </main>
+  
+  <Footer />
 </Layout>
