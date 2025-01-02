@@ -1,6 +1,5 @@
 ---
-import '@fontsource/poppins';
-import '@fontsource/playfair-display';
+import '@fontsource/poppins'
 
 interface Props {
   title: string;
@@ -20,7 +19,7 @@ const { title, description = "Iglesia Cristiana Evangélica en Pilar - Sitio Ofi
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-slate-50 font-poppins">
+  <body class="min-h-screen bg-slate-50 font-sans text-gray-900">
     <slot />
   </body>
 </html>

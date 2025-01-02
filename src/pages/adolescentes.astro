@@ -1,0 +1,79 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Header from "../components/Header.astro"
+import Footer from "../components/Footer.astro"
+import {Image} from 'astro:assets';
+import logoImage from '../assets/activadosLogo.png';
+import Imagen1 from '../assets/Activados.jpg';
+
+---
+
+<Layout title="ICEP | Adolescentes">
+    <Header/>
+
+
+    <section class="py-16">
+
+        <div class="flex justify-center items-center pb-10">
+            <Image
+            src={logoImage}
+            alt="Actividad de adolescentes" 
+            class="h-20 w-auto"
+        />
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <Image
+                src={Imagen1}
+                alt="Imagen de personas" 
+                class="rounded-lg shadow-lg"
+              />
+            </div>
+            
+            <div>
+              <h1 class="text-4xl font-playfair text-accent mb-6">
+                Esta es nuestra actividad de adolecescentes!
+              </h1>
+              
+              <p class="text-gray-600 mb-6">
+                Nos congregamos al sólo Nombre del Señor Jesucristo y el salón de reuniones 
+                se encuentra en el conocido Complejo Evangélico Pilar.
+              </p>
+              
+              <p class="text-gray-600 mb-6">
+                Lo que sabemos, es de vital importancia, es que usted sepa que Dios le ama tanto, 
+                que viéndonos como a Su creación caída en pecados y delitos, envió a su Hijo 
+                Unigénito para dar testimonio de Dios y Su amor.
+              </p>
+
+  
+            </div>
+          </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+
+              
+              <div>
+                <h1 class="text-4xl font-playfair text-accent mb-6">
+                  Buscanos en nuestras redes: 
+                </h1>
+                
+
+                <a 
+                  href="/contacto" 
+                  class="inline-block bg-blue-900 text-white px-6 py-3 rounded-lg hover:bg-blue-900 transition-colors duration-200"
+                >
+                  Blablalbal
+                </a>
+    
+              </div>
+            </div>
+          </div>
+      </section>
+  
+
+    <Footer/>
+</Layout>

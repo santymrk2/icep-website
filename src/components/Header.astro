@@ -1,19 +1,48 @@
 ---
+
+
 const menuItems = [
-  { text: 'Inicio', href: '/' },
-  { text: 'Artículos', href: '/articulos' },
-  { text: 'Nosotros', href: '/nosotros' },
-  { text: 'Ministerios', href: '/ministerios' },
-  { text: 'Instituto Bíblico', href: '/instituto' },
-  { text: 'Calendario', href: 'https://iglesia-pilar.notion.site/b19a403082ee49238154f16433dd7925?v=7851ff6a1d2c403da600451c9e99c129&pvs=74' },
-  { text: 'Contacto', href: '/contacto' }
+  { text: 'Inicio', href: '/', subitems: undefined },
+  { text: 'Artículos', href: '/articulos' , subitems: undefined},
+  { 
+    text: 'Nosotros',
+    href: '/nosotros' ,
+    subitems: [
+      { text: 'Historia', href: '/historia' },
+      { text: 'Declaracion de Fe', href: '/declaracion' },
+      { text: 'Hermanos Responsables', href: '/responsables' },
+      { text: 'Prologo al libro', href: '/prologo' },
+      { text: 'Actividades en orden cronologico', href: '/actividades-cronologico' },
+
+    ]
+  },
+  { 
+    text: 'Ministerios', 
+    href: '/ministerios', 
+    subitems: [
+      { text: 'Ninios', href: '/ninios' },
+      { text: 'Adolescentes', href: '/adolescentes' },
+      { text: 'Jovenes', href: '/jovenes' },
+      { text: 'Mayores', href: '/mayores' },
+    ]
+  },
+  { text: 'Instituto Bíblico', href: '/instituto' , subitems: undefined},
+  { text: 'Calendario', href: 'https://iglesia-pilar.notion.site/b19a403082ee49238154f16433dd7925?v=7851ff6a1d2c403da600451c9e99c129&pvs=74' , subitems: undefined },
+  { text: 'Contacto', href: '/contacto' , subitems: undefined}
 ];
 
+
 import {Image} from 'astro:assets';
-import logoImage from '../assets/logo2.png';
+import logoImage from '../assets/Black.png';
+import { undefined } from 'astro:schema';
+import { Astronav, MenuItems, MenuIcon, Dropdown, DropdownItems, DropdownSubmenu } from "astro-navbar";
+
+
+export const prerender = false;
+
 ---
 
-<header class="bg-white shadow-md">
+<header class="bg-white shadow-md rounded-b-xl">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center py-6">
       <div class="flex items-center">
@@ -21,24 +50,46 @@ import logoImage from '../assets/logo2.png';
           <Image
             src={logoImage}
             alt="Iglesia Cristiana Evangélica" 
-            class="h-20 w-auto"
-            width="750"
-            height="750"
-          >
+            class="h-12 w-auto"
+
+          />
         </a>
       </div>
-      
-      <nav class="hidden md:flex space-x-8">
-        {menuItems.map(item => (
-          <a 
-            href={item.href}
-            class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium"
-          >
-            {item.text}
-          </a>
-        ))}
-      </nav>
-
+      <div class="hidden md:flex space-x-8">
+        <Astronav>
+          <MenuItems class="flex space-x-4">
+            {menuItems.map(item => (
+              item.subitems === undefined ? (
+                <a 
+                  href={item.href}
+                  class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium"
+                >
+                  {item.text}
+                </a>
+              ) : (
+                <Dropdown class="relative">
+                  <button class="flex items-center space-x-1">
+                    <span>{item.text}</span>
+                    <svg class="h-5 w-5 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                  </button>
+                  <DropdownItems class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10 hidden group-hover:block">
+                    {Array.isArray(item.subitems) && item.subitems.map((subitem: { text: string; href: string }) => (
+                      <a 
+                        href={subitem.href}
+                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                      >
+                        {subitem.text}
+                      </a>
+                    ))}
+                  </DropdownItems>
+                </Dropdown>
+              )
+            ))}
+          </MenuItems>
+        </Astronav>
+      </div>
       <button class="md:hidden p-2" id="mobile-menu-button">
         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
