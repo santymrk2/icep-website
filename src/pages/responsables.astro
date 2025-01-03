@@ -3,22 +3,19 @@ import Layout from "../layouts/Layout.astro"
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro";
 import { Image } from 'astro:assets';
-import Home from "../components/Timeline.jsx";
 ---
 
-<Layout title="ICEP | Historia">
+<Layout title="ICEP | Responsables">
     <Header/>
     <section class="py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex flex-col justify-center items-center space-y-8">
             <div>
               <h1 class="text-4xl font-playfair text-accent mb-6">
-                Historia
+                Responsables
               </h1>
             </div>
-            <div class="w-full">
-              <Home client:only/>
-            </div>
+
           </div>
         </div>
       </section>
