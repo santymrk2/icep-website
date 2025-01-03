@@ -17,7 +17,8 @@ const Timeline = () => {
           secondary: '#1e3a8a',
           cardBgColor: 'white',
           cardTitleColor: '#1e3a8a',
-
+          titleColor: '#1e3a8a',
+          titleColorActive: 'white',
         }}
   />
   )

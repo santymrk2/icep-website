@@ -1,142 +1,210 @@
 ---
-
-
 const menuItems = [
-  { text: 'Inicio', href: '/', subitems: undefined },
-  { 
-    text: 'Nosotros',
-    href: '/nosotros' ,
+  {
+    text: "Inicio",
+    href: "/",
+    subitems: undefined 
+  },
+  {
+    text: "Nosotros",
+    href: "/nosotros",
     subitems: [
-      { text: 'Historia', href: '/historia' },
-      { text: 'Declaracion de Fe', href: '/declaracion' },
-      { text: 'Hermanos Responsables', href: '/responsables' },
-      { text: 'Prologo al libro', href: '/prologo' },
-      { text: 'Actividades en orden cronologico', href: '/actividades-cronologico' },
-
-    ]
+      { text: "Historia", href: "/historia" },
+      { text: "Declaracion de Fe", href: "/declaracion" },
+      { text: "Hermanos Responsables", href: "/responsables" },
+      { text: "Prologo al libro", href: "/prologo" },
+      {
+        text: "Actividades en orden cronologico",
+        href: "/actividades-cronologico",
+      },
+    ],
+  },
+  {
+    text: "Ministerios",
+    href: "/ministerios",
+    subitems: [
+      { text: "Niños", href: "/ninios" },
+      { text: "Adolescentes", href: "/adolescentes" },
+      { text: "Jovenes", href: "/jovenes" },
+      { text: "Mayores", href: "/mayores" },
+    ],
+  },
+  {
+    text: "Instituto Bíblico",
+    href: "/instituto",
+    subitems: undefined 
+  },
+  {
+    text: "Calendario",
+    href: "https://iglesia-pilar.notion.site/b19a403082ee49238154f16433dd7925?v=7851ff6a1d2c403da600451c9e99c129&pvs=74",
+    subitems: undefined,
   },
   { 
-    text: 'Ministerios', 
-    href: '/ministerios', 
-    subitems: [
-      { text: 'Niños', href: '/ninios' },
-      { text: 'Adolescentes', href: '/adolescentes' },
-      { text: 'Jovenes', href: '/jovenes' },
-      { text: 'Mayores', href: '/mayores' },
-    ]
+    text: "Contacto",
+    href: "/contacto",
+    subitems: undefined 
   },
-  { text: 'Instituto Bíblico', href: '/instituto' , subitems: undefined},
-  { text: 'Calendario', href: 'https://iglesia-pilar.notion.site/b19a403082ee49238154f16433dd7925?v=7851ff6a1d2c403da600451c9e99c129&pvs=74' , subitems: undefined },
-  { text: 'Contacto', href: '/contacto' , subitems: undefined}
 ];
 
-
-import {Image} from 'astro:assets';
-import logoImage from '../assets/Black.png';
-import { Astronav, MenuItems, Dropdown, DropdownItems, MenuIcon, OpenIcon,  CloseIcon} from "astro-navbar";
-
+import { Image } from "astro:assets";
+import logoImage from "../assets/Black.png";
+import {
+  Astronav,
+  MenuItems,
+  Dropdown,
+  DropdownItems,
+  MenuIcon,
+  OpenIcon,
+  CloseIcon,
+} from "astro-navbar";
 
 export const prerender = false;
-
 ---
 
-<header class="bg-blue-900 shadow-md rounded-b-xl text-white">
+<header class="justify-center bg-blue-900 shadow-md rounded-b-xl text-white">
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
     <div class="flex justify-between items-center py-6">
       <div class="flex items-center">
         <a href="/" class="flex items-center">
-          <svg class="h-20" class="h-6 w-6" fill="currentColor" viewBox="0 0 800 800"><defs/><path d="M400 331.69c28.41-20.36 63.23-32.34 100.85-32.34 25.46 0 49.64 5.49 71.42 15.35.71-6.37 1.09-12.84 1.09-19.4 0-95.74-77.61-173.35-173.35-173.35S226.66 199.56 226.66 295.3c0 6.56.38 13.03 1.09 19.4 21.78-9.86 45.96-15.35 71.42-15.35 37.62 0 72.43 11.99 100.85 32.34Z" class="cls-1"/><path d="M572.27 314.7c-6.89 61.88-46.34 113.93-100.85 138.6.71 6.37 1.09 12.84 1.09 19.4 0 58.12-28.61 109.56-72.51 141.01 28.41 20.36 63.23 32.34 100.85 32.34 95.74 0 173.35-77.61 173.35-173.35 0-70.28-41.82-130.79-101.93-158Z" class="cls-1"/><path d="M327.49 472.7c0-6.56.38-13.03 1.09-19.4-54.5-24.67-93.95-76.72-100.85-138.6-60.11 27.21-101.93 87.72-101.93 158 0 95.74 77.61 173.35 173.35 173.35 37.62 0 72.43-11.99 100.85-32.34-43.9-31.45-72.51-82.89-72.51-141.01ZM400 331.69c-38.94 27.9-65.84 71.54-71.42 121.61 21.78 9.86 45.96 15.35 71.42 15.35s49.64-5.49 71.42-15.35c-5.58-50.07-32.48-93.71-71.42-121.61Z" class="cls-1"/>
+          <svg
+            class="h-20"
+            class="h-6 w-6"
+            fill="currentColor"
+            viewBox="0 0 800 800"
+            ><defs></defs><path
+              d="M400 331.69c28.41-20.36 63.23-32.34 100.85-32.34 25.46 0 49.64 5.49 71.42 15.35.71-6.37 1.09-12.84 1.09-19.4 0-95.74-77.61-173.35-173.35-173.35S226.66 199.56 226.66 295.3c0 6.56.38 13.03 1.09 19.4 21.78-9.86 45.96-15.35 71.42-15.35 37.62 0 72.43 11.99 100.85 32.34Z"
+              class="cls-1"></path><path
+              d="M572.27 314.7c-6.89 61.88-46.34 113.93-100.85 138.6.71 6.37 1.09 12.84 1.09 19.4 0 58.12-28.61 109.56-72.51 141.01 28.41 20.36 63.23 32.34 100.85 32.34 95.74 0 173.35-77.61 173.35-173.35 0-70.28-41.82-130.79-101.93-158Z"
+              class="cls-1"></path><path
+              d="M327.49 472.7c0-6.56.38-13.03 1.09-19.4-54.5-24.67-93.95-76.72-100.85-138.6-60.11 27.21-101.93 87.72-101.93 158 0 95.74 77.61 173.35 173.35 173.35 37.62 0 72.43-11.99 100.85-32.34-43.9-31.45-72.51-82.89-72.51-141.01ZM400 331.69c-38.94 27.9-65.84 71.54-71.42 121.61 21.78 9.86 45.96 15.35 71.42 15.35s49.64-5.49 71.42-15.35c-5.58-50.07-32.48-93.71-71.42-121.61Z"
+              class="cls-1"></path>
           </svg>
         </a>
       </div>
       <div class="hidden md:flex space-x-8">
         <Astronav closeOnClick>
           <MenuItems class="flex space-x-4">
-            {menuItems.map(item => (
-              item.subitems === undefined ? (
-                <a 
-                  href={item.href}
-                  class="hover:text-primary transition-colors duration-200 font-medium"
-                >
-                  {item.text}
-                </a>
-              ) : (
-                <Dropdown class="relative">
-                  <button class="flex items-center space-x-1">
-                    <span>{item.text}</span>
-                    <svg class="h-5 w-5 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-
-                  </button>
-                  <DropdownItems class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10 hidden group-hover:block">
-                    {Array.isArray(item.subitems) && item.subitems.map((subitem: { text: string; href: string }) => (
-                      <a 
-                        href={subitem.href}
-                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+            {
+              menuItems.map((item) =>
+                item.subitems === undefined ? (
+                  <a
+                    href={item.href}
+                    class="hover:text-primary transition-colors duration-200 font-medium"
+                  >
+                    {item.text}
+                  </a>
+                ) : (
+                  <Dropdown class="relative">
+                    <button class="flex items-center space-x-1">
+                      <span>{item.text}</span>
+                      <svg
+                        class="h-5 w-5 transform transition-transform duration-200"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                       >
-                        {subitem.text}
-                      </a>
-                    ))}
-                  </DropdownItems>
-                </Dropdown>
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                    <DropdownItems class="absolute left-0 mt-2 bg-white shadow-lg rounded-md  p-2 z-10 hidden group-hover:block">
+                      {Array.isArray(item.subitems) &&
+                        item.subitems.map(
+                          (subitem: { text: string; href: string }) => (
+                            <a
+                              href={subitem.href}
+                              class="block  px-2 py-2 text-gray-700 rounded-lg mx-2 hover:bg-gray-100"
+                            >
+                              {subitem.text}
+                            </a>
+                          ),
+                        )}
+                    </DropdownItems>
+                  </Dropdown>
+                ),
               )
-            ))}
+            }
           </MenuItems>
         </Astronav>
       </div>
-      
+
       <button class="md:hidden p-2" id="mobile-menu-button">
-        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        <svg
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
     </div>
   </div>
 
   <!-- Mobile menu -->
-  <div class="hidden md:hidden text-white w-dvw" id="mobile-menu">
-    <div class="px-2 pt-2 pb-3 space-y-1">
-      {menuItems.map(item => (
-        item.subitems === undefined ? (
-          <a
-            href={item.href}
-            class="block w-dvw px-3 py-2 text-base font-medium hover:text-black hover:bg-white rounded-lg"
-          >
-            {item.text}
-          </a>
-        ) : (
-                <Dropdown class='flex flex-col justify-center'>
-                  <button class=" block px-3 py-2 text-base font-medium hover:text-black hover:bg-white rounded-lg flex flex-row">
-                    <span>{item.text}</span>
-                    <svg class="h-5 w-5 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-
-                  </button>
-                  <DropdownItems class="mt-2 bg-white shadow-lg rounded-md py-2 z-10 hidden group-hover:block">
-                    {Array.isArray(item.subitems) && item.subitems.map((subitem: { text: string; href: string }) => (
-                      <a 
+  <div class="hidden md:hidden text-white " id="mobile-menu">
+    <div class="px-2 pt-2 pb-3">
+      {
+        menuItems.map((item) =>
+          item.subitems === undefined ? (
+            <a
+              href={item.href}
+              class="block  px-3 py-2 text-base font-medium hover:text-black hover:bg-white rounded-lg"
+            >
+              {item.text}
+            </a>
+          ) : (
+            <Dropdown class="flex flex-col justify-center">
+              <button class=" block px-3 py-2 text-base font-medium hover:text-black hover:bg-white rounded-lg flex flex-row">
+                <span>{item.text}</span>
+                <svg
+                  class="h-5 w-5 transform transition-transform duration-200"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <DropdownItems class="mt-2 bg-white shadow-lg rounded-md py-2 mb-2 z-10 hidden group-hover:block flex flex-col justify-center" >
+                {Array.isArray(item.subitems) &&
+                  item.subitems.map(
+                    (subitem: { text: string; href: string }) => (
+                      <a
                         href={subitem.href}
-                        class="block w-full px-4 py-2 text-gray-700 hover:bg-gray-100"
+                        class="block mx-2 px-4 py-2 rounded-md text-gray-700 hover:bg-blue-50"
                       >
                         {subitem.text}
                       </a>
-                    ))}
-                  </DropdownItems>
-                </Dropdown>
-              )
-      ))}
+                    ),
+                  )}
+              </DropdownItems>
+            </Dropdown>
+          ),
+        )
+      }
     </div>
   </div>
 </header>
 
 <script>
-  const button = document.getElementById('mobile-menu-button');
-  const menu = document.getElementById('mobile-menu');
+  const button = document.getElementById("mobile-menu-button");
+  const menu = document.getElementById("mobile-menu");
 
-  button?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden');
+  button?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
   });
-
 </script>
