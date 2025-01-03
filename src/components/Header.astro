@@ -66,8 +66,9 @@ export const prerender = false;
                   <button class="flex items-center space-x-1">
                     <span>{item.text}</span>
                     <svg class="h-5 w-5 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+
                   </button>
                   <DropdownItems class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10 hidden group-hover:block">
                     {Array.isArray(item.subitems) && item.subitems.map((subitem: { text: string; href: string }) => (

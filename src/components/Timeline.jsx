@@ -1,7 +1,25 @@
-function Timeline () {
-    return (
-        <>
-        </>
-    )
+import React from "react"
+import { Chrono } from "react-chrono";
+import history from "../data/history"
+
+const Timeline = () => {
+  const items = history
+  console.log(history)
+
+  return (
+      <Chrono 
+        mode="VERTICAL_ALTERNATING" 
+        items={items} 
+        scrollable={{ scrollbar: true }}  
+        theme={{
+          primary: '#1e3a8a',
+          secondary: '#1e3a8a',
+          cardBgColor: 'white',
+          titleColor: 'black',
+          titleColorActive: 'white',
+        }}
+  />
+  )
 }
+
 export default Timeline
