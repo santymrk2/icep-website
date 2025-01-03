@@ -41,17 +41,13 @@ export const prerender = false;
 
 ---
 
-<header class="bg-white shadow-md rounded-b-xl">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<header class="bg-blue-900 shadow-md rounded-b-xl text-white">
+  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
     <div class="flex justify-between items-center py-6">
       <div class="flex items-center">
         <a href="/" class="flex items-center">
-          <Image
-            src={logoImage}
-            alt="Iglesia Cristiana Evangélica" 
-            class="h-12 w-auto"
-
-          />
+          <svg class="h-20" class="h-6 w-6" fill="currentColor" viewBox="0 0 800 800"><defs/><path d="M400 331.69c28.41-20.36 63.23-32.34 100.85-32.34 25.46 0 49.64 5.49 71.42 15.35.71-6.37 1.09-12.84 1.09-19.4 0-95.74-77.61-173.35-173.35-173.35S226.66 199.56 226.66 295.3c0 6.56.38 13.03 1.09 19.4 21.78-9.86 45.96-15.35 71.42-15.35 37.62 0 72.43 11.99 100.85 32.34Z" class="cls-1"/><path d="M572.27 314.7c-6.89 61.88-46.34 113.93-100.85 138.6.71 6.37 1.09 12.84 1.09 19.4 0 58.12-28.61 109.56-72.51 141.01 28.41 20.36 63.23 32.34 100.85 32.34 95.74 0 173.35-77.61 173.35-173.35 0-70.28-41.82-130.79-101.93-158Z" class="cls-1"/><path d="M327.49 472.7c0-6.56.38-13.03 1.09-19.4-54.5-24.67-93.95-76.72-100.85-138.6-60.11 27.21-101.93 87.72-101.93 158 0 95.74 77.61 173.35 173.35 173.35 37.62 0 72.43-11.99 100.85-32.34-43.9-31.45-72.51-82.89-72.51-141.01ZM400 331.69c-38.94 27.9-65.84 71.54-71.42 121.61 21.78 9.86 45.96 15.35 71.42 15.35s49.64-5.49 71.42-15.35c-5.58-50.07-32.48-93.71-71.42-121.61Z" class="cls-1"/>
+          </svg>
         </a>
       </div>
       <div class="hidden md:flex space-x-8">
@@ -61,7 +57,7 @@ export const prerender = false;
               item.subitems === undefined ? (
                 <a 
                   href={item.href}
-                  class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium"
+                  class="hover:text-primary transition-colors duration-200 font-medium"
                 >
                   {item.text}
                 </a>
