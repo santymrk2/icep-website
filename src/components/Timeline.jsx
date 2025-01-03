@@ -1,6 +1,6 @@
 import React from "react"
 import { Chrono } from "react-chrono";
-import history from "../data/history"
+import history from "../data/activities.json"
 
 const Timeline = () => {
   const items = history
@@ -8,7 +8,7 @@ const Timeline = () => {
 
   return (
       <Chrono 
-        mode="VERTICAL_ALTERNATING" 
+        mode="VERTICAL_ALTERNATING"  
         items={items} 
         scrollable={{ scrollbar: true }}  
         theme={{

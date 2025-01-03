@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { Image } from "astro:assets";
+---
+
+<Layout title="ICEP | Niños">
+    <Header />
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col justify-center items-center space-y-8">
+                <div>
+                    <h1 class="text-4xl font-playfair text-accent mb-6">
+                        Niños
+                    </h1>
+                </div>
+                <div>
+                    <article
+                        class="prose lg:prose-xl mt-2 pt-8 border-t border-white-700"
+                    >
+
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <Footer />
+</Layout>

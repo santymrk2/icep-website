@@ -3,7 +3,6 @@
 
 const menuItems = [
   { text: 'Inicio', href: '/', subitems: undefined },
-  { text: 'Artículos', href: '/articulos' , subitems: undefined},
   { 
     text: 'Nosotros',
     href: '/nosotros' ,
@@ -20,7 +19,7 @@ const menuItems = [
     text: 'Ministerios', 
     href: '/ministerios', 
     subitems: [
-      { text: 'Ninios', href: '/ninios' },
+      { text: 'Niños', href: '/ninios' },
       { text: 'Adolescentes', href: '/adolescentes' },
       { text: 'Jovenes', href: '/jovenes' },
       { text: 'Mayores', href: '/mayores' },
@@ -96,15 +95,37 @@ export const prerender = false;
   </div>
 
   <!-- Mobile menu -->
-  <div class="hidden md:hidden" id="mobile-menu">
+  <div class="hidden md:hidden text-white w-dvw" id="mobile-menu">
     <div class="px-2 pt-2 pb-3 space-y-1">
       {menuItems.map(item => (
-        <a
-          href={item.href}
-          class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
-        >
-          {item.text}
-        </a>
+        item.subitems === undefined ? (
+          <a
+            href={item.href}
+            class="block w-dvw px-3 py-2 text-base font-medium hover:text-black hover:bg-white rounded-lg"
+          >
+            {item.text}
+          </a>
+        ) : (
+                <Dropdown class='flex flex-col justify-center'>
+                  <button class=" block px-3 py-2 text-base font-medium hover:text-black hover:bg-white rounded-lg flex flex-row">
+                    <span>{item.text}</span>
+                    <svg class="h-5 w-5 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+
+                  </button>
+                  <DropdownItems class="mt-2 bg-white shadow-lg rounded-md py-2 z-10 hidden group-hover:block">
+                    {Array.isArray(item.subitems) && item.subitems.map((subitem: { text: string; href: string }) => (
+                      <a 
+                        href={subitem.href}
+                        class="block w-full px-4 py-2 text-gray-700 hover:bg-gray-100"
+                      >
+                        {subitem.text}
+                      </a>
+                    ))}
+                  </DropdownItems>
+                </Dropdown>
+              )
       ))}
     </div>
   </div>
@@ -117,4 +138,5 @@ export const prerender = false;
   button?.addEventListener('click', () => {
     menu?.classList.toggle('hidden');
   });
+
 </script>
