@@ -34,7 +34,7 @@ const menuItems = [
 
 import {Image} from 'astro:assets';
 import logoImage from '../assets/Black.png';
-import { Astronav, MenuItems, Dropdown, DropdownItems } from "astro-navbar";
+import { Astronav, MenuItems, Dropdown, DropdownItems, MenuIcon, OpenIcon,  CloseIcon} from "astro-navbar";
 
 
 export const prerender = false;
@@ -51,7 +51,7 @@ export const prerender = false;
         </a>
       </div>
       <div class="hidden md:flex space-x-8">
-        <Astronav>
+        <Astronav closeOnClick>
           <MenuItems class="flex space-x-4">
             {menuItems.map(item => (
               item.subitems === undefined ? (
@@ -83,17 +83,30 @@ export const prerender = false;
               )
             ))}
           </MenuItems>
+          <MenuIcon class="md:hidden p-2" >
+            <OpenIcon>
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </OpenIcon>
+            <CloseIcon>
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </CloseIcon>
+          </MenuIcon>
         </Astronav>
       </div>
+      <!-- 
       <button class="md:hidden p-2" id="mobile-menu-button">
         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
-      </button>
+      </button>-->
     </div>
   </div>
 
-  <!-- Mobile menu -->
+  <!-- Mobile menu 
   <div class="hidden md:hidden" id="mobile-menu">
     <div class="px-2 pt-2 pb-3 space-y-1">
       {menuItems.map(item => (
@@ -105,14 +118,16 @@ export const prerender = false;
         </a>
       ))}
     </div>
-  </div>
+  </div>-->
 </header>
 
 <script>
+  /*
   const button = document.getElementById('mobile-menu-button');
   const menu = document.getElementById('mobile-menu');
 
   button?.addEventListener('click', () => {
     menu?.classList.toggle('hidden');
   });
+  */
 </script>
