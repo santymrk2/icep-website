@@ -1,0 +1,81 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Header from "../components/Header.astro"
+import Footer from "../components/Footer.astro"
+import {Image} from 'astro:assets';
+import logoImage from '../assets/activadosLogo.png';
+
+---
+
+<Layout title="ICEP | Historia">
+    <Header/>
+
+
+    <section class="py-16">
+
+        <div class="flex justify-center items-center pb-10">
+            <Image
+            src={logoImage}
+            alt="Actividad de adolescentes" 
+            class="h-20 w-auto"
+        />
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+
+            </div>
+            
+            <div>
+              <h1 class="text-4xl font-playfair text-accent mb-6">
+                Esta es nuestra actividad de adolecescentes!
+              </h1>
+
+              <p class="text-gray-600 mb-6">
+                Desde hace mucho tiempo, comenzaron a haber actividades con Adolescentes.
+                No necesariamente de la Iglesia, sino invitados de calquier lugar, 
+                siempre y cuando tengan ganas de divertirse en conjunto, jugar un poco al fútbol (si hay tiempo), 
+                tener un momento devocional a la luz de la Biblia, de paso compartir algún refrigerio,
+                 y desde luego dispuestos a estar en orden, portarse bien y acatar las reglas.
+
+              </p>
+              
+              <p class="text-gray-600 mb-6">
+                Hace un par de años, la actividad de adolescentes tomó forma de grupo de trabajo propio, 
+                por lo que siempre informando al cuerpo pastoral y bajo su anuencia, se comenzó a trabajar los primeros 
+                y terceros Sábados de cada mes con los chicos y chicas entre 12 a 19 años. Se forman equipos, 
+                cada chico tienen un número y se computan cosas como: el presentismo, traer la Biblia, 
+                participación, etc. y al finalizar el ciclo se entregan premios a los ganadores!.
+
+              </p>
+
+  
+            </div>
+          </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+
+              
+              <div>
+                <h1 class="text-4xl font-playfair text-accent mb-6">
+                  Buscanos en nuestras redes: 
+                </h1>
+                
+
+                <a 
+                  href="/contacto" 
+                  class="inline-block bg-blue-900 text-white px-6 py-3 rounded-lg hover:bg-blue-900 transition-colors duration-200"
+                >
+                  Blablalbal
+                </a>
+    
+              </div>
+            </div>
+          </div>
+      </section>
+  
+
+    <Footer/>
+</Layout>
