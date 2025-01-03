@@ -1,26 +1,114 @@
-[{
-    "title": "May 1940",
-    "cardTitle": "Dunkirk",
-    "url": "http://www.history.com",
-    "cardSubtitle":"Men of the British Expeditionary Force (BEF) wade out to..",
-    "cardDetailedText": "Men of the British Expeditionary Force (BEF) wade out to..",
-    "media": {
-      "type": "IMAGE",
-      "source": {
-        "url": "http://someurl/image.jpg"
-      }
-    }
+[
+  {
+    "title": "1980",
+    "cardTitle": "Colocación Piedra fundamental e Inauguración.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Colocación Piedra fundamental e Inauguración.",
+    "media": null
   },
   {
-    "title": "May 1940",
-    "cardTitle": "Dunkirk",
-    "url": "http://www.history.com",
-    "cardSubtitle":"Men of the British Expeditionary Force (BEF) wade out to..",
-    "cardDetailedText": "Men of the British Expeditionary Force (BEF) wade out to..",
-    "media": {
-      "type": "IMAGE",
-      "source": {
-        "url": "http://someurl/image.jpg"
-      }
-    }
-  }]
+    "title": "1981",
+    "cardTitle": "Octubre: Celebración del 1º Aniversario.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Octubre: Celebración del 1º Aniversario.",
+    "media": null
+  },
+  {
+    "title": "27 de Noviembre, 1981",
+    "cardTitle": "Primer casamiento Laura Vega y Nicanor Cabral.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Primer casamiento Laura Vega y Nicanor Cabral.",
+    "media": null
+  },
+  {
+    "title": "27 de Diciembre, 1981",
+    "cardTitle": "Primer bautismo en Quinta la Lomita.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Paula Alterach de Vega, Laura Vega de Cabral y Daniel Cajal.",
+    "media": null
+  },
+  {
+    "title": "10 de Abril, 1982",
+    "cardTitle": "Segunda Reunión de Bautismo.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Bautismo de la Familia Carrillo y Pablo López.",
+    "media": null
+  },
+  {
+    "title": "Agosto de 1982",
+    "cardTitle": "Comienzo de construcción en planta baja.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Dependencias para asistencia médica, grabaciones y oficina de Emmaus.",
+    "media": null
+  },
+  {
+    "title": "Junio de 1983",
+    "cardTitle": "Comienza la excavación del subsuelo.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Incluye entoscado del camino de ingreso.",
+    "media": null
+  },
+  {
+    "title": "6 de Agosto, 1983",
+    "cardTitle": "1ª Conferencia de Confraternidad Argentino Boliviana.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Oradores: Adib Massuh y Angel Bonatti.",
+    "media": null
+  },
+  {
+    "title": "12 de Octubre, 1982",
+    "cardTitle": "Habilitación parcial de instalaciones.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Despedida del salón provisorio.",
+    "media": null
+  },
+  {
+    "title": "1984",
+    "cardTitle": "Recital de Primavera.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Con el Coro de ICE en la calle Vicente López.",
+    "media": null
+  },
+  {
+    "title": "18 de Marzo, 1984",
+    "cardTitle": "Inauguración del Jardín de Infantes Primeras Hojitas.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Con la presencia de autoridades comunales del Partido de Pilar.",
+    "media": null
+  },
+  {
+    "title": "23 de Abril, 1985",
+    "cardTitle": "Escritura traslativa de Dominio.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Donación por la familia Racciatti - Carbone.",
+    "media": null
+  },
+  {
+    "title": "23 de Diciembre, 1985",
+    "cardTitle": "Habilitación del primer piso.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Fiesta Navideña de Escuela Dominical.",
+    "media": null
+  },
+  {
+    "title": "29 de Noviembre, 1986",
+    "cardTitle": "Inauguración del salón de la Iglesia Cristiana Evangélica.",
+    "url": null,
+    "cardSubtitle": null,
+    "cardDetailedText": "Con la visita del Misionero Arturo Vigna y su esposa Olga.",
+    "media": null
+  }
+]
