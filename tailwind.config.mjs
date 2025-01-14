@@ -9,16 +9,18 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['Poppins', ...defaultTheme.fontFamily.sans],
+				sans: ['Space Grotesk Variable', ...defaultTheme.fontFamily.sans],
 			},
 		},
-		dropShadow: {
-			'3xl': '0 0 15px rgb(30, 58, 138)',
-			'4xl': [
-				'0 35px 35px rgba(0, 0, 0, 0.25)',
-				'0 45px 65px rgba(0, 0, 0, 0.15)'
-			]
-		  }
+		boxShadow: {
+			'custom-blue': '0 0 20px rgba(42, 56, 178, 0.7)',
+		},
+/*
+		colors: {
+			'custom-blue': '#2A38B2',
+		}
+			*/
+
 	},
 	plugins: [
 		require('@tailwindcss/typography'),

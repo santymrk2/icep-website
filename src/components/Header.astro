@@ -53,16 +53,13 @@ import {
   MenuItems,
   Dropdown,
   DropdownItems,
-  MenuIcon,
-  OpenIcon,
-  CloseIcon,
 } from "astro-navbar";
 
 export const prerender = false;
 ---
 
-<header class="justify-center bg-blue-900 shadow-md rounded-full text-white m-10 drop-shadow-3xl ">
-  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+<header class="justify-center text-white m-10 shadow-custom-blue rounded-full bg-[#2A38B2]" id="back-menu">
+  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 ">
     <div class="flex justify-between items-center py-6">
       <div class="flex items-center motion-preset-expand ">
         <a href="/" class="flex items-center">
@@ -81,21 +78,21 @@ export const prerender = false;
           </svg>
         </a>
       </div>
-      <div class="hidden lg:flex space-x-8">
+      <div class="hidden lg:flex space-x-8 justify-center items-center m-2 text-lg">
         <Astronav closeOnClick>
-          <MenuItems class="flex space-x-4">
+          <MenuItems class="flex space-x-4 g-4">
             {
               menuItems.map((item, index) =>
                 item.subitems === undefined ? (
                   <a
                     href={item.href}
-                    class={`font-medium motion-preset-expand motion-delay-[${index * 1}s] hover:border-solid hover:border-2 hover:border-white rounded-full px-4 py-2`}
+                    class={`font-medium motion-preset-expand motion-delay-[${index * 1}s] ring ring-2 ring-white rounded-full px-4 py-2 hover:bg-white hover:text-[#2A38B2]`}
                   >
                     {item.text}
                   </a>
                 ) : (
                   <Dropdown class="relative">
-                    <button class="flex items-center space-x-1 motion-preset-expand">
+                    <button class="flex items-center space-x-1 motion-preset-expand px-4 py-2 ring ring-2 ring-white rounded-full hover:bg-white hover:text-[#2A38B2]">
                       <span>{item.text}</span>
                       <svg
                         class="h-5 w-5 transform transition-transform duration-200"
@@ -111,13 +108,13 @@ export const prerender = false;
                         />
                       </svg>
                     </button>
-                    <DropdownItems class={`absolute left-0 mt-2 bg-white shadow-lg rounded-md p-2 z-10 hidden group-hover:block motion-preset-slide-down motion-delay-[${index * 1}s]/slide hover:border-solid hover:border-2 hover:border-white rounded-full px-4 py-2`}>
+                    <DropdownItems class={`absolute left-0 top-20 m-2 bg-[#2A38B2] shadow-lg p-2 z-10 hidden group-hover:block rounded-2xl `}>
                       {Array.isArray(item.subitems) &&
                         item.subitems.map(
                           (subitem: { text: string; href: string }) => (
                             <a
                               href={subitem.href}
-                              class="block w-full px-2 py-2 text-gray-700 rounded-lg hover:border-solid hover:border-2 hover:border-white rounded-full px-4 py-2"
+                              class="block w-full text-white ring ring-2 ring-white rounded-full px-4 py-2 my-2 hover:bg-white hover:text-[#2A38B2]"
                             >
                               {subitem.text}
                             </a>
@@ -150,20 +147,20 @@ export const prerender = false;
   </div>
 
   <!-- Mobile menu -->
-  <div class="hidden lg:hidden text-white " id="mobile-menu">
-    <div class="px-2 pt-2 pb-3">
+  <div class="hidden lg:hidden text-white flex flex-col justify-center" id="mobile-menu">
+    <div class=" gap-6 px-2 pt-2 pb-3 flex flex-col justify-center">
       {
         menuItems.map((item) =>
           item.subitems === undefined ? (
             <a
               href={item.href}
-              class="block  px-3 py-2 text-base font-medium hover:text-black hover:bg-white rounded-lg"
+              class="block text-center px-3 py-2 text-xl  hover:text-[#2A38B2] hover:bg-white rounded-full ring ring-2 ring-white"
             >
               {item.text}
             </a>
           ) : (
             <Dropdown class="flex flex-col justify-center">
-              <button class=" block px-3 py-2 text-base font-medium hover:text-black hover:bg-white rounded-lg flex flex-row">
+              <button class=" block px-3 py-2 text-center text-xl flex flex-row justify-center items-center hover:text-[#2A38B2] hover:bg-white rounded-full ring ring-2 ring-white">
                 <span>{item.text}</span>
                 <svg
                   class="h-5 w-5 transform transition-transform duration-200"
@@ -185,7 +182,7 @@ export const prerender = false;
                     (subitem: { text: string; href: string }) => (
                       <a
                         href={subitem.href}
-                        class="block mx-2 px-4 py-2 rounded-md text-gray-700 hover:bg-blue-50"
+                        class="block mx-2 px-4 py-2 ring ring-2 ring-white rounded-full px-4 py-2 text-gray-700 hover:bg-blue-50"
                       >
                         {subitem.text}
                       </a>
@@ -201,10 +198,13 @@ export const prerender = false;
 </header>
 
 <script>
+  const back = document.getElementById("back-menu");
+
   const button = document.getElementById("mobile-menu-button");
   const menu = document.getElementById("mobile-menu");
 
   button?.addEventListener("click", () => {
     menu?.classList.toggle("hidden");
+    back?.classList.toggle("rounded-xl");
   });
 </script>

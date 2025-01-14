@@ -1,5 +1,5 @@
 ---
-import '@fontsource/poppins'
+import '@fontsource-variable/space-grotesk'
 
 interface Props {
   title: string;
@@ -19,21 +19,7 @@ const { title, description = "Iglesia Cristiana Evangélica en Pilar - Sitio Ofi
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-slate-50 font-sans text-gray-900">
+  <body class="min-h-screen font-sans bg-white">
     <slot />
   </body>
 </html>
-
-<style is:global>
-  :root {
-    --primary: #177AAC;
-    --secondary: #721305;
-    --accent: #003E5C;
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-</style>

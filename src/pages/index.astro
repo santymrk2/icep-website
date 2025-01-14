@@ -5,9 +5,12 @@ import Hero from '../components/Hero.astro';
 import Services from '../components/Services.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+import im1 from '../assets/PG01.jpg';
+
+
 
 import {Image} from 'astro:assets';
-import BImage from '../assets/img.webp';
+import BImage from '../assets/PG01.jpg';
 ---
 
 <Layout title="ICEP | Iglesia Complejo Evangélico Pilar">
@@ -22,9 +25,10 @@ import BImage from '../assets/img.webp';
             <Image
               src={BImage}
               alt="Imagen de personas" 
-              class="rounded-lg shadow-lg"
+              class="rounded-2xl shadow-lg drop-shadow-3xl"
             />
           </div>
+
           
           <div>
             <h1 class="text-4xl font-playfair text-accent mb-6">
