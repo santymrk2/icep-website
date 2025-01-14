@@ -61,10 +61,10 @@ import {
 export const prerender = false;
 ---
 
-<header class="justify-center bg-blue-900 shadow-md rounded-b-xl text-white">
+<header class="justify-center bg-blue-900 shadow-md rounded-full text-white m-10 drop-shadow-3xl ">
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
     <div class="flex justify-between items-center py-6">
-      <div class="flex items-center">
+      <div class="flex items-center motion-preset-expand ">
         <a href="/" class="flex items-center">
           <svg
             class="h-20"
@@ -81,21 +81,21 @@ export const prerender = false;
           </svg>
         </a>
       </div>
-      <div class="hidden md:flex space-x-8">
+      <div class="hidden lg:flex space-x-8">
         <Astronav closeOnClick>
           <MenuItems class="flex space-x-4">
             {
-              menuItems.map((item) =>
+              menuItems.map((item, index) =>
                 item.subitems === undefined ? (
                   <a
                     href={item.href}
-                    class="hover:text-primary transition-colors duration-200 font-medium"
+                    class={`font-medium motion-preset-expand motion-delay-[${index * 1}s] hover:border-solid hover:border-2 hover:border-white rounded-full px-4 py-2`}
                   >
                     {item.text}
                   </a>
                 ) : (
                   <Dropdown class="relative">
-                    <button class="flex items-center space-x-1">
+                    <button class="flex items-center space-x-1 motion-preset-expand">
                       <span>{item.text}</span>
                       <svg
                         class="h-5 w-5 transform transition-transform duration-200"
@@ -111,13 +111,13 @@ export const prerender = false;
                         />
                       </svg>
                     </button>
-                    <DropdownItems class="absolute left-0 mt-2 bg-white shadow-lg rounded-md  p-2 z-10 hidden group-hover:block">
+                    <DropdownItems class={`absolute left-0 mt-2 bg-white shadow-lg rounded-md p-2 z-10 hidden group-hover:block motion-preset-slide-down motion-delay-[${index * 1}s]/slide hover:border-solid hover:border-2 hover:border-white rounded-full px-4 py-2`}>
                       {Array.isArray(item.subitems) &&
                         item.subitems.map(
                           (subitem: { text: string; href: string }) => (
                             <a
                               href={subitem.href}
-                              class="block  px-2 py-2 text-gray-700 rounded-lg mx-2 hover:bg-gray-100"
+                              class="block w-full px-2 py-2 text-gray-700 rounded-lg hover:border-solid hover:border-2 hover:border-white rounded-full px-4 py-2"
                             >
                               {subitem.text}
                             </a>
@@ -132,7 +132,7 @@ export const prerender = false;
         </Astronav>
       </div>
 
-      <button class="md:hidden p-2" id="mobile-menu-button">
+      <button class="lg:hidden p-2" id="mobile-menu-button">
         <svg
           class="h-6 w-6"
           fill="none"
@@ -150,7 +150,7 @@ export const prerender = false;
   </div>
 
   <!-- Mobile menu -->
-  <div class="hidden md:hidden text-white " id="mobile-menu">
+  <div class="hidden lg:hidden text-white " id="mobile-menu">
     <div class="px-2 pt-2 pb-3">
       {
         menuItems.map((item) =>
