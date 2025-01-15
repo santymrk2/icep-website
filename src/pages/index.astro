@@ -6,10 +6,8 @@ import Contact from '../components/Contact.astro';
 import {Image} from 'astro:assets';
 import BImage from '../assets/PG01.webp';
 
-
-
+export const prerender = true;
 ---
-
 <Layout title="ICEP | Iglesia Complejo Evangélico Pilar">
   <Hero class="z-0"/>  
   <main>
@@ -20,7 +18,7 @@ import BImage from '../assets/PG01.webp';
             <Image
               src={BImage}
               alt="Imagen de personas" 
-              class="rounded-2xl shadow-lg drop-shadow-3xl"
+              class="rounded-2xl shadow-lg drop-shadow-3xl hover:skew-y-2 transition-transform easy-out"
             />
             <a></a>
           </div>

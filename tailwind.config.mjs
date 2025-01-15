@@ -16,7 +16,7 @@ export default {
 				'lg': '0 0 20px rgba(42, 56, 178, 0.1)',
 			},
 			borderRadius: {
-				'xl': '4rem',
+				'xl': '3rem',
 			},
 			colors: {
 				'custom-blue': '#2A38B2',

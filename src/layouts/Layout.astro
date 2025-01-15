@@ -20,11 +20,9 @@ const { title, description = "Iglesia Cristiana Evangélica en Pilar - Sitio Ofi
     <link rel="icon" type="image/svg+xml" href="/LogoWhite.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <ClientRouter />
-
   </head>
   <body class="min-h-screen font-sans bg-white">
-    <Header/>
+    <Header transition:animate="none"/>
     <slot />
     <Footer/>
   </body>

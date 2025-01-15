@@ -62,14 +62,13 @@ import {
 export const prerender = false;
 ---
 
-<header transition:persist class="h-24 text-white m-4 sm:m-10 shadow-custom-blue rounded-full bg-custom-blue " id="back-menu">
+<header transition:persist class="h-24 text-white m-4 sm:m-10 shadow-custom-blue rounded-full bg-custom-blue" id="back-menu">
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex h-full text-base font-normal">
     <div class="flex justify-between items-center w-full">
       <div class="flex items-center motion-preset-expand p-4">
         <a href="/" class="flex items-center">
           <svg
-            class="h-16"
-            fill="currentColor"
+            class="h-16 fill-white"
             viewBox="0 0 800 800"
             ><defs></defs><path
               d="M400 331.69c28.41-20.36 63.23-32.34 100.85-32.34 25.46 0 49.64 5.49 71.42 15.35.71-6.37 1.09-12.84 1.09-19.4 0-95.74-77.61-173.35-173.35-173.35S226.66 199.56 226.66 295.3c0 6.56.38 13.03 1.09 19.4 21.78-9.86 45.96-15.35 71.42-15.35 37.62 0 72.43 11.99 100.85 32.34Z"
@@ -89,7 +88,7 @@ export const prerender = false;
                 item.subitems === undefined ? (
                   <a
                     href={item.href}
-                    class={` ring ring-2 ring-white rounded-full px-4 py-2 hover:bg-white hover:text-custom-blue transition-all easy-in-out motion-preset-expand`}
+                    class={`ring ring-2 ring-white rounded-full px-4 py-2 hover:bg-white hover:text-custom-blue transition-all easy-in-out motion-preset-expand`}
                   >
                     {item.text}
                   </a>
@@ -112,7 +111,7 @@ export const prerender = false;
                       </svg>
                     </button>
                     <DropdownItems class={`absolute top-16 -left-2 m-2 bg-custom-blue shadow-lg p-4 px-6 z-10 hidden group-hover:block rounded-[2rem] motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%]`}>
-                      <div class="flex flex-col items-center w-[15rem]">
+                      <div class="flex flex-col items-center w-[12rem]">
                         {Array.isArray(item.subitems) &&
                         item.subitems.map(
                           (subitem: { text: string; href: string }) => (
@@ -154,19 +153,19 @@ export const prerender = false;
 
   <!-- Mobile menu -->
   <div class="hidden xl:hidden text-white flex flex-col justify-center" id="mobile-menu">
-    <div class=" gap-6 p-6 flex flex-col items-center">
+    <div class="gap-5 p-6 flex flex-col items-center">
       {
         menuItems.map((item) =>
           item.subitems === undefined ? (
             <a
               href={item.href}
-              class="inline-block text-center px-3 py-2 text-xl w-8/12 sm:w-4/12 hover:text-custom-blue hover:bg-white rounded-full ring ring-2 ring-white"
+              class="inline-block text-center px-2 py-1 text-normal w-8/12 sm:w-4/12 hover:text-custom-blue hover:bg-white rounded-full ring ring-2 ring-white"
             >
               {item.text}
             </a>
           ) : (
-            <Dropdown class="flex flex-col justify-center w-8/12 sm:w-4/12">
-              <button class="block px-3 py-2 text-center text-xl flex flex-row justify-center items-center hover:text-custom-blue hover:bg-white rounded-full ring ring-2 ring-white">
+            <Dropdown class="flex flex-col justify-center w-8/12 sm:w-4/12 ">
+              <button class="block rounded-full text-medium px-2 py-1 text-center flex flex-row justify-center items-center hover:text-custom-blue hover:bg-white  ring ring-2 ring-white">
                 <span>{item.text}</span>
                 <svg
                   class="h-5 w-5 transform transition-transform duration-200"
@@ -182,13 +181,13 @@ export const prerender = false;
                   />
                 </svg>
               </button>
-              <DropdownItems class="mt-2 space-y-2 bg-white shadow-lg rounded-[1.5rem] py-2 mb-2 z-10 hidden group-hover:block flex flex-col justify-center motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%]" >
+              <DropdownItems class="mt-2 space-y-3 bg-white shadow-lg rounded-[1.5rem] p-4 mb-2 z-10 hidden group-hover:block flex flex-col justify-center motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%]" >
                 {Array.isArray(item.subitems) &&
                   item.subitems.map(
                     (subitem: { text: string; href: string }) => (
                       <a
                         href={subitem.href}
-                        class="block mx-2 px-4 py-2 ring ring-2 ring-white rounded-full px-4 py-2 text-custom-blue hover:bg-custom-blue hover:text-white transition-all easy-in-out motion-preset-expand"
+                        class="block text-center text-normal mx-2 px-2 py-1 ring ring-2 ring-custom-blue rounded-full text-custom-blue hover:bg-custom-blue hover:text-white transition-all easy-in-out motion-preset-expand"
                       >
                         {subitem.text}
                       </a>
@@ -212,7 +211,7 @@ export const prerender = false;
   button?.addEventListener("click", () => {
     menu?.classList.toggle("hidden");
     back?.classList.toggle("rounded-xl");
+    back?.classList.toggle("transition-opacity");
     back?.classList.toggle("h-auto");
-
   });
 </script>
