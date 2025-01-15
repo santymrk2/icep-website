@@ -1,10 +1,12 @@
 ---
 import '@fontsource-variable/space-grotesk'
-
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description?: string;
 }
+import { ClientRouter } from 'astro:transitions';
 
 const { title, description = "Iglesia Cristiana Evangélica en Pilar - Sitio Oficial" } = Astro.props;
 ---
@@ -18,8 +20,12 @@ const { title, description = "Iglesia Cristiana Evangélica en Pilar - Sitio Ofi
     <link rel="icon" type="image/svg+xml" href="/LogoWhite.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ClientRouter />
+
   </head>
   <body class="min-h-screen font-sans bg-white">
+    <Header/>
     <slot />
+    <Footer/>
   </body>
 </html>

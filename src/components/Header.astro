@@ -11,7 +11,9 @@ const menuItems = [
     subitems: [
       { text: "Historia", href: "/historia" },
       { text: "Declaracion de Fe", href: "/declaracion" },
+      /*
       { text: "Hermanos Responsables", href: "/responsables" },
+       */
       { text: "Prologo al libro", href: "/prologo" },
       /*
       {
@@ -60,7 +62,7 @@ import {
 export const prerender = false;
 ---
 
-<header class="h-24 text-white m-4 sm:m-10 shadow-custom-blue rounded-full bg-custom-blue" id="back-menu">
+<header transition:persist class="h-24 text-white m-4 sm:m-10 shadow-custom-blue rounded-full bg-custom-blue " id="back-menu">
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex h-full text-base font-normal">
     <div class="flex justify-between items-center w-full">
       <div class="flex items-center motion-preset-expand p-4">
@@ -109,7 +111,7 @@ export const prerender = false;
                         />
                       </svg>
                     </button>
-                    <DropdownItems class={`absolute top-16 m-2 bg-custom-blue shadow-lg p-4 px-6 z-10 hidden group-hover:block rounded-[2rem] `}>
+                    <DropdownItems class={`absolute top-16 m-2 bg-custom-blue shadow-lg p-4 px-6 z-10 hidden group-hover:block rounded-[2rem] motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%]`}>
                       {Array.isArray(item.subitems) &&
                         item.subitems.map(
                           (subitem: { text: string; href: string }) => (
