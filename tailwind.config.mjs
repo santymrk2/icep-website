@@ -11,16 +11,17 @@ export default {
 			fontFamily: {
 				sans: ['Space Grotesk Variable', ...defaultTheme.fontFamily.sans],
 			},
+			boxShadow: {
+				'custom-blue': '0 0 25px rgba(42, 56, 178, 0.5)',
+				'lg': '0 0 20px rgba(42, 56, 178, 0.1)',
+			},
+			borderRadius: {
+				'xl': '4rem',
+			},
+			colors: {
+				'custom-blue': '#2A38B2',
+			}
 		},
-		boxShadow: {
-			'custom-blue': '0 0 20px rgba(42, 56, 178, 0.7)',
-		},
-/*
-		colors: {
-			'custom-blue': '#2A38B2',
-		}
-			*/
-
 	},
 	plugins: [
 		require('@tailwindcss/typography'),

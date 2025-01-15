@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import Timeline from "../components/Timeline.jsx";
 import { Image } from "astro:assets";
 ---
 
@@ -13,6 +14,10 @@ import { Image } from "astro:assets";
         <div>
           <h1 class="text-4xl font-playfair text-accent mb-6">Historia</h1>
         </div>
+        <div class="w-full">
+          <Timeline client:only/>
+        </div>
+        {/*
         <article class="prose lg:prose-xl mt-2 pt-8 border-t border-white-700">
           <h2>Reseña Histórica</h2>
           <p>
@@ -182,6 +187,7 @@ import { Image } from "astro:assets";
             familias.
           </p>
         </article>
+        */}
       </div>
     </div>
   </section>

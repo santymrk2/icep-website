@@ -13,11 +13,11 @@ const Timeline = () => {
         items={items} 
         scrollable={{ scrollbar: true }}  
         theme={{
-          primary: '#1e3a8a',
-          secondary: '#1e3a8a',
+          primary: '#2A38B2',
+          secondary: '#2A38B2',
           cardBgColor: 'white',
-          cardTitleColor: '#1e3a8a',
-          titleColor: '#1e3a8a',
+          cardTitleColor: '#2A38B2',
+          titleColor: '#2A38B2',
           titleColorActive: 'white',
         }}
   />
