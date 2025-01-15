@@ -62,11 +62,11 @@ import {
 export const prerender = false;
 ---
 
-<header transition:persist class="h-24 text-white m-4 sm:m-10 shadow-custom-blue rounded-full bg-custom-blue" id="back-menu">
+<header class="h-24 text-white m-4 sm:m-10 shadow-custom-blue rounded-full bg-custom-blue" id="back-menu">
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex h-full text-base font-normal">
     <div class="flex justify-between items-center w-full">
-      <div class="flex items-center motion-preset-expand p-4">
-        <a href="/" class="flex items-center">
+      <div class="flex items-center p-4">
+        <a href="/" class="flex items-center ">
           <svg
             class="h-16 fill-white"
             viewBox="0 0 800 800"
@@ -134,12 +134,10 @@ export const prerender = false;
         </Astronav>
       </div>
 
-      <button class="xl:hidden p-2" id="mobile-menu-button">
+      <button class="flex justify-center items-center xl:hidden p-2 w-12 h-12 bg-cutom-blue ring ring-2 ring-white rounded-full group hover:ring-0 hover:bg-white transition-all easy-in-out" id="mobile-menu-button">
         <svg
-          class="h-6 w-6"
-          fill="none"
+          class="h-6 w-6 stroke-white group-hover:stroke-custom-blue transition-all easy-in-out"
           viewBox="0 0 24 24"
-          stroke="currentColor"
         >
           <path
             stroke-linecap="round"
@@ -159,13 +157,13 @@ export const prerender = false;
           item.subitems === undefined ? (
             <a
               href={item.href}
-              class="inline-block text-center px-2 py-1 text-normal w-8/12 sm:w-4/12 hover:text-custom-blue hover:bg-white rounded-full ring ring-2 ring-white"
+              class="inline-block text-center px-2 py-1 text-normal w-8/12 sm:w-4/12 hover:text-custom-blue hover:bg-white rounded-full ring ring-2 ring-white motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%] transition-all easy-in-out"
             >
               {item.text}
             </a>
           ) : (
-            <Dropdown class="flex flex-col justify-center w-8/12 sm:w-4/12 ">
-              <button class="block rounded-full text-medium px-2 py-1 text-center flex flex-row justify-center items-center hover:text-custom-blue hover:bg-white  ring ring-2 ring-white">
+            <Dropdown class="flex flex-col justify-center w-8/12 sm:w-4/12 motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%]">
+              <button class="block rounded-full text-medium px-2 py-1 text-center flex flex-row justify-center items-center hover:text-custom-blue hover:bg-white  ring ring-2 ring-white transition-all easy-in-out">
                 <span>{item.text}</span>
                 <svg
                   class="h-5 w-5 transform transition-transform duration-200"
