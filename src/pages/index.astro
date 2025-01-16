@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
 import Services from '../components/Services.astro';
 import Contact from '../components/Contact.astro';
 import {Image} from 'astro:assets';
@@ -8,10 +7,7 @@ import PG01 from '../assets/PG01.webp';
 import PG02 from '../assets/PG02.webp';
 import PG03 from '../assets/PG03.webp';
 
-
-import ImgCards from '../components/ImgCards.jsx'
-
-export const prerender = false;
+export const prerender = true;
 ---
 <Layout title="ICEP | Iglesia Complejo Evangélico Pilar">
   <main>
