@@ -4,8 +4,6 @@ import history from "../data/activities.json"
 
 const Timeline = () => {
   const items = history
-  console.log(history)
-
   return (
       <Chrono 
         mode="VERTICAL_ALTERNATING"  

@@ -4,23 +4,55 @@ import Hero from '../components/Hero.astro';
 import Services from '../components/Services.astro';
 import Contact from '../components/Contact.astro';
 import {Image} from 'astro:assets';
-import BImage from '../assets/PG01.webp';
+import PG01 from '../assets/PG01.webp';
+import PG02 from '../assets/PG02.webp';
+import PG03 from '../assets/PG03.webp';
 
-export const prerender = true;
+
+import ImgCards from '../components/ImgCards.jsx'
+
+export const prerender = false;
 ---
 <Layout title="ICEP | Iglesia Complejo Evangélico Pilar">
-  <Hero class="z-0"/>  
   <main>
     <section class="py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <Image
-              src={BImage}
-              alt="Imagen de personas" 
-              class="rounded-2xl shadow-lg drop-shadow-3xl"
-            />
-            <a></a>
+          <div id="container-carousel" class="rounded-2xl relative w-full h-full bg-gray-100 overflow-hidden">
+            <div id="slider" class=" w-[300%] h-[100%] flex transition-transform easy-out duration-500">
+              <section class="slider-section w-[calc(100%/3)] h-full ">
+                <Image
+                  src={PG01}
+                  alt="Imagen de personas" 
+                  class="w-full h-full fit-cover rounded-2xl drop-shadow-3xl"
+                />
+              </section>
+              <section class=" slider-section w-[calc(100%/3)] h-full transition-transform easy-out">
+                <Image
+                  src={PG02}
+                  alt="Imagen de personas" 
+                  class="w-full h-full fit-cover rounded-2xl drop-shadow-3xl"
+                />
+              </section>
+              <section class=" slider-section w-[calc(100%/3)] h-full transition-transform easy-out">
+                <Image
+                  src={PG03}
+                  alt="Imagen de personas" 
+                  class="w-full h-full fit-cover rounded-2xl drop-shadow-3xl"
+                />
+              </section>
+            </div>
+            <div id="btn-left" class="flex absolute left-[10px] top-1/2 bg-transparent p-5 pointer color-black  ">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="size-6">
+                <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+              </svg>
+              
+            </div>
+            <div id="btn-right" class="flex absolute right-[10px] top-1/2 bg-transparent p-5 pointer color-black">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="size-6">
+                <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+              </svg>              
+            </div>
           </div>
           
           <div>
@@ -55,3 +87,33 @@ export const prerender = true;
     <Contact />
   </main>
 </Layout>
+
+<script>
+const btnLeft = document.getElementById("btn-left"),
+      btnRight = document.getElementById("btn-right"),
+      slider = document.getElementById("slider"),
+      sliderSections = document.querySelectorAll(".slider-section");
+
+let counter = 0;
+const widthImg = 100 / sliderSections.length;
+
+function moveToRight() {
+  counter = (counter + 1) % sliderSections.length;
+  if(slider){
+    slider.style.transform = `translateX(-${counter * widthImg}%)`;
+  }
+}
+
+function moveToLeft() {
+  counter = (counter - 1 + sliderSections.length) % sliderSections.length;
+  if(slider){
+    slider.style.transform = `translateX(-${counter * widthImg}%)`;
+  }
+}
+
+btnLeft?.addEventListener("click", moveToLeft);
+btnRight?.addEventListener("click", moveToRight);
+
+// Movimiento automático
+setInterval(moveToRight, 4000);
+</script>
