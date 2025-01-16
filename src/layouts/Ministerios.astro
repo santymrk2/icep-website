@@ -60,10 +60,11 @@ export const prerender = true;
     <link rel="icon" type="image/svg+xml" href="/LogoWhite.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-
+    {/*
     <ClientRouter />
+    */}    
   </head>
-  <body class="grid h-dvh grid-rows-[auto_1fr_auto] font-sans bg-white">
+  <body class="min-h-screen font-sans bg-white">
     <Header transition:persist />
     <main
       class="flex flex-col shadow-lg rounded-xl bg-white m-5 sm:m-10"

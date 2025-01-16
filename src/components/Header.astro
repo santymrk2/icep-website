@@ -5,8 +5,7 @@ import logoImage from "../assets/Black.png";
 import { Astronav, MenuItems, Dropdown, DropdownItems } from "astro-navbar";
 
 const menuItems = Paths;
-
-export const prerender = true;
+export const prerender = false;
 ---
 
 <header
@@ -169,10 +168,13 @@ export const prerender = true;
     back?.classList.toggle("transition-opacity");
     back?.classList.toggle("h-auto");
   });
-  window.onbeforeunload = function (e) {
+  {/*
+      window.onbeforeunload = function (e) {
     menu?.classList.toggle("hidden");
     back?.classList.toggle("rounded-xl");
     back?.classList.toggle("transition-opacity");
     back?.classList.toggle("h-auto");
   };
+    */}
+
 </script>

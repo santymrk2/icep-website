@@ -13,8 +13,8 @@ export const prerender = true;
   <main>
     <section class="py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div id="container-carousel" class="rounded-2xl relative w-full h-full bg-gray-100 overflow-hidden">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div id="container-carousel" class="mx-auto rounded-2xl relative w-10/12 h-10/12 bg-gray-100 overflow-hidden">
             <div id="slider" class=" w-[300%] h-[100%] flex transition-transform easy-out duration-500">
               <section class="slider-section w-[calc(100%/3)] h-full ">
                 <Image
@@ -38,20 +38,20 @@ export const prerender = true;
                 />
               </section>
             </div>
-            <div id="btn-left" class="flex absolute left-[10px] top-1/2 bg-transparent p-5 pointer color-black  ">
+            <div id="btn-left" class="flex absolute left-[5px] sm:left-[10px] top-1/2 -translate-y-1/2 bg-transparent p-2 pointer">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="size-6">
                 <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
               </svg>
               
             </div>
-            <div id="btn-right" class="flex absolute right-[10px] top-1/2 bg-transparent p-5 pointer color-black">
+            <div id="btn-right" class="flex absolute right-[5px] sm:right-[10px] top-1/2 -translate-y-1/2 bg-transparent p-2 pointer">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="size-6">
                 <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
               </svg>              
             </div>
           </div>
           
-          <div>
+          <div class="flex flex-col justify-center mx-4 sm:mx-6 lg:mx-8">
             <h1 class="text-4xl font-playfair text-accent mb-6">
               Bienvenido a la Iglesia Cristiana Evangélica en Pilar
             </h1>
@@ -61,18 +61,11 @@ export const prerender = true;
               se encuentra en el conocido Complejo Evangélico Pilar.
             </p>
             
-            <p class="text-gray-600 mb-6">
+            <p class="text-gray-600">
               Lo que sabemos, es de vital importancia, es que usted sepa que Dios le ama tanto, 
               que viéndonos como a Su creación caída en pecados y delitos, envió a su Hijo 
               Unigénito para dar testimonio de Dios y Su amor.
             </p>
-            
-            <a 
-              href="/contacto" 
-              class="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-accent transition-colors duration-200"
-            >
-              Contáctanos
-            </a>
 
           </div>
         </div>
