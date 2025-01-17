@@ -1,0 +1,95 @@
+---
+import { Client } from '@notionhq/client';
+
+const DATABASE_ID = 'b19a403082ee49238154f16433dd7925'; // Cambia esto por el ID de tu base de datos
+const NOTION_API_KEY = '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'; // Asegúrate de configurarlo en tu .env
+
+const fechaActual = new Date();
+const fechaISO = fechaActual.toISOString().split('T')[0];
+let pageType
+let pageDate
+let pageLink
+let backColor
+
+const notion = new Client({ auth: NOTION_API_KEY });
+
+const notionPages = await notion.databases.query({ 
+  database_id: DATABASE_ID,
+  filter: {
+    property: "Fecha",
+    date: {
+      on_or_after: fechaISO ,
+    }
+  },
+  sorts: [
+	    {
+	      property: "Fecha",
+	      direction: "ascending"
+		  }
+	  ],
+});
+
+if (notionPages.results.length > 0) {
+  const type = notionPages.results[0].properties['Tipo de Reunión'].select?.name;
+  
+  pageType = type.toUpperCase();
+  if(type == "ACTIVADOS") {
+    backColor = "green-100"
+  } else if(type == "MINISTERIO") {
+    backColor = "blue-100"
+  } else if(type == "ORACION") {
+    backColor = "[#854c1d]"
+  } else if(type == "JÓVENES") {
+    backColor = "[#492f64]"
+  } else if(type == "MUJERES") {
+    backColor = "[#69314c]"
+  } else if(type == "MATRIMONIOS") {
+    backColor = "[#6e3630]"
+  } else {
+    backColor = "custom-blue"
+  }
+
+  const fechaStr = notionPages.results[0].properties['Fecha'].date?.start;
+
+  if (fechaStr) {
+    // Crear una nueva fecha a partir de la cadena ISO
+    const fecha = new Date(fechaStr);
+
+    // Obtener los componentes de la fecha
+    const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const diaSemana = fecha.toLocaleDateString('es-ES', opciones).split(',')[0];
+    const dia = fecha.getDate();
+    const mes = fecha.toLocaleDateString('es-ES', { month: 'long' });
+    const anio = fecha.getFullYear();
+    const horas = fecha.getHours();
+    const minutos = fecha.getMinutes();
+
+    // Formatear la cadena de salida
+    const date = `El próximo ${diaSemana} ${dia} de ${mes} de ${anio} a las ${horas}:${minutos}hs`;
+    pageDate = date;    
+  }
+
+  // Comprobar si existe el enlace y mostrarlo
+  const mensajeEnYouTube = notionPages.results[0].properties['Mensaje en YouTube']?.url;
+  if (mensajeEnYouTube) {
+    console.log(`Enlace a YouTube: ${mensajeEnYouTube}`);
+  }
+} else {
+  console.log('No se encontraron datos.');
+}
+---
+
+<div class="flex flex-col justify-center items-center p-8 m-8 gap-6">
+  {notionPages ? (
+    <h2 class="text-2xl font-bold">Nuestra proxima actividad es:</h2>
+    <div class="relative">
+      <h1 class="absolute text-7xl font-bold">{pageType}</h1>
+      <h1 class={`relative text-7xl font-bold blur-3xl bg-blue-100`} >{pageType}</h1>
+    </div>
+    <p class="">{pageDate}</p>
+  ) : console.log("No se encuentran datos")
+  }
+  {pageLink ? (
+    <button class="">{pageLink}</button>
+  ) : null}
+</div>
