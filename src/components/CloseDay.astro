@@ -3,9 +3,9 @@ import { Client } from '@notionhq/client';
 
 import { NOTION_API_KEY, DATABASE_ID} from 'astro:env/server';
 
-
 const fechaActual = new Date();
 const fechaISO = fechaActual.toISOString().split('T')[0];
+let notionPages
 let pageType
 let pageDate
 let pageLink
@@ -13,70 +13,80 @@ let backColor
 
 const notion = new Client({ auth: NOTION_API_KEY });
 
-const notionPages = await notion.databases.query({ 
-  database_id: DATABASE_ID,
-  filter: {
-    property: "Fecha",
-    date: {
-      on_or_after: fechaISO ,
+try{
+  notionPages = await notion.databases.query({ 
+    database_id: DATABASE_ID,
+    filter: {
+      property: "Fecha",
+      date: {
+        on_or_after: fechaISO ,
+      }
+    },
+    sorts: [
+        {
+          property: "Fecha",
+          direction: "ascending"
+        }
+      ],
+  });
+
+  if (notionPages.results.length > 0) {
+    const type = notionPages.results[0].properties['Tipo de Reunión'].select?.name;
+    
+    pageType = type.toUpperCase();
+    if(type == "ACTIVADOS") {
+      backColor = "green-100"
+    } else if(type == "MINISTERIO") {
+      backColor = "blue-100"
+    } else if(type == "ORACION") {
+      backColor = "[#854c1d]"
+    } else if(type == "JÓVENES") {
+      backColor = "[#492f64]"
+    } else if(type == "MUJERES") {
+      backColor = "[#69314c]"
+    } else if(type == "MATRIMONIOS") {
+      backColor = "[#6e3630]"
+    } else {
+      backColor = "custom-blue"
     }
-  },
-  sorts: [
-	    {
-	      property: "Fecha",
-	      direction: "ascending"
-		  }
-	  ],
-});
 
-if (notionPages.results.length > 0) {
-  const type = notionPages.results[0].properties['Tipo de Reunión'].select?.name;
-  
-  pageType = type.toUpperCase();
-  if(type == "ACTIVADOS") {
-    backColor = "green-100"
-  } else if(type == "MINISTERIO") {
-    backColor = "blue-100"
-  } else if(type == "ORACION") {
-    backColor = "[#854c1d]"
-  } else if(type == "JÓVENES") {
-    backColor = "[#492f64]"
-  } else if(type == "MUJERES") {
-    backColor = "[#69314c]"
-  } else if(type == "MATRIMONIOS") {
-    backColor = "[#6e3630]"
+    const fechaStr = notionPages.results[0].properties['Fecha'].date?.start;
+
+    if (fechaStr) {
+      // Crear una nueva fecha a partir de la cadena ISO
+      const fecha = new Date(fechaStr);
+
+      // Obtener los componentes de la fecha
+      const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const diaSemana = fecha.toLocaleDateString('es-AR', opciones).split(',')[0];
+      const dia = fecha.getDate();
+      const mes = fecha.toLocaleDateString('es-AR', { month: 'long' });
+      const anio = fecha.getFullYear();
+      const horas = fecha.getHours();
+      const minutos = fecha.getMinutes();
+
+      // Formatear la cadena de salida
+      const date = `El próximo ${diaSemana} ${dia} de ${mes} a las ${horas}:${minutos}hs`;
+      pageDate = date;    
+    }
+
+    // Comprobar si existe el enlace y mostrarlo
+    const mensajeEnYouTube = notionPages.results[0].properties['Mensaje en YouTube']?.url;
+    if (mensajeEnYouTube) {
+      console.log(`Enlace a YouTube: ${mensajeEnYouTube}`);
+    }
   } else {
-    backColor = "custom-blue"
+    console.log('No se encontraron datos.');
   }
-
-  const fechaStr = notionPages.results[0].properties['Fecha'].date?.start;
-
-  if (fechaStr) {
-    // Crear una nueva fecha a partir de la cadena ISO
-    const fecha = new Date(fechaStr);
-
-    // Obtener los componentes de la fecha
-    const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const diaSemana = fecha.toLocaleDateString('es-ES', opciones).split(',')[0];
-    const dia = fecha.getDate();
-    const mes = fecha.toLocaleDateString('es-ES', { month: 'long' });
-    const anio = fecha.getFullYear();
-    const horas = fecha.getHours();
-    const minutos = fecha.getMinutes();
-
-    // Formatear la cadena de salida
-    const date = `El próximo ${diaSemana} ${dia} de ${mes} de ${anio} a las ${horas}:${minutos}hs`;
-    pageDate = date;    
+} catch (error) {
+  // Maneja el error aquí.
+  if (error.code === 'unauthorized') {
+    console.error('Error: No tienes acceso al recurso especificado. Revisa tus credenciales y permisos.');
+  } else {
+    console.error('Error al consultar Notion:', error.message);
   }
-
-  // Comprobar si existe el enlace y mostrarlo
-  const mensajeEnYouTube = notionPages.results[0].properties['Mensaje en YouTube']?.url;
-  if (mensajeEnYouTube) {
-    console.log(`Enlace a YouTube: ${mensajeEnYouTube}`);
-  }
-} else {
-  console.log('No se encontraron datos.');
 }
+
 ---
 
 <div class="flex flex-col justify-center items-center p-8 m-8 gap-6">
