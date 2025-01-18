@@ -11,11 +11,11 @@ let pageDate
 let pageLink
 let backColor
 
-const notion = new Client({ auth: NOTION_API_KEY });
+const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 try{
   notionPages = await notion.databases.query({ 
-    database_id: DATABASE_ID,
+    database_id: process.env.DATABASE_ID,
     filter: {
       property: "Fecha",
       date: {
