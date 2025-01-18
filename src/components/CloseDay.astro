@@ -1,8 +1,8 @@
 ---
 import { Client } from '@notionhq/client';
 
-const DATABASE_ID = 'b19a403082ee49238154f16433dd7925'; // Cambia esto por el ID de tu base de datos
-const NOTION_API_KEY = ''; // Asegúrate de configurarlo en tu .env
+import { NOTION_API_KEY, DATABASE_ID} from 'astro:env/server';
+
 
 const fechaActual = new Date();
 const fechaISO = fechaActual.toISOString().split('T')[0];
