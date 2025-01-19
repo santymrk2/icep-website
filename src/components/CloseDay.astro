@@ -1,7 +1,7 @@
 ---
 import { Client } from '@notionhq/client';
 
-import { VITE_VERCEL_ENV_SECRET_NOTION_API_KEY, VITE_VERCEL_ENV_PUBLIC_DATABASE_ID} from 'astro:env/server';
+//import { NOTION_API_KEY, DATABASE_ID} from 'astro:env/server';
 
 const fechaActual = new Date();
 const fechaISO = fechaActual.toISOString().split('T')[0];
@@ -11,11 +11,11 @@ let pageDate
 let pageLink
 let backColor
 
-const notion = new Client({ auth: VITE_VERCEL_ENV_SECRET_NOTION_API_KEY });
+const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 try{
   notionPages = await notion.databases.query({ 
-    database_id: VITE_VERCEL_ENV_PUBLIC_DATABASE_ID,
+    database_id: process.env.DATABASE_ID,
     filter: {
       property: "Fecha",
       date: {
@@ -34,18 +34,20 @@ try{
     const type = notionPages.results[0].properties['Tipo de Reunión'].select?.name;
     
     pageType = type.toUpperCase();
-    if(type == "ACTIVADOS") {
-      backColor = "green-100"
-    } else if(type == "MINISTERIO") {
-      backColor = "blue-100"
-    } else if(type == "ORACION") {
-      backColor = "[#854c1d]"
-    } else if(type == "JÓVENES") {
-      backColor = "[#492f64]"
-    } else if(type == "MUJERES") {
-      backColor = "[#69314c]"
-    } else if(type == "MATRIMONIOS") {
-      backColor = "[#6e3630]"
+
+
+    if(pageType == "ACTIVADOS") {
+      backColor = "green-500"
+    } else if(pageType == "MINISTERIO") {
+      backColor = "blue-500"
+    } else if(pageType == "ORACIÓN") {
+      backColor = "orange-500"
+    } else if(pageType == "JÓVENES") {
+      backColor = "purple-500"
+    } else if(pageType == "MUJERES") {
+      backColor = "rose-500"
+    } else if(pageType == "MATRIMONIOS") {
+      backColor = "red-500"
     } else {
       backColor = "custom-blue"
     }
@@ -55,18 +57,27 @@ try{
     if (fechaStr) {
       // Crear una nueva fecha a partir de la cadena ISO
       const fecha = new Date(fechaStr);
+      console.log(fechaStr)
 
       // Obtener los componentes de la fecha
       const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       const diaSemana = fecha.toLocaleDateString('es-AR', opciones).split(',')[0];
       const dia = fecha.getDate();
       const mes = fecha.toLocaleDateString('es-AR', { month: 'long' });
-      const anio = fecha.getFullYear();
-      const horas = fecha.getHours();
-      const minutos = fecha.getMinutes();
+
+      
+      const dateParts = fechaStr.split("T")[1].split(":");
+      const originalHour = dateParts[0]; 
+      const originalMinutes = dateParts[1];
+
+      // Asegurar formato de dos dígitos (aunque ya lo tiene aquí)
+      const horas = originalHour.padStart(2, '0');
+      const minutos = originalMinutes.padStart(2, '0');
+
 
       // Formatear la cadena de salida
       const date = `El próximo ${diaSemana} ${dia} de ${mes} a las ${horas}:${minutos}hs`;
+      console.log(date)
       pageDate = date;    
     }
 
@@ -89,14 +100,14 @@ try{
 
 ---
 
-<div class="flex flex-col justify-center items-center p-8 m-8 gap-6">
+<div class="flex flex-col justify-center items-center p-8 m-8 gap-6 mx-4 sm:mx-10">
   {notionPages ? (
-    <h2 class="text-2xl font-bold">Nuestra proxima actividad es:</h2>
+    <h2 class="text-2xl font-bold text-center">Nuestra proximo encuentro es:</h2>
     <div class="relative">
-      <h1 class="absolute text-7xl font-bold">{pageType}</h1>
-      <h1 class={`relative text-7xl font-bold blur-3xl bg-blue-100`} >{pageType}</h1>
+      <h1 class={`absolute text-5xl p-6 sm:text-7xl blur-3xl bg-${backColor} font-bold text-center`}>{pageType}</h1>
+      <h1 class={`relative text-5xl p-6 sm:text-7xl font-bold text-center`} >{pageType}</h1>
     </div>
-    <p class="">{pageDate}</p>
+    <p class="text-center">{pageDate}</p>
   ) : console.log("No se encuentran datos")
   }
   {pageLink ? (
