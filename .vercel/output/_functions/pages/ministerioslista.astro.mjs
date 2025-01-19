@@ -1,7 +1,7 @@
 /* empty css                                                   */
 import { c as createComponent, r as renderTemplate, d as renderComponent, m as maybeRenderHead, a as addAttribute } from '../chunks/astro/server_DujD4fpc.mjs';
-import { $ as $$Layout } from '../chunks/Layout_Cykxdvrg.mjs';
-import { P as Paths } from '../chunks/Footer_BCFc9V33.mjs';
+import { $ as $$Layout } from '../chunks/Layout_HKOG5EJD.mjs';
+import { P as Paths } from '../chunks/Footer_BAjPlQLp.mjs';
 export { renderers } from '../renderers.mjs';
 
 const prerender = false;

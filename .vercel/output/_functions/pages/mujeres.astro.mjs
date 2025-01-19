@@ -1,6 +1,6 @@
 /* empty css                                                   */
 import { c as createComponent, r as renderTemplate, d as renderComponent, m as maybeRenderHead } from '../chunks/astro/server_DujD4fpc.mjs';
-import { $ as $$Ministerios } from '../chunks/Ministerios_BCSZ38t7.mjs';
+import { $ as $$Ministerios } from '../chunks/Ministerios__1yzW8Vv.mjs';
 export { renderers } from '../renderers.mjs';
 
 const prerender = false;

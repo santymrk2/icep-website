@@ -1,6 +1,6 @@
 import { c as createComponent, r as renderTemplate, a as addAttribute, b as renderHead, d as renderComponent, g as renderSlot, h as createAstro } from './astro/server_DujD4fpc.mjs';
 /* empty css                                           */
-import { $ as $$Header, a as $$Footer } from './Footer_BCFc9V33.mjs';
+import { $ as $$Header, a as $$Footer } from './Footer_BAjPlQLp.mjs';
 
 const $$Astro = createAstro();
 const $$Layout = createComponent(($$result, $$props, $$slots) => {

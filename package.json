@@ -9,15 +9,15 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^4.1.2",
+    "@astrojs/react": "^4.1.5",
     "@astrojs/tailwind": "^5.1.4",
     "@astrojs/ts-plugin": "^1.10.4",
-    "@astrojs/vercel": "^8.0.1",
+    "@astrojs/vercel": "^8.0.2",
     "@fontsource-variable/space-grotesk": "^5.1.1",
     "@notionhq/client": "^2.2.15",
-    "@types/react": "^19.0.2",
-    "@types/react-dom": "^19.0.2",
-    "astro": "^5.1.2",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "astro": "^5.1.7",
     "astro-navbar": "^2.3.9",
     "date-fns-tz": "^3.2.0",
     "node-fetch": "^3.3.2",
@@ -29,7 +29,7 @@
     "uuid": "^11.0.5"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.15",
+    "@tailwindcss/typography": "^0.5.16",
     "tailwindcss-motion": "^1.0.1"
   }
 }
