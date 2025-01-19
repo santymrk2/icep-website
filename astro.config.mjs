@@ -12,8 +12,8 @@ export default defineConfig({
   adapter: vercel(),
   env: {
     schema: {
-      VITE_VERCEL_ENV_SECRET_NOTION_API_KEY: envField.string({context:'server', access: 'secret'}),
-      VITE_VERCEL_ENV_PUBLIC_DATABASE_ID: envField.string({context:'server', access: 'public' })
+      NOTION_API_KEY: envField.string({context:'server', access: 'secret'}),
+      DATABASE_ID: envField.string({context:'server', access: 'public' })
     }
   }
 });
