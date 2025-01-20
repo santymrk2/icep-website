@@ -12,9 +12,12 @@ export default {
 			fontFamily: {
 				sans: ['Space Grotesk Variable', ...defaultTheme.fontFamily.sans],
 			},
+			dropShadow: {
+				'custom-blue': '0 0 20px rgba(42, 56, 178, 0.5)',
+				'lg': '0 0 20px rgba(42, 56, 178, 0.1)',
+			},
 			boxShadow: {
-				'custom-blue': '0 0 25px rgba(42, 56, 178, 0.5)',
-		
+				'custom-blue': '0 0 15px -5px rgba(42, 56, 178, 0.5)',
 				'lg': '0 0 20px rgba(42, 56, 178, 0.1)',
 			},
 			borderRadius: {
@@ -25,8 +28,9 @@ export default {
 				'custom-teal': '#0180f1',
 			},
 			animation: {
-				tilt: 'tilt 10s infinite linear'
-			},
+				tilt: 'tilt 10s infinite linear',
+				'infinite-scroll': 'infinite-scroll 25s linear infinite',
+			},		
 			keyframes:{
 				tilt: {
 					"0%, 50%, 100%": {
@@ -38,13 +42,29 @@ export default {
 					"75%": {
 						transform: "rotate(-1deg)"
 					}
+				},
+				'infinite-scroll': {
+				  from: { transform: 'translateX(0)' },
+				  to: { transform: 'translateX(-100%)' },
 				}
-			}
+			},
+
 		},
 	},
 	plugins: [
 		require('@tailwindcss/typography'),
 		require('tailwindcss-motion'),
+		function({ addUtilities }) {
+			addUtilities({
+			  '.no-scrollbar': {
+				'-ms-overflow-style': 'none',  /* Internet Explorer 10+ */
+				'scrollbar-width': 'none',     /* Firefox */
+			  },
+			  '.no-scrollbar::-webkit-scrollbar': {
+				'display': 'none',             /* WebKit browsers */
+			  },
+			});
+		  },
 	  ],
 
 }

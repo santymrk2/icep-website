@@ -1,5 +1,5 @@
 ---
-import Paths from '../data/routingPaths.js'
+import Paths from "../data/routingPaths.js";
 import { Image } from "astro:assets";
 import logoImage from "../assets/Black.png";
 import { Astronav, MenuItems, Dropdown, DropdownItems } from "astro-navbar";
@@ -7,10 +7,9 @@ import { Astronav, MenuItems, Dropdown, DropdownItems } from "astro-navbar";
 const menuItems = Paths;
 export const prerender = false;
 ---
-<div class="relative">
-<div class="absolute -inset-0.5 h-24 mx-4 sm:mx-10 bg-gradient-to-r from-blue-400 to-custom-teal rounded-full blur opacity-50 transition duration-100 hover:opacity-100 animate-tilt"></div>
+
 <header
-  class="relative h-24 text-white m-4 sm:m-10 rounded-full bg-custom-blue"
+  class="relative h-24 text-white m-4 sm:m-10 rounded-full bg-custom-blue drop-shadow-custom-blue"
   id="back-menu"
 >
   <div
@@ -85,16 +84,41 @@ export const prerender = false;
         </Astronav>
       </div>
 
-      <button id="mobile-menu-button" class="lg:hidden m-2 sm:m-1 ring ring-2 ring-white rounded-full group hover:ring-0 hover:bg-white transition-all easy-in-out group inline-flex w-12 h-12 text-slate-800 bg-white text-center items-center justify-center  shadow-[0_1px_0_theme(colors.slate.950/.04),0_1px_2px_theme(colors.slate.950/.12),inset_0_-2px_0_theme(colors.slate.950/.04)] hover:shadow-[0_1px_0_theme(colors.slate.950/.04),0_4px_8px_theme(colors.slate.950/.12),inset_0_-2px_0_theme(colors.slate.950/.04)] transition" aria-pressed="false" onclick="this.setAttribute('aria-pressed', !(this.getAttribute('aria-pressed') === 'true'))">
+      <button
+        id="mobile-menu-button"
+        class="lg:hidden m-2 sm:m-1 ring ring-2 ring-white rounded-full group hover:ring-0 hover:bg-white transition-all easy-in-out group inline-flex w-12 h-12 text-slate-800 bg-white text-center items-center justify-center shadow-[0_1px_0_theme(colors.slate.950/.04),0_1px_2px_theme(colors.slate.950/.12),inset_0_-2px_0_theme(colors.slate.950/.04)] hover:shadow-[0_1px_0_theme(colors.slate.950/.04),0_4px_8px_theme(colors.slate.950/.12),inset_0_-2px_0_theme(colors.slate.950/.04)] transition"
+        aria-pressed="false"
+        onclick="this.setAttribute('aria-pressed', !(this.getAttribute('aria-pressed') === 'true'))"
+      >
         <span class="sr-only">Menu</span>
-        <svg class="w-6 h-6 fill-custom-blue pointer-events-none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-            <rect class="origin-center -translate-y-[5px] translate-x-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-x-0 group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:rotate-[315deg]" y="7" width="9" height="2" rx="1"></rect>
-            <rect class="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-[[aria-pressed=true]]:rotate-45" y="7" width="16" height="2" rx="1"></rect>
-            <rect class="origin-center translate-y-[5px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:-rotate-[225deg]" y="7" width="9" height="2" rx="1"></rect>
+        <svg
+          class="w-6 h-6 fill-custom-blue pointer-events-none"
+          viewBox="0 0 16 16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            class="origin-center -translate-y-[5px] translate-x-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-x-0 group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:rotate-[315deg]"
+            y="7"
+            width="9"
+            height="2"
+            rx="1"></rect>
+          <rect
+            class="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-[[aria-pressed=true]]:rotate-45"
+            y="7"
+            width="16"
+            height="2"
+            rx="1"></rect>
+          <rect
+            class="origin-center translate-y-[5px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:-rotate-[225deg]"
+            y="7"
+            width="9"
+            height="2"
+            rx="1"></rect>
         </svg>
-    </button>
+      </button>
 
-    {/* 
+      {
+        /* 
       <button
         class="flex justify-center items-center lg:hidden m-2 sm:m-1 p-2 w-12 h-12 bg-cutom-blue ring ring-2 ring-white rounded-full group hover:ring-0 hover:bg-white transition-all easy-in-out"
         
@@ -110,7 +134,8 @@ export const prerender = false;
             d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
-      */}
+      */
+      }
     </div>
   </div>
 
@@ -167,7 +192,6 @@ export const prerender = false;
     </div>
   </div>
 </header>
-</div>
 
 <script>
   const back = document.getElementById("back-menu");
@@ -181,13 +205,14 @@ export const prerender = false;
     back?.classList.toggle("transition-opacity");
     back?.classList.toggle("h-auto");
   });
-  {/*
+  {
+    /*
       window.onbeforeunload = function (e) {
     menu?.classList.toggle("hidden");
     back?.classList.toggle("rounded-xl");
     back?.classList.toggle("transition-opacity");
     back?.classList.toggle("h-auto");
   };
-    */}
-
+    */
+  }
 </script>
