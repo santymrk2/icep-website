@@ -7,10 +7,7 @@ const Paths = [
     {
       text: "Nosotros",
       href: "/nosotros",
-      subitems: [
-        { text: "Historia", href: "/historia" },
-        { text: "Creencias", href: "/creencias" },
-      ],
+      subitems: undefined
     },
     {
       text: "Ministerios",

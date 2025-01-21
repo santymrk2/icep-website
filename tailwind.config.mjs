@@ -30,8 +30,14 @@ export default {
 			animation: {
 				tilt: 'tilt 10s infinite linear',
 				'infinite-scroll': 'infinite-scroll 25s linear infinite',
+				float: 'float 3s ease-in-out infinite',
+
 			},		
 			keyframes:{
+				float: {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' },
+				  },
 				tilt: {
 					"0%, 50%, 100%": {
 						transform: "rotate(0deg)",
@@ -51,6 +57,18 @@ export default {
 
 		},
 	},
+
+
+	keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+      },
+      animation: {
+        float: 'float 3s ease-in-out infinite',
+      },
+
 	plugins: [
 		require('@tailwindcss/typography'),
 		require('tailwindcss-motion'),

@@ -18,7 +18,7 @@ export const prerender = true;
     <section class="py-16">
       <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <div id="container-carousel" class="mx-auto rounded-2xl relative w-10/12 h-10/12 bg-gray-100 overflow-hidden">
+          <div id="container-carousel" class="mx-auto rounded-2xl relative w-10/12 h-10/12 bg-gray-100 overflow-hidden animate-float">
             <div id="slider" class=" w-[300%] h-[100%] flex transition-transform easy-out duration-500">
               <section class="slider-section w-[calc(100%/3)] h-full ">
                 <Image
@@ -107,6 +107,5 @@ function moveToLeft() {
 btnLeft?.addEventListener("click", moveToLeft);
 btnRight?.addEventListener("click", moveToRight);
 
-// Movimiento automático
 setInterval(moveToRight, 4000);
 </script>

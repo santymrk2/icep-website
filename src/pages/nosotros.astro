@@ -1,0 +1,117 @@
+---
+import BeliefsDropdown from "../components/BeliefsDropdown.jsx";
+import Layout from "../layouts/Layout.astro";
+import Values from "../components/Values.astro";
+import AB02 from "../assets/AB02.webp";
+import AB03 from "../assets/AB03.webp";
+import { Image } from "astro:assets";
+export const prerender = true;
+---
+
+<Layout title="ICEP | Creencias">
+  <section class="py-16">
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div
+            id="container-carousel"
+            class="mx-auto rounded-2xl relative w-10/12 h-10/12 bg-gray-100 overflow-hidden"
+          >
+            <div
+              id="slider"
+              class="w-[300%] h-[100%] flex transition-transform easy-out duration-500"
+            >
+              <section class="slider-section w-[calc(100%/3)] h-full">
+                <Image
+                  src={AB02}
+                  alt="Imagen de personas"
+                  class="w-full h-full fit-cover rounded-2xl drop-shadow-3xl"
+                />
+              </section>
+            </div>
+          </div>
+
+          <div class="flex flex-col justify-center mx-4 sm:mx-6 lg:mx-8">
+            <h1 class="text-4xl font-playfair text-accent mb-6">
+              Acerca de nosotros
+            </h1>
+
+            <p class="text-gray-600 mb-6">
+              Su misión principal es la enseñanza de las Sagradas Escrituras, la
+              Biblia, y la predicación del evangelio de Jesucristo. La iglesia
+              está formada por personas que han reconocido su necesidad
+              espiritual, se han arrepentido de sus pecados y han aceptado la
+              gracia salvadora de Dios mediante la fe en Jesucristo
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="flex flex-col justify-center mx-4 sm:mx-6 lg:mx-8">
+          <h1 class="text-4xl font-playfair text-accent mb-6">
+            Mision y proposito
+          </h1>
+
+          <p class="text-gray-600 mb-6">
+            La Iglesia Cristiana Evangélica tiene como misión principal predicar
+            el evangelio de Jesucristo, en cumplimiento del mandato bíblico de
+            Marcos 16:15. Además, se enfoca en bautizar a los creyentes en el
+            nombre del Padre, del Hijo y del Espíritu Santo, como un paso de fe
+            y obediencia en la vida cristiana.
+          </p>
+          <p class="text-gray-600 mb-6">
+            El propósito de la iglesia incluye integrar a los creyentes en la
+            comunión de la congregación local, fomentando la enseñanza de la
+            Palabra, la oración y la adoración. Asimismo, sigue las enseñanzas
+            bíblicas en su organización, guiada por pastores, ancianos y
+            sobreveedores, quienes lideran con base en principios espirituales y
+            bíblicos.
+          </p>
+        </div>
+
+        <div
+          id="container-carousel"
+          class="mx-auto rounded-2xl relative w-10/12 h-10/12 bg-gray-100 overflow-hidden"
+        >
+          <div
+            id="slider"
+            class="w-[300%] h-[100%] flex transition-transform easy-out duration-500"
+          >
+            <section class="slider-section w-[calc(100%/3)] h-full">
+              <Image
+                src={AB03}
+                alt="Imagen de personas"
+                class="w-full h-full fit-cover rounded-2xl drop-shadow-3xl"
+              />
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Values />
+
+  <BeliefsDropdown client:visible />
+
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+      <div class="flex flex-col justify-center gap-12 items-center">
+        <h1 class="text-4xl text-center text-accent mb-6">Nuestra historia</h1>
+
+        <div>
+          <a
+            href="/historia"
+            class="text-white text-center bg-custom-blue p-4 rounded-full"
+            >Ver linea de tiempo</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
