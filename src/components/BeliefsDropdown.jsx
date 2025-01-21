@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import items from 
+import items from '../data/beliefs.json'
   
 const Accordion = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
