@@ -2,67 +2,44 @@
 import BeliefsDropdown from "../components/BeliefsDropdown.jsx";
 import Layout from "../layouts/Layout.astro";
 import Values from "../components/Values.astro";
-import PG01 from "../assets/PG01.webp"
+import PG01 from "../assets/PG01.webp";
 import { Image } from "astro:assets";
 export const prerender = true;
-
 ---
 
 <Layout title="ICEP | Creencias">
   <section class="py-16">
-    <div class="flex flex-col lg:flex-row items-center lg:items-stretch h-screen p-6">
+    <div
+      class="flex flex-col lg:flex-row items-center lg:items-stretch h-screen p-6"
+    >
       <!-- Sección izquierda: Imagen -->
       <div class="flex-1 flex items-center justify-center bg-gray-100 p-4">
-        <Image src={PG01} alt="Acerca de nosotros" class="w-4/5 h-auto max-h-[80%] rounded-lg shadow-lg">
-      </div>
-    
-      <!-- Sección derecha: Texto -->
-      <div class="flex-1 flex flex-col items-center justify-center text-center bg-white p-6">
-        <h1 class="text-4xl lg:text-6xl font-bold text-gray-800 mb-4">Acerca de nosotros</h1>
-        <p class="text-lg lg:text-2xl text-gray-600 leading-relaxed">
-          Su misión principal es la enseñanza de las Sagradas Escrituras, la Biblia, y la predicación del evangelio de Jesucristo. La iglesia está formada por personas que han reconocido su necesidad espiritual, se han arrepentido de sus pecados y han aceptado la gracia salvadora de Dios mediante la fe en Jesucristo.
-        </p>
-      </div>
-    </div>
-    
-    
+        <Image
+          src={PG01}
+          alt="Acerca de nosotros"
+          class="w-4/5 h-auto max-h-[80%] rounded-lg shadow-lg"
+        />
 
-    <Values />
-
-    <BeliefsDropdown client:visible />
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col justify-center items-center space-y-8">
-        <div>
-          <h1 class="text-4xl font-bold mb-6">
-            ¿En qué creemos?
+        <!-- Sección derecha: Texto -->
+        <div
+          class="flex-1 flex flex-col items-center justify-center text-center bg-white p-6"
+        >
+          <h1 class="text-4xl lg:text-6xl font-bold text-gray-800 mb-4">
+            Acerca de nosotros
           </h1>
-        </div>
-        <div>
-          <article class="prose lg:prose-xl mt-4">
-            <!-- Introducción -->
-            <section>
-              <h2 class="text-2xl mb-4"></h2>
-              <p>
-                Desde 1980, la Iglesia Cristiana Evangélica se encuentra ubicada en Ruta 25 - Av. H. Pueyrredón 2775 (Pilar a Escobar). Su misión principal es la enseñanza de las Sagradas Escrituras, la Biblia, y la predicación del evangelio de Jesucristo. La iglesia está formada por personas que han reconocido su necesidad espiritual, se han arrepentido de sus pecados y han aceptado la gracia salvadora de Dios mediante la fe en Jesucristo.
-              </p>
-            </section>
-          
-            <!-- Misión y Propósito -->
-            <section>
-              <h3 class="text-xl font-semibold mt-6 mb-3">Misión y Propósito</h3>
-              <p>
-                La Iglesia Cristiana Evangélica se dedica a:
-              </p>
-              <ul class="list-disc list-inside ml-4">
-                <li>Predicar el evangelio de Jesucristo según el mandato de Marcos 16:15.</li>
-                <li>Bautizar a los creyentes en el nombre del Padre, del Hijo y del Espíritu Santo.</li>
-                <li>Integrar a los creyentes en la comunión de la iglesia local para la enseñanza, oración y adoración.</li>
-                <li>Seguir la enseñanza bíblica en cuanto al gobierno de la iglesia, liderada por pastores, ancianos y sobreveedores.</li>
-              </ul>
-            </section>
+          <p class="text-lg lg:text-2xl text-gray-600 leading-relaxed">
+            Su misión principal es la enseñanza de las Sagradas Escrituras, la
+            Biblia, y la predicación del evangelio de Jesucristo. La iglesia
+            está formada por personas que han reconocido su necesidad
+            espiritual, se han arrepentido de sus pecados y han aceptado la
+            gracia salvadora de Dios mediante la fe en Jesucristo.
+          </p>
         </div>
       </div>
+
+      <Values />
+
+      <BeliefsDropdown client:visible />
     </div>
   </section>
 </Layout>
