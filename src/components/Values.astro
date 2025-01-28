@@ -3,41 +3,77 @@ import listValues from '../data/values.json'
 ---
 
 <section class="container flex-grow w-full py-4 sm:py-16 mx-auto overflow-hidden relative">
-    <h1
-        class="text-center text-3xl mb-4 uppercase bg-white text-gray-700 mx-auto"
-    >
+    <h1 class="text-center text-3xl mb-4 uppercase bg-white text-gray-700 mx-auto">
         Nuestros Valores
     </h1>
     <div class="mx-auto w-full">
         <div class="container my-8 relative">
+            <!-- Flechas de navegación -->
+            <button 
+                onclick="handleScroll('left')"
+                class="absolute left-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 z-10"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+            </button>
+            
+            <button 
+                onclick="handleScroll('right')"
+                class="absolute right-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 z-10"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+            </button>
+
+            <!-- Fondos degradados -->
             <div class="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-white to-transparent pointer-events-none"></div>
             <div class="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
 
+            <!-- Contenedor scrollable -->
             <div
                 id="scrollContainer"
                 class="flex overflow-x-scroll scrolling-touch items-start p-20 no-scrollbar"
             >
-                {
-                    listValues.map((value) => (
-                        <div class="flex-none h-96 w-80 mr-8 md:p-4 shadow-custom-blue rounded-xl">
-                            <a href="#" class="space-y-4">
-                                <div class="px-8 py-6">
-                                    <div class="leading-6 space-y-1">
-                                        <h3 class="text-2xl font-bold text-gray-800 mb-2">
-                                            {value.title}
-                                        </h3>
-                                    </div>
-                                    <div class="">
-                                        <p class="text-base">
-                                            {value.content}
-                                        </p>
-                                    </div>
+                {listValues.map((value) => (
+                    <div class="flex-none h-96 w-80 mr-8 md:p-4 shadow-custom-blue rounded-xl">
+                        <a href="#" class="space-y-4">
+                            <div class="px-8 py-6">
+                                <div class="leading-6 space-y-1">
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-2">
+                                        {value.title}
+                                    </h3>
                                 </div>
-                            </a>
-                        </div>
-                    ))
-                }
+                                <div class="">
+                                    <p class="text-base">
+                                        {value.content}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                ))}
             </div>
         </div>
     </div>
 </section>
+
+<script is:inline>
+function handleScroll(direction) {
+    const scrollContainer = document.getElementById('scrollContainer');
+    const scrollAmount = 300; // Ajusta este valor según el ancho de tus tarjetas
+    
+    if(direction === 'left') {
+        scrollContainer.scrollBy({
+            left: -scrollAmount,
+            behavior: 'smooth'
+        });
+    } else {
+        scrollContainer.scrollBy({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+    }
+}
+</script>
