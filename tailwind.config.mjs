@@ -64,10 +64,17 @@ export default {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
         },
+		ripple: {
+			'0%': { transform: 'scale(0)', opacity: '0.4' },
+			'100%': { transform: 'scale(4)', opacity: '0' }
+		}
       },
       animation: {
         float: 'float 3s ease-in-out infinite',
+		ripple: 'ripple 0.6s linear'
       },
+
+	  
 
 	plugins: [
 		require('@tailwindcss/typography'),

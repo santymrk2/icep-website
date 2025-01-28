@@ -9,7 +9,7 @@ export const prerender = false;
 ---
 
 <header
-  class="relative h-24 text-black m-4 sm:m-10 rounded-full  z-50"
+  class="relative h-24 text-black m-4 sm:m-10 rounded-full z-50"
   id="back-menu"
 >
   <div
@@ -37,13 +37,85 @@ export const prerender = false;
                 item.subitems === undefined ? (
                   <a
                     href={item.href}
-                    class={`ring ring-2 ring-custom-blue rounded-full px-4 py-2 hover:bg-custom-blue hover:text-white transition-all easy-in-out motion-preset-expand`}
+                    class="
+                      bg-white
+                      text-custom-blue
+                      uppercase
+                      no-underline
+                      border-2
+                      border-custom-blue
+                      rounded-full
+                      py-2
+                      px-4
+                      inline-flex
+                      items-center
+                      text-sm
+                      font-bold
+                      relative
+                      z-10
+                      transition-all
+                      duration-500
+                      ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                      tracking-wide
+                      font-sans
+                      overflow-hidden
+                      before:content-['']
+                      before:absolute
+                      before:top-0
+                      before:right-0
+                      before:w-0
+                      before:h-full
+                      before:bg-custom-blue
+                      before:-z-10
+                      before:transition-all
+                      before:duration-500
+                      before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                      hover:before:w-full
+                      hover:before:left-0
+                      hover:before:right-auto
+                      hover:text-white
+                    "
                   >
                     {item.text}
                   </a>
                 ) : (
                   <Dropdown class="relative">
-                    <button class="flex items-center transition-all easy-in-out space-x-1 motion-preset-expand px-4 py-2 ring ring-2 ring-custom-blue rounded-full hover:bg-custom-blue hover:text-white">
+                    <button class="flex items-center space-x-1 bg-white
+                      text-custom-blue
+                      uppercase
+                      no-underline
+                      border-2
+                      border-custom-blue
+                      rounded-full
+                      py-2
+                      px-4
+                      inline-flex
+                      items-center
+                      text-sm
+                      font-bold
+                      relative
+                      z-10
+                      transition-all
+                      duration-500
+                      ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                      tracking-wide
+                      font-sans
+                      overflow-hidden
+                      before:content-['']
+                      before:absolute
+                      before:top-0
+                      before:right-0
+                      before:w-0
+                      before:h-full
+                      before:bg-custom-blue
+                      before:-z-10
+                      before:transition-all
+                      before:duration-500
+                      before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                      hover:before:w-full
+                      hover:before:left-0
+                      hover:before:right-auto
+                      hover:text-white">
                       <span>{item.text}</span>
                       <svg
                         class="h-5 w-5 transform transition-transform duration-200"
@@ -60,18 +132,57 @@ export const prerender = false;
                       </svg>
                     </button>
                     <DropdownItems
-                      class={`absolute top-16 -left-2 m-2 bg-custom-blue shadow-lg p-4 px-6 z-10 hidden group-hover:block rounded-[2rem] motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%]`}
+                      class={`absolute top-12 -left-2 m-2 bg-white shadow-lg p-6  z-10 ring ring-2 ring-custom-blue hidden group-hover:block rounded-[2.2rem] motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%]`}
                     >
-                      <div class="flex flex-col items-center w-[12rem]">
+                      <div class="flex flex-col items-center w-[12rem] space-y-2">
                         {Array.isArray(item.subitems) &&
                           item.subitems.map(
                             (subitem: { text: string; href: string }) => (
-                              <a
-                                href={subitem.href}
-                                class="inline-block w-full text-white text-center ring ring-2 ring-white rounded-full px-4 py-2 my-2 hover:bg-white hover:text-custom-blue transition-all easy-in-out motion-preset-expand"
-                              >
-                                {subitem.text}
-                              </a>
+                            <a
+                    href={subitem.href}
+                    class="
+                    inline-block
+                    w-full
+                    text-center
+                      bg-white
+                      text-custom-blue
+                      uppercase
+                      no-underline
+                      border-2
+                      border-custom-blue
+                      rounded-full
+                      py-2
+                      px-2
+                      items-center
+                      text-sm
+                      font-bold
+                      relative
+                      z-10
+                      transition-all
+                      duration-500
+                      ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                      tracking-wide
+                      font-sans
+                      overflow-hidden
+                      before:content-['']
+                      before:absolute
+                      before:top-0
+                      before:right-0
+                      before:w-0
+                      before:h-full
+                      before:bg-custom-blue
+                      before:-z-10
+                      before:transition-all
+                      before:duration-500
+                      before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                      hover:before:w-full
+                      hover:before:left-0
+                      hover:before:right-auto
+                      hover:text-white
+                    "
+                  >
+                    {subitem.text}
+                  </a>
                             ),
                           )}
                       </div>
@@ -86,13 +197,13 @@ export const prerender = false;
 
       <button
         id="mobile-menu-button"
-        class="lg:hidden m-2 sm:m-1 ring ring-2 ring-white rounded-full group hover:ring-0 hover:bg-white transition-all easy-in-out group inline-flex w-12 h-12 text-slate-800 bg-white text-center items-center justify-center shadow-[0_1px_0_theme(colors.slate.950/.04),0_1px_2px_theme(colors.slate.950/.12),inset_0_-2px_0_theme(colors.slate.950/.04)] hover:shadow-[0_1px_0_theme(colors.slate.950/.04),0_4px_8px_theme(colors.slate.950/.12),inset_0_-2px_0_theme(colors.slate.950/.04)] transition"
+        class="lg:hidden m-2 sm:m-1 rounded-full group transition-all easy-in group inline-flex w-12 h-12 text-slate-800 bg-white text-center items-center justify-center transition"
         aria-pressed="false"
         onclick="this.setAttribute('aria-pressed', !(this.getAttribute('aria-pressed') === 'true'))"
       >
         <span class="sr-only">Menu</span>
         <svg
-          class="w-6 h-6 fill-custom-blue pointer-events-none"
+          class="w-8 h-8 fill-custom-blue pointer-events-none"
           viewBox="0 0 16 16"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -116,26 +227,6 @@ export const prerender = false;
             rx="1"></rect>
         </svg>
       </button>
-
-      {
-        /* 
-      <button
-        class="flex justify-center items-center lg:hidden m-2 sm:m-1 p-2 w-12 h-12 bg-cutom-blue ring ring-2 ring-white rounded-full group hover:ring-0 hover:bg-white transition-all easy-in-out"
-        
-      >
-        <svg
-          class="h-6 w-6 stroke-white group-hover:stroke-custom-blue transition-all easy-in-out"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-      */
-      }
     </div>
   </div>
 
@@ -148,15 +239,92 @@ export const prerender = false;
       {
         menuItems.map((item) =>
           item.subitems === undefined ? (
-            <a
-              href={item.href}
-              class="inline-block text-center px-2 py-1 text-normal w-8/12 sm:w-4/12 hover:text-custom-blue hover:bg-white rounded-full ring ring-2 ring-white motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%] transition-all easy-in-out"
-            >
-              {item.text}
-            </a>
+          <a
+                    href={item.href}
+                    class="
+                      w-8/12
+                      inline-block
+                      text-center
+                      bg-white
+                      text-custom-blue
+                      uppercase
+                      no-underline
+                      border-2
+                      border-custom-blue
+                      rounded-full
+                      py-2
+                      px-4
+                      items-center
+                      text-sm
+                      font-bold
+                      relative
+                      z-10
+                      transition-all
+                      duration-500
+                      ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                      tracking-wide
+                      font-sans
+                      overflow-hidden
+                      before:content-['']
+                      before:absolute
+                      before:top-0
+                      before:right-0
+                      before:w-0
+                      before:h-full
+                      before:bg-custom-blue
+                      before:-z-10
+                      before:transition-all
+                      before:duration-500
+                      before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                      hover:before:w-full
+                      hover:before:left-0
+                      hover:before:right-auto
+                      hover:text-white
+                    "
+                  >
+                    {item.text}
+                  </a>
           ) : (
-            <Dropdown class="flex flex-col justify-center w-8/12 sm:w-4/12 motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%] transition-all easy-in-out">
-              <button class="block rounded-full text-medium px-2 py-1 text-center flex flex-row justify-center items-center hover:text-custom-blue hover:bg-white  ring ring-2 ring-white transition-all easy-in-out">
+            <Dropdown class="flex flex-col justify-center w-8/12 sm:w-4/12 motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%] transition-all easy-in">
+              <button class="
+              block rounded-full text-custom-blue    flex flex-row justify-center items-center
+                      inline-block
+                      text-center
+                      bg-white
+                      text-custom-blue
+                      uppercase
+                      no-underline
+                      border-2
+                      border-custom-blue
+                      rounded-full
+                      py-2
+                      px-4
+                      items-center
+                      text-sm
+                      font-bold
+                      relative
+                      z-10
+                      transition-all
+                      duration-500
+                      ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                      tracking-wide
+                      font-sans
+                      overflow-hidden
+                      before:content-['']
+                      before:absolute
+                      before:top-0
+                      before:right-0
+                      before:w-0
+                      before:h-full
+                      before:bg-custom-blue
+                      before:-z-10
+                      before:transition-all
+                      before:duration-500
+                      before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                      hover:before:w-full
+                      hover:before:left-0
+                      hover:before:right-auto
+                      hover:text-white">
                 <span>{item.text}</span>
                 <svg
                   class="h-5 w-5 transform transition-transform duration-200"
@@ -172,16 +340,55 @@ export const prerender = false;
                   />
                 </svg>
               </button>
-              <DropdownItems class="mt-2 space-y-3 bg-white shadow-lg rounded-[1.5rem] p-4 mb-2 z-10 hidden group-hover:block flex flex-col justify-center motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%]">
+              <DropdownItems class="mt-5 p-4 ring ring-2 ring-custom-blue space-y-3 bg-white shadow-lg rounded-[1.5rem]  z-10 hidden group-hover:block flex flex-col justify-center motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%]">
                 {Array.isArray(item.subitems) &&
                   item.subitems.map(
                     (subitem: { text: string; href: string }) => (
-                      <a
-                        href={subitem.href}
-                        class="block text-center text-normal mx-2 px-2 py-1 ring ring-2 ring-custom-blue rounded-full text-custom-blue hover:bg-custom-blue hover:text-white transition-all easy-in-out motion-preset-expand"
-                      >
-                        {subitem.text}
-                      </a>
+                    <a
+                    href={subitem.href}
+                    class="
+                    text-center
+                      bg-white
+                      text-custom-blue
+                      uppercase
+                      no-underline
+                      border-2
+                      border-custom-blue
+                      rounded-full
+                      py-2
+                      px-4
+                      block
+                      items-center
+                      text-sm
+                      font-bold
+                      relative
+                      z-10
+                      transition-all
+                      duration-500
+                      ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                      tracking-wide
+                      font-sans
+                      overflow-hidden
+                      before:content-['']
+                      before:absolute
+                      before:top-0
+                      before:right-0
+                      before:w-0
+                      before:h-full
+                      before:bg-custom-blue
+                      before:-z-10
+                      before:transition-all
+                      before:duration-500
+                      before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                      hover:before:w-full
+                      hover:before:left-0
+                      hover:before:right-auto
+                      hover:text-white
+                    "
+                  >
+                    {subitem.text}
+                  </a>
+
                     ),
                   )}
               </DropdownItems>
@@ -204,15 +411,5 @@ export const prerender = false;
     back?.classList.toggle("rounded-xl");
     back?.classList.toggle("transition-opacity");
     back?.classList.toggle("h-auto");
-  });
-  {
-    /*
-      window.onbeforeunload = function (e) {
-    menu?.classList.toggle("hidden");
-    back?.classList.toggle("rounded-xl");
-    back?.classList.toggle("transition-opacity");
-    back?.classList.toggle("h-auto");
-  };
-    */
-  }
+  })
 </script>
