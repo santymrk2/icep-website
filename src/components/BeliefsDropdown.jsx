@@ -21,7 +21,7 @@ const Accordion = () => {
         {items.map((item, index) => (
           <div key={index} className="p-4 bg-custom-blue rounded-xl">
             <button
-              className="w-full flex justify-between items-center text-white text-left  font-medium py-2 focus:outline-none"
+              className="w-full flex justify-between items-center text-white text-left  font-medium py-2 px-4 focus:outline-none"
               onClick={() => toggleAccordion(index)}
             >
               {item.title}
@@ -41,7 +41,7 @@ const Accordion = () => {
                 activeIndex === index ? 'max-h-40' : 'max-h-0'
               }`}
             >
-              <p className="text-white mt-2">{item.content}</p>
+              <p className="text-white mt-2 p-2">{item.content}</p>
             </div>
           </div>
         ))}
