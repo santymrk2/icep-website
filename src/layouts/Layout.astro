@@ -2,6 +2,7 @@
 import '@fontsource-variable/space-grotesk'
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.jsx';
 
 interface Props {
   title: string;
@@ -22,7 +23,7 @@ const { title, description = "Iglesia Cristiana Evangélica en Pilar - Sitio Ofi
     <title>{title}</title>
   </head>
   <body class="min-h-screen font-sans bg-white">
-    <Header />
+    <Navbar client:idle/>
     <slot />
     <Footer/>
   </body>
