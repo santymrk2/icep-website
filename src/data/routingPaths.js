@@ -26,7 +26,7 @@ const Paths = [
       subitems: undefined,
     },
     {
-      text: "Contacto",
+      text: "Contactanos",
       href: "/contacto",
       subitems: undefined,
     },

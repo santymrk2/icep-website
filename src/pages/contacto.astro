@@ -6,128 +6,81 @@ export const prerender = true;
 <Layout title="Contacto | ICEP">
   <section class=" py-12 ">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold text-center font-playfair">Contacto</h1>
+      <h1 class="text-4xl font-bold text-center font-playfair">Contactanos</h1>
     </div>
   </section>
 
-  <section class="py-12 bg-slate-50 rounded-xl m-4 sm:m-10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-2 gap-12">
-      {/*
-        <div>
-          <h2 class="text-2xl font-playfair text-accent mb-8">Formulario de Contacto</h2>
-          <form class="space-y-6" action="/api/contact" method="POST">
-            <div>
-              <label for="name" class="block text-sm font-medium text-gray-700">
-                Nombre y Apellido
-              </label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                required
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-              />
-            </div>
-
-            <div>
-              <label for="email" class="block text-sm font-medium text-gray-700">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                required
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-              />
-            </div>
-
-            <div>
-              <label for="subject" class="block text-sm font-medium text-gray-700">
-                Asunto
-              </label>
-              <input
-                type="text"
-                name="subject"
-                id="subject"
-                required
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-              />
-            </div>
-
-            <div>
-              <label for="message" class="block text-sm font-medium text-gray-700">
-                Mensaje
-              </label>
-              <textarea
-                name="message"
-                id="message"
-                rows="6"
-                required
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-              ></textarea>
-            </div>
-
-            <button
-              type="submit"
-              class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-accent transition-colors duration-200"
-            >
-              Enviar Mensaje
-            </button>
-          </form>
-        </div>
-                  </div>*/}
-
-        <div>
-          <h2 class="text-2xl font-playfair text-accent mb-8">Información de Contacto</h2>
-          
-          <div class="space-y-6">
-            <div class="flex items-start">
-              <div class="flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-5 fill-custom-blue">
-                  <path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"  />
-                </svg>
+  <section class="py-12 rounded-xl m-4 sm:m-10">
+    <div class="max-w-7xl">
+        <div>          
+          <div class="flex  flex-col justify-center items-center gap-8 md:flex-row md:gap-12 ">
+            <a href="https://maps.app.goo.gl/TEdvqX2pNJz34sfn8">
+              <div class="flex flex-col justify-center items-center w-40">
+                <div class="">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-12 fill-custom-blue">
+                    <path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"  />
+                  </svg>
+                </div>
+                <div class="mt-3">
+                  <h3 class="text-lg font-medium text-gray-900 text-center">Dirección</h3>
+                  <p class="text-gray-600 text-center">
+                    Av. Dr. Honorio Pueyrredón 2775, <br/>
+                    Pilar, Buenos Aires
+                  </p>
+                </div>
               </div>
-              <div class="ml-3">
-                <h3 class="text-lg font-medium text-gray-900">Dirección</h3>
-                <p class="mt-1 text-gray-600">
-                  Av. Dr. Honorio Pueyrredón 2775, Pilar<br />
-                  Buenos Aires, Argentina
-                </p>
-              </div>
-            </div>
+            </a>
 
-            <div class="flex items-start">
-              <div class="flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-5 fill-custom-blue">
-                  <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
-                  <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
-                </svg>
+            <a href="mailto:info@icepilar.org">
+              <div class="flex flex-col justify-center items-center w-40">
+                <div class="">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-12 fill-custom-blue">
+                    <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
+                    <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
+                  </svg>
+                </div>
+                <div class="mt-3">
+                  <h3 class="text-lg font-medium text-gray-900 text-center">Email</h3>
+                  <p class="text-gray-600 text-center">
+                    info@icepilar.org
+                  </p>
+                </div>
               </div>
-              <div class="ml-3">
-                <h3 class="text-lg font-medium text-gray-900">Email</h3>
-                <a href="mailto:info@icepilar.org" class="mt-1 text-primary hover:text-accent">
-                  info@icepilar.org
-                </a>
+            </a>
+
+            <a href="https://www.youtube.com/@icepilar">
+              <div class="flex flex-col justify-center items-center w-40">
+                <div class="flex-shrink-0">
+                  <svg class="size-12 fill-custom-blue" fill="" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                </div>
+                <div class="mt-3">
+                  <h3 class="text-lg font-medium text-gray-900 text-center">Youtube</h3>
+                  <p class="text-gray-600 text-center">
+                    @icepilar
+                  </p>
+                </div>
               </div>
-            </div>
+            </a>
 
 
-          <div class="mt-12">
-            <div class="aspect-w-16 aspect-h-9">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3290.8116776545207!2d-58.9129872!3d-34.4587799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bc9d0a8b6bea3b%3A0x8f6a1a0b5f8c0a0e!2sAv.%20Dr.%20Honorio%20Pueyrred%C3%B3n%202775%2C%20B1631FZJ%20Pilar%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1625147200000!5m2!1ses!2sar"
-                width="100%"
-                height="450"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                class="rounded-lg shadow-lg"
-              ></iframe>
-            </div>
+            <a href="https://maps.app.goo.gl/TEdvqX2pNJz34sfn8">
+              <div class="flex flex-col justify-center items-center w-40">
+                <div class="0">
+                  <svg class="size-12 fill-custom-blue" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/>
+                    <path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.25a1.25 1.25 0 0 0-2.5 0 1.25 1.25 0 0 0 2.5 0zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
+                  </svg>
+                </div>
+                <div class="mt-3">
+                  <h3 class="text-lg font-medium text-gray-900 text-center">Instagram</h3>
+                  <p class="text-gray-600 text-center">
+                    @ice_pilar
+                  </p>
+                </div>
+              </div>
+            </a>
           </div>
-        </div>
       </div>
     </div>
   </section>

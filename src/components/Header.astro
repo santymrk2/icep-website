@@ -15,6 +15,7 @@ export const prerender = false;
   <div
     class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex h-full text-base font-normal"
   >
+    <!-- Navbar desktop -->
     <div class="flex justify-between items-center w-full">
       <div class="flex items-center m-2">
         <a href="/" class="flex items-center">
@@ -80,7 +81,8 @@ export const prerender = false;
                   </a>
                 ) : (
                   <Dropdown class="relative">
-                    <button class="flex items-center space-x-1 bg-white
+                    <button
+                      class="flex items-center space-x-1 bg-white
                       text-custom-blue
                       uppercase
                       no-underline
@@ -115,7 +117,8 @@ export const prerender = false;
                       hover:before:w-full
                       hover:before:left-0
                       hover:before:right-auto
-                      hover:text-white">
+                      hover:text-white"
+                    >
                       <span>{item.text}</span>
                       <svg
                         class="h-5 w-5 transform transition-transform duration-200"
@@ -138,9 +141,9 @@ export const prerender = false;
                         {Array.isArray(item.subitems) &&
                           item.subitems.map(
                             (subitem: { text: string; href: string }) => (
-                            <a
-                    href={subitem.href}
-                    class="
+                              <a
+                                href={subitem.href}
+                                class="
                     inline-block
                     w-full
                     text-center
@@ -180,9 +183,9 @@ export const prerender = false;
                       hover:before:right-auto
                       hover:text-white
                     "
-                  >
-                    {subitem.text}
-                  </a>
+                              >
+                                {subitem.text}
+                              </a>
                             ),
                           )}
                       </div>
@@ -197,13 +200,13 @@ export const prerender = false;
 
       <button
         id="mobile-menu-button"
-        class="lg:hidden m-2 sm:m-1 rounded-full group transition-all easy-in group inline-flex w-12 h-12 text-slate-800 bg-white text-center items-center justify-center transition"
+        class="lg:hidden m-2 lg:m-1 rounded-full group transition-all easy-in group inline-flex w-12 h-12 text-slate-800 bg-white text-center items-center justify-center transition"
         aria-pressed="false"
         onclick="this.setAttribute('aria-pressed', !(this.getAttribute('aria-pressed') === 'true'))"
       >
         <span class="sr-only">Menu</span>
         <svg
-          class="w-8 h-8 fill-custom-blue pointer-events-none"
+          class="size-8 fill-custom-blue pointer-events-none"
           viewBox="0 0 16 16"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -239,9 +242,9 @@ export const prerender = false;
       {
         menuItems.map((item) =>
           item.subitems === undefined ? (
-          <a
-                    href={item.href}
-                    class="
+            <a
+              href={item.href}
+              class="
                       w-8/12
                       inline-block
                       text-center
@@ -281,13 +284,14 @@ export const prerender = false;
                       hover:before:right-auto
                       hover:text-white
                     "
-                  >
-                    {item.text}
-                  </a>
+            >
+              {item.text}
+            </a>
           ) : (
-            <Dropdown class="flex flex-col justify-center w-8/12 sm:w-4/12 motion-scale-in-[0.42] motion-translate-x-in-[2%] motion-translate-y-in-[-30%] motion-opacity-in-[0%] transition-all easy-in">
-              <button class="
-              block rounded-full text-custom-blue    flex flex-row justify-center items-center
+            <Dropdown class="flex flex-col justify-center w-8/12  transition-all easy-in">
+              <button
+                class="
+              block rounded-full text-custom-blue flex flex-row justify-center items-center
                       inline-block
                       text-center
                       bg-white
@@ -324,7 +328,8 @@ export const prerender = false;
                       hover:before:w-full
                       hover:before:left-0
                       hover:before:right-auto
-                      hover:text-white">
+                      hover:text-white"
+              >
                 <span>{item.text}</span>
                 <svg
                   class="h-5 w-5 transform transition-transform duration-200"
@@ -344,9 +349,9 @@ export const prerender = false;
                 {Array.isArray(item.subitems) &&
                   item.subitems.map(
                     (subitem: { text: string; href: string }) => (
-                    <a
-                    href={subitem.href}
-                    class="
+                      <a
+                        href={subitem.href}
+                        class="
                     text-center
                       bg-white
                       text-custom-blue
@@ -385,10 +390,9 @@ export const prerender = false;
                       hover:before:right-auto
                       hover:text-white
                     "
-                  >
-                    {subitem.text}
-                  </a>
-
+                      >
+                        {subitem.text}
+                      </a>
                     ),
                   )}
               </DropdownItems>
@@ -411,5 +415,5 @@ export const prerender = false;
     back?.classList.toggle("rounded-xl");
     back?.classList.toggle("transition-opacity");
     back?.classList.toggle("h-auto");
-  })
+  });
 </script>
