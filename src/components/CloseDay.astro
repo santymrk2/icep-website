@@ -98,14 +98,14 @@ try{
   }
 }
 
+export const prerender = true;
 ---
 
 <div class="flex flex-col justify-center items-center p-8 m-8 gap-6 mx-4 sm:mx-10">
   {notionPages ? (
     <h2 class="text-2xl font-bold text-center">Nuestro próximo encuentro es:</h2>
-    <div class="relative">
-      <h1 class={`absolute text-5xl p-6 sm:text-7xl blur-3xl bg-${backColor} font-bold text-center`}>{pageType}</h1>
-      <h1 class={`relative text-5xl p-6 sm:text-7xl font-bold text-center`} >{pageType}</h1>
+    <div class={`ring ring-4 ring-${backColor} shadow-xl shadow-${backColor}/60 rounded-full md:p-2`}>
+      <h1 class={`text-5xl p-6 sm:text-7xl font-bold text-center `} >{pageType}</h1>
     </div>
     <p class="text-center">{pageDate}</p>
   ) : console.log("No se encuentran datos")
