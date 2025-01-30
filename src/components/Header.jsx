@@ -131,37 +131,34 @@ const Navbar = () => {
                             </ul>
                         </nav>
                     </div>
-
                     <button
-                        className={`lg:hidden m-2 rounded-full group transition-all easy-in inline-flex w-12 h-12 text-slate-800 bg-white text-center items-center justify-center ${isMenuOpen ? "aria-pressed" : ""
-                            }`}
+                        id="mobile-menu-button"
+                        className="lg:hidden m-2 sm:m-1 rounded-full group transition-all ease-in-out inline-flex w-12 h-12 text-slate-800 text-center items-center justify-center"
                         aria-pressed={isMenuOpen}
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
                         <span className="sr-only">Menu</span>
                         <svg
-                            className="size-8 fill-custom-blue pointer-events-none"
+                            className="w-8 h-8 fill-custom-blue pointer-events-none"
                             viewBox="0 0 16 16"
+                            xmlns="http://www.w3.org/2000/svg"
                         >
                             <rect
-                                className={`origin-center -translate-y-[5px] translate-x-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] ${isMenuOpen ? "translate-x-0 translate-y-0 rotate-[315deg]" : ""
-                                    }`}
+                                className="origin-center -translate-y-[5px] translate-x-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-x-0 group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:rotate-[315deg]"
                                 y="7"
                                 width="9"
                                 height="2"
                                 rx="1"
                             />
                             <rect
-                                className={`origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] ${isMenuOpen ? "rotate-45" : ""
-                                    }`}
+                                className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-[[aria-pressed=true]]:rotate-45"
                                 y="7"
                                 width="16"
                                 height="2"
                                 rx="1"
                             />
                             <rect
-                                className={`origin-center translate-y-[5px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] ${isMenuOpen ? "translate-y-0 -rotate-[225deg]" : ""
-                                    }`}
+                                className="origin-center translate-y-[5px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:-rotate-[225deg]"
                                 y="7"
                                 width="9"
                                 height="2"
@@ -169,6 +166,8 @@ const Navbar = () => {
                             />
                         </svg>
                     </button>
+
+
                 </div>
             </div>
 
@@ -233,3 +232,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

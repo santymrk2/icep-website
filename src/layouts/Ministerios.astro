@@ -1,6 +1,6 @@
 ---
 import "@fontsource-variable/space-grotesk";
-import Header from "../components/Header.astro";
+import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.astro";
 import { ClientRouter } from "astro:transitions";
 
@@ -65,7 +65,7 @@ export const prerender = true;
     */}    
   </head>
   <body class="min-h-screen font-sans bg-white">
-    <Header transition:persist />
+    <Header transition:persist client:idle />
     <main
       class="flex flex-col shadow-lg rounded-xl bg-white m-5 sm:m-10"
       transition:animate="slide"

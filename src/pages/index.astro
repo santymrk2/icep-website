@@ -1,111 +1,162 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Services from '../components/Services.astro';
-import Contact from '../components/Contact.astro';
-import CloseDay from '../components/CloseDay.astro';
-import {Image} from 'astro:assets';
-import PG01 from '../assets/PG01.webp';
-import PG02 from '../assets/PG02.webp';
-import PG03 from '../assets/PG03.webp';
+import Layout from "../layouts/Layout.astro";
+import Services from "../components/Services.astro";
+import Contact from "../components/Contact.astro";
+import CloseDay from "../components/CloseDay.astro";
+import { Image } from "astro:assets";
+import PG01 from "../assets/PG01.webp";
+import PG02 from "../assets/PG02.webp";
+import PG03 from "../assets/PG03.webp";
 
 export const prerender = true;
 ---
+
 <Layout title="ICEP | Iglesia Complejo Evangélico Pilar">
   <main>
-    <section class="py-16 flex justify-center items-center h-[calc(100vh-20rem)]">
-      <CloseDay cliente:only/>
+    <section
+      class="py-16 flex justify-center items-center h-[calc(100vh-20rem)]"
+    >
+      <CloseDay cliente:only />
     </section>
     <section class="py-16">
       <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <div id="container-carousel" class="mx-auto rounded-2xl relative w-10/12 h-10/12 bg-gray-100 overflow-hidden animate-float">
-            <div id="slider" class=" w-[300%] h-[100%] flex transition-transform easy-out duration-500">
-              <section class="slider-section w-[calc(100%/3)] h-full ">
+          <div
+            id="container-carousel"
+            class="mx-auto rounded-2xl relative w-10/12 h-10/12 bg-gray-100 overflow-hidden animate-float"
+          >
+            <div
+              id="slider"
+              class="w-[300%] h-[100%] flex transition-transform easy-out duration-500"
+            >
+              <section class="slider-section w-[calc(100%/3)] h-full">
                 <Image
                   src={PG01}
-                  alt="Imagen de personas" 
+                  alt="Imagen de personas"
                   class="w-full h-full fit-cover rounded-2xl drop-shadow-3xl"
                 />
               </section>
-              <section class=" slider-section w-[calc(100%/3)] h-full transition-transform easy-out">
+              <section
+                class="slider-section w-[calc(100%/3)] h-full transition-transform easy-out"
+              >
                 <Image
                   src={PG02}
-                  alt="Imagen de personas" 
+                  alt="Imagen de personas"
                   class="w-full h-full fit-cover rounded-2xl drop-shadow-3xl"
                 />
               </section>
-              <section class=" slider-section w-[calc(100%/3)] h-full transition-transform easy-out">
+              <section
+                class="slider-section w-[calc(100%/3)] h-full transition-transform easy-out"
+              >
                 <Image
                   src={PG03}
-                  alt="Imagen de personas" 
+                  alt="Imagen de personas"
                   class="w-full h-full fit-cover rounded-2xl drop-shadow-3xl"
                 />
               </section>
             </div>
-            <div id="btn-left" class="flex absolute left-[5px] sm:left-[10px] top-1/2 -translate-y-1/2 bg-transparent p-2 pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="size-6">
-                <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+            <div
+              id="btn-left"
+              class="flex absolute left-[5px] sm:left-[10px] top-1/2 -translate-y-1/2 bg-transparent p-2 pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="white"
+                class="size-6"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z"
+                  clip-rule="evenodd"></path>
               </svg>
-              
             </div>
-            <div id="btn-right" class="flex absolute right-[5px] sm:right-[10px] top-1/2 -translate-y-1/2 bg-transparent p-2 pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="size-6">
-                <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
-              </svg>              
+            <div
+              id="btn-right"
+              class="flex absolute right-[5px] sm:right-[10px] top-1/2 -translate-y-1/2 bg-transparent p-2 pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="white"
+                class="size-6"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
+                  clip-rule="evenodd"></path>
+              </svg>
             </div>
           </div>
-          
+
           <div class="flex flex-col justify-center mx-4 sm:mx-6 lg:mx-8">
             <h1 class="text-4xl font-playfair text-accent mb-6">
               Bienvenido a la Iglesia Cristiana Evangélica en Pilar
             </h1>
-            
+
             <p class="text-gray-600 mb-6">
-              Nos congregamos al sólo Nombre del Señor Jesucristo y el salón de reuniones 
-              se encuentra en el conocido Complejo Evangélico Pilar.
-            </p>
-            
-            <p class="text-gray-600">
-              Lo que sabemos, es de vital importancia, es que usted sepa que Dios le ama tanto, 
-              que viéndonos como a Su creación caída en pecados y delitos, envió a su Hijo 
-              Unigénito para dar testimonio de Dios y Su amor.
+              Nos congregamos al sólo Nombre del Señor Jesucristo y el salón de
+              reuniones se encuentra en el conocido Complejo Evangélico Pilar.
             </p>
 
+            <p class="text-gray-600">
+              Lo que sabemos, es de vital importancia, es que usted sepa que
+              Dios le ama tanto, que viéndonos como a Su creación caída en
+              pecados y delitos, envió a su Hijo Unigénito para dar testimonio
+              de Dios y Su amor.
+            </p>
           </div>
         </div>
       </div>
     </section>
-    
+
     <Services />
-    <Contact />
+
+    <section class="shadow-lg py-16 mx-4 my-16 sm:mx-10 rounded-xl">
+      <div
+        class="flex flex-col justify-center items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-playfair text-accent mb-4">Contáctanos</h2>
+          <p class="text-gray-600">Estamos acá para responder tus preguntas</p>
+        </div>
+        <div>
+          <a
+            href="/contacto"
+            class="text-white text-center bg-custom-blue p-4 rounded-full"
+            >Quiero contactarme</a
+          >
+        </div>
+      </div>
+    </section>
   </main>
 </Layout>
 
 <script>
-const btnLeft = document.getElementById("btn-left"),
-      btnRight = document.getElementById("btn-right"),
-      slider = document.getElementById("slider"),
-      sliderSections = document.querySelectorAll(".slider-section");
+  const btnLeft = document.getElementById("btn-left"),
+    btnRight = document.getElementById("btn-right"),
+    slider = document.getElementById("slider"),
+    sliderSections = document.querySelectorAll(".slider-section");
 
-let counter = 0;
-const widthImg = 100 / sliderSections.length;
+  let counter = 0;
+  const widthImg = 100 / sliderSections.length;
 
-function moveToRight() {
-  counter = (counter + 1) % sliderSections.length;
-  if(slider){
-    slider.style.transform = `translateX(-${counter * widthImg}%)`;
+  function moveToRight() {
+    counter = (counter + 1) % sliderSections.length;
+    if (slider) {
+      slider.style.transform = `translateX(-${counter * widthImg}%)`;
+    }
   }
-}
 
-function moveToLeft() {
-  counter = (counter - 1 + sliderSections.length) % sliderSections.length;
-  if(slider){
-    slider.style.transform = `translateX(-${counter * widthImg}%)`;
+  function moveToLeft() {
+    counter = (counter - 1 + sliderSections.length) % sliderSections.length;
+    if (slider) {
+      slider.style.transform = `translateX(-${counter * widthImg}%)`;
+    }
   }
-}
 
-btnLeft?.addEventListener("click", moveToLeft);
-btnRight?.addEventListener("click", moveToRight);
+  btnLeft?.addEventListener("click", moveToLeft);
+  btnRight?.addEventListener("click", moveToRight);
 
-setInterval(moveToRight, 4000);
+  setInterval(moveToRight, 4000);
 </script>
