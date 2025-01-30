@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import items from '../data/beliefs.json'
   
-const Accordion = () => {
+const Beliefs = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
 
   const toggleAccordion = (index) => {
@@ -38,10 +38,10 @@ const Accordion = () => {
             </button>
             <div
               className={`overflow-hidden transition-all duration-300 ${
-                activeIndex === index ? 'max-h-40' : 'max-h-0'
+                activeIndex === index ? 'max-h-70' : 'max-h-0'
               }`}
             >
-              <p className="text-white mt-2 p-2">{item.content}</p>
+              <p className="text-white m-4">{item.content}</p>
             </div>
           </div>
         ))}
@@ -50,4 +50,4 @@ const Accordion = () => {
   );
 };
 
-export default Accordion;
+export default Beliefs;
