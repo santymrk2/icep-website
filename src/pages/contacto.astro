@@ -4,12 +4,22 @@ export const prerender = true;
 ---
 
 <Layout title="Contacto | ICEP">
-  <section class="py-16 mx-4 my-16 sm:mx-10 rounded-xl flex flex-col justify-center">
-    <div class="flex flex-col md:flex-row gap-24 m-2 md:items-center max-w-screen-lg mx-auto">
+  <!-- Seccion Direcccion -->
+
+  <section
+    class="py-16 mx-4 my-16 sm:mx-10 rounded-xl flex flex-col justify-center"
+  >
+    <div
+      class="flex flex-col md:flex-row gap-24 m-2 md:items-center max-w-screen-lg mx-auto"
+    >
       <!-- Contenedor del texto (Aparece arriba en móviles, a la derecha en desktop) -->
-      <div class="flex flex-col justify-center items-start max-w-7xl mx-auto order-2 md:order-1 text-center md:text-left">
-        <div class="text-left mb-12 mx-4 ">
-          <h1 class="text-4xl font-bold font-playfair">Visítanos en nuestra iglesia</h1>
+      <div
+        class="flex flex-col justify-center items-start max-w-7xl mx-auto order-2 md:order-1 text-left md:text-left"
+      >
+        <div class="text-left mb-12 mx-4">
+          <h1 class="text-4xl font-bold font-playfair">
+            Visítanos en nuestra iglesia
+          </h1>
           <p class="text-gray-600 mt-3">
             Estamos todos los domingos a las 10:00hs o los miércoles a las
             20:00hs
@@ -43,7 +53,7 @@ export const prerender = true;
           </a>
         </div>
       </div>
-  
+
       <!-- Contenedor del mapa (Aparece abajo en móviles, a la izquierda en desktop) -->
       <div class="order-2 md:order-2 flex justify-center w-full">
         <div class="aspect-w-16 aspect-h-9 w-full max-w-xl mx-auto">
@@ -54,18 +64,75 @@ export const prerender = true;
             style="border:0;"
             allowfullscreen=""
             loading="lazy"
-            class="rounded-lg shadow-lg"
-          ></iframe>
+            class="rounded-lg shadow-lg"></iframe>
         </div>
       </div>
     </div>
   </section>
-  
+
+  <!-- Seccion Youtube -->
+
+  <section
+    class="py-16 mx-4 my-16 sm:mx-10 rounded-xl flex flex-col justify-center"
+  >
+    <div
+      class="flex flex-col md:flex-row gap-24 m-2 md:items-center max-w-screen-lg mx-auto"
+    >
+      <!-- Contenedor del texto (Aparece arriba en móviles, a la derecha en desktop) -->
+      <div
+        class="flex flex-col justify-center items-start max-w-7xl mx-auto order-1 md:order-2 text-left md:text-left"
+      >
+        <div class="text-left mb-12 mx-4">
+          <h1 class="text-4xl font-bold font-playfair">Nuestro Youtube</h1>
+          <p class="text-gray-600 mt-3">
+            Tambien podes acceder a nuestras reuniones en vivo a través de
+            nuestro canal de Youtube
+          </p>
+        </div>
+        <div class="px-3">
+          <a href="https://www.youtube.com/@icepilar">
+            <div class="flex flex-row gap-4 justify-center items-center">
+              <div>
+                <svg
+                  class="size-12 fill-custom-blue"
+                  fill=""
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="">
+                <h3 class="text-lg font-medium text-gray-900 text-left">
+                  Youtube
+                </h3>
+                <p class="text-gray-600 text-left">@icepilar</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="order-1 md:order-1 flex justify-center w-full">
+        <div class="aspect-w-16 aspect-h-9 w-full max-w-xl mx-auto">
+          <iframe
+            src="https://youtu.be/b2eudGDe5J8?si=V6qtZKs0rDQQ9vCt"
+            width="100%"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            class="rounded-lg shadow-lg"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="py-12 rounded-xl m-4 sm:m-10">
     <div class="shadow-lg rounded-xl p-16 bg-white">
       <div
-        class="flex flex-col justify-center items-center gap-8 sm:flex-row sm:gap-12"
+        class="flex flex-col justify-center items-center gap-8 md:flex-row md:gap-12"
       >
         <a href="mailto:info@icepilar.org">
           <div class="flex flex-col justify-center items-center w-40">
@@ -92,18 +159,39 @@ export const prerender = true;
           </div>
         </a>
 
-        <a href="https://www.youtube.com/@icepilar">
+        <a href="https://es-la.facebook.com/">
           <div class="flex flex-col justify-center items-center w-40">
             <div class="flex-shrink-0">
-              <svg class="size-12 fill-custom-blue" fill="" viewBox="0 0 24 24">
-                <path
-                  d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
-                ></path>
-              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-12 fill-custom-blue"
+                viewBox="-5 0 20 20"
+                ><path
+                  d="M6.821 20v-9h2.733L10 7H6.821V5.052C6.821 4.022 6.848 3 8.287 3h1.458V.14c0-.043-1.253-.14-2.52-.14C4.58 0 2.924 1.657 2.924 4.7V7H0v4h2.923v9h3.898Z"
+                ></path></svg
+              >
             </div>
             <div class="mt-3">
               <h3 class="text-lg font-medium text-gray-900 text-center">
-                Youtube
+                Facebook
+              </h3>
+              <p class="text-gray-600 text-center">@icepilar</p>
+            </div>
+          </div>
+        </a>
+
+        <a href="/">
+          <div class="flex flex-col justify-center items-center w-40">
+            <div class="flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-12 fill-custom-blue" viewBox="0 0 32 32"
+              ><path
+                d="M16.656 1.029c1.637-.025 3.262-.012 4.886-.025a7.762 7.762 0 0 0 2.189 5.213l-.002-.002A8.77 8.77 0 0 0 29 8.45l.028.002v5.036a13.327 13.327 0 0 1-5.331-1.247l.082.034a15.385 15.385 0 0 1-2.077-1.196l.052.034c-.012 3.649.012 7.298-.025 10.934a9.513 9.513 0 0 1-1.707 4.954l.02-.031c-1.652 2.366-4.328 3.919-7.371 4.011h-.014a9.071 9.071 0 0 1-5.139-1.31l.04.023C5.05 28.185 3.32 25.603 3 22.6l-.004-.041a23.163 23.163 0 0 1-.012-1.862c.49-4.779 4.494-8.476 9.361-8.476.547 0 1.083.047 1.604.136l-.056-.008c.025 1.849-.05 3.699-.05 5.548a4.29 4.29 0 0 0-5.465 2.619l-.009.03c-.133.427-.21.918-.21 1.426 0 .206.013.41.037.61l-.002-.024a4.26 4.26 0 0 0 4.382 3.586h-.009a4.198 4.198 0 0 0 3.451-1.994l.01-.018c.267-.372.45-.822.511-1.311l.001-.014c.125-2.237.075-4.461.087-6.698.012-5.036-.012-10.06.025-15.083z"
+              ></path></svg>
+            
+            </div>
+            <div class="mt-3">
+              <h3 class="text-lg font-medium text-gray-900 text-center">
+                TikTok
               </h3>
               <p class="text-gray-600 text-center">@icepilar</p>
             </div>
@@ -132,3 +220,4 @@ export const prerender = true;
     </div>
   </section>
 </Layout>
+
