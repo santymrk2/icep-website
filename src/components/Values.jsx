@@ -32,13 +32,16 @@ const ValuesCarousel = () => {
   }, []);
 
   return (
-    <section className="container flex-grow w-full py-4 sm:py-16 mx-auto overflow-hidden relative">
-      <h1 className="text-center text-3xl mb-4 uppercase bg-white text-gray-700 mx-auto">
-        Nuestros Valores
-      </h1>
+    <section className="container flex-grow w-full py-24 mx-auto overflow-hidden relative">
+      <div className="container mx-auto mb-16">
+        <h1 class="text-3xl text-center text-accent mb-6 uppercase">Nuestros valores</h1>
+        <p class="text-gray-600 mb-6 text-center ">
+          Estos son los valores que abrazamos como iglesia.
+        </p>
+      </div>
       
       <div className="mx-auto w-full">
-        <div className="container my-8 relative">
+        <div className="container  relative">
           {/* Flechas de navegación */}
           <button 
             onClick={() => handleScroll('left')}
@@ -65,7 +68,7 @@ const ValuesCarousel = () => {
           {/* Contenedor scrollable */}
           <div
             ref={scrollContainerRef}
-            className="flex overflow-x-scroll scrolling-touch items-start p-20 no-scrollbar"
+            className="flex overflow-x-scroll scrolling-touch items-start p-10 no-scrollbar"
           >
             {listValues.map((value, index) => (
               <div 

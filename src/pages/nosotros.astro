@@ -1,7 +1,7 @@
 ---
 import BeliefsDropdown from "../components/Beliefs.jsx";
 import Layout from "../layouts/Layout.astro";
-import Values from "../components/Values.astro";
+import Values from "../components/Values.jsx";
 import AB02 from "../assets/AB02.webp";
 import AB03 from "../assets/AB03.webp";
 import { Image } from "astro:assets";
@@ -32,7 +32,7 @@ export const prerender = true;
           </div>
 
           <div class="flex flex-col justify-center mx-4 sm:mx-6 lg:mx-8">
-            <h1 class="text-4xl font-playfair text-accent mb-6">
+            <h1 class="text-3xl font-playfair text-accent mb-6">
               ACERCA DE NOSOTROS
             </h1>
 
@@ -53,7 +53,7 @@ export const prerender = true;
     <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="flex flex-col justify-center mx-4 sm:mx-6 lg:mx-8">
-          <h1 class="text-4xl font-playfair text-accent mb-6">
+          <h1 class="text-3xl font-playfair text-accent mb-6">
             MISIÓN Y PROPÓSITO
           </h1>
 
@@ -95,21 +95,66 @@ export const prerender = true;
     </div>
   </section>
 
-  <Values />
+  <Values client:visible />
 
   <BeliefsDropdown client:visible />
 
-  <section class="py-16">
-    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+  <section class="py-24">
+    <div class="max-w-7xl mx-auto p-6 sm:p-8 lg:p-10">
       <div class="flex flex-col justify-center gap-12 items-center">
-        <h1 class="text-4xl text-center text-accent mb-6">NUESTRA HISTORIA</h1>
+        <div>
+          <h1 class="text-3xl text-center text-accent mb-6">
+            NUESTRA HISTORIA
+          </h1>
+          <p class="text-gray-600 mb-6 text-center">
+            Conoce nuestra historia y como fue nuestro proceso de crecimiento
+            como iglesia.
+          </p>
+        </div>
 
         <div>
           <a
             href="/historia"
-            class="text-white text-center bg-custom-blue p-4 rounded-full"
-            >Ver linea de tiempo</a
+            class={`motion-preset-expand 
+            bg-white
+            text-custom-blue
+            uppercase
+            no-underline
+            border-2
+            border-custom-blue
+            rounded-full
+            py-4
+            px-6
+            items-center
+            text-center
+            text-md
+            font-bold
+            relative
+            z-10
+            transition-all
+            duration-500
+            ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+            tracking-wide
+            font-sans
+            overflow-hidden
+            before:content-['']
+            before:absolute
+            before:top-0
+            before:right-0
+            before:w-0
+            before:h-full
+            before:bg-custom-blue
+            before:-z-10
+            before:transition-all
+            before:duration-500
+            before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+            hover:before:w-full
+            hover:before:left-0
+            hover:before:right-auto
+            hover:text-white inline-flex`}
           >
+            Ver la linea de tiempo
+          </a>
         </div>
       </div>
     </div>
