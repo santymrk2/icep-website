@@ -78,7 +78,6 @@ export default {
 
 	plugins: [
 		require('@tailwindcss/typography'),
-		require('tailwindcss-motion'),
 		function({ addUtilities }) {
 			addUtilities({
 			  '.no-scrollbar': {

@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { Transition } from '@headlessui/react'; // Importar el componente Transition
 import Paths from "../data/routingPaths.js";
 
-const Navbar = () => {
+const Navbar = ({ location }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
     const menuItems = Paths;
@@ -12,8 +13,6 @@ const Navbar = () => {
     text-custom-blue
     uppercase
     no-underline
-    border-2
-    border-custom-blue
     rounded-full
     py-2
     px-4
@@ -35,7 +34,7 @@ const Navbar = () => {
     before:right-0
     before:w-0
     before:h-full
-    before:bg-custom-blue
+    before:bg-blue-200
     before:-z-10
     before:transition-all
     before:duration-500
@@ -43,8 +42,46 @@ const Navbar = () => {
     hover:before:w-full
     hover:before:left-0
     hover:before:right-auto
-    hover:text-white
   `;
+
+
+    const buttonSelectClasses = `
+  motion-preset-expand 
+  bg-custom-blue
+  text-white
+  uppercase
+  no-underline
+  rounded-full
+  py-2
+  px-4
+  items-center
+  text-center
+  text-sm
+  font-bold
+  relative
+  z-10
+  transition-all
+  duration-500
+  ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+  tracking-wide
+  font-sans
+  overflow-hidden
+  before:content-['']
+  before:absolute
+  before:top-0
+  before:right-0
+  before:w-0
+  before:h-full
+  before:bg-custom-blue
+  before:-z-10
+  before:transition-all
+  before:duration-500
+  before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+  hover:before:w-full
+  hover:before:left-0
+  hover:before:right-auto
+  hover:text-white
+`;
 
     return (
         <header
@@ -79,7 +116,7 @@ const Navbar = () => {
                                         {!item.subitems ? (
                                             <a
                                                 href={item.href}
-                                                className={buttonClasses + "inline-flex"}
+                                                className={`inline-flex ${location === item.href ? buttonSelectClasses : buttonClasses}`}
                                             >
                                                 {item.text}
                                             </a>
@@ -91,7 +128,7 @@ const Navbar = () => {
                                                 >
                                                     <span>{item.text}</span>
                                                     <svg
-                                                        className="h-5 w-5 transform transition-transform duration-200"
+                                                        className="size-5 transform transition-transform duration-200"
                                                         fill="none"
                                                         viewBox="0 0 24 24"
                                                         stroke="currentColor"
@@ -105,31 +142,37 @@ const Navbar = () => {
                                                     </svg>
                                                 </a>
 
-                                                {openDropdown === item.text && (
-                                                    <div
-                                                        className="absolute top-12 -left-2 m-2 bg-white shadow-lg p-6 z-10 ring-2 ring-custom-blue rounded-[2.2rem]"
-                                                        onMouseEnter={() => setOpenDropdown(item.text)}
-                                                        onMouseLeave={() => setOpenDropdown(null)}
-                                                    >
-                                                        <div className="flex flex-col items-center w-[12rem] space-y-2">
-                                                            {item.subitems.map((subitem) => (
-                                                                <a
-                                                                    key={subitem.text}
-                                                                    href={subitem.href}
-                                                                    className={buttonClasses + "block w-full"}
-                                                                >
-                                                                    {subitem.text}
-                                                                </a>
-                                                            ))}
-                                                        </div>
+                                                <Transition
+                                                    show={openDropdown === item.text}
+                                                    enter="transition ease-out duration-200"
+                                                    enterFrom="transform opacity-0 scale-95"
+                                                    enterTo="transform opacity-100 scale-100"
+                                                    leave="transition ease-in duration-150"
+                                                    leaveFrom="transform opacity-100 scale-100"
+                                                    leaveTo="transform opacity-0 scale-95"
+                                                    className="absolute top-12 -left-2 m-2 bg-white shadow-lg p-6 z-10 ring-2 ring-custom-blue rounded-[2.2rem]"
+                                                    onMouseEnter={() => setOpenDropdown(item.text)}
+                                                    onMouseLeave={() => setOpenDropdown(null)}
+                                                >
+                                                    <div className="flex flex-col items-center w-[12rem] space-y-2">
+                                                        {item.subitems.map((subitem) => (
+                                                            <a
+                                                                key={subitem.text}
+                                                                href={subitem.href}
+                                                                className={buttonClasses + "block w-full"}
+                                                            >
+                                                                {subitem.text}
+                                                            </a>
+                                                        ))}
                                                     </div>
-                                                )}
+                                                </Transition>
                                             </div>
                                         )}
                                     </li>
                                 ))}
                             </ul>
                         </nav>
+
                     </div>
                     <button
                         id="mobile-menu-button"
@@ -207,19 +250,28 @@ const Navbar = () => {
                                             </svg>
                                         </button>
 
-                                        {openDropdown === item.text && (
-                                            <div className=" p-4 ring-2 ring-custom-blue space-y-3 mt-3 bg-white shadow-lg rounded-[1.5rem] z-10">
+                                        <Transition
+                                            show={openDropdown === item.text}
+                                            enter="transition ease-out duration-200 origin-top"
+                                            enterFrom="transform opacity-0 scale-95"
+                                            enterTo="transform opacity-100 scale-100"
+                                            leave="transition ease-in duration-150 origin-top"
+                                            leaveFrom="transform opacity-100 scale-100"
+                                            leaveTo="transform opacity-0 scale-95"
+                                            className="p-4 ring-2 ring-custom-blue space-y-3 mt-3 bg-white shadow-lg rounded-[1.5rem] z-10"
+                                        >
+                                            <div className="space-y-3">
                                                 {item.subitems.map((subitem) => (
                                                     <a
                                                         key={subitem.text}
                                                         href={subitem.href}
-                                                        className={`${buttonClasses + "block"} w-full`}
+                                                        className={`${buttonClasses} block w-full`}
                                                     >
                                                         {subitem.text}
                                                     </a>
                                                 ))}
                                             </div>
-                                        )}
+                                        </Transition>
                                     </div>
                                 )}
                             </div>
