@@ -122,9 +122,46 @@ export const prerender = true;
         <div>
           <a
             href="/contacto"
-            class="text-white text-center bg-custom-blue p-4 rounded-full"
-            >Quiero contactarme</a
+            class={`motion-preset-expand 
+            bg-white
+            text-custom-blue
+            uppercase
+            no-underline
+            border-2
+            border-custom-blue
+            rounded-full
+            py-4
+            px-6
+            items-center
+            text-center
+            text-md
+            font-bold
+            relative
+            z-10
+            transition-all
+            duration-500
+            ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+            tracking-wide
+            font-sans
+            overflow-hidden
+            before:content-['']
+            before:absolute
+            before:top-0
+            before:right-0
+            before:w-0
+            before:h-full
+            before:bg-custom-blue
+            before:-z-10
+            before:transition-all
+            before:duration-500
+            before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+            hover:before:w-full
+            hover:before:left-0
+            hover:before:right-auto
+            hover:text-white inline-flex`}
           >
+            Quiero contactarme
+          </a>
         </div>
       </div>
     </section>
