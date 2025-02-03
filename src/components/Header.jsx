@@ -46,7 +46,6 @@ const Navbar = ({ location }) => {
     motion-preset-expand 
     bg-white
     text-black
-    uppercase
     no-underline
     rounded-full
     py-2
