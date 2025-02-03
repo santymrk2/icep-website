@@ -1,7 +1,9 @@
 ---
 import { Client } from '@notionhq/client';
 
-import { NOTION_API_KEY, DATABASE_ID, getSecret} from 'astro:env/server';
+import { NOTION_API_KEY, DATABASE_ID} from 'astro:env/server';
+
+console.log(NOTION_API_KEY, DATABASE_ID)
 
 const fechaActual = new Date();
 const fechaISO = fechaActual.toISOString().split('T')[0];
