@@ -208,7 +208,7 @@ const Navbar = ({ location }) => {
             </div>
 
             {isMenuOpen && (
-                <div className="lg:hidden text-white flex flex-col justify-center mt-10">
+                <div className="lg:hidden text-white flex flex-col justify-center my-10">
                     <div className="flex flex-col items-center gap-2">
                         {menuItems.map((item) => (
                             <div key={item.text} className="w-8/12 m-0">

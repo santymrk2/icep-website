@@ -1,112 +1,164 @@
 ---
-import { Client } from '@notionhq/client';
+import { Client } from "@notionhq/client";
 
-import { NOTION_API_KEY, DATABASE_ID, getSecret} from 'astro:env/server';
+import { NOTION_API_KEY, DATABASE_ID, getSecret } from "astro:env/server";
 
-console.log(NOTION_API_KEY, DATABASE_ID)
+function formatearFecha(fechaStr) {
+  if (!fechaStr) return null;
+
+  const fecha = new Date(fechaStr);
+  const hoy = new Date();
+  const esHoy =
+    fecha.getFullYear() === hoy.getFullYear() &&
+    fecha.getMonth() === hoy.getMonth() &&
+    fecha.getDate() === hoy.getDate();
+
+  if (esHoy) {
+    const matchHora = fechaStr.match(/(\d{2}):(\d{2})/);
+    if (matchHora) {
+      const [, hora, minuto] = matchHora;
+      return `Hoy a las ${hora}:${minuto}hs`;
+    } else {
+      return "ES HOY!";
+    }
+  }
+
+  const formatter = new Intl.DateTimeFormat("es-AR", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+
+  const parts = formatter.formatToParts(fecha);
+  const [diaSemana, dia, mes] = parts.reduce((acc, part) => {
+    if (part.type === "weekday") acc[0] = part.value;
+    if (part.type === "day") acc[1] = part.value;
+    if (part.type === "month") acc[2] = part.value;
+    return acc;
+  }, new Array(3));
+
+  let horario = "";
+  const matchHora = fechaStr.match(/(\d{2}):(\d{2})/);
+  if (matchHora) {
+    const [, hora, minuto] = matchHora;
+    horario = ` a las ${hora}:${minuto}hs`;
+  }
+
+  return `El ${diaSemana} ${dia} de ${mes}${horario}`;
+}
 
 const fechaActual = new Date();
-const fechaISO = fechaActual.toISOString().split('T')[0];
-let notionPages
-let pageType
-let pageDate
-let pageLink
+const fechaISO = fechaActual.toISOString().split("T")[0];
+let notionPages;
+let pages = [];
 
 const notion = new Client({ auth: NOTION_API_KEY });
 
-try{
-  notionPages = await notion.databases.query({ 
+try {
+  notionPages = await notion.databases.query({
     database_id: DATABASE_ID,
     filter: {
       property: "Fecha",
       date: {
-        on_or_after: fechaISO ,
-      }
+        on_or_after: fechaISO,
+      },
     },
     sorts: [
-        {
-          property: "Fecha",
-          direction: "ascending"
-        }
-      ],
+      {
+        property: "Fecha",
+        direction: "ascending",
+      },
+    ],
   });
 
   if (notionPages.results.length > 0) {
-    const type = notionPages.results[0].properties['Tipo de Reunión'].select?.name;
+    const firstPage = notionPages.results[0];
+    const secondPage = notionPages.results[1];
 
-    pageLink = notionPages.results[0].url;
+    pages.push({
+      id: firstPage.id,
+      date: formatearFecha(firstPage.properties["Fecha"].date?.start),
+      type: firstPage.properties["Tipo de Reunión"].select?.name.toUpperCase(),
+      pageLink: firstPage.url,
+      youtubeLink: firstPage.properties["Mensaje en YouTube"]?.url,
+    });
 
-    pageType = type.toUpperCase();
-
-    const fechaStr = notionPages.results[0].properties['Fecha'].date?.start;
-
-    if (fechaStr) {
-      // Crear una nueva fecha a partir de la cadena ISO
-      const fecha = new Date(fechaStr);
-      console.log(fechaStr)
-
-      // Obtener los componentes de la fecha
-      const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const diaSemana = fecha.toLocaleDateString('es-AR', opciones).split(',')[0];
-      const dia = fecha.getDate();
-      const mes = fecha.toLocaleDateString('es-AR', { month: 'long' });
-
-      
-      const dateParts = fechaStr.split("T")[1].split(":");
-      const originalHour = dateParts[0]; 
-      const originalMinutes = dateParts[1];
-
-      // Asegurar formato de dos dígitos (aunque ya lo tiene aquí)
-      const horas = originalHour.padStart(2, '0');
-      const minutos = originalMinutes.padStart(2, '0');
-
-
-      // Formatear la cadena de salida
-      const date = `El ${diaSemana} ${dia} de ${mes} a las ${horas}:${minutos}hs`;
-      console.log(date)
-      pageDate = date;    
-    }
-
-    // Comprobar si existe el enlace y mostrarlo
-    const mensajeEnYouTube = notionPages.results[0].properties['Mensaje en YouTube']?.url;
-    if (mensajeEnYouTube) {
-      console.log(`Enlace a YouTube: ${mensajeEnYouTube}`);
+    if (
+      firstPage.properties["Fecha"].date?.start.slice(0, 10) ===
+      secondPage.properties["Fecha"].date?.start.slice(0, 10)
+    ) {
+      // son dos eventos en el mismo día
+      pages.push({
+        id: secondPage.id,
+        date: formatearFecha(secondPage.properties["Fecha"].date?.start),
+        type: secondPage.properties[
+          "Tipo de Reunión"
+        ].select?.name.toUpperCase(),
+        pageLink: secondPage.url,
+        youtubeLink: secondPage.properties["Mensaje en YouTube"]?.url,
+      });
     }
   } else {
-    console.log('No se encontraron datos.');
+    console.log("No se encontraron datos.");
   }
 } catch (error) {
   // Maneja el error aquí.
-  if (error.code === 'unauthorized') {
-    console.error('Error: No tienes acceso al recurso especificado. Revisa tus credenciales y permisos.');
+  if (error.code === "unauthorized") {
+    console.error(
+      "Error: No tienes acceso al recurso especificado. Revisa tus credenciales y permisos.",
+    );
   } else {
-    console.error('Error al consultar Notion:', error.message);
+    console.error("Error al consultar Notion:", error.message);
   }
 }
 
 export const prerender = true;
 ---
 
-<div class="flex flex-col justify-center items-center p-8 m-8 gap-6 mx-4 sm:mx-10 text-white">
-  {notionPages ? (
-    <h2 class="text-2xl font-bold text-center ">Nuestro próximo encuentro es:</h2>
-    <div class={`
+<div class="my-28 p-8 m-8 gap-6 mx-4 sm:mx-10 text-white">
+  {
+    pages ? (
+      pages.length == 1 ? (
+        <h2 class="text-3xl font-black text-center mb-8">Próximo evento:</h2>
+      ) : (
+        <h2 class="text-3xl font-black text-center mb-8">Próximos eventos:</h2>
+      )
+    ) : (
+      console.log("No se encuentran datos")
+    )
+  }
+
+  {
+    pages
+      ? pages.map((item, index) => (
+          <div class="flex flex-col justify-center items-center">
+            <div
+              class={`
       animate-[float3d_6s_ease-in-out_infinite]
         ring ring-4 
-        ${pageType === 'ACTIVADOS' ? 'ring-green-500 shadow-green-500/60' : ''}
-        ${pageType === 'MINISTERIO' ? 'ring-blue-500 shadow-blue-500/60' : ''}
-        ${pageType === 'ORACIÓN' ? 'ring-orange-500 shadow-orange-500/60' : ''}
-        ${pageType === 'JÓVENES' ? 'ring-purple-500 shadow-purple-500/60' : ''}
-        ${pageType === 'MUJERES' ? 'ring-rose-500 shadow-rose-500/60' : ''}
-        ${pageType === 'MATRIMONIOS' ? 'ring-red-500 shadow-red-500/60' : ''}
-        ${!['ACTIVADOS', 'MINISTERIO', 'ORACIÓN', 'JÓVENES', 'MUJERES', 'MATRIMONIOS'].includes(pageType) ? 'ring-custom-blue shadow-custom-blue/60' : ''}
+        ${item.type === "ACTIVADOS" ? "ring-green-500 shadow-green-500/60" : ""}
+        ${item.type === "REUNIÓN DE ENSEÑANZA" ? "ring-blue-500 shadow-blue-500/60" : ""}
+        ${item.type === "ENCUENTRO DE ORACIÓN" ? "ring-orange-500 shadow-orange-500/60" : ""}
+        ${item.type === "ENCUENTRO DE JÓVENES" ? "ring-purple-500 shadow-purple-500/60" : ""}
+        ${item.type === "ENCUENTRO DE MUJERES" ? "ring-rose-500 shadow-rose-500/60" : ""}
+        ${item.type === "ENCUENTRO DE MATRIMONIOS" ? "ring-red-500 shadow-red-500/60" : ""}
+        ${!["ACTIVADOS", "REUNIÓN DE ENSEÑANZA", "ENCUENTRO DE ORACIÓN", "ENCUENTRO DE JÓVENES", "ENCUENTRO DE MUJERES", "ENCUENTRO DE MATRIMONIOS"].includes(item.type) ? "ring-custom-blue shadow-custom-blue/60" : ""}
         shadow-xl rounded-full md:p-2 my-6
-      `}>
-        <a href={pageLink}>
-          <h1 class="text-5xl p-6 sm:text-7xl font-bold text-center">{pageType}</h1>
-        </a>
-      </div>
-    <p class="text-center">{pageDate}</p>
-  ) : console.log("No se encuentran datos")
+      `}
+            >
+              <a href={item.pageLink}>
+                <h1 class="text-4xl p-6 sm:text-6xl font-black text-center">
+                  {item.type}
+                </h1>
+              </a>
+            </div>
+            <p class="text-center font-serif text-gray-400 mt-4">{item.date}</p>
+
+            {index < pages.length - 1 && (
+              <div class="h-px w-full bg-white/30 my-4 mt-8" />
+            )}
+          </div>
+        ))
+      : console.log("No se encuentran datos")
   }
 </div>
