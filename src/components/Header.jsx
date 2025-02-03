@@ -10,7 +10,6 @@ const Navbar = ({ location }) => {
     const buttonClasses = `
     motion-preset-expand 
     text-white
-    uppercase
     no-underline
     rounded-full
     py-2
@@ -69,7 +68,6 @@ const Navbar = ({ location }) => {
     before:right-0
     before:w-0
     before:h-full
-    before:bg-zinc-700
     before:-z-10
     before:transition-all
     before:duration-500
@@ -77,7 +75,6 @@ const Navbar = ({ location }) => {
     hover:before:w-full
     hover:before:left-0
     hover:before:right-auto
-    hover:text-white
     `;
 
     return (
