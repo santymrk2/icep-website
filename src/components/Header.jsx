@@ -44,50 +44,49 @@ const Navbar = ({ location }) => {
 
 
     const buttonSelectClasses = `
-  motion-preset-expand 
-  bg-white
-  text-black
-  uppercase
-  no-underline
-  rounded-full
-  py-2
-  px-4
-  items-center
-  text-center
-  text-sm
-  font-bold
-  relative
-  z-10
-  transition-all
-  duration-500
-  ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
-  tracking-wide
-  font-sans
-  overflow-hidden
-  before:content-['']
-  before:absolute
-  before:top-0
-  before:right-0
-  before:w-0
-  before:h-full
-  before:bg-zinc-700
-  before:-z-10
-  before:transition-all
-  before:duration-500
-  before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
-  hover:before:w-full
-  hover:before:left-0
-  hover:before:right-auto
-  hover:text-white
-`;
+    motion-preset-expand 
+    bg-white
+    text-black
+    uppercase
+    no-underline
+    rounded-full
+    py-2
+    px-4
+    items-center
+    text-center
+    font-extrabold
+    relative
+    z-10
+    transition-all
+    duration-500
+    ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+    tracking-wide
+    font-sans
+    overflow-hidden
+    before:content-['']
+    before:absolute
+    before:top-0
+    before:right-0
+    before:w-0
+    before:h-full
+    before:bg-zinc-700
+    before:-z-10
+    before:transition-all
+    before:duration-500
+    before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+    hover:before:w-full
+    hover:before:left-0
+    hover:before:right-auto
+    hover:text-white
+    `;
 
     return (
         <header
-            className={`relative text-white m-4 sm:m-10 rounded-full z-50 ${isMenuOpen ? "rounded-xl h-auto" : "h-24"
+            className={`text-white m-4 sm:m-10 rounded-full z-50 ${isMenuOpen ? "rounded-xl h-auto" : "h-24"
                 } transition-all duration-300`}
             id="back-menu"
         >
-            <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex h-full text-base font-normal">
+            <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex  text-base font-normal">
                 <div className="flex justify-between items-center w-full">
                     <div className="flex items-center m-2">
                         <a href="/" className="flex items-center">
@@ -152,7 +151,7 @@ const Navbar = ({ location }) => {
                                                     onMouseEnter={() => setOpenDropdown(item.text)}
                                                     onMouseLeave={() => setOpenDropdown(null)}
                                                 >
-                                                    <div className="flex flex-col items-center w-[12rem] space-y-2 bg-zinc-900">
+                                                    <div className="flex flex-col items-center space-y-2 bg-zinc-800">
                                                         {item.subitems.map((subitem) => (
                                                             <a
                                                                 key={subitem.text}
@@ -256,7 +255,7 @@ const Navbar = ({ location }) => {
                                             leave="transition ease-in duration-150 origin-top"
                                             leaveFrom="transform opacity-100 scale-100"
                                             leaveTo="transform opacity-0 scale-95"
-                                            className="p-4 ring-2 ring-white space-y-3 mt-3 bg-zinc-900 shadow-lg rounded-[1.5rem] z-10"
+                                            className="p-4 ring-2 ring-white space-y-3 mt-3 bg-zinc-800 shadow-lg rounded-[1.5rem] z-10"
                                         >
                                             <div className="">
                                                 {item.subitems.map((subitem) => (
