@@ -33,13 +33,15 @@ export default {
 				tilt: 'tilt 10s infinite linear',
 				'infinite-scroll': 'infinite-scroll 25s linear infinite',
 				float: 'float 3s ease-in-out infinite',
+				float3d: 'float3d 6s ease-in-out infinite',
 
-			},		
-			keyframes:{
+
+			},
+			keyframes: {
 				float: {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-10px)' },
-				  },
+				},
 				tilt: {
 					"0%, 50%, 100%": {
 						transform: "rotate(0deg)",
@@ -52,45 +54,37 @@ export default {
 					}
 				},
 				'infinite-scroll': {
-				  from: { transform: 'translateX(0)' },
-				  to: { transform: 'translateX(-100%)' },
+					from: { transform: 'translateX(0)' },
+					to: { transform: 'translateX(-100%)' },
+				},
+				float3d: {
+					'0%, 100%': {
+						transform: 'perspective(1000px) translateZ(20px) rotateX(3deg) rotateY(3deg)'
+					},
+					'50%': {
+						transform: 'perspective(1000px) translateZ(30px) rotateX(-3deg) rotateY(-3deg)'
+					}
 				}
+
+
 			},
 
 		},
 	},
 
-
-	keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
-		ripple: {
-			'0%': { transform: 'scale(0)', opacity: '0.4' },
-			'100%': { transform: 'scale(4)', opacity: '0' }
-		}
-      },
-      animation: {
-        float: 'float 3s ease-in-out infinite',
-		ripple: 'ripple 0.6s linear'
-      },
-
-	  
-
 	plugins: [
 		require('@tailwindcss/typography'),
-		function({ addUtilities }) {
+		function ({ addUtilities }) {
 			addUtilities({
-			  '.no-scrollbar': {
-				'-ms-overflow-style': 'none',  /* Internet Explorer 10+ */
-				'scrollbar-width': 'none',     /* Firefox */
-			  },
-			  '.no-scrollbar::-webkit-scrollbar': {
-				'display': 'none',             /* WebKit browsers */
-			  },
+				'.no-scrollbar': {
+					'-ms-overflow-style': 'none',  /* Internet Explorer 10+ */
+					'scrollbar-width': 'none',     /* Firefox */
+				},
+				'.no-scrollbar::-webkit-scrollbar': {
+					'display': 'none',             /* WebKit browsers */
+				},
 			});
-		  },
-	  ],
+		},
+	],
 
 }

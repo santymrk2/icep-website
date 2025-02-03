@@ -34,25 +34,8 @@ try{
 
   if (notionPages.results.length > 0) {
     const type = notionPages.results[0].properties['Tipo de Reunión'].select?.name;
-    
+
     pageType = type.toUpperCase();
-
-
-    if(pageType == "ACTIVADOS") {
-      backColor = "green-500"
-    } else if(pageType == "MINISTERIO") {
-      backColor = "blue-500"
-    } else if(pageType == "ORACIÓN") {
-      backColor = "orange-500"
-    } else if(pageType == "JÓVENES") {
-      backColor = "purple-500"
-    } else if(pageType == "MUJERES") {
-      backColor = "rose-500"
-    } else if(pageType == "MATRIMONIOS") {
-      backColor = "red-500"
-    } else {
-      backColor = "custom-blue"
-    }
 
     const fechaStr = notionPages.results[0].properties['Fecha'].date?.start;
 
@@ -106,9 +89,20 @@ export const prerender = true;
 <div class="flex flex-col justify-center items-center p-8 m-8 gap-6 mx-4 sm:mx-10 text-white">
   {notionPages ? (
     <h2 class="text-2xl font-bold text-center ">Nuestro próximo encuentro es:</h2>
-    <div class={`ring ring-4 ring-${backColor} shadow-xl shadow-${backColor}/60 rounded-full md:p-2`}>
-      <h1 class={`text-5xl p-6 sm:text-7xl font-bold text-center `} >{pageType}</h1>
-    </div>
+    <div class={`
+      animate-[float3d_6s_ease-in-out_infinite]
+        ring ring-4 
+        ${pageType === 'ACTIVADOS' ? 'ring-green-500 shadow-green-500/60' : ''}
+        ${pageType === 'MINISTERIO' ? 'ring-blue-500 shadow-blue-500/60' : ''}
+        ${pageType === 'ORACIÓN' ? 'ring-orange-500 shadow-orange-500/60' : ''}
+        ${pageType === 'JÓVENES' ? 'ring-purple-500 shadow-purple-500/60' : ''}
+        ${pageType === 'MUJERES' ? 'ring-rose-500 shadow-rose-500/60' : ''}
+        ${pageType === 'MATRIMONIOS' ? 'ring-red-500 shadow-red-500/60' : ''}
+        ${!['ACTIVADOS', 'MINISTERIO', 'ORACIÓN', 'JÓVENES', 'MUJERES', 'MATRIMONIOS'].includes(pageType) ? 'ring-custom-blue shadow-custom-blue/60' : ''}
+        shadow-xl rounded-full md:p-2
+      `}>
+        <h1 class="text-5xl p-6 sm:text-7xl font-bold text-center">{pageType}</h1>
+      </div>
     <p class="text-center">{pageDate}</p>
   ) : console.log("No se encuentran datos")
   }
