@@ -86,7 +86,7 @@ const Navbar = ({ location }) => {
                 } transition-all duration-300`}
             id="back-menu"
         >
-            <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex  text-base font-normal">
+            <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex text-base font-normal">
                 <div className="flex justify-between items-center w-full">
                     <div className="flex items-center m-2">
                         <a href="/" className="flex items-center">
@@ -212,7 +212,7 @@ const Navbar = ({ location }) => {
             </div>
 
             {isMenuOpen && (
-                <div className="lg:hidden text-white flex flex-col justify-center">
+                <div className="lg:hidden text-white flex flex-col justify-center mt-10">
                     <div className="flex flex-col items-center gap-2">
                         {menuItems.map((item) => (
                             <div key={item.text} className="w-8/12 m-0">
