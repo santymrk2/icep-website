@@ -10,12 +10,13 @@ const Timeline = () => {
         class="text-black"
         items={items} 
         scrollable={{ scrollbar: true }}  
+        slideShow
         theme={{
-          primary: '#2A38B2',
-          secondary: '#2A38B2',
+          primary: 'black',
+          secondary: 'black',
           cardBgColor: 'white',
-          cardTitleColor: '#2A38B2',
-          titleColor: '#2A38B2',
+          cardTitleColor: 'black',
+          titleColor: 'white',
           titleColorActive: 'white',
         }}
   />
