@@ -1,5 +1,6 @@
 ---
-import '@fontsource-variable/space-grotesk'
+import '@fontsource/merriweather';
+import '@fontsource-variable/noto-sans';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.jsx';
 
@@ -23,7 +24,7 @@ const { title, description = "Iglesia Cristiana Evangélica en Pilar - Sitio Ofi
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen font-sans bg-white">
+  <body class="min-h-screen bg-zinc-800 text-white">
     <Header client:visible location={currentPath}/>
     <slot />
     <Footer />

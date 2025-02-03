@@ -10,7 +10,9 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['Space Grotesk Variable', ...defaultTheme.fontFamily.sans],
+				sans: ['Noto Sans Variable', ...defaultTheme.fontFamily.sans],
+				serif: ['Merriweather', ...defaultTheme.fontFamily.serif],
+
 			},
 			dropShadow: {
 				'custom-blue': '0 0 20px rgba(42, 56, 178, 0.5)',

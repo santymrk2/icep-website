@@ -14,30 +14,29 @@ export const prerender = true;
       <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
           <div
-          id="container-carousel"
-          class="mx-auto rounded-2xl relative w-10/12 h-10/12 bg-gray-100 overflow-hidden animate-float"
-        >
-          <div
-            id="slider"
-            class="w-[300%] h-full flex transition-transform ease-out duration-500"
+            id="container-carousel"
+            class="mx-auto rounded-2xl relative w-10/12 h-10/12 bg-gray-100 overflow-hidden animate-float"
           >
-            <section class="slider-section w-[calc(100%/3)] h-full">
-              <Image
-                src={AB02}
-                alt="Imagen de personas"
-                class="w-full h-auto aspect-square object-cover rounded-2xl drop-shadow-3xl"
+            <div
+              id="slider"
+              class="w-[300%] h-full flex transition-transform ease-out duration-500"
+            >
+              <section class="slider-section w-[calc(100%/3)] h-full">
+                <Image
+                  src={AB02}
+                  alt="Imagen de personas"
+                  class="w-full h-auto aspect-square object-cover rounded-2xl drop-shadow-3xl"
                 />
-            </section>
+              </section>
+            </div>
           </div>
-        </div>
-        
 
           <div class="flex flex-col justify-center mx-4 sm:mx-6 lg:mx-8">
-            <h1 class="text-3xl font-playfair text-accent mb-6">
+            <h1 class="text-3xl font-sans font-extrabold mb-6">
               ACERCA DE NOSOTROS
             </h1>
 
-            <p class="text-gray-600 mb-6">
+            <p class="text-gray-400 mb-6 font-serif">
               Su misión principal es la enseñanza de las Sagradas Escrituras, la
               Biblia, y la predicación del evangelio de Jesucristo. La iglesia
               está formada por personas que han reconocido su necesidad
@@ -54,18 +53,18 @@ export const prerender = true;
     <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="flex flex-col justify-center mx-4 sm:mx-6 lg:mx-8">
-          <h1 class="text-3xl font-playfair text-accent mb-6">
+          <h1 class="text-3xl font-sans font-extrabold mb-6">
             MISIÓN Y PROPÓSITO
           </h1>
 
-          <p class="text-gray-600 mb-6">
+          <p class="text-gray-400 mb-6 font-serif">
             La Iglesia Cristiana Evangélica tiene como misión principal predicar
             el evangelio de Jesucristo, en cumplimiento del mandato bíblico de
             Marcos 16:15. Además, se enfoca en bautizar a los creyentes en el
             nombre del Padre, del Hijo y del Espíritu Santo, como un paso de fe
             y obediencia en la vida cristiana.
           </p>
-          <p class="text-gray-600 mb-6">
+          <p class="text-gray-400 mb-6 font-serif">
             El propósito de la iglesia incluye integrar a los creyentes en la
             comunión de la congregación local, fomentando la enseñanza de la
             Palabra, la oración y la adoración. Asimismo, sigue las enseñanzas
@@ -104,10 +103,10 @@ export const prerender = true;
     <div class="max-w-7xl mx-auto p-6 sm:p-8 lg:p-10">
       <div class="flex flex-col justify-center gap-12 items-center">
         <div>
-          <h1 class="text-3xl text-center text-accent mb-6">
+          <h1 class="text-3xl text-center font-sans font-extrabold mb-6">
             NUESTRA HISTORIA
           </h1>
-          <p class="text-gray-600 mb-6 text-center">
+          <p class="text-gray-400 mb-6 text-center font-serif">
             Conoce nuestra historia y como fue nuestro proceso de crecimiento
             como iglesia.
           </p>
@@ -117,42 +116,42 @@ export const prerender = true;
           <a
             href="/historia"
             class={`motion-preset-expand 
-            bg-white
-            text-custom-blue
-            uppercase
-            no-underline
-            border-2
-            border-custom-blue
-            rounded-full
-            py-4
-            px-6
-            items-center
-            text-center
-            text-md
-            font-bold
-            relative
-            z-10
-            transition-all
-            duration-500
-            ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
-            tracking-wide
-            font-sans
-            overflow-hidden
-            before:content-['']
-            before:absolute
-            before:top-0
-            before:right-0
-            before:w-0
-            before:h-full
-            before:bg-custom-blue
-            before:-z-10
-            before:transition-all
-            before:duration-500
-            before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
-            hover:before:w-full
-            hover:before:left-0
-            hover:before:right-auto
-            hover:text-white inline-flex`}
+              text-white
+              uppercase
+              no-underline
+              border-2
+              border-white
+              rounded-full
+              py-4
+              px-6
+              items-center
+              text-center
+              text-md
+              font-bold
+              relative
+              z-10
+              transition-all
+              duration-500
+              ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+              tracking-wide
+              font-sans
+              overflow-hidden
+              before:content-['']
+              before:absolute
+              before:top-0
+              before:right-0
+              before:w-0
+              before:h-full
+              before:bg-white
+              before:-z-10
+              before:transition-all
+              before:duration-500
+              before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+              hover:before:w-full
+              hover:before:left-0
+              hover:before:right-auto
+              hover:text-zinc-800
+              inline-flex`}
           >
             Ver la linea de tiempo
           </a>

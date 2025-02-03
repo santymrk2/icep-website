@@ -9,8 +9,7 @@ const Navbar = ({ location }) => {
 
     const buttonClasses = `
     motion-preset-expand 
-    bg-white
-    text-custom-blue
+    text-white
     uppercase
     no-underline
     rounded-full
@@ -18,8 +17,7 @@ const Navbar = ({ location }) => {
     px-4
     items-center
     text-center
-    text-sm
-    font-bold
+    font-extrabold
     relative
     z-10
     transition-all
@@ -34,7 +32,7 @@ const Navbar = ({ location }) => {
     before:right-0
     before:w-0
     before:h-full
-    before:bg-blue-200
+    before:bg-zinc-700
     before:-z-10
     before:transition-all
     before:duration-500
@@ -47,8 +45,8 @@ const Navbar = ({ location }) => {
 
     const buttonSelectClasses = `
   motion-preset-expand 
-  bg-custom-blue
-  text-white
+  bg-white
+  text-black
   uppercase
   no-underline
   rounded-full
@@ -72,7 +70,7 @@ const Navbar = ({ location }) => {
   before:right-0
   before:w-0
   before:h-full
-  before:bg-custom-blue
+  before:bg-zinc-700
   before:-z-10
   before:transition-all
   before:duration-500
@@ -85,7 +83,7 @@ const Navbar = ({ location }) => {
 
     return (
         <header
-            className={`relative text-black m-4 sm:m-10 rounded-full z-50 ${isMenuOpen ? "rounded-xl h-auto" : "h-24"
+            className={`relative text-white m-4 sm:m-10 rounded-full z-50 ${isMenuOpen ? "rounded-xl h-auto" : "h-24"
                 } transition-all duration-300`}
             id="back-menu"
         >
@@ -94,7 +92,7 @@ const Navbar = ({ location }) => {
                     <div className="flex items-center m-2">
                         <a href="/" className="flex items-center">
                             <svg
-                                className="h-[4.5rem] fill-custom-blue"
+                                className="h-[4.5rem] fill-white"
                                 viewBox="0 0 800 800"
                             >
                                 <path d="M400 331.69c28.41-20.36 63.23-32.34 100.85-32.34 25.46 0 49.64 5.49 71.42 15.35.71-6.37 1.09-12.84 1.09-19.4 0-95.74-77.61-173.35-173.35-173.35S226.66 199.56 226.66 295.3c0 6.56.38 13.03 1.09 19.4 21.78-9.86 45.96-15.35 71.42-15.35 37.62 0 72.43 11.99 100.85 32.34Z" />
@@ -150,11 +148,11 @@ const Navbar = ({ location }) => {
                                                     leave="transition ease-in duration-150"
                                                     leaveFrom="transform opacity-100 scale-100"
                                                     leaveTo="transform opacity-0 scale-95"
-                                                    className="absolute top-12 -left-2 m-2 bg-white shadow-lg p-6 z-10 ring-2 ring-custom-blue rounded-[2.2rem]"
+                                                    className="absolute top-12 -left-2 m-2 bg-white shadow-lg p-6 z-10 ring-2 ring-white rounded-[2.2rem]"
                                                     onMouseEnter={() => setOpenDropdown(item.text)}
                                                     onMouseLeave={() => setOpenDropdown(null)}
                                                 >
-                                                    <div className="flex flex-col items-center w-[12rem] space-y-2">
+                                                    <div className="flex flex-col items-center w-[12rem] space-y-2 bg-zinc-900">
                                                         {item.subitems.map((subitem) => (
                                                             <a
                                                                 key={subitem.text}
@@ -182,7 +180,7 @@ const Navbar = ({ location }) => {
                     >
                         <span className="sr-only">Menu</span>
                         <svg
-                            className="w-8 h-8 fill-custom-blue pointer-events-none"
+                            className="w-8 h-8 fill-white pointer-events-none"
                             viewBox="0 0 16 16"
                             xmlns="http://www.w3.org/2000/svg"
                         >
@@ -216,13 +214,13 @@ const Navbar = ({ location }) => {
 
             {isMenuOpen && (
                 <div className="lg:hidden text-white flex flex-col justify-center">
-                    <div className="flex flex-col items-center gap-3">
+                    <div className="flex flex-col items-center gap-2">
                         {menuItems.map((item) => (
                             <div key={item.text} className="w-8/12 m-0">
                                 {!item.subitems ? (
                                     <a
                                         href={item.href}
-                                        className={`${buttonClasses} inline-flex justify-center w-full`}
+                                        className={`inline-flex justify-center w-full ${location === item.href ? buttonSelectClasses : buttonClasses}`}
                                     >
                                         {item.text}
                                     </a>
@@ -258,9 +256,9 @@ const Navbar = ({ location }) => {
                                             leave="transition ease-in duration-150 origin-top"
                                             leaveFrom="transform opacity-100 scale-100"
                                             leaveTo="transform opacity-0 scale-95"
-                                            className="p-4 ring-2 ring-custom-blue space-y-3 mt-3 bg-white shadow-lg rounded-[1.5rem] z-10"
+                                            className="p-4 ring-2 ring-white space-y-3 mt-3 bg-zinc-900 shadow-lg rounded-[1.5rem] z-10"
                                         >
-                                            <div className="space-y-3">
+                                            <div className="">
                                                 {item.subitems.map((subitem) => (
                                                     <a
                                                         key={subitem.text}

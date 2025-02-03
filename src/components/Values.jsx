@@ -34,18 +34,18 @@ const ValuesCarousel = () => {
   return (
     <section className="container flex-grow w-full py-24 mx-auto overflow-hidden relative">
       <div className="container mx-auto mb-16">
-        <h1 class="text-3xl text-center text-accent mb-6 uppercase">Nuestros valores</h1>
-        <p class="text-gray-600 mb-6 text-center ">
+        <h1 class="text-3xl text-center font-sans font-extrabold mb-6 uppercase">Nuestros valores</h1>
+        <p class="text-gray-400 mb-6 text-center font-serif">
           Estos son los valores que abrazamos como iglesia.
         </p>
       </div>
       
       <div className="mx-auto w-full">
-        <div className="container  relative">
+        <div className="container relative">
           {/* Flechas de navegación */}
           <button 
             onClick={() => handleScroll('left')}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 z-10"
+            className="absolute left-4 top-1/2 -translate-y-1/2 p-2 z-10"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -54,7 +54,7 @@ const ValuesCarousel = () => {
           
           <button 
             onClick={() => handleScroll('right')}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 z-10"
+            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 z-10"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -62,29 +62,29 @@ const ValuesCarousel = () => {
           </button>
 
           {/* Fondos degradados */}
-          <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-white to-transparent pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-zinc-800 to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-zinc-800 to-transparent pointer-events-none" />
 
           {/* Contenedor scrollable */}
           <div
             ref={scrollContainerRef}
-            className="flex overflow-x-scroll scrolling-touch items-start p-10 no-scrollbar"
+            className="flex overflow-x-scroll scrolling-touch items-start p-10 no-scrollbar "
           >
             {listValues.map((value, index) => (
               <div 
                 key={value.title}
                 ref={index === 0 ? firstCardRef : null}
-                className="flex-none h-96 w-80 mr-8 md:p-4 shadow-custom-blue rounded-xl"
+                className="flex-none h-88 w-80 mr-8 md:p-4 ring ring-2 ring-white rounded-xl"
               >
                 <div className="space-y-4">
                   <div className="px-8 py-6">
                     <div className="leading-6 space-y-1">
-                      <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                      <h3 className="text-2xl font-sans font-extrabold text-gray-400 mb-2">
                         {value.title}
                       </h3>
                     </div>
                     <div>
-                      <p className="text-base">
+                      <p className="text-base font-serif">
                         {value.content}
                       </p>
                     </div>
