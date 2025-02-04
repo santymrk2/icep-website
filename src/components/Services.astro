@@ -3,7 +3,7 @@ const services = [
   {
     title: "Domingos",
     items: [
-      { name: "Cena del Señor", time: "09:00hs - 10:00hs" },
+      { name: "Santa Cena", time: "09:00hs - 10:00hs" },
       { name: "Reunión de Enseñanza", time: "10:00hs - 11:00hs" },
       { name: "Escuela Bíblica Dominical", time: "11:30hs - 13:00hs" }
     ]
@@ -11,7 +11,7 @@ const services = [
   {
     title: "Otros días",
     items: [
-      { name: "Reunión de Oración", time: "20 hs (Miércoles)" },
+      { name: "Encuentro de Oración", time: "20 hs (Miércoles)" },
       { name: "ActivAdos", time: "14:30 hs (1º y 3º Sábados)" },
       { name: "Encuentro de Jóvenes", time: "19 hs (2º Sábados)" },
       { name: "Encuentro de Mujeres", time: "17 hs (4º Sábados)" },
@@ -27,8 +27,8 @@ export const prerender = true;
   <h2 class="text-3xl font-sans font-extrabold mb-4">Nuestros Horarios</h2>
   <p class="text-gray-400 font-serif mb-4">Podes visitarnos o vernos por Youtube</p>
 
-  <div class="max-w-7xl mx-auto  p-4 sm:p-6 lg:p-10">
-    <div class="grid md:grid-cols-2  gap-8 m-2">
+  <div class="max-w-7xl mx-auto p-3 sm:p-6 lg:p-10">
+    <div class="grid md:grid-cols-2 gap-8 m-2">
       {services.map(service => (
         <div class="rounded-xl p-10 ring ring-2 ring-white">
           <h2 class="text-2xl mb-6 font-sans font-bold text-white">

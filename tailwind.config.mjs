@@ -22,9 +22,7 @@ export default {
 				'custom-blue': '0 0 15px -5px rgba(42, 56, 178, 0.5)',
 				'lg': '0 0 20px rgba(42, 56, 178, 0.1)',
 			},
-			borderRadius: {
-				'xl': '3rem',
-			},
+ 
 			colors: {
 				'custom-blue': '#2A38B2',
 				'custom-teal': '#0180f1',
