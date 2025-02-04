@@ -118,10 +118,10 @@ export const prerender = true;
 <div class="my-28 p-8 m-8 gap-6 mx-4 sm:mx-10 text-white">
   {
     pages ? (
-      pages.length == 1 ? (
-        <h2 class="text-3xl font-black text-center mb-8">Próximo evento:</h2>
+      pages.length === 1 ? (
+        <h2 class="text-3xl font-sans font-extrabold text-center mb-8">Próximo evento</h2>
       ) : (
-        <h2 class="text-3xl font-black text-center mb-8">Próximos eventos:</h2>
+        <h2 class="text-3xl font-sans font-extrabold text-center mb-8">Próximos eventos</h2>
       )
     ) : (
       console.log("No se encuentran datos")

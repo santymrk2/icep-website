@@ -12,7 +12,7 @@ export const prerender = true;
 <Layout title="ICEP | Iglesia Complejo Evangélico Pilar">
   <main>
     <section
-      class="flex m-6 p-2 sm:m-20 sm:p-10 flex flex-col justify-center items-center"
+      class="flex m-6 p-2 sm:m-20 sm:p-10 lg:p-28 flex flex-col justify-center items-center"
     >
       <div class="grid grid-cols-1 sm:grid-cols-2">
         <div class="my-24 order-2 hidden sm:relative"></div>
@@ -26,11 +26,11 @@ export const prerender = true;
       </div>
     </section>
 
-    <section class="w-full h-full sm:h-[calc(100vw-30rem)] overflow-hidden">
+    <section class="w-full h-screen sm:h-screen overflow-hidden">
       <Image
         src={PG01}
         alt="Imagen de personas"
-        class="w-full h-full object-cover drop-shadow-3xl"
+        class="w-full h-full object-cover drop-shadow-3xl brightness-50"
       />
     </section>
 
@@ -40,173 +40,87 @@ export const prerender = true;
       <NextMeeting />
     </section>
 
-    <section class="w-full h-full sm:h-[calc(100vw-30rem)] overflow-hidden">
+    <section class="w-full h-screen sm:h-screen overflow-hidden">
       <Image
         src={PG02}
         alt="Imagen de personas"
-        class="w-full h-full object-cover drop-shadow-3xl"
+        class="w-full h-full object-cover drop-shadow-3xl brightness-50"
       />
     </section>
 
     <Services />
 
-    <section class="w-full h-full sm:h-[calc(100vw-30rem)] overflow-hidden">
-      <Image
+    <section class="w-full h-full sm:h-screen overflow-hidden">
+      <div class="relative h-screen sm:h-full">
+        <Image
         src={PG03}
         alt="Imagen de personas"
-        class="w-full h-full object-cover drop-shadow-3xl"
+        class="w-full h-full object-cover drop-shadow-3xl brightness-50"
       />
-    </section>
+      <div class=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div class="grid grid-cols-1 sm:grid-cols-2">
+          <div class="order"></div>
+          <div class="flex flex-col justify-center items-center sm:items-end">
 
-    <!--  
-    <section class="py-16">
-      <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <div
-            id="container-carousel"
-            class="mx-auto rounded-2xl relative  bg-gray-100 overflow-hidden animate-float"
-          >
-            <div
-              id="slider"
-              class="w-[300%] h-[100%] flex transition-transform easy-out duration-500"
-            >
-              <section class="slider-section w-[calc(100%/3)] h-full">
-                <Image
-                  src={PG01}
-                  alt="Imagen de personas"
-                  class="w-full h-full fit-cover rounded-2xl drop-shadow-3xl"
-                />
-              </section>
-              <section
-                class="slider-section w-[calc(100%/3)] h-full transition-transform easy-out"
-              >
-                <Image
-                  src={PG02}
-                  alt="Imagen de personas"
-                  class="w-full h-full fit-cover rounded-2xl drop-shadow-3xl"
-                />
-              </section>
-              <section
-                class="slider-section w-[calc(100%/3)] h-full transition-transform easy-out"
-              >
-                <Image
-                  src={PG03}
-                  alt="Imagen de personas"
-                  class="w-full h-full fit-cover rounded-2xl drop-shadow-3xl"
-                />
-              </section>
+            <div class="text-center mb-12">
+              <h2 class="text-2xl sm:text-3xl font-serif font-extrabold text-center sm:text-right mb-4">Contáctanos</h2>
+              <p class="text-lg sm:text-xl text-gray-400 font-serif text-center sm:text-right">
+                Estamos para responder tus preguntas
+              </p>
             </div>
-            <div
-              id="btn-left"
-              class="flex absolute left-[5px] sm:left-[10px] top-1/2 -translate-y-1/2 bg-transparent p-2 pointer"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="white"
-                class="size-6"
+            <div>
+              <a
+                href="/contacto"
+                class={`motion-preset-expand 
+                text-white
+                uppercase
+                no-underline
+                border-2
+                border-white
+                rounded-full
+                py-4
+                px-6
+                items-center
+                text-center
+                text-md
+                font-bold
+                relative
+                z-10
+                transition-all
+                duration-500
+                ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                tracking-wide
+                font-sans
+                overflow-hidden
+                before:content-['']
+                before:absolute
+                before:top-0
+                before:right-0
+                before:w-0
+                before:h-full
+                before:bg-white
+                before:-z-10
+                before:transition-all
+                before:duration-500
+                before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+                hover:before:w-full
+                hover:before:left-0
+                hover:before:right-auto
+                hover:text-zinc-800
+                inline-flex`}
               >
-                <path
-                  fill-rule="evenodd"
-                  d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z"
-                  clip-rule="evenodd"></path>
-              </svg>
+                Quiero contactarme
+              </a>
             </div>
-            <div
-              id="btn-right"
-              class="flex absolute right-[5px] sm:right-[10px] top-1/2 -translate-y-1/2 bg-transparent p-2 pointer"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="white"
-                class="size-6"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
-                  clip-rule="evenodd"></path>
-              </svg>
-            </div>
-          </div>
-
-          <div class="flex flex-col justify-center mx-4 sm:mx-6 lg:mx-8">
-            <h1 class="text-5xl font-sans font-black text-accent mb-6">
-              Bienvenido a la Iglesia Cristiana Evangélica en Pilar
-            </h1>
-
-            <p class="text-gray-600 mb-6 font-serif">
-              Nos congregamos al sólo nombre del Señor Jesucristo y el salón de
-              reuniones se encuentra en el conocido Complejo Evangélico Pilar.
-            </p>
-
-            <p class="text-gray-600 font-serif">
-              Lo que sabemos, es de vital importancia, es que Dios te ama tanto,
-              que viéndonos como a Su creación caída en pecados y delitos, envió
-              a su Hijo Unigénito para dar su vida en favor de la tuya.
-            </p>
+    
           </div>
         </div>
       </div>
-    </section>
--->
+      </div>
 
+    </section>
 
     <section class="py-16 mx-4 my-16 sm:mx-10 rounded-xl">
-      <div
-        class="flex flex-col justify-center items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-sans font-extrabold mb-4">Contáctanos</h2>
-          <p class="text-gray-400 font-serif">
-            Estamos para responder tus preguntas
-          </p>
-        </div>
-        <div>
-          <a
-            href="/contacto"
-            class={`motion-preset-expand 
-            text-white
-            uppercase
-            no-underline
-            border-2
-            border-white
-            rounded-full
-            py-4
-            px-6
-            items-center
-            text-center
-            text-md
-            font-bold
-            relative
-            z-10
-            transition-all
-            duration-500
-            ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
-            tracking-wide
-            font-sans
-            overflow-hidden
-            before:content-['']
-            before:absolute
-            before:top-0
-            before:right-0
-            before:w-0
-            before:h-full
-            before:bg-white
-            before:-z-10
-            before:transition-all
-            before:duration-500
-            before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
-            hover:before:w-full
-            hover:before:left-0
-            hover:before:right-auto
-            hover:text-zinc-800
-            inline-flex`}
-          >
-            Quiero contactarme
-          </a>
-        </div>
-      </div>
     </section>
   </main>
 </Layout>
