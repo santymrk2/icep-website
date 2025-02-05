@@ -74,12 +74,13 @@ try {
   if (notionPages.results.length > 0) {
     const firstPage = notionPages.results[0];
     const secondPage = notionPages.results[1];
+    console.log(firstPage)
 
     pages.push({
       id: firstPage.id,
       date: formatearFecha(firstPage.properties["Fecha"].date?.start),
       type: firstPage.properties["Tipo de Reunión"].select?.name.toUpperCase(),
-      pageLink: firstPage.url,
+      pageLink: firstPage.public_url,
       youtubeLink: firstPage.properties["Mensaje en YouTube"]?.url,
     });
 
