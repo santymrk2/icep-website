@@ -111,6 +111,16 @@ const Navbar = ({ location }) => {
                                                 href={item.href}
                                                 className={`inline-flex ${location === item.href ? buttonSelectClasses : buttonClasses}`}
                                             >
+                                                {item.icon && (
+                                                    <div className={`w-6 h-6 mr-2 ${location === item.href ? "bg-green-900" : "bg-white"} mask`} style={{maskImage: `url(${item.icon})`}}>
+                                                        <img
+                                                            src={item.icon}
+                                                            alt={item.text}
+                                                            className="w-full h-full object-contain"
+                                                            style={{opacity: 0}}
+                                                        />
+                                                    </div>
+                                                )}
                                                 {item.text}
                                             </a>
                                         ) : (
