@@ -1,8 +1,10 @@
 ---
+import "../styles/global.css";
 import '@fontsource/merriweather';
 import '@fontsource-variable/noto-sans';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.jsx';
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -23,6 +25,7 @@ const { title, description = "Iglesia Cristiana Evangélica en Pilar - Sitio Ofi
     <link rel="icon" type="image/svg+xml" href="/LogoWhite.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ClientRouter />
   </head>
   <body class="min-h-screen bg-zinc-800 text-white">
     <Header client:visible location={currentPath}/>

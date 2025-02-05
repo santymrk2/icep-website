@@ -143,7 +143,7 @@ const Navbar = ({ location }) => {
                                                     leave="transition ease-in duration-150"
                                                     leaveFrom="transform opacity-100 scale-100"
                                                     leaveTo="transform opacity-0 scale-95"
-                                                    className="absolute top-12 -left-2 m-2 bg-white shadow-lg p-6 z-10 ring-2 ring-white rounded-[2.2rem]"
+                                                    className="absolute top-12 -left-2 m-2 bg-white shadow-lg p-6 z-10 ring-1 ring-white rounded-[2.2rem]"
                                                     onMouseEnter={() => setOpenDropdown(item.text)}
                                                     onMouseLeave={() => setOpenDropdown(null)}
                                                 >
@@ -251,7 +251,7 @@ const Navbar = ({ location }) => {
                                             leave="transition ease-in duration-150 origin-top"
                                             leaveFrom="transform opacity-100 scale-100"
                                             leaveTo="transform opacity-0 scale-95"
-                                            className="p-4 ring-2 ring-white space-y-3 mt-3 bg-zinc-800 shadow-lg rounded-[1.5rem] z-10"
+                                            className="p-4 ring-1 ring-white space-y-3 mt-3 bg-zinc-800 shadow-lg rounded-[1.5rem] z-10"
                                         >
                                             <div className="">
                                                 {item.subitems.map((subitem) => (

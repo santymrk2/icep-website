@@ -30,7 +30,11 @@ const Paths = [
       href: "/contacto",
       subitems: undefined,
     },
+    {
+      text: "Camp 2025",
+      href: "/camps/2025/home",
+      subitems: undefined,
+    }
   ];
 
 export default Paths
-  

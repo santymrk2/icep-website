@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@theme {
+    --font-sans: "Noto Sans Variable", "sans-serif";
+    --font-serif: "Merriweather", "serif";
+
+
+    /* Tilt */
+    --animate-tilt: tilt 10s infinite linear;
+
+    @keyframes tilt {
+
+        0%,
+        50%,
+        100% {
+            transform: rotate(0deg);
+        }
+
+        25% {
+            transform: rotate(1deg);
+        }
+
+        75% {
+            transform: rotate(-1deg);
+        }
+    }
+
+    /* Float */
+
+    --animate-float: float 3s ease-in-out infinite;
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    /* Float 3d */
+
+    --animate-float3d: float3d 6s ease-in-out infinite;
+
+    @keyframes float3d {
+
+        0%,
+        100% {
+            transform: perspective(1000px) translateZ(20px) rotateX(3deg) rotateY(3deg);
+        }
+
+        50% {
+            transform: perspective(1000px) translateZ(30px) rotateX(-3deg) rotateY(-3deg);
+        }
+    }
+
+    /* Infinite Scroll */
+
+    --animate-infinite-scroll: infinite-scroll 25s linear infinite;
+
+    @keyframes infinite-scroll {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(-100%);
+        }
+    }
+
+
+
+
+
+}
+
+@utility no-scrollbar {
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+@plugin "@tailwindcss/typography";

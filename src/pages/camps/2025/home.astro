@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets'
+import CampLayout from '../../../layouts/CampLayout.astro'
+import CampPH01 from '../../../assets/camps/2025/CampPH01.webp'
+import Countdown from '../../../components/camps/2025/Countdown.jsx'
+
+const targetDate = new Date(new Date().getFullYear(), 2, 1, 8, 0, 0).toISOString();
+---
+<CampLayout title="ICEP | Campamento de iglesia 2025">
+    <main>
+        <section>
+            <Countdown client:idle targetDate={targetDate}/>
+        </section>
+        
+        <section class="w-full h-screen sm:h-10/12 overflow-hidden">
+            <Image
+              src={CampPH01}
+              alt="Imagen de personas"
+              class="w-full h-full object-cover drop-shadow-3xl brightness-50"
+            />
+          </section>
+    </main>
+</CampLayout>
