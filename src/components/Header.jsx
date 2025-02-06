@@ -109,7 +109,7 @@ const Navbar = ({ location }) => {
                                         {!item.subitems ? (
                                             <a
                                                 href={item.href}
-                                                className={`inline-flex ${location == item.href ? buttonSelectClasses : buttonClasses} ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}
+                                                className={`inline-flex  ${item.active ? (location == item.href ? buttonSelectClasses : buttonClasses) : "opacity-30 pointer-events-none cursor-not-allowed"}`}
                                             >
                                                 {item.text}
                                             </a>

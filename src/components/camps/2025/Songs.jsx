@@ -10,7 +10,7 @@ const Songs = () => {
   };
 
   return (
-    <section className=" max-w-lg mx-auto py-24 px-6 m-10 ">
+    <section className=" max-w-lg mx-auto px-6 m-10 ">
       <div className="space-y-4">
         {items.map((item, index) => (
           <div key={index} className="p-4 ring ring-2 ring-white rounded-xl">

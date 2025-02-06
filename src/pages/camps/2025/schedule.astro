@@ -1,9 +1,73 @@
 ---
 import { Image } from 'astro:assets'
 import CampLayout from '../../../layouts/CampLayout.astro'
+import { act } from 'react'
+
+const day = () => {
+    const date = new Date()
+    const day = date.getDay().toString()
+    return "Sábado"
+}
+const hours = [
+    {
+        day: "Sábado",
+        schedule: [
+        "19:00hs - Apertura",
+            "19:30hs - Cena",
+            "20:30hs - Alabanza",
+            "21:00hs - Palabra",
+            "22:00hs - Tiempo libre",
+            "19:00hs - Apertura",
+            "19:30hs - Cena",
+            "20:30hs - Alabanza",
+            "21:00hs - Palabra",
+            "22:00hs - Tiempo libre"
+        ],
+    },
+    {
+        day: "Domingo",
+        schedule: [
+            "19:00hs - Apertura",
+            "19:30hs - Cena",
+            "20:30hs - Alabanza",
+            "21:00hs - Palabra",
+            "22:00hs - Tiempo libre"
+        ],
+    },
+    {
+        day: "Lunes",
+        schedule: [
+            "19:00hs - Apertura",
+            "19:30hs - Cena",
+            "20:30hs - Alabanza",
+            "21:00hs - Palabra",
+            "22:00hs - Tiempo libre"
+        ],
+    },
+    {
+        day: "Martes",
+        schedule: [
+            "19:00hs - Apertura",
+            "19:30hs - Cena",
+            "20:30hs - Alabanza",
+            "21:00hs - Palabra",
+            "22:00hs - Tiempo libre"
+        ],
+    }
+]
 ---
 <CampLayout title="Camp25 | Horarios">
     <main class="flex flex-col justify-center items-center">
-        <h1 class="text-5xl font-black uppercase">Horario</h1>
+        <h1 class="text-5xl font-black uppercase mb-8 py-8">Horario</h1>
+        <section class="grid grid-cols-1 sm:grid-cols-2 justify-items-center m-8 p-8 gap-8 w-full">
+            {hours.map((hour) => (
+                <div class={`w-10/12 p-8 rounded-xl ${day() === hour.day ? "bg-white text-green-800" : "ring ring-1 ring-white text-white"} hover:scale-104 trantition-all duration-500 easy-out animate-float3d`}>
+                    <h2 class="text-4xl font-bold mb-4">{hour.day}</h2>
+                    {hour.schedule.map((item) => (
+                        <p class="text-xl">{item}</p>
+                    ))}
+                </div>
+            ))}
+        </section>
     </main>
 </CampLayout>
