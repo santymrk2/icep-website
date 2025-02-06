@@ -1,9 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-    --font-sans: "Noto Sans Variable", "sans-serif";
+    --font-sans:  'Outfit Variable', sans-serif;
     --font-serif: "Merriweather", "serif";
-
+    --font-games: 'Press Start 2P', 'cursive';
+    --font-pic: 'Luckiest Guy', 'cursive';
+    --font-rari: 'Anton', sans-serif;
+/* 'Outfit Variable', sans-serif */
     /* Tilt */
     --animate-tilt: tilt 10s infinite linear;
 

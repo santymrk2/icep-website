@@ -17,16 +17,40 @@ importers:
       '@astrojs/vercel':
         specifier: ^8.0.2
         version: 8.0.2(astro@5.1.7(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.30.1)(terser@5.37.0)(typescript@5.7.3)(yaml@2.7.0))(react@19.0.0)(rollup@4.30.1)
+      '@fontsource-variable/league-spartan':
+        specifier: ^5.1.1
+        version: 5.1.1
+      '@fontsource-variable/montserrat':
+        specifier: ^5.1.1
+        version: 5.1.1
       '@fontsource-variable/noto-sans':
+        specifier: ^5.1.1
+        version: 5.1.1
+      '@fontsource-variable/oswald':
+        specifier: ^5.1.1
+        version: 5.1.1
+      '@fontsource-variable/outfit':
         specifier: ^5.1.1
         version: 5.1.1
       '@fontsource-variable/space-grotesk':
         specifier: ^5.1.1
         version: 5.1.1
+      '@fontsource/anton':
+        specifier: ^5.1.1
+        version: 5.1.1
+      '@fontsource/luckiest-guy':
+        specifier: ^5.1.1
+        version: 5.1.1
       '@fontsource/merriweather':
         specifier: ^5.1.1
         version: 5.1.1
+      '@fontsource/monofett':
+        specifier: ^5.1.1
+        version: 5.1.1
       '@fontsource/poppins':
+        specifier: ^5.1.1
+        version: 5.1.1
+      '@fontsource/press-start-2p':
         specifier: ^5.1.1
         version: 5.1.1
       '@headlessui/react':
@@ -381,17 +405,41 @@ packages:
   '@floating-ui/utils@0.2.9':
     resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
+  '@fontsource-variable/league-spartan@5.1.1':
+    resolution: {integrity: sha512-yrpRrZNeU7rmtB4UlwKfdb+MzKQ6hhNnP881mqDLxweHzBWa3s8JgqnxmE3OodLiU/hHqsuiDbmpOAyVxyF/mw==}
+
+  '@fontsource-variable/montserrat@5.1.1':
+    resolution: {integrity: sha512-eHmSruS3B+4wVaHk6ShNUJj1MbWEohOuriwN/oYR2VY8jRS83a5SKQeG1wu4Eku3v3f5cXTIbfd1tHeQ7GXkiA==}
+
   '@fontsource-variable/noto-sans@5.1.1':
     resolution: {integrity: sha512-hO0ywqmXLSU2C++B/FQeklo/zBSQZhHJef6ik/lJNaPmagpdHkHgQb1zwMuC9pdTv7UZeuGp38ML19w2AzM0kw==}
+
+  '@fontsource-variable/oswald@5.1.1':
+    resolution: {integrity: sha512-Ff9wOXJNSER7nxhWmsxLVkqFm42dpZqsc50vC1L3j4oz54/zyDqhBtRxCeXNrr3Z1+d8VrDl4qS67LGrrYZrow==}
+
+  '@fontsource-variable/outfit@5.1.1':
+    resolution: {integrity: sha512-XuzmITw6zWt3nUINJVAk99f0TgXJ9ZCt3qERAr0t89Em6RbqQ4x6skmxsIgjzkLHVzmoqf3AzCbxvpk/kNnu5A==}
 
   '@fontsource-variable/space-grotesk@5.1.1':
     resolution: {integrity: sha512-LTz+nIUdm7ZVY9ZlqRiTKqByi+tIcQUKaKONBVSxKRABPRgdnJOwiuqvHa+ac7Xs0ZorDBm7O0fmwHuOGT3HIw==}
 
+  '@fontsource/anton@5.1.1':
+    resolution: {integrity: sha512-PbKqw6qNhRkyf7TRLS1JoQR7fp504o60VveuzFOO3SO33lsfE6GqEdDeVd1LLePKWkgHxIpU0ypW3pNu1unrQg==}
+
+  '@fontsource/luckiest-guy@5.1.1':
+    resolution: {integrity: sha512-NJDEuAzr3Q145O6yyJL89zC0ACEfVmFuZcLzxHkVpImLYT2mTWZi84PWc8nQ1wVFCTYIOh7ehFdn9WIIYwx2Qw==}
+
   '@fontsource/merriweather@5.1.1':
     resolution: {integrity: sha512-GaO8ZHDCQAuoPJh0yiLK+NzL03OnGs64uFGKFRSouinZ1CtoEtO+3DHr4LZokFW+Au5MvWr4Am2MOhjdyvIRyA==}
 
+  '@fontsource/monofett@5.1.1':
+    resolution: {integrity: sha512-W4MZDfKwpNuEJJewGzTMn1Z1prwF7dpw6YOfIx7RwSdeiEfMevNdUp1457+NR2bUQdloQs8F7RqLnFrxL7+lbg==}
+
   '@fontsource/poppins@5.1.1':
     resolution: {integrity: sha512-PQVKHGQOK+UpVNPzTFF9Z9ez3CIDkunfvRXGH95hiDoqWJc1shW4JFqe4tEoqnq7RtZaYrw9aWQq58L4eny5xg==}
+
+  '@fontsource/press-start-2p@5.1.1':
+    resolution: {integrity: sha512-+TAlsRqnxEHWk/HhPNL1O+/Ptdvmnwx+R6K99NuMIKy/XD9ZLlrp692Y0INL0AmH5yH5P+XMDlKKCiCgVI2AxQ==}
 
   '@headlessui/react@2.2.0':
     resolution: {integrity: sha512-RzCEg+LXsuI7mHiSomsu/gBJSjpupm6A1qIZ5sWjd7JhARNlMiSA4kKfJpCKwU9tE+zMRterhhrP74PvfJrpXQ==}
@@ -2803,13 +2851,29 @@ snapshots:
 
   '@floating-ui/utils@0.2.9': {}
 
+  '@fontsource-variable/league-spartan@5.1.1': {}
+
+  '@fontsource-variable/montserrat@5.1.1': {}
+
   '@fontsource-variable/noto-sans@5.1.1': {}
+
+  '@fontsource-variable/oswald@5.1.1': {}
+
+  '@fontsource-variable/outfit@5.1.1': {}
 
   '@fontsource-variable/space-grotesk@5.1.1': {}
 
+  '@fontsource/anton@5.1.1': {}
+
+  '@fontsource/luckiest-guy@5.1.1': {}
+
   '@fontsource/merriweather@5.1.1': {}
 
+  '@fontsource/monofett@5.1.1': {}
+
   '@fontsource/poppins@5.1.1': {}
+
+  '@fontsource/press-start-2p@5.1.1': {}
 
   '@headlessui/react@2.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:

@@ -25,38 +25,37 @@ function Countdown({ targetDate }) {
   return (
     <section className="py-20 my-20">
       <div className="max-w-5xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8 text-white">Faltan</h2>
+        <h2 className="text-4xl font-extrabold text-center mb-8 text-white uppercase">Faltan</h2>
 
-        <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8">
+        <div className="flex flex-row md:flex-row justify-center items-center gap-4 md:gap-8">
           <div className="text-center">
-            <div className="bg-gray-100 rounded-lg p-6">
-              <div id="days" className="text-6xl font-bold text-green-900">{timeLeft.days}</div>
+            <div className="flex flex-col justify-center items-center bg-gray-100 rounded-lg sm:p-6 size-18 sm:size-28">
+              <div id="days" className="text-4xl sm:text-6xl font-bold text-green-900 font-rari">{timeLeft.days}</div>
             </div>
-            <p className="mt-2 text-lg text-gray-400">días</p>
+            <p className="mt-2 text-sm sm:text-lg text-gray-300">días</p>
           </div>
 
           <div className="text-center">
-            <div className="bg-gray-100 rounded-lg p-6">
-              <div id="hours" className="text-6xl font-bold text-green-900">{timeLeft.hours}</div>
+            <div className="flex flex-col justify-center items-center bg-gray-100 rounded-lg sm:p-6 size-18 sm:size-28">
+              <div id="hours" className="text-4xl sm:text-6xl font-bold text-green-900 font-rari">{timeLeft.hours}</div>
             </div>
-            <p className="mt-2 text-lg text-gray-400">horas</p>
+            <p className="mt-2 text-sm sm:text-lg text-gray-300">horas</p>
           </div>
 
           <div className="text-center">
-            <div className="bg-gray-100 rounded-lg p-6">
-              <div id="seconds" className="text-6xl font-bold text-green-900">{timeLeft.minutes}</div>
+            <div className="flex flex-col justify-center items-center bg-gray-100 rounded-lg sm:p-6 size-18 sm:size-28">
+              <div id="seconds" className="text-4xl sm:text-6xl font-bold text-green-900 font-rari">{timeLeft.minutes}</div>
             </div>
-            <p className="mt-2 text-lg text-gray-400">minutos</p>
+            <p className="mt-2 text-sm sm:text-lg text-gray-300">minutos</p>
           </div>
 
         <div className="text-center">
-          <div className="bg-gray-100 rounded-lg p-6">
-            <div id="seconds" className="text-6xl font-bold text-green-900">{timeLeft.seconds}</div>
+          <div className="flex flex-col justify-center items-center bg-gray-100 rounded-lg sm:p-6 size-18 sm:size-28">
+            <div id="seconds" className="text-4xl sm:text-6xl font-bold text-green-900 font-rari">{timeLeft.seconds}</div>
           </div>
-          <p className="mt-2 text-lg text-gray-400">segundos</p>
+          <p className="mt-2 text-sm sm:text-lg text-gray-300">segundos</p>
         </div>
       </div>
-      <h2 className="text-3xl font-bold text-center mt-8 text-white">para el campamento</h2>
       </div>
     </section >
   )

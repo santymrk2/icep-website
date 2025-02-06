@@ -45,7 +45,7 @@ const Navbar = ({ location }) => {
     const buttonSelectClasses = `
     motion-preset-expand 
     bg-white
-    text-black
+    text-green-900
     no-underline
     rounded-full
     py-2
@@ -85,15 +85,16 @@ const Navbar = ({ location }) => {
             <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex text-base font-normal">
                 <div className="flex justify-between items-center w-full">
                     <div className="flex items-center m-2">
-                        <a href="/" className="flex items-center">
-                            <svg
+                        <a href="/camps/2025/home" className="flex justify-center items-center">
+                            <h1 className="font-regular text-white font-rari text-5xl text-center">TANDIL'25</h1>
+                            {/*<svg
                                 className="h-[4.5rem] fill-white"
                                 viewBox="0 0 800 800"
                             >
                                 <path d="M400 331.69c28.41-20.36 63.23-32.34 100.85-32.34 25.46 0 49.64 5.49 71.42 15.35.71-6.37 1.09-12.84 1.09-19.4 0-95.74-77.61-173.35-173.35-173.35S226.66 199.56 226.66 295.3c0 6.56.38 13.03 1.09 19.4 21.78-9.86 45.96-15.35 71.42-15.35 37.62 0 72.43 11.99 100.85 32.34Z" />
                                 <path d="M572.27 314.7c-6.89 61.88-46.34 113.93-100.85 138.6.71 6.37 1.09 12.84 1.09 19.4 0 58.12-28.61 109.56-72.51 141.01 28.41 20.36 63.23 32.34 100.85 32.34 95.74 0 173.35-77.61 173.35-173.35 0-70.28-41.82-130.79-101.93-158Z" />
                                 <path d="M327.49 472.7c0-6.56.38-13.03 1.09-19.4-54.5-24.67-93.95-76.72-100.85-138.6-60.11 27.21-101.93 87.72-101.93 158 0 95.74 77.61 173.35 173.35 173.35 37.62 0 72.43-11.99 100.85-32.34-43.9-31.45-72.51-82.89-72.51-141.01ZM400 331.69c-38.94 27.9-65.84 71.54-71.42 121.61 21.78 9.86 45.96 15.35 71.42 15.35s49.64-5.49 71.42-15.35c-5.58-50.07-32.48-93.71-71.42-121.61Z" />
-                            </svg>
+                            </svg>*/}
                         </a>
                     </div>
 
@@ -111,17 +112,23 @@ const Navbar = ({ location }) => {
                                                 href={item.href}
                                                 className={`inline-flex ${location === item.href ? buttonSelectClasses : buttonClasses}`}
                                             >
-                                                {item.icon && (
-                                                    <div className={`w-6 h-6 mr-2 ${location === item.href ? "bg-green-900" : "bg-white"}`} style={{ WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})` }}
-                                                    >
-                                                        <img
-                                                            src={item.icon}
-                                                            alt={item.text}
-                                                            className="w-full h-full object-contain opacity-0"
-                                                        />
-                                                    </div>
-                                                )}
-                                                {item.text}
+                                                <div className="flex items-center justify-center">
+
+                                                    {item.icon && (
+                                                        <div className={`w-6 h-6 mr-2 ${location === item.href ? "bg-green-900" : "bg-white"}`} style={{ WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})` }}
+                                                        >
+                                                            <img
+                                                                src={item.icon}
+                                                                alt={item.text}
+                                                                className="w-full h-full object-contain opacity-0"
+                                                            />
+                                                        </div>
+                                                    )}
+                                                    <p className="text-center ">
+                                                        {item.text}
+                                                    </p>
+                                                </div>
+
                                             </a>
                                         ) : (
                                             <div className="relative group">
@@ -228,7 +235,7 @@ const Navbar = ({ location }) => {
                                         className={`inline-flex justify-center w-full ${location === item.href ? buttonSelectClasses : buttonClasses}`}
                                     >
                                         {item.icon && (
-                                            <div className={`w-6 h-6 mr-2 ${location === item.href ? "bg-green-900" : "bg-white"} `} style={{ WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})` }}
+                                            <div className={`size-6 mr-2 ${location === item.href ? "bg-green-900" : "bg-white"} `} style={{ WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})` }}
                                             >
                                                 <img
                                                     src={item.icon}
