@@ -8,7 +8,7 @@ const Paths = [
       icon: "/home-icon.svg",
     },
     {
-      text: "Alabanza",
+      text: "Canciones",
       href: "/camps/2025/worship",
       subitems: undefined,
       icon: "/worship-icon.svg",
