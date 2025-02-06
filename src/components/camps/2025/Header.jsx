@@ -23,7 +23,7 @@ const Navbar = ({ location }) => {
     duration-500
     ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
     tracking-wide
-    font-sans
+    font-sans-camp
     overflow-hidden
     before:content-['']
     before:absolute
@@ -59,7 +59,7 @@ const Navbar = ({ location }) => {
     duration-500
     ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
     tracking-wide
-    font-sans
+    font-sans-camp
     overflow-hidden
     before:content-['']
     before:absolute
@@ -86,7 +86,7 @@ const Navbar = ({ location }) => {
                 <div className="flex justify-between items-center w-full">
                     <div className="flex items-center m-2">
                         <a href="/camps/2025/home" className="flex justify-center items-center">
-                            <h1 className="font-regular text-white font-rari text-5xl text-center">TANDIL'25</h1>
+                            <h1 className="font-regular text-white font-big-camp text-5xl text-center">TANDIL'25</h1>
                             {/*<svg
                                 className="h-[4.5rem] fill-white"
                                 viewBox="0 0 800 800"

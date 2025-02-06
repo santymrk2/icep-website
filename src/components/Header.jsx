@@ -109,19 +109,19 @@ const Navbar = ({ location }) => {
                                         {!item.subitems ? (
                                             <a
                                                 href={item.href}
-                                                className={`inline-flex ${location === item.href ? buttonSelectClasses : buttonClasses}`}
+                                                className={`inline-flex ${location === item.href ? buttonSelectClasses : buttonClasses} ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}
                                             >
                                                 {item.text}
                                             </a>
                                         ) : (
-                                            <div className="relative group">
+                                            <div className={`relative group ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}>
                                                 <a
                                                     href="#"
                                                     className={buttonClasses + "inline-flex"}
                                                 >
                                                     <span>{item.text}</span>
                                                     <svg
-                                                        className="size-5 transform transition-transform duration-200"
+                                                        className={`size-5 transform transition-transform duration-200 ${item.active ? "" : "pointer-events-none cursor-not-allowed"}`}
                                                         fill="none"
                                                         viewBox="0 0 24 24"
                                                         stroke="currentColor"
@@ -136,7 +136,7 @@ const Navbar = ({ location }) => {
                                                 </a>
 
                                                 <Transition
-                                                    show={openDropdown === item.text}
+                                                    show={item.active ? openDropdown === item.text : null}
                                                     enter="transition ease-out duration-200"
                                                     enterFrom="transform opacity-0 scale-95"
                                                     enterTo="transform opacity-100 scale-100"
@@ -215,14 +215,14 @@ const Navbar = ({ location }) => {
                                 {!item.subitems ? (
                                     <a
                                         href={item.href}
-                                        className={`inline-flex justify-center w-full ${location === item.href ? buttonSelectClasses : buttonClasses}`}
+                                        className={`inline-flex justify-center w-full ${location === item.href ? buttonSelectClasses : buttonClasses} ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}
                                     >
                                         {item.text}
                                     </a>
                                 ) : (
-                                    <div className="relative">
+                                    <div className={`relative ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}>
                                         <button
-                                            className={`${buttonClasses} inline-flex justify-center w-full`}
+                                            className={`${buttonClasses} inline-flex justify-center w-full  ${item.active ? "" : "pointer-events-none cursor-not-allowed"}`}
                                             onClick={() => setOpenDropdown(
                                                 openDropdown === item.text ? null : item.text
                                             )}
@@ -244,7 +244,7 @@ const Navbar = ({ location }) => {
                                         </button>
 
                                         <Transition
-                                            show={openDropdown === item.text}
+                                            show={item.active ? openDropdown === item.text : null}
                                             enter="transition ease-out duration-200 origin-top"
                                             enterFrom="transform opacity-0 scale-95"
                                             enterTo="transform opacity-100 scale-100"

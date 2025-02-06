@@ -15,7 +15,7 @@ const Songs = () => {
         {items.map((item, index) => (
           <div key={index} className="p-4 ring ring-2 ring-white rounded-xl">
             <button
-              className="w-full flex justify-between items-center text-lg text-white text-left font-sans font-extrabold py-2 px-4 focus:outline-none"
+              className="w-full flex justify-between items-center text-lg text-white text-left font-sans-camp font-extrabold py-2 px-4 focus:outline-none"
               onClick={() => toggleAccordion(index)}
             >
               {item.title}
