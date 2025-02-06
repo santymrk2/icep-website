@@ -27,7 +27,7 @@ const { title, description = "Iglesia Cristiana Evangélica en Pilar - Sitio Ofi
     <title>{title}</title>
   </head>
   <body class="min-h-screen bg-zinc-800 text-white">
-    <Header client:visible location={currentPath}/>
+    <Header client:idle location={currentPath}/>
     <slot />
     <Footer />
   </body>
