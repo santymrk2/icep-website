@@ -74,7 +74,6 @@ try {
   if (notionPages.results.length > 0) {
     const firstPage = notionPages.results[0];
     const secondPage = notionPages.results[1];
-    console.log(firstPage)
 
     pages.push({
       id: firstPage.id,
@@ -136,6 +135,7 @@ export const prerender = false;
             <div
               class={`
       animate-[float3d_6s_ease-in-out_infinite]
+      hover:scale-103 transition-transform duration-500 ease-out
         ring ring-1
         ${item.type === "ACTIVADOS" ? "ring-green-500 shadow-green-500/60" : ""}
         ${item.type === "REUNIÓN DE ENSEÑANZA" ? "ring-blue-500 shadow-blue-500/60" : ""}
