@@ -45,7 +45,7 @@ const Navbar = ({ location }) => {
     const buttonSelectClasses = `
     motion-preset-expand 
     bg-white
-    text-green-900
+    text-green-800
     no-underline
     rounded-full
     py-2
@@ -115,7 +115,7 @@ const Navbar = ({ location }) => {
                                                 <div className="flex items-center justify-center">
 
                                                     {item.icon && (
-                                                        <div className={`w-6 h-6 mr-2 ${location === item.href ? "bg-green-900" : "bg-white"}`} style={{ WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})` }}
+                                                        <div className={`w-6 h-6 mr-2 ${location === item.href ? "bg-green-800" : "bg-white"}`} style={{ WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})` }}
                                                         >
                                                             <img
                                                                 src={item.icon}
@@ -235,7 +235,7 @@ const Navbar = ({ location }) => {
                                         className={`inline-flex justify-center w-full ${location === item.href ? buttonSelectClasses : buttonClasses}`}
                                     >
                                         {item.icon && (
-                                            <div className={`size-6 mr-2 ${location === item.href ? "bg-green-900" : "bg-white"} `} style={{ WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})` }}
+                                            <div className={`size-6 mr-2 ${location === item.href ? "bg-green-800" : "bg-white"} `} style={{ WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})` }}
                                             >
                                                 <img
                                                     src={item.icon}
