@@ -107,16 +107,13 @@ const Navbar = ({ location }) => {
                                         onClick={() => setOpenDropdown(item.text)}
                                     >
                                         {!item.subitems ? (
-                                            <div className={`${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}>
                                             <a
                                                 href={item.href}
-                                                className={`${location == item.href ? buttonSelectClasses : buttonClasses} inline-flex `}
+                                                className={`${location == item.href ? buttonSelectClasses : buttonClasses} inline-flex ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}
                                             >
 
                                                 {item.text}
                                             </a>
-                                            </div>
-
                                         ) : (
                                             <div className={`relative group ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}>
                                                 <a
