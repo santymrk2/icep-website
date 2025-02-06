@@ -52,16 +52,27 @@ export const prerender = true;
       </div>
 
       <!-- Contenedor del mapa (Aparece abajo en móviles, a la izquierda en desktop) -->
-      <div class="order-2 md:order-2 flex justify-center w-full">
+      <div class="order-2 md:order-2 flex justify-center w-full animate-float relative">
+        <!-- Esqueleto de carga -->
+        <div 
+          id="skeleton"
+          class="absolute inset-0 bg-zinc-700 rounded-lg animate-pulse"
+          style="height: 450px;"
+        ></div>
+      
+        <!-- Mapa -->
         <div class="aspect-w-16 aspect-h-9 w-full max-w-xl mx-auto">
           <iframe
+            id="mapIframe"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3290.8116776545207!2d-58.9129872!3d-34.4587799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bc9d0a8b6bea3b%3A0x8f6a1a0b5f8c0a0e!2sAv.%20Dr.%20Honorio%20Pueyrred%C3%B3n%202775%2C%20B1631FZJ%20Pilar%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1625147200000!5m2!1ses!2sar"
             width="100%"
             height="450"
             style="border:0;"
             allowfullscreen=""
             loading="lazy"
-            class="rounded-lg shadow-lg"></iframe>
+            class="rounded-lg shadow-lg opacity-0 transition-opacity duration-300"
+            onload="this.classList.remove('opacity-0'); document.getElementById('skeleton').remove()"
+          ></iframe>
         </div>
       </div>
     </div>
@@ -108,24 +119,33 @@ export const prerender = true;
         </div>
       </div>
 
-      <div class="order-1 md:order-1 flex justify-center w-full">
+      <div class="order-1 md:order-1 flex justify-center w-full animate-float relative">
+        <!-- Esqueleto de carga -->
+        <div 
+          id="youtube-skeleton"
+          class="absolute inset-0 bg-zinc-700 rounded-lg animate-pulse"
+          style="height: 450px;"
+        ></div>
+      
+        <!-- Video de YouTube -->
         <div class="aspect-w-16 aspect-h-9 w-full max-w-xl mx-auto">
           <iframe
+            id="youtubeIframe"
             width="100%"
             height="450"
             style="border:0;"
             allowfullscreen=""
             loading="lazy"
-            class="rounded-lg shadow-lg"
+            class="rounded-lg shadow-lg opacity-0 transition-opacity duration-300"
             src="https://www.youtube.com/embed/b2eudGDe5J8?si=ZOhH9lo7IFMduJAJ"
             title="YouTube video player"
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          >
-          </iframe>
+            onload="this.classList.remove('opacity-0'); document.getElementById('youtube-skeleton').remove()"
+          ></iframe>
         </div>
       </div>
+      
     </div>
   </section>
 
@@ -150,7 +170,7 @@ export const prerender = true;
         </div>
       </div>
 
-      <div class="order-2 md:order-2 flex justify-center w-full">
+      <div class="order-2 md:order-2 flex justify-center w-full animate-float">
         <div class="aspect-w-16 aspect-h-9 w-full max-w-xl mx-auto">
           <div class="">
             <div class="shadow-lg rounded-xl p-12 ring ring-1 ring-white">
