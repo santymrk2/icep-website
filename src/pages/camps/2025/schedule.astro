@@ -1,67 +1,82 @@
 ---
 import { Image } from 'astro:assets'
 import CampLayout from '../../../layouts/CampLayout.astro'
-import { act } from 'react'
+import { getDaysForEvent } from "../../../services/days.js";
 
-const day = () => {
-    const date = new Date()
-    const day = date.getDay().toString()
-    return "Sábado"
-}
 const hours = [
-    {
-        day: "Sábado",
-        schedule: [
-        "19:00hs - Apertura",
-            "19:30hs - Cena",
-            "20:30hs - Alabanza",
-            "21:00hs - Palabra",
-            "22:00hs - Tiempo libre",
-            "19:00hs - Apertura",
-            "19:30hs - Cena",
-            "20:30hs - Alabanza",
-            "21:00hs - Palabra",
-            "22:00hs - Tiempo libre"
-        ],
-    },
-    {
-        day: "Domingo",
-        schedule: [
-            "19:00hs - Apertura",
-            "19:30hs - Cena",
-            "20:30hs - Alabanza",
-            "21:00hs - Palabra",
-            "22:00hs - Tiempo libre"
-        ],
-    },
-    {
-        day: "Lunes",
-        schedule: [
-            "19:00hs - Apertura",
-            "19:30hs - Cena",
-            "20:30hs - Alabanza",
-            "21:00hs - Palabra",
-            "22:00hs - Tiempo libre"
-        ],
-    },
-    {
-        day: "Martes",
-        schedule: [
-            "19:00hs - Apertura",
-            "19:30hs - Cena",
-            "20:30hs - Alabanza",
-            "21:00hs - Palabra",
-            "22:00hs - Tiempo libre"
-        ],
-    }
+  {
+    "day": "Sábado",
+    "schedule": [
+      "9:00 hs - Salida de Pilar",
+      "13:00 hs - Llegada al predio",
+      "13:30 hs - Almuerzo (A la canasta)",
+      "15:00 hs - Condicionamiento de las habitaciones / Tiempo Libre",
+      "16:00 hs - Caminata al Cristo",
+      "17:30 hs - Tiempo Libre",
+      "19:00 hs - Tiempo de Aseo",
+      "20:00 hs - Encuentro Espiritual (Tema: El compromiso y el servicio en la Iglesia Local. Expone: Fernando Morales)",
+      "21:00 hs - Cena (Menú: Empanadas)",
+      "22:00 hs - Salida al Centro de Tandil (Opcional)",
+      "24:00 hs - Habitaciones / Tiempo Libre: Mateadas - Deportes (Vóley - Futbol - Pileta)"
+    ],
+    "number": 0
+  },
+  {
+    "day": "Domingo",
+    "schedule": [
+      "8:30 hs - Levantarse",
+      "9:00 hs - Devocional",
+      "9:30 hs - Desayuno",
+      "10:00 hs - Excursión: Caminata - Circuito de Montañas",
+      "12:30 hs - Regreso",
+      "13:00 hs - Almuerzo (Menú: Pastas)",
+      "14:00 hs - Tiempo Libre",
+      "18:00 hs - Cena del Señor (En el Cerro del Predio)",
+      "19:30 hs - Tiempo de Aseo",
+      "20:00 hs - Encuentro Espiritual (Tema: Identidad y sentido de pertenencia a la Iglesia Local. Expone: Eduardo Carbone)",
+      "21:30 hs - Cena (Pizzas)",
+      "22:30 hs - Tiempo de Juegos Nocturnos en el Exterior",
+      "24:00 hs - Habitaciones / Tiempo Libre: Mateadas - Deportes (Vóley - Futbol - Pileta)"
+    ],
+    "number": 1
+  },
+  {
+    "day": "Lunes",
+    "schedule": [
+      "8:30 hs - Levantarse",
+      "9:00 hs - Devocional",
+      "9:30 hs - Desayuno",
+      "10:00 hs - Excursión: La Movediza - El Fortín - Lago",
+      "13:00 hs - Almuerzo Pic Nic (Menú: Sándwiches de Milanesa) en el lago",
+      "13:30 hs - Excursión: El Quijote - Via Crucis",
+      "16:00 hs - Vuelta al predio - Tiempo Libre",
+      "19:00 hs - Tiempo de Aseo",
+      "20:00 hs - Encuentro Espiritual (Tema: Comunión y amor fraterno en la iglesia local. Expone: Christian Carbone)",
+      "21:00 hs - Cena (Menú: Pollo a la Parrilla con Ensaladas) / Postre",
+      "22:00 hs - Tiempo Libre",
+      "24:00 hs - Habitaciones / Tiempo Libre: Mateadas - Deportes (Vóley - Futbol - Pileta)"
+    ],
+    "number": 2
+  },
+  {
+    "day": "Martes",
+    "schedule": [
+      "8:30 hs - Levantarse",
+      "9:00 hs - Devocional",
+      "9:30 hs - Desayuno",
+      "10:00 hs - Tiempo Libre",
+      "12:30 hs - Salida a Pilar"
+    ],
+    "number": 3
+  }
 ]
 ---
 <CampLayout title="Camp25 | Horarios">
     <main class="flex flex-col justify-center items-center">
-        <h1 class="text-5xl font-black uppercase mb-8 py-8">Horario</h1>
+        <h1 class="text-5xl font-black uppercase mb-8 py-8">Horarios</h1>
         <section class="grid grid-cols-1 sm:grid-cols-2 justify-items-center m-8 p-8 gap-8 w-full">
             {hours.map((hour) => (
-                <div class={`w-10/12 p-8 rounded-xl ${day() === hour.day ? "bg-white text-green-800" : "ring ring-1 ring-white text-white"} hover:scale-104 trantition-all duration-500 easy-out animate-float3d`}>
+                <div class={`w-10/12 p-8 rounded-xl ${getDaysForEvent() === hour.number ? "bg-white text-green-800" : "ring ring-1 ring-white text-white"} hover:scale-104 trantition-all duration-500 easy-out animate-float3d`}>
                     <h2 class="text-4xl font-bold mb-4">{hour.day}</h2>
                     {hour.schedule.map((item) => (
                         <p class="text-xl">{item}</p>

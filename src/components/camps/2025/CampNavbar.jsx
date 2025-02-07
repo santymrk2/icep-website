@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 import { Transition } from '@headlessui/react'; // Importar el componente Transition
-import Paths from "../data/routingPaths.js";
+import Paths from "../../../data/campPaths.js";
 
-
-
-
-const Navbar = () => {
+const CampNavbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
     const menuItems = Paths;
@@ -13,7 +10,7 @@ const Navbar = () => {
 
     useEffect(() => {
         if (typeof window !== 'undefined') { // Check if window is defined (client-side)
-            setCurrentPath(window.location.pathname); // Now it's safe to access window.location
+            setCurrentPath(window.location.pathname); // Now it's safe to access window.currentPath
         }
 
         const handlePathChange = () => {
@@ -32,8 +29,6 @@ const Navbar = () => {
     }, []); // El array de dependencias vacío asegura que esto solo se ejecute una vez en el montaje
 
 
-
-
     const buttonClasses = `
     motion-preset-expand 
     text-white
@@ -41,6 +36,7 @@ const Navbar = () => {
     rounded-full
     py-2
     px-4
+    text-xl
     items-center
     text-center
     font-extrabold
@@ -50,7 +46,7 @@ const Navbar = () => {
     duration-500
     ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
     tracking-wide
-    font-sans
+    font-sans-camp
     overflow-hidden
     before:content-['']
     before:absolute
@@ -58,7 +54,7 @@ const Navbar = () => {
     before:right-0
     before:w-0
     before:h-full
-    before:bg-zinc-700
+    before:bg-green-700
     before:-z-10
     before:transition-all
     before:duration-500
@@ -72,11 +68,12 @@ const Navbar = () => {
     const buttonSelectClasses = `
     motion-preset-expand 
     bg-white
-    text-black
+    text-green-800
     no-underline
     rounded-full
     py-2
     px-4
+    text-xl
     items-center
     text-center
     font-extrabold
@@ -86,7 +83,7 @@ const Navbar = () => {
     duration-500
     ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
     tracking-wide
-    font-sans
+    font-sans-camp
     overflow-hidden
     before:content-['']
     before:absolute
@@ -109,22 +106,23 @@ const Navbar = () => {
                 } transition-all duration-300`}
             id="back-menu"
         >
-            <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex text-base font-normal">
+            <div className="max-w-7xl px-6 sm:px-8 lg:px-10 py-4 flex text-base font-normal">
                 <div className="flex justify-between items-center w-full">
                     <div className="flex items-center m-2">
-                        <a href="/" className="flex items-center">
-                            <svg
+                        <a href="/camps/2025/home" className="flex justify-center items-center">
+                            <h1 className="font-regular text-white font-big-camp text-5xl text-center">TANDIL'25</h1>
+                            {/*<svg
                                 className="h-[4.5rem] fill-white"
                                 viewBox="0 0 800 800"
                             >
                                 <path d="M400 331.69c28.41-20.36 63.23-32.34 100.85-32.34 25.46 0 49.64 5.49 71.42 15.35.71-6.37 1.09-12.84 1.09-19.4 0-95.74-77.61-173.35-173.35-173.35S226.66 199.56 226.66 295.3c0 6.56.38 13.03 1.09 19.4 21.78-9.86 45.96-15.35 71.42-15.35 37.62 0 72.43 11.99 100.85 32.34Z" />
                                 <path d="M572.27 314.7c-6.89 61.88-46.34 113.93-100.85 138.6.71 6.37 1.09 12.84 1.09 19.4 0 58.12-28.61 109.56-72.51 141.01 28.41 20.36 63.23 32.34 100.85 32.34 95.74 0 173.35-77.61 173.35-173.35 0-70.28-41.82-130.79-101.93-158Z" />
                                 <path d="M327.49 472.7c0-6.56.38-13.03 1.09-19.4-54.5-24.67-93.95-76.72-100.85-138.6-60.11 27.21-101.93 87.72-101.93 158 0 95.74 77.61 173.35 173.35 173.35 37.62 0 72.43-11.99 100.85-32.34-43.9-31.45-72.51-82.89-72.51-141.01ZM400 331.69c-38.94 27.9-65.84 71.54-71.42 121.61 21.78 9.86 45.96 15.35 71.42 15.35s49.64-5.49 71.42-15.35c-5.58-50.07-32.48-93.71-71.42-121.61Z" />
-                            </svg>
+                            </svg>*/}
                         </a>
                     </div>
 
-                    <div className="hidden lg:flex space-x-8 justify-center items-center m-2">
+                    <div className="hidden space-x-8 justify-center items-center m-2">
                         <nav>
                             <ul className="flex space-x-4 g-4">
                                 {menuItems.map((item) => (
@@ -136,20 +134,35 @@ const Navbar = () => {
                                         {!item.subitems ? (
                                             <a
                                                 href={item.href}
-                                                className={`${currentPath === item.href ? buttonSelectClasses : buttonClasses} inline-flex ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"} `} 
+                                                className={`inline-flex ${currentPath === item.href ? buttonSelectClasses : buttonClasses} ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}
                                             >
+                                                <div className="flex items-center justify-center">
 
-                                                {item.text}
+                                                    {item.icon && (
+                                                        <div className={`w-6 h-6 mr-2 ${currentPath === item.href ? "bg-green-800" : "bg-white"}`} style={{ WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})`}}
+                                                        >
+                                                            <img
+                                                                src={item.icon}
+                                                                alt={item.text}
+                                                                className="w-full h-full object-contain opacity-0"
+                                                            />
+                                                        </div>
+                                                    )}
+                                                    <p className="text-center ">
+                                                        {item.text}
+                                                    </p>
+                                                </div>
+
                                             </a>
                                         ) : (
-                                            <div className={`relative group ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}>
+                                            <div className="relative group">
                                                 <a
                                                     href="#"
-                                                    className={buttonClasses + "inline-flex"}
+                                                    className={`${currentPath === item.href ? buttonSelectClasses : buttonClasses} inline-flex ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}
                                                 >
                                                     <span>{item.text}</span>
                                                     <svg
-                                                        className={`size-5 transform transition-transform duration-200 ${item.active ? "" : "pointer-events-none cursor-not-allowed"}`}
+                                                        className={`size-5 transform transition-transform duration-200 ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}
                                                         fill="none"
                                                         viewBox="0 0 24 24"
                                                         stroke="currentColor"
@@ -171,7 +184,7 @@ const Navbar = () => {
                                                     leave="transition ease-in duration-150"
                                                     leaveFrom="transform opacity-100 scale-100"
                                                     leaveTo="transform opacity-0 scale-95"
-                                                    className="absolute top-12 -left-2 m-2 bg-white shadow-lg p-6 z-10 ring-1 ring-white rounded-[2.2rem]"
+                                                    className="absolute top-12 -left-2 m-2 bg-white shadow-lg p-6 z-10 ring-2 ring-white rounded-[2.2rem]"
                                                     onMouseEnter={() => setOpenDropdown(item.text)}
                                                     onMouseLeave={() => setOpenDropdown(null)}
                                                 >
@@ -197,7 +210,7 @@ const Navbar = () => {
                     </div>
                     <button
                         id="mobile-menu-button"
-                        className="lg:hidden m-2 sm:m-1 rounded-full group transition-all ease-in-out inline-flex w-12 h-12 text-slate-800 text-center items-center justify-center"
+                        className="m-2 sm:m-1 rounded-full group transition-all ease-in-out inline-flex w-12 h-12 text-slate-800 text-center items-center justify-center"
                         aria-pressed={isMenuOpen}
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
@@ -236,21 +249,31 @@ const Navbar = () => {
             </div>
 
             {isMenuOpen && (
-                <div className="lg:hidden text-white flex flex-col justify-center my-10">
+                <div className=" text-white flex flex-col justify-center my-10 md:my-20 lg:my-40">
                     <div className="flex flex-col items-center gap-2">
                         {menuItems.map((item) => (
-                            <div key={item.text} className="w-8/12 m-0">
+                            <div key={item.text} className="w-8/12 sm:w-6/12 md:w-2/12 m-0">
                                 {!item.subitems ? (
                                     <a
                                         href={item.href}
                                         className={`inline-flex justify-center w-full ${currentPath === item.href ? buttonSelectClasses : buttonClasses} ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}
                                     >
+                                        {item.icon && (
+                                            <div className={`size-6 mr-2 ${currentPath === item.href ? "bg-green-800" : "bg-white"} `} style={{ WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})` }}
+                                            >
+                                                <img
+                                                    src={item.icon}
+                                                    alt={item.text}
+                                                    className="w-full h-full object-contain opacity-0"
+                                                />
+                                            </div>
+                                        )}
                                         {item.text}
                                     </a>
                                 ) : (
                                     <div className={`relative ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}>
                                         <button
-                                            className={`${buttonClasses} inline-flex justify-center w-full  ${item.active ? "" : "pointer-events-none cursor-not-allowed"}`}
+                                            className={`inline-flex justify-center w-full ${currentPath === item.href ? buttonSelectClasses : buttonClasses} ${item.active ? "" : "pointer-events-none cursor-not-allowed"}`}
                                             onClick={() => setOpenDropdown(
                                                 openDropdown === item.text ? null : item.text
                                             )}
@@ -279,7 +302,7 @@ const Navbar = () => {
                                             leave="transition ease-in duration-150 origin-top"
                                             leaveFrom="transform opacity-100 scale-100"
                                             leaveTo="transform opacity-0 scale-95"
-                                            className="p-4 ring-1 ring-white space-y-3 mt-3 bg-zinc-800 shadow-lg rounded-[1.5rem] z-10"
+                                            className="p-4 ring-2 ring-white space-y-3 mt-3 bg-zinc-800 shadow-lg rounded-[1.5rem] z-10"
                                         >
                                             <div className="">
                                                 {item.subitems.map((subitem) => (
@@ -304,5 +327,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
-
+export default CampNavbar;

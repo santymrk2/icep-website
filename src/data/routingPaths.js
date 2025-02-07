@@ -41,7 +41,7 @@ const Paths = [
       text: "Camp 2025",
       href: "/camps/2025/home",
       subitems: undefined,
-      active: false,
+      active: true,
     }
   ];
 

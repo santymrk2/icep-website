@@ -1,11 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Transition } from '@headlessui/react'; // Importar el componente Transition
-import Paths from "../../../data/campPaths.js";
+import Paths from "../data/routingPaths.js";
 
-const Navbar = ({ location }) => {
+const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
     const menuItems = Paths;
+    const [currentPath, setCurrentPath] = useState(null); // Initialize with Astro's path
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') { // Check if window is defined (client-side)
+            setCurrentPath(window.location.pathname); // Now it's safe to access window.location
+        }
+
+        const handlePathChange = () => {
+            if (typeof window !== 'undefined') {
+                setCurrentPath(window.location.pathname);
+            }
+        };
+
+        window.addEventListener('astro:after-swap', handlePathChange);
+        window.addEventListener('popstate', handlePathChange);
+
+        return () => {
+            window.removeEventListener('astro:after-swap', handlePathChange);
+            window.removeEventListener('popstate', handlePathChange);
+        };
+    }, []); // El array de dependencias vacío asegura que esto solo se ejecute una vez en el montaje
+
+
+
 
     const buttonClasses = `
     motion-preset-expand 
@@ -23,7 +47,7 @@ const Navbar = ({ location }) => {
     duration-500
     ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
     tracking-wide
-    font-sans-camp
+    font-sans
     overflow-hidden
     before:content-['']
     before:absolute
@@ -31,7 +55,7 @@ const Navbar = ({ location }) => {
     before:right-0
     before:w-0
     before:h-full
-    before:bg-green-700
+    before:bg-zinc-700
     before:-z-10
     before:transition-all
     before:duration-500
@@ -45,7 +69,7 @@ const Navbar = ({ location }) => {
     const buttonSelectClasses = `
     motion-preset-expand 
     bg-white
-    text-green-800
+    text-black
     no-underline
     rounded-full
     py-2
@@ -59,7 +83,7 @@ const Navbar = ({ location }) => {
     duration-500
     ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
     tracking-wide
-    font-sans-camp
+    font-sans
     overflow-hidden
     before:content-['']
     before:absolute
@@ -82,19 +106,18 @@ const Navbar = ({ location }) => {
                 } transition-all duration-300`}
             id="back-menu"
         >
-            <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex text-base font-normal">
+            <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-2 flex text-base font-normal">
                 <div className="flex justify-between items-center w-full">
                     <div className="flex items-center m-2">
-                        <a href="/camps/2025/home" className="flex justify-center items-center">
-                            <h1 className="font-regular text-white font-big-camp text-5xl text-center">TANDIL'25</h1>
-                            {/*<svg
+                        <a href="/" className="flex items-center">
+                            <svg
                                 className="h-[4.5rem] fill-white"
                                 viewBox="0 0 800 800"
                             >
                                 <path d="M400 331.69c28.41-20.36 63.23-32.34 100.85-32.34 25.46 0 49.64 5.49 71.42 15.35.71-6.37 1.09-12.84 1.09-19.4 0-95.74-77.61-173.35-173.35-173.35S226.66 199.56 226.66 295.3c0 6.56.38 13.03 1.09 19.4 21.78-9.86 45.96-15.35 71.42-15.35 37.62 0 72.43 11.99 100.85 32.34Z" />
                                 <path d="M572.27 314.7c-6.89 61.88-46.34 113.93-100.85 138.6.71 6.37 1.09 12.84 1.09 19.4 0 58.12-28.61 109.56-72.51 141.01 28.41 20.36 63.23 32.34 100.85 32.34 95.74 0 173.35-77.61 173.35-173.35 0-70.28-41.82-130.79-101.93-158Z" />
                                 <path d="M327.49 472.7c0-6.56.38-13.03 1.09-19.4-54.5-24.67-93.95-76.72-100.85-138.6-60.11 27.21-101.93 87.72-101.93 158 0 95.74 77.61 173.35 173.35 173.35 37.62 0 72.43-11.99 100.85-32.34-43.9-31.45-72.51-82.89-72.51-141.01ZM400 331.69c-38.94 27.9-65.84 71.54-71.42 121.61 21.78 9.86 45.96 15.35 71.42 15.35s49.64-5.49 71.42-15.35c-5.58-50.07-32.48-93.71-71.42-121.61Z" />
-                            </svg>*/}
+                            </svg>
                         </a>
                     </div>
 
@@ -110,35 +133,20 @@ const Navbar = ({ location }) => {
                                         {!item.subitems ? (
                                             <a
                                                 href={item.href}
-                                                className={`inline-flex ${location === item.href ? buttonSelectClasses : buttonClasses}`}
+                                                className={`${currentPath === item.href ? buttonSelectClasses : buttonClasses} inline-flex ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"} `} 
                                             >
-                                                <div className="flex items-center justify-center">
 
-                                                    {item.icon && (
-                                                        <div className={`w-6 h-6 mr-2 ${location === item.href ? "bg-green-800" : "bg-white"}`} style={{ WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})` }}
-                                                        >
-                                                            <img
-                                                                src={item.icon}
-                                                                alt={item.text}
-                                                                className="w-full h-full object-contain opacity-0"
-                                                            />
-                                                        </div>
-                                                    )}
-                                                    <p className="text-center ">
-                                                        {item.text}
-                                                    </p>
-                                                </div>
-
+                                                {item.text}
                                             </a>
                                         ) : (
-                                            <div className="relative group">
+                                            <div className={`relative group ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}>
                                                 <a
                                                     href="#"
                                                     className={buttonClasses + "inline-flex"}
                                                 >
                                                     <span>{item.text}</span>
                                                     <svg
-                                                        className="size-5 transform transition-transform duration-200"
+                                                        className={`size-5 transform transition-transform duration-200 ${item.active ? "" : "pointer-events-none cursor-not-allowed"}`}
                                                         fill="none"
                                                         viewBox="0 0 24 24"
                                                         stroke="currentColor"
@@ -153,14 +161,14 @@ const Navbar = ({ location }) => {
                                                 </a>
 
                                                 <Transition
-                                                    show={openDropdown === item.text}
+                                                    show={item.active ? openDropdown === item.text : null}
                                                     enter="transition ease-out duration-200"
                                                     enterFrom="transform opacity-0 scale-95"
                                                     enterTo="transform opacity-100 scale-100"
                                                     leave="transition ease-in duration-150"
                                                     leaveFrom="transform opacity-100 scale-100"
                                                     leaveTo="transform opacity-0 scale-95"
-                                                    className="absolute top-12 -left-2 m-2 bg-white shadow-lg p-6 z-10 ring-2 ring-white rounded-[2.2rem]"
+                                                    className="absolute top-12 -left-2 m-2 bg-white shadow-lg p-6 z-10 ring-1 ring-white rounded-[2.2rem]"
                                                     onMouseEnter={() => setOpenDropdown(item.text)}
                                                     onMouseLeave={() => setOpenDropdown(null)}
                                                 >
@@ -232,24 +240,14 @@ const Navbar = ({ location }) => {
                                 {!item.subitems ? (
                                     <a
                                         href={item.href}
-                                        className={`inline-flex justify-center w-full ${location === item.href ? buttonSelectClasses : buttonClasses}`}
+                                        className={`inline-flex justify-center w-full ${currentPath === item.href ? buttonSelectClasses : buttonClasses} ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}
                                     >
-                                        {item.icon && (
-                                            <div className={`size-6 mr-2 ${location === item.href ? "bg-green-800" : "bg-white"} `} style={{ WebkitMaskImage: `url(${item.icon})`, maskImage: `url(${item.icon})` }}
-                                            >
-                                                <img
-                                                    src={item.icon}
-                                                    alt={item.text}
-                                                    className="w-full h-full object-contain opacity-0"
-                                                />
-                                            </div>
-                                        )}
                                         {item.text}
                                     </a>
                                 ) : (
-                                    <div className="relative">
+                                    <div className={`relative ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}>
                                         <button
-                                            className={`${buttonClasses} inline-flex justify-center w-full`}
+                                            className={`inline-flex justify-center w-full ${currentPath === item.href ? buttonSelectClasses : buttonClasses} ${item.active ? "" : "pointer-events-none cursor-not-allowed"}`}
                                             onClick={() => setOpenDropdown(
                                                 openDropdown === item.text ? null : item.text
                                             )}
@@ -271,14 +269,14 @@ const Navbar = ({ location }) => {
                                         </button>
 
                                         <Transition
-                                            show={openDropdown === item.text}
+                                            show={item.active ? openDropdown === item.text : null}
                                             enter="transition ease-out duration-200 origin-top"
                                             enterFrom="transform opacity-0 scale-95"
                                             enterTo="transform opacity-100 scale-100"
                                             leave="transition ease-in duration-150 origin-top"
                                             leaveFrom="transform opacity-100 scale-100"
                                             leaveTo="transform opacity-0 scale-95"
-                                            className="p-4 ring-2 ring-white space-y-3 mt-3 bg-zinc-800 shadow-lg rounded-[1.5rem] z-10"
+                                            className="p-4 ring-1 ring-white space-y-3 mt-3 bg-zinc-800 shadow-lg rounded-[1.5rem] z-10"
                                         >
                                             <div className="">
                                                 {item.subitems.map((subitem) => (
@@ -304,3 +302,4 @@ const Navbar = ({ location }) => {
 };
 
 export default Navbar;
+
