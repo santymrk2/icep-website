@@ -5,5 +5,5 @@ export const getDaysForEvent = () => {
   const timeDifference = targetDate.getTime() - currentDate.getTime();
   const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // Use Math.ceil to round up
 
-  return 0;
+  return daysDifference;
 };

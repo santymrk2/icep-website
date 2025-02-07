@@ -28,20 +28,18 @@ function Countdown({ targetDate }) {
   return (
     <section className="py-20 my-20">
       <div className="max-w-5xl mx-auto px-4">
-        {
-          console.log("Days until the event:", getDaysForEvent())
-        }
+
         {(days <= 0 && days >= -3) &&
-          <div className='m-10 sm:m-20 p-15 text-center rounded-lg drop-shadow-2xl'>
-            <h2 className='m-0 font-bold text-5xl my-10 z-0'>ESTAMOS EN </h2>
-            <h2 className='m-0 font-black leading-none text-6xl sm:text-7xl xl:text-9xl animate-bounce mb-20 z-0'>TANDIL</h2>
+          <div className='flex flex-col justify-center items-center  text-center rounded-lg drop-shadow-2xl'>
+            <h2 className='m-0 font-bold text-5xl my-10 z-0'>ESTAMOS EN</h2>
+            <h2 className='m-0 font-black leading-none text-7xl sm:text-7xl xl:text-9xl animate-bounce mb-20 z-0'>TANDIL</h2>
           </div>
         }
         {(days < -3) &&
-          <div className='m-10 sm:m-20 md:36 p-15 text-center rounded-lg drop-shadow-2xl'>
-            <h2 className='m-0 font-bold text-3xl md:text-5xl my-10 z-0'>gracias por</h2>
-            <h2 className='m-0 font-black leading-none text-3xl sm:text-5xl  lg:text-6xl xl:text-7xl animate-bounce z-0'>acompañarnos</h2>
-          </div>
+      <div className='flex flex-col justify-center items-center  text-center rounded-lg drop-shadow-2xl'>
+      <h2 className='m-0 font-bold text-5xl my-10 z-0 uppercase'>Gracias por</h2>
+      <h2 className='m-0 font-black leading-none text-4xl sm:text-7xl xl:text-9xl animate-bounce mb-20 z-0 uppercase'>acompañarnos</h2>
+    </div>
         }
         {days > 1 &&
           <div>
