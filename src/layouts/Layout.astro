@@ -11,8 +11,6 @@ interface Props {
   description?: string;
 }
 
-const currentPath = Astro.url.pathname;
-
 const { title, description = "Iglesia Cristiana Evangélica en Pilar - Sitio Oficial" } = Astro.props;
 ---
 
@@ -25,9 +23,10 @@ const { title, description = "Iglesia Cristiana Evangélica en Pilar - Sitio Ofi
     <link rel="icon" type="image/svg+xml" href="/LogoWhite.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ClientRouter />
   </head>
   <body class="min-h-screen bg-zinc-800 text-white">
-    <Header client:visible location={currentPath}/>
+    <Header client:idle />
     <slot />
     <Footer />
   </body>

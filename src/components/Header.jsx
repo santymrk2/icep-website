@@ -1,11 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Transition } from '@headlessui/react'; // Importar el componente Transition
 import Paths from "../data/routingPaths.js";
 
-const Navbar = ({ location }) => {
+
+
+
+const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
     const menuItems = Paths;
+    const [currentPath, setCurrentPath] = useState(null); // Initialize with Astro's path
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') { // Check if window is defined (client-side)
+            setCurrentPath(window.location.pathname); // Now it's safe to access window.location
+        }
+
+        const handlePathChange = () => {
+            if (typeof window !== 'undefined') {
+                setCurrentPath(window.location.pathname);
+            }
+        };
+
+        window.addEventListener('astro:after-swap', handlePathChange);
+        window.addEventListener('popstate', handlePathChange);
+
+        return () => {
+            window.removeEventListener('astro:after-swap', handlePathChange);
+            window.removeEventListener('popstate', handlePathChange);
+        };
+    }, []); // El array de dependencias vacío asegura que esto solo se ejecute una vez en el montaje
+
+
+
 
     const buttonClasses = `
     motion-preset-expand 
@@ -109,7 +136,7 @@ const Navbar = ({ location }) => {
                                         {!item.subitems ? (
                                             <a
                                                 href={item.href}
-                                                className={`${location === item.href ? buttonSelectClasses : buttonClasses} inline-flex`}
+                                                className={`${currentPath === item.href ? buttonSelectClasses : buttonClasses} inline-flex ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"} `} 
                                             >
 
                                                 {item.text}
@@ -216,7 +243,7 @@ const Navbar = ({ location }) => {
                                 {!item.subitems ? (
                                     <a
                                         href={item.href}
-                                        className={`inline-flex justify-center w-full ${location === item.href ? buttonSelectClasses : buttonClasses} ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}
+                                        className={`inline-flex justify-center w-full ${currentPath === item.href ? buttonSelectClasses : buttonClasses} ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}
                                     >
                                         {item.text}
                                     </a>

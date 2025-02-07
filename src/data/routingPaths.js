@@ -14,7 +14,7 @@ const Paths = [
     },
     {
       text: "Ministerios",
-      href: "/ministerios",
+      href: "",
       subitems: [
         { text: "Niños", href: "/ninios" },
         { text: "Adolescentes", href: "/adolescentes" },
