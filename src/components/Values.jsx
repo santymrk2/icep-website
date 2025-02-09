@@ -34,8 +34,8 @@ const ValuesCarousel = () => {
   return (
     <section className="container flex-grow w-full py-24 mx-auto overflow-hidden relative">
       <div className="container mx-auto mb-16">
-        <h1 class="text-3xl text-center font-sans font-extrabold mb-6 uppercase">Nuestros valores</h1>
-        <p class="text-gray-400 mb-6 text-center font-serif">
+        <h1 className="text-3xl text-center font-sans font-extrabold mb-6 uppercase">Nuestros valores</h1>
+        <p className="text-gray-400 mb-6 text-center font-serif">
           Estos son los valores que abrazamos como iglesia.
         </p>
       </div>

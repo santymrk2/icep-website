@@ -12,8 +12,8 @@ const Beliefs = () => {
   return (
     <section className="w-full max-w-lg mx-auto py-24 px-6 m-10 flex flex-col ">
       <div className="container mx-auto mb-16">
-        <h1 class="text-3xl text-center font-extrabold font-sans mb-6 uppercase">Nuestras creencias</h1>
-        <p class="text-gray-400 mb-6 text-center font-serif ">
+        <h1 className="text-3xl text-center font-extrabold font-sans mb-6 uppercase">Nuestras creencias</h1>
+        <p className="text-gray-400 mb-6 text-center font-serif ">
           Esto es en lo que nosotros creemos.
         </p>
       </div>
@@ -31,7 +31,7 @@ const Beliefs = () => {
                 className={`transform transition-transform ${activeIndex === index ? 'rotate-180' : 'rotate-0'
                   }`}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-6 fill-white">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="size-6 fill-white">
                   <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
                 </svg>
               </span>
