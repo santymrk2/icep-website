@@ -102,7 +102,7 @@ const CampNavbar = () => {
 
     return (
         <header
-            className={`text-white m-4 sm:m-10 rounded-full z-50 ${isMenuOpen ? "rounded-xl h-auto" : "h-24"
+            className={`text-white m-4 sm:m-10 lg:mx-64 rounded-full z-50 ${isMenuOpen ? "rounded-xl h-auto" : "h-24"
                 } transition-all duration-300`}
             id="back-menu"
         >
