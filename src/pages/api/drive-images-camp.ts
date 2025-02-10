@@ -1,7 +1,9 @@
 import { google } from "googleapis";
 import type { APIContext } from "astro";
 
-const API_KEY = "AIzaSyB6eKMygvbGmkc6_OL1m9UFE5tTeoFOhtk";
+import { GOOGLE_API_KEY, getSecret } from "astro:env/server";
+
+const API_KEY = GOOGLE_API_KEY;
 
 export async function GET(context: APIContext) {
   try {

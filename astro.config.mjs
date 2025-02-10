@@ -16,7 +16,8 @@ export default defineConfig({
   env: {
     schema: {
       NOTION_API_KEY: envField.string({context:'server', access: 'secret'}),
-      DATABASE_ID: envField.string({context:'server', access: 'public' })
+      DATABASE_ID: envField.string({context:'server', access: 'public' }),
+      GOOGLE_API_KEY: envField.string({context: 'server', access: 'secret'})
     }
   }
 });
