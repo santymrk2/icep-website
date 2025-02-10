@@ -2,14 +2,23 @@ import { google } from "googleapis";
 import type { APIContext } from "astro";
 
 const API_KEY = "AIzaSyB6eKMygvbGmkc6_OL1m9UFE5tTeoFOhtk";
-const CARPETA_ID = "16pnmFDDwwQ9cVN37U74mjFbt67uCQIys";
 
 export async function GET(context: APIContext) {
   try {
+    const { searchParams } = new URL(context.request.url);
+    const carpetaId = searchParams.get("carpetaId");
+
+    if (!carpetaId) {
+      return new Response(JSON.stringify({ error: "Falta el parámetro carpetaId" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
     const drive = google.drive({ version: "v3", auth: API_KEY });
 
     const respuesta = await drive.files.list({
-      q: `'${CARPETA_ID}' in parents and mimeType contains 'image/'`,
+      q: `'${carpetaId}' in parents and mimeType contains 'image/'`,
       fields: "files(id, name, webViewLink, thumbnailLink)",
     });
 
@@ -18,6 +27,7 @@ export async function GET(context: APIContext) {
       nombre: imagen.name,
       url: imagen.webViewLink,
       miniatura: imagen.thumbnailLink,
+      urlAltaCalidad: `https://drive.google.com/uc?id=${imagen.id}`,
     }));
 
     return new Response(JSON.stringify(imagenes), {

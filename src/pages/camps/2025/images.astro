@@ -1,27 +1,8 @@
 ---
 import CampLayout from "../../../layouts/CampLayout.astro";
-
-
-const baseUrl = import.meta.env.SITE || "http://localhost:4321";
-console.log("URL API:", `${baseUrl}/api/drive-images-camp`);
-const response = await fetch(`${baseUrl}/api/drive-images-camp`);
-const imagenes = await response.json();
-
-
+import GaleryByDays from "../../../components/camps/2025/GaleryByDays"
 ---
+
 <CampLayout title="Images">
-    <section class="py-10 flex flex-col justify-center items-center">
-        <h1 class="text-4xl font-black text-center mb-20"> Imagenes </h1>
-        <div class="flex flex-wrap justify-center gap-10">
-            {imagenes.map(imagen => (
-              <div key={imagen.id} style="text-align: center;">
-                <img src={imagen.miniatura} alt={imagen.nombre} style="width: 150px; height: auto; border-radius: 8px;" />
-                <p>{imagen.nombre}</p>
-                <a href={imagen.url} target="_blank">Ver imagen</a>
-              </div>
-            ))}
-          </div>
-    </section>
-
+    <GaleryByDays client:only="react"/>
 </CampLayout>
-
