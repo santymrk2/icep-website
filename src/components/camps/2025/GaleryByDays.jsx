@@ -15,8 +15,6 @@ const GaleryByDays = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
 
-
-
     useEffect(() => {
         const fetchImages = async () => {
             setLoading(true);
@@ -28,7 +26,7 @@ const GaleryByDays = () => {
                 }
                 const data = await response.json();
                 if (!Array.isArray(data) || data.length === 0) {
-                    throw new Error("No se encontraron imágenes para este ID de carpeta.");
+                    throw new Error("No hay imágenes disponibles en esta carpeta.");
                 }
                 setImagenes(data);
             } catch (err) {
@@ -44,48 +42,12 @@ const GaleryByDays = () => {
         <section className="py-10 flex flex-col justify-center items-center">
             <h1 className="text-4xl font-black text-center mb-10">Imágenes</h1>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
                 {daysFolders.map((dia) => (
                     <button
                         key={dia.id}
                         onClick={() => setIdCarpeta(dia.id)}
-                        className={`motion-preset-expand 
-                            text-white
-                            uppercase
-                            no-underline
-                            ring-1
-                            ring-white
-                            rounded-xl
-                            py-4
-                            px-6
-                            items-center
-                            text-center
-                            text-md
-                            font-bold
-                            relative
-                            z-10
-                            transition-all
-                            duration-500
-                            ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
-                            tracking-wide
-                            font-sans-camp
-                            overflow-hidden
-                            before:content-['']
-                            before:absolute
-                            before:top-0
-                            before:right-0
-                            before:w-0
-                            before:h-full
-                            before:bg-white
-                            before:-z-10
-                            before:transition-all
-                            before:duration-500
-                            before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
-                            hover:before:w-full
-                            hover:before:left-0
-                            hover:before:right-auto
-                            hover:text-green-800
-                            inline-flex`}
+                        className={`motion-preset-expand  text-white uppercase no-underline ring-1 ring-white rounded-xl py-4 px-6 items-center text-center text-md font-bold relative z-10 transition-all duration-500 ease-[cubic-bezier(0.785,0.135,0.15,0.86)] tracking-wide font-sans-camp overflow-hidden before:content-[''] before:absolute before:top-0 before:right-0 before:w-0 before:h-full before:bg-white before:-z-10 before:transition-all before:duration-500 before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)] hover:before:w-full hover:before:left-0 hover:before:right-auto hover:text-green-800 inline-flex`}
                     >
                         {dia.title}
                     </button>
@@ -96,6 +58,8 @@ const GaleryByDays = () => {
                 <p className="text-red-500">{error}</p>
             ) : loading ? (
                 <p className="text-gray-500">Cargando imágenes...</p>
+            ) : imagenes.length === 0 ? (
+                <p className="text-gray-500">No hay imágenes disponibles en esta carpeta.</p>
             ) : (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
                     {imagenes.map((imagen) => (

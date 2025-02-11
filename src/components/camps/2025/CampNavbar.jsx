@@ -106,7 +106,7 @@ const CampNavbar = () => {
                 } transition-all duration-300`}
             id="back-menu"
         >
-            <div className="max-w-7xl px-6 sm:px-8 lg:px-10 py-4 flex text-base font-normal">
+            <div className=" px-6 sm:px-8 lg:px-10 py-4 flex text-base font-normal">
                 <div className="flex justify-between items-center w-full">
                     <div className="flex items-center m-2">
                         <a href="/camps/2025/home" className="flex justify-center items-center">
