@@ -4,20 +4,13 @@ import CampLayout from "../../../layouts/CampLayout.astro";
 import CampPH01 from "../../../assets/camps/2025/CampPH01.webp";
 import Countdown from "../../../components/camps/2025/Countdown.jsx";
 
-const targetDate = new Date(
-  new Date().getFullYear(),
-  2,
-  1,
-  8,
-  0,
-  0,
-).toISOString();
+
 ---
 
 <CampLayout title="ICEP | Campamento de iglesia 2025">
   <main>
-    <section class="mb-28 motion-preset-slide-right ">
-      <Countdown client:idle targetDate={targetDate} />
+    <section class="mb-28 ">
+      <Countdown client:visible  />
     </section>
 
     <section class="w-full h-full sm:h-screen overflow-hidden motion-preset-fade">
@@ -27,14 +20,12 @@ const targetDate = new Date(
           alt="Imagen de personas"
           class="w-full h-full object-cover drop-shadow-3xl brightness-50"
         />
-        <div class="absolute top-1/2 right-10 sm:right-32 md:right-64">
-          <div class="text-center">
+        <div class="absolute w-full top-1/2">
             <h2
-              class="text-4xl md:text-5xl font-big-camp font-extrabold text-center sm:text-right"
+              class="text-4xl md:text-5xl font-big-camp font-extrabold text-center"
             >
               ¿Estás listo?
             </h2>
-          </div>
         </div>
       </div>
     </section>

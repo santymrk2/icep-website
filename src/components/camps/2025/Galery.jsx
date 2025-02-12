@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import lightGallery from "lightgallery";
-import lgThumbnail from "lightgallery/plugins/thumbnail";
-import lgZoom from "lightgallery/plugins/zoom";
+import Lightbox from "photoswipe/lightbox";
+import PhotoSwipe from "photoswipe";
 
 // Importar CSS necesario
-import "lightgallery/css/lightgallery.css";
-import "lightgallery/css/lg-zoom.css";
-import "lightgallery/css/lg-thumbnail.css";
+import "photoswipe/dist/photoswipe.css";
+
 
 const buttonClasses = `
   motion-preset-expand
@@ -84,15 +82,12 @@ const daysFolders = [
   { title: "Día 4", id: "1YVTW1hApCK8kKsfMdAAEpEIb2AmkbIlL" }
 ];
 
-
 const GaleryByDays = () => {
-    const [idCarpeta, setIdCarpeta] = useState(daysFolders[0].id);
-    const [imagenes, setImagenes] = useState([]);
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(true);
-    
-    const galleryRef = useRef(null);
-  const lightGalleryInstance = useRef(null);
+  const [idCarpeta, setIdCarpeta] = useState(daysFolders[0].id);
+  const [imagenes, setImagenes] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const galleryRef = useRef(null);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -114,41 +109,52 @@ const GaleryByDays = () => {
     fetchImages();
   }, [idCarpeta]);
 
-
   useEffect(() => {
-    const initGallery = () => {
-      if (galleryRef.current && imagenes.length > 0) {
-        if (lightGalleryInstance.current) {
-          lightGalleryInstance.current.destroy(true);
-        }
-        
-        lightGalleryInstance.current = lightGallery(galleryRef.current, {
-          plugins: [lgThumbnail, lgZoom],
-          selector: "a",
-          download: true,
-          thumbnail: true,
-          showThumbByDefault: false,
-          // Configuración adicional para mobile
-          mobileSettings: {
-            controls: false,
-            showCloseIcon: true
-          }
+    let lightbox;
+  
+    if (imagenes.length > 0 && galleryRef.current) {
+      lightbox = new Lightbox({
+        gallery: galleryRef.current,
+        children: "a",
+        pswpModule: PhotoSwipe,
+        showHideAnimationType: "fade",
+        zoom: true,
+        bgOpacity: 0.9,
+      });
+  
+      // Registro de elementos personalizados en la UI
+      lightbox.on("uiRegister", function () {
+        lightbox.pswp.ui.registerElement({
+          name: "download-button",
+          order: 8,
+          isButton: true,
+          tagName: "a",
+          html: {
+            isCustomSVG: true,
+            inner: '<path d="M20.5 14.3 17.1 18V10h-2.2v7.9l-3.4-3.6L10 16l6 6.1 6-6.1ZM23 23H9v2h14Z" id="pswp__icn-download"/>',
+            outlineID: "pswp__icn-download",
+          },
+          onInit: (el, pswp) => {
+            el.setAttribute("download", "");
+            el.setAttribute("target", "_blank");
+            el.setAttribute("rel", "noopener");
+            pswp.on("change", () => {
+              el.href = pswp.currSlide.data.src;
+            });
+          },
         });
-        
-        // Refresh la galería si hay cambios
-        lightGalleryInstance.current.refresh();
-      }
-    };
-
-    initGallery();
-    
+      });
+  
+      lightbox.init();
+    }
+  
+    // Función de limpieza: destruye el lightbox y el plugin cuando cambien las imágenes
     return () => {
-      if (lightGalleryInstance.current) {
-        lightGalleryInstance.current.destroy(true);
+      if (lightbox) {
+        lightbox.destroy();
       }
     };
-  }, [imagenes]); // Solo se ejecuta cuando cambian las imágenes
-
+  }, [imagenes]);
   
   return (
     <section className="py-4 flex flex-col justify-center items-center">
@@ -171,26 +177,24 @@ const GaleryByDays = () => {
       ) : imagenes.length === 0 ? (
         <p className="text-gray-300">No hay imágenes disponibles en esta carpeta.</p>
       ) : (
-        // Contenedor que lightGallery utilizará para crear la galería
-        <div ref={galleryRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
-      {imagenes.map((imagen) => (
-        <a
-          key={imagen.nombre}
-          href={imagen.urlContent}
-          data-lg-size="1400-1400" // Añadir tamaño para mejor rendimiento
-          data-sub-html={`<h4>${imagen.nombre}</h4>`}
-          data-thumb={imagen.miniatura} // Especificar thumbnail
-          className="relative text-center hover:scale-103 animate duration-400 easy-out cursor-pointer"
-        >
-          <img
-            src={imagen.miniatura}
-            alt={imagen.nombre}
-            loading="lazy" // Mejorar performance
-            className="w-[150px] h-auto rounded-lg"
-          />
-        </a>
-      ))}
-
+        <div key={idCarpeta} ref={galleryRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+          {imagenes.map((imagen) => (
+            <a
+              key={imagen.nombre}
+              href={imagen.urlContent}
+              data-pswp-src={imagen.urlContent}
+              data-pswp-width={1400}
+              data-pswp-height={1400}
+              className="relative text-center hover:scale-103 animate duration-400 easy-out cursor-pointer"
+            >
+              <img
+                src={imagen.miniatura}
+                alt={imagen.nombre}
+                loading="lazy"
+                className="w-[150px] h-auto rounded-lg"
+              />
+            </a>
+          ))}
         </div>
       )}
     </section>
