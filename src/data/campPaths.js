@@ -24,7 +24,7 @@ const Paths = [
     },
     {
       text: "Devos",
-      href: "/camps/2025/message",
+      href: "/camps/2025/messages",
       subitems: undefined,
       icon: "/message-icon.svg",
       active: false,
@@ -34,7 +34,7 @@ const Paths = [
       href: "/camps/2025/images",
       subitems: undefined,
       icon: "/img-icon.svg",
-      active: false,
+      active: true,
     },
     {
       text: "Volver a ICEPilar",

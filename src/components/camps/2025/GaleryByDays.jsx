@@ -94,7 +94,6 @@ const GaleryByDays = () => {
         setModalImage(null);
     };
 
-
     useEffect(() => {
         const fetchImages = async () => {
             setLoading(true);
@@ -130,7 +129,7 @@ const GaleryByDays = () => {
             </div>
 
             {error ? (
-                <p className="text-red-500">{error}</p>
+                <p className="text-gray-300">Hubo un error... {console.log(error)}</p>
             ) : loading ? (
                 <p className="text-gray-300">Cargando imágenes...</p>
             ) : imagenes.length === 0 ? (
@@ -166,8 +165,11 @@ const GaleryByDays = () => {
                             </svg>
                         </button>
                         <img src={modalImage.miniatura} alt={modalImage.nombre} className="w-full h-auto rounded-lg mb-8" /> {/* Display full image with correct link */}
-                        <a href={modalImage.url} target="_blank" rel="noopener noreferrer">
-                          <button className={buttonClasses + "ring ring-1 ring-green-700 text-green-700 hover:text-white"}>Ver en Drive</button>
+                        <a
+                            href={modalImage.urlDownload}
+                            className={buttonClasses + "ring ring-1 ring-green-700 text-green-700 hover:text-white"}
+                        >
+                            Descargar
                         </a>
                     </div>
                 </div>

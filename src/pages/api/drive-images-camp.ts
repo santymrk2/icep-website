@@ -28,7 +28,8 @@ export async function GET(context: APIContext) {
       id: imagen.id,
       nombre: imagen.name,
       url: imagen.webViewLink,
-      miniatura: imagen.thumbnailLink,
+      miniatura: imagen.thumbnailLink + "&mobile=true",
+      urlDownload: imagen.webViewLink ? `${imagen.webViewLink}?dl=1` : null, 
     }));
 
     return new Response(JSON.stringify(imagenes), {
