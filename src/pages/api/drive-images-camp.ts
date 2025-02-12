@@ -28,7 +28,7 @@ export async function GET(context: APIContext) {
       id: imagen.id,
       nombre: imagen.name,
       url: imagen.webViewLink,
-      miniatura: imagen.thumbnailLink + "&mobile=true",
+      miniatura: imagen.thumbnailLink,
       urlDownload: imagen.webViewLink ? `${imagen.webViewLink}?dl=1` : null, 
     }));
 
