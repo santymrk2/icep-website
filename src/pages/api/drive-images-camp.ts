@@ -29,7 +29,6 @@ export async function GET(context: APIContext) {
       nombre: imagen.name,
       url: imagen.webViewLink,
       miniatura: imagen.thumbnailLink,
-      urlAltaCalidad: `https://drive.google.com/uc?id=${imagen.id}`,
     }));
 
     return new Response(JSON.stringify(imagenes), {

@@ -1,8 +1,44 @@
 ---
 import CampLayout from "../../../layouts/CampLayout.astro";
-import GaleryByDays from "../../../components/camps/2025/GaleryByDays"
+import GaleryByDays from "../../../components/camps/2025/GaleryByDays";
+export const prerender = true;
 ---
 
-<CampLayout title="Images">
-    <GaleryByDays client:only="react"/>
+<CampLayout title="Fotos">
+    <section class="flex flex-col justify-center items-center">
+        <h1 class="text-4xl font-black text-center mt-6">Fotos</h1>
+
+        <section class="flex flex-col justify-center m-8 p-4 ">
+            <h1 class="text-2xl font-black ">Encontrá las fotos</h1>
+            <p class="prose text-gray-300 text-lg">En nuestra carpeta de drive podrás encontrar nuestras fotos y otra carpeta para que tambien puedas compartir tus fotos</p>
+
+            <a class="mt-8" href="https://drive.google.com/drive/folders/1tzzu83qNa_51RUXQd1RfJPZ7xRE71oY6?usp=sharing">
+                <div
+                    class="w-64 p-4 flex flex-row gap-4 justify-center items-center bg-white rounded-lg font-sans-camp text-green-800"
+                >
+                    <div>
+                        <svg
+                            class="size-8 fill-green-800"
+                            viewBox="0 -1.5 27 27"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M9.375 0h8.678l8.735 15.165H18.16zm1.446 16.393h16.607L23.089 24H6.482zM8.25 1.874l4.446 7.607L4.339 24 0 16.392z"
+                            ></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium mx-4 text-left">
+                            Ver las fotos
+                        </h3>
+                    </div>
+                </div>
+            </a>
+
+        </section>
+
+        <h1 class="text-2xl font-black m-4">Galeria</h1>
+
+        <GaleryByDays client:idle />
+    </section>
 </CampLayout>

@@ -252,7 +252,7 @@ const CampNavbar = () => {
                 <div className=" text-white flex flex-col justify-center my-10 md:my-20 lg:my-40">
                     <div className="flex flex-col items-center gap-2">
                         {menuItems.map((item) => (
-                            <div key={item.text} className="w-8/12 sm:w-6/12 md:w-2/12 m-0">
+                            <div key={item.text} className="w-[250px]">
                                 {!item.subitems ? (
                                     <a
                                         href={item.href}
