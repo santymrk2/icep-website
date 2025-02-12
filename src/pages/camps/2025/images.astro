@@ -1,21 +1,26 @@
 ---
 import CampLayout from "../../../layouts/CampLayout.astro";
 import GaleryByDays from "../../../components/camps/2025/GaleryByDays";
+import Galery from "../../../components/camps/2025/Galery.jsx";
 export const prerender = true;
 ---
 
 <CampLayout title="Fotos">
     <section class="flex flex-col justify-center items-center">
+        <Galery client:visible />
 
         <div class="flex flex-col justify-center items-center mb-8 py-8">
-            <h1 class="text-5xl font-black text-center uppercase mb-2">Fotos</h1>
+            <h1 class="text-5xl font-black text-center uppercase mb-2">
+                Fotos
+            </h1>
         </div>
-
 
         <GaleryByDays client:visible />
         <section class="flex flex-col justify-center items-center m-8 p-4">
-
-            <a class="mt-6" href="https://drive.google.com/drive/folders/1tzzu83qNa_51RUXQd1RfJPZ7xRE71oY6?usp=sharing">
+            <a
+                class="mt-6"
+                href="https://drive.google.com/drive/folders/1tzzu83qNa_51RUXQd1RfJPZ7xRE71oY6?usp=sharing"
+            >
                 <div
                     class="w-64 p-4 flex flex-row gap-4 justify-center items-center bg-white rounded-lg font-sans-camp text-green-800"
                 >
@@ -31,15 +36,14 @@ export const prerender = true;
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold mx-4 text-left font-sans-camp">
+                        <h3
+                            class="text-xl font-bold mx-4 text-left font-sans-camp"
+                        >
                             Subí tus fotos
                         </h3>
                     </div>
                 </div>
             </a>
-
         </section>
-
-
     </section>
 </CampLayout>

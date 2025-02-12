@@ -24,15 +24,15 @@ export async function GET(context: APIContext) {
 
     const respuesta = await drive.files.list({
       q: `'${carpetaId}' in parents and mimeType contains 'image/'`,
-      fields: "files(id, name, webViewLink, thumbnailLink)",
+      fields: "files(id, name, webContentLink, webViewLink, thumbnailLink)",
     });
 
     const imagenes = (respuesta.data.files || []).map((imagen) => ({
       id: imagen.id,
       nombre: imagen.name,
       url: imagen.webViewLink,
+      urlContent: imagen.webContentLink,
       miniatura: imagen.thumbnailLink,
-      urlDownload: imagen.webViewLink ? `${imagen.webViewLink}?dl=1` : null, 
     }));
 
     return new Response(JSON.stringify(imagenes), {

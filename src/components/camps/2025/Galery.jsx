@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import lightGallery from "lightgallery";
+import lgThumbnail from "lightgallery/plugins/thumbnail";
+import lgZoom from "lightgallery/plugins/zoom";
 
-// Importa el CSS de lightGallery
+// Importar CSS necesario
 import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lg-thumbnail.css";
 
 const buttonClasses = `
   motion-preset-expand
@@ -80,15 +84,14 @@ const daysFolders = [
   { title: "Día 4", id: "1YVTW1hApCK8kKsfMdAAEpEIb2AmkbIlL" }
 ];
 
-const GaleryByDays = () => {
-  const [idCarpeta, setIdCarpeta] = useState(daysFolders[0].id);
-  const [imagenes, setImagenes] = useState([]);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
 
-  // Referencia para el contenedor de la galería
-  const galleryRef = useRef(null);
-  // Referencia para almacenar la instancia de lightGallery
+const GaleryByDays = () => {
+    const [idCarpeta, setIdCarpeta] = useState(daysFolders[0].id);
+    const [imagenes, setImagenes] = useState([]);
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
+    
+    const galleryRef = useRef(null);
   const lightGalleryInstance = useRef(null);
 
   useEffect(() => {
@@ -111,28 +114,42 @@ const GaleryByDays = () => {
     fetchImages();
   }, [idCarpeta]);
 
+
   useEffect(() => {
-    // Inicializa lightGallery cuando las imágenes se han cargado.
-    if (galleryRef.current) {
-      // Si ya existe una instancia previa, destrúyela antes de crear una nueva
-      if (lightGalleryInstance.current) {
-        lightGalleryInstance.current.destroy();
-      }
-      lightGalleryInstance.current = lightGallery(galleryRef.current, {
-        selector: "a", // Selecciona todos los enlaces dentro del contenedor
-        download: false,
-        // Puedes agregar otras opciones aquí según la documentación:
-        // https://github.com/sachinchoolur/lightGallery :contentReference[oaicite:0]{index=0}
-      });
-    }
-    // Limpieza: destruye la instancia al desmontar o antes de una nueva inicialización
-    return () => {
-      if (lightGalleryInstance.current) {
-        lightGalleryInstance.current.destroy();
+    const initGallery = () => {
+      if (galleryRef.current && imagenes.length > 0) {
+        if (lightGalleryInstance.current) {
+          lightGalleryInstance.current.destroy(true);
+        }
+        
+        lightGalleryInstance.current = lightGallery(galleryRef.current, {
+          plugins: [lgThumbnail, lgZoom],
+          selector: "a",
+          download: true,
+          thumbnail: true,
+          showThumbByDefault: false,
+          // Configuración adicional para mobile
+          mobileSettings: {
+            controls: false,
+            showCloseIcon: true
+          }
+        });
+        
+        // Refresh la galería si hay cambios
+        lightGalleryInstance.current.refresh();
       }
     };
-  }, [imagenes]);
 
+    initGallery();
+    
+    return () => {
+      if (lightGalleryInstance.current) {
+        lightGalleryInstance.current.destroy(true);
+      }
+    };
+  }, [imagenes]); // Solo se ejecuta cuando cambian las imágenes
+
+  
   return (
     <section className="py-4 flex flex-col justify-center items-center">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
@@ -156,20 +173,24 @@ const GaleryByDays = () => {
       ) : (
         // Contenedor que lightGallery utilizará para crear la galería
         <div ref={galleryRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
-          {imagenes.map((imagen) => (
-            <a
-              key={imagen.nombre}
-              href={imagen.url} 
-              data-sub-html={`<h4>${imagen.nombre}</h4>`}
-              className="relative w-[150px] text-center hover:scale-103 animate duration-400 easy-out cursor-pointer"
-            >
-              <img
-                src={imagen.miniatura}
-                alt={imagen.nombre}
-                className="w-[150px] h-auto rounded-lg"
-              />
-            </a>
-          ))}
+      {imagenes.map((imagen) => (
+        <a
+          key={imagen.nombre}
+          href={imagen.urlContent}
+          data-lg-size="1400-1400" // Añadir tamaño para mejor rendimiento
+          data-sub-html={`<h4>${imagen.nombre}</h4>`}
+          data-thumb={imagen.miniatura} // Especificar thumbnail
+          className="relative text-center hover:scale-103 animate duration-400 easy-out cursor-pointer"
+        >
+          <img
+            src={imagen.miniatura}
+            alt={imagen.nombre}
+            loading="lazy" // Mejorar performance
+            className="w-[150px] h-auto rounded-lg"
+          />
+        </a>
+      ))}
+
         </div>
       )}
     </section>
