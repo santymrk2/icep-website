@@ -179,14 +179,16 @@ const GaleryByDays = () => {
       ) : (
         <div key={idCarpeta} ref={galleryRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
           {imagenes.map((imagen) => (
+            
             <a
               key={imagen.nombre}
-              href={imagen.urlContent}
-              data-pswp-src={imagen.urlContent}
+              href={imagen.miniatura}
+              data-pswp-src={imagen.miniatura}
               data-pswp-width={1400}
               data-pswp-height={1400}
               className="relative text-center hover:scale-103 animate duration-400 easy-out cursor-pointer"
             >
+                
               <img
                 src={imagen.miniatura}
                 alt={imagen.nombre}

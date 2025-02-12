@@ -7,22 +7,15 @@ export const prerender = true;
 
 <CampLayout title="Fotos">
     <section class="flex flex-col justify-center items-center">
-
-        <div class="flex flex-col justify-center items-center mb-8 py-8">
-            <h1 class="text-5xl font-black text-center uppercase mb-2">
+        <div class="flex flex-col justify-center items-center py-8">
+            <h1 class="text-4xl font-black text-center uppercase">
                 Fotos
             </h1>
         </div>
-{/*
-        <GaleryByDays client:visible />
-
-*/}
-        <Galery client:visible />
-
-        <section class="flex flex-col justify-center items-center m-8 p-4">
+        <section class="flex flex-col justify-center items-center m-8 p-4 mb-12">
             <a
-                class="mt-6"
-                href="https://drive.google.com/drive/folders/1tzzu83qNa_51RUXQd1RfJPZ7xRE71oY6?usp=sharing"
+                class=""
+                href="https://drive.google.com/drive/folders/1_CCT--zWLm74oDR-ze59B-tVb_3YnxKG?usp=sharing"
             >
                 <div
                     class="w-64 p-4 flex flex-row gap-4 justify-center items-center bg-white rounded-lg font-sans-camp text-green-800"
@@ -48,5 +41,12 @@ export const prerender = true;
                 </div>
             </a>
         </section>
+
+{/*
+        <Galery client:visible />
+
+*/}
+        <GaleryByDays client:visible />
+
     </section>
 </CampLayout>
