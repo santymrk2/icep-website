@@ -99,7 +99,7 @@ const GaleryByDays = () => {
             setLoading(true);
             setError("");
             try {
-                const response = await fetch(`${baseUrl}/api/drive-images-camp/?carpetaId=${idCarpeta}`);
+                const response = await fetch(`/api/drive-images-camp/?carpetaId=${idCarpeta}`);
                 if (!response.ok) {
                     throw new Error("No se pudieron obtener las imágenes. Verifique el ID de la carpeta.");
                 }

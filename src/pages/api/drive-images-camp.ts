@@ -13,7 +13,10 @@ export async function GET(context: APIContext) {
     if (!carpetaId) {
       return new Response(JSON.stringify({ error: "Falta el parámetro carpetaId" }), {
         status: 400,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+         },
       });
     }
 
