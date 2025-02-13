@@ -1,84 +1,24 @@
 ---
-import { Image } from 'astro:assets'
 import CampLayout from '../../../layouts/CampLayout.astro'
 import { getDaysForEvent } from "../../../services/days.js";
+import days from "../../../data/camps/2025/schedule.json"
 
-const hours = [
-  {
-    "day": "Sábado",
-    "schedule": [
-      "9:00 hs - Salida de Pilar",
-      "13:00 hs - Llegada al predio",
-      "13:30 hs - Almuerzo (A la canasta)",
-      "15:00 hs - Condicionamiento de las habitaciones / Tiempo Libre",
-      "16:00 hs - Caminata al Cristo",
-      "17:30 hs - Tiempo Libre",
-      "19:00 hs - Tiempo de Aseo",
-      "20:00 hs - Encuentro Espiritual",
-      "21:00 hs - Cena (Menú: Empanadas)",
-      "22:00 hs - Salida al Centro de Tandil (Opcional)",
-      "24:00 hs - Tiempo Libre"
-    ],
-    "number": 0
-  },
-  {
-    "day": "Domingo",
-    "schedule": [
-      "8:30 hs - Levantarse",
-      "9:00 hs - Devocional",
-      "9:30 hs - Desayuno",
-      "10:00 hs - Excursión: Caminata - Circuito de Montañas",
-      "12:30 hs - Regreso",
-      "13:00 hs - Almuerzo (Menú: Pastas)",
-      "14:00 hs - Tiempo Libre",
-      "18:00 hs - Cena del Señor (En el Cerro del Predio)",
-      "19:30 hs - Tiempo de Aseo",
-      "20:00 hs - Encuentro Espiritual",
-      "21:30 hs - Cena (Pizzas)",
-      "22:30 hs - Tiempo de Juegos Nocturnos en el Exterior",
-      "24:00 hs - Tiempo Libre"
-    ],
-    "number": 1
-  },
-  {
-    "day": "Lunes",
-    "schedule": [
-      "8:30 hs - Levantarse",
-      "9:00 hs - Devocional",
-      "9:30 hs - Desayuno",
-      "10:00 hs - Excursión: La Movediza - El Fortín - Lago",
-      "13:00 hs - Almuerzo Pic Nic (Menú: Sándwiches de Milanesa) en el lago",
-      "13:30 hs - Excursión: El Quijote - Via Crucis",
-      "16:00 hs - Vuelta al predio - Tiempo Libre",
-      "19:00 hs - Tiempo de Aseo",
-      "20:00 hs - Encuentro Espiritual",
-      "21:00 hs - Cena (Menú: Pollo a la Parrilla con Ensaladas) / Postre",
-      "22:00 hs - Tiempo Libre",
-    ],
-    "number": 2
-  },
-  {
-    "day": "Martes",
-    "schedule": [
-      "8:30 hs - Levantarse",
-      "9:00 hs - Devocional",
-      "9:30 hs - Desayuno",
-      "10:00 hs - Tiempo Libre",
-      "12:30 hs - Salida a Pilar"
-    ],
-    "number": 3
-  }
-]
 ---
 <CampLayout title="Camp25 | Horarios">
     <main class="flex flex-col justify-center items-center">
         <h1 class="text-4xl font-black uppercase mb-8 py-8">Horarios</h1>
         <section class="grid grid-cols-1 sm:grid-cols-2 justify-items-center m-8 p-4 gap-8 w-full">
-            {hours.map((hour) => (
-                <div class={`w-full p-8 rounded-xl ${getDaysForEvent() === hour.number ? "bg-white text-green-800" : "ring ring-1 ring-white text-white"} animate-float `}>
-                    <h2 class="text-4xl font-bold mb-4">{hour.day}</h2>
-                    {hour.schedule.map((item) => (
-                        <p class="text-xl">{item}</p>
+            {days.map((day) => (
+                <div class={`w-full p-8 rounded-xl ${getDaysForEvent() === day.number ? "bg-white text-green-800" : "ring ring-1 ring-white text-white"} animate-float `}>
+                    <h2 class="text-4xl font-bold mb-4">{day.day}</h2>
+                    {day.schedule.map((item) => (
+                        item.link ? (
+                          <a>
+                            <p class="text-xl">{item.text + ": " + item.link}</p>
+                          </a> 
+                          ) : (
+                          <p class="text-xl">{item.text}</p>
+                          )
                     ))}
                 </div>
             ))}

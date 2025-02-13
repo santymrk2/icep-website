@@ -39,10 +39,10 @@ function Countdown() {
   }
 
   return (
-    <section className="py-20 my-20 motion-preset-slide-right">
+    <section className="py-20 my-20 ">
       <div className="max-w-5xl mx-auto px-4">
         {days > 1 &&
-          <div>
+          <div class="motion-preset-slide-right">
             <h2 className="text-4xl font-extrabold text-center mb-8 text-white uppercase">Faltan</h2>
 
             <div className="flex flex-row md:flex-row justify-center items-center gap-4 md:gap-8">

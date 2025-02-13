@@ -1,7 +1,7 @@
 ---
 import CampLayout from "../../../layouts/CampLayout.astro";
 import GaleryByDays from "../../../components/camps/2025/GaleryByDays";
-import Galery from "../../../components/camps/2025/Galery.jsx";
+
 export const prerender = true;
 ---
 
@@ -42,10 +42,6 @@ export const prerender = true;
             </a>
         </section>
 
-{/*
-        <Galery client:visible />
-
-*/}
         <GaleryByDays client:visible />
 
     </section>
