@@ -38,10 +38,10 @@ const Paths = [
     },
     {
       text: "Volver a ICEPilar",
-      href: "/",
+      href: "www.icepilar.org",
       subitems: undefined,
       icon: undefined,
-      active: true,
+      active: false,
     }
   ];
 
