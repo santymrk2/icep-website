@@ -1,22 +1,33 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Paths from "../data/routingPaths.js"
+import Paths from "../data/routingPaths.json";
 
-const minItems = Paths.filter(x => x.text=="Ministerios")[0].subitems;
+const minItems = Paths.filter((x) => x.text == "Ministerios")[0].subitems;
 
 export const prerender = false;
 ---
 
 <Layout title="ICEP | Ministerios">
-  <section class="my-4">
-    { minItems?.map((min, index) => (
-      <div class="flex flex-col justify-center shadow-lg rounded-xl bg-white m-6 sm:m-10 gap-4">
-        <a class="text-3xl font-bold text-center text-black py-6" href={min.href}>
-          {min.text}
-        </a>
+  <section class="grid grid-cols-1 sm:grid-cols-2 my-4 m-8">
+    {
+      minItems?.map((min, index) => (
+      <div
+      class="flex flex-col shadow-lg rounded-xl ring ring-2 ring-white m-5 sm:m-10"
+      transition:animate="slide"
+    >
+        <div class="flex justify-between items-center w-full p-6">
+          <div class="flex justify-center items-center w-10 h-10"></div>
+
+          <div class="flex flex-row justify-center items-center">
+            <a class="text-3xl font-bold text-center py-6" href={min.href}>
+              {min.text}
+            </a>
+          </div>
+
+          <div class="flex justify-center items-center w-10 h-10"></div>
+        </div>
       </div>
-    ))}
+      ))
+    }
   </section>
-
-
 </Layout>
