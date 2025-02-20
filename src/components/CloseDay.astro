@@ -1,9 +1,9 @@
 ---
 import { Client } from "@notionhq/client";
 
-import { NOTION_API_KEY, DATABASE_ID, getSecret } from "astro:env/server";
+import { NOTION_API_KEY, DATABASE_ID } from "astro:env/server";
 
-function formatearFecha(fechaStr) {
+function formatearFecha(fechaStr:any) {
   if (!fechaStr) return null;
 
   const fecha = new Date(fechaStr);
