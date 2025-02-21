@@ -1,4 +1,5 @@
 ---
+import ServiceCarousel from "./Services.jsx"
 const services = [
   {
     title: "Domingos",
@@ -24,10 +25,20 @@ export const prerender = true;
 ---
 
 <section class="py-32 flex flex-col items-center">
-  <h2 class="text-3xl font-sans font-extrabold mb-4">Nuestros Horarios</h2>
-  <p class="text-gray-400 font-serif mb-4">Podes visitarnos o vernos por Youtube</p>
+  {/*
+    <h2 class="text-3xl font-sans font-extrabold mb-4">Nuestros Horarios</h2>
+  <a href="https://iglesia-pilar.notion.site/b19a403082ee49238154f16433dd7925?v=7851ff6a1d2c403da600451c9e99c129&pvs=74">
+    <p class="text-gray-400 font-serif mb-4 hover:text-gray-300">Ver calendario</p>
+  </a>
+  */}
 
-  <div class="max-w-7xl mx-auto p-3 sm:p-6 lg:p-10">
+  <div class="w-full h-full">
+    <ServiceCarousel client:visible />
+  </div>
+
+  {
+    /*
+      <div class="max-w-7xl mx-auto p-3 sm:p-6 lg:p-10">
     <div class="grid md:grid-cols-2 gap-8 m-2">
       {services.map(service => (
         <div class="rounded-xl p-10 ring ring-1 ring-white">
@@ -46,4 +57,7 @@ export const prerender = true;
       ))}
     </div>
   </div>
+    */
+  }
+
 </section>

@@ -3,8 +3,6 @@
 @theme {
     --font-sans: "Noto Sans Variable", "sans-serif";
     --font-serif: "Merriweather", "serif";
-    --font-sans-camp: 'Outfit Variable', sans-serif;
-    --font-big-camp:'Anton', sans-serif;
 
     /* Tilt */
     --animate-tilt: tilt 10s infinite linear;
