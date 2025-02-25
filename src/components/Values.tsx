@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'preact/compat';
 import listValues from '../data/values.json';
 
 const ValuesCarousel = () => {

@@ -1,25 +1,5 @@
 ---
 import ServiceCarousel from "./Services.jsx"
-const services = [
-  {
-    title: "Domingos",
-    items: [
-      { name: "Santa Cena", time: "09:00hs - 10:00hs" },
-      { name: "Reunión de Enseñanza", time: "10:00hs - 11:00hs" },
-      { name: "Escuela Bíblica Dominical", time: "11:30hs - 13:00hs" }
-    ]
-  },
-  {
-    title: "Otros días",
-    items: [
-      { name: "Encuentro de Oración", time: "20 hs (Miércoles)" },
-      { name: "ActivAdos", time: "14:30 hs (1º y 3º Sábados)" },
-      { name: "Encuentro de Jóvenes", time: "19 hs (2º Sábados)" },
-      { name: "Encuentro de Mujeres", time: "17 hs (4º Sábados)" },
-      { name: "Encuentro de Matrimonios", time: "Consultar Horarios" }
-    ]
-  }
-];
 
 export const prerender = true;
 ---
@@ -33,7 +13,7 @@ export const prerender = true;
   */}
 
   <div class="w-full h-full">
-    <ServiceCarousel client:visible />
+    <ServiceCarousel />
   </div>
 
   {

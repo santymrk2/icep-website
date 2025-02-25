@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'preact/compat';
 
 const allServices = [
   { name: "Santa Cena", time: "09:00hs - 10:00hs", day: "Domingos" },
