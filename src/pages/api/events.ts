@@ -1,4 +1,4 @@
-import { getPages } from '../../services/notion.ts';
+import getPages from '../../services/notion.ts';
 
 export async function GET() {
   const pages = await getPages();

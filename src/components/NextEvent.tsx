@@ -1,13 +1,14 @@
 import { useState, useEffect } from "preact/hooks";
 
 export default function NextEvent() {
-    const [pages, setPages] = useState(null);
+    const [pages, setPages] = useState<any[]>([]);
     
     useEffect(() => {
         const fetchData = async () => {
         const response = await fetch
         ("/api/events");
         const data = await response.json();
+        console.log(data)
         setPages(data);
         }
         fetchData();

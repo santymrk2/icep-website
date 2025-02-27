@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Services from "../components/Services.astro";
-import NextMeeting from "../components/NextEvent.astro";
+import Services from "../components/Services.tsx";
 import NextEvent from "../components/NextEvent.jsx";
 import { Image } from "astro:assets";
 import PG01 from "../assets/PG01.webp";
@@ -42,17 +41,12 @@ export const prerender = true;
       </div>
     </section>
 
-{    
-/*
+
 
 <section class="py-16">
-  <NextMeeting />
+  <NextEvent  client:idle/>
 </section>
-    */}
 
-<section class="py-16">
-  <NextEvent />
-</section>
 
     <section class="w-full h-full sm:h-screen overflow-hidden">
       <div class="relative h-screen sm:h-full">
@@ -72,9 +66,11 @@ export const prerender = true;
         </div>
       </div>
     </section>
+    <section class="py-16">
 
-    <Services />
+    <Services client:idle/>
 
+    </section>
     <section class="w-full h-full sm:h-screen overflow-hidden">
       <div class="relative h-screen sm:h-full">
         <Image

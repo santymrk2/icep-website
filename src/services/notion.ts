@@ -72,7 +72,7 @@ function formatearFecha(fechaStr: string | null | undefined) { // Make fechaStr 
   return `El ${diaSemana} ${dia} de ${mes}${horario}`;
 }
 
-export const getPages = async () => {
+const getPages = async () => {
   const fechaActual = new Date();
   const fechaISO = fechaActual.toISOString().split("T")[0];
   let notionPages: any; // You can keep this as 'any' or try to type the entire response structure
@@ -128,12 +128,13 @@ export const getPages = async () => {
   } catch (error:any) {
   // Maneja el error aquí.
   if (error.code === "unauthorized") {
-    console.error(
+    console.log(
       "Error: No tienes acceso al recurso especificado. Revisa tus credenciales y permisos.",
     );
   } else {
-    console.error("Error al consultar Notion:", error.message);
+    console.log("Error al consultar Notion:", error.message);
   }
   }
 };
 
+export default getPages;

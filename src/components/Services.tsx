@@ -14,17 +14,33 @@ const allServices = [
 export default function ServiceCarousel() {
   const [currentServiceIndex, setCurrentServiceIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
+  const startInterval = () => {
+    const newIntervalId = setInterval(() => {
       setIsVisible(false);
       setTimeout(() => {
         setCurrentServiceIndex(prev => (prev + 1) % allServices.length);
         setIsVisible(true);
       }, 500);
     }, 5000);
+    setIntervalId(newIntervalId);
+  };
 
-    return () => clearInterval(interval);
+  const clearAndRestartInterval = () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+    startInterval();
+  };
+
+  useEffect(() => {
+    startInterval();
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
   }, []);
 
   const handleNext = () => {
@@ -32,6 +48,7 @@ export default function ServiceCarousel() {
     setTimeout(() => {
       setCurrentServiceIndex(prev => (prev + 1) % allServices.length);
       setIsVisible(true);
+      clearAndRestartInterval();
     }, 500);
   };
 
@@ -40,6 +57,7 @@ export default function ServiceCarousel() {
     setTimeout(() => {
       setCurrentServiceIndex(prev => (prev - 1 + allServices.length) % allServices.length);
       setIsVisible(true);
+      clearAndRestartInterval();
     }, 500);
   };
 
@@ -49,7 +67,7 @@ export default function ServiceCarousel() {
     <div className="relative h-96 w-full overflow-hidden text-white">
       {/* Service Card */}
       <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-        <h2 className="text-3xl font-bold mb-2 text-center font-sans">{currentService.name}</h2>
+        <h2 className="text-xl sm:text-3xl font-bold mb-2 text-center font-sans">{currentService.name}</h2>
         <p className="text-lg mb-1 font-serif text-gray-400">{currentService.time}</p>
         <p className="text-md font-serif text-gray-400">{currentService.day}</p>
       </div>
@@ -59,16 +77,16 @@ export default function ServiceCarousel() {
         onClick={handlePrev}
         className="absolute left-0 top-1/2 -translate-y-1/2 p-4 hover:bg-gray-800/50 transition-colors"
       >
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="size-8 fill-none stroke-current hover:stroke-current/20" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
       </button>
 
       <button
         onClick={handleNext}
-        className="absolute right-0 top-1/2 -translate-y-1/2 p-4 hover:bg-gray-800/50 transition-colors"
+        className="absolute right-0 top-1/2 -translate-y-1/2 p-4 transition-colors"
       >
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="size-8 fill-none stroke-current hover:stroke-current/20" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
       </button>
