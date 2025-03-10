@@ -20,9 +20,9 @@ export default function NextEvent() {
   {
     pages ? (
       pages.length === 1 ? (
-        <h1 class="text-3xl font-sans font-extrabold text-center mb-8">Próximo evento</h1>
+        <h2 class="text-3xl font-sans font-extrabold text-center mb-8">Próximo evento</h2>
       ) : (
-        <h1 class="text-3xl font-sans font-extrabold text-center mb-8">Próximos eventos</h1>
+        <h2 class="text-3xl font-sans font-extrabold text-center mb-8">Próximos eventos</h2>
       )
     ) : (
       console.log("No se encuentran datos")
