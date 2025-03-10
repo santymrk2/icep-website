@@ -21,7 +21,7 @@ const Beliefs = () => {
 
       <div className="space-y-4">
         {items.map((item, index) => (
-          <div key={index} className="p-4 ring ring-2 ring-white rounded-xl">
+          <div key={index} className="p-4 bg-zinc-700 rounded-xl">
             <button
               className="w-full flex justify-between items-center text-white text-left font-sans font-bold py-2 px-4 focus:outline-none"
               onClick={() => toggleAccordion(index)}
@@ -40,7 +40,7 @@ const Beliefs = () => {
               className={`overflow-hidden transition-all duration-300 ${activeIndex === index ? 'max-h-70' : 'max-h-0'
                 }`}
             >
-              <p className="text-white font-serif m-4">{item.content}</p>
+              <p className="text-white font-sans m-4">{item.content}</p>
             </div>
           </div>
         ))}

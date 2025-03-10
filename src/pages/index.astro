@@ -3,9 +3,9 @@ import Layout from "../layouts/Layout.astro";
 import Services from "../components/Services.tsx";
 import NextEvent from "../components/NextEvent.jsx";
 import { Image } from "astro:assets";
-import PG01 from "../assets/PG01.webp";
-import PG02 from "../assets/PG02.webp";
-import PG03 from "../assets/PG03.webp";
+import Foto1 from "../assets/PG01.webp";
+import Foto2 from "../assets/PG07.webp";
+import Foto3 from "../assets/PG03.webp";
 
 export const prerender = true;
 ---
@@ -14,18 +14,16 @@ export const prerender = true;
   <main>
     <section class="w-screen h-120 flex flex-col justify-center items-left">
       <div class="mx-8 sm:mx-20 md:mx-24 lg:mx-64 mb-10">
-          <h2
-            class="text-3xl md:text-4xl font-sans font-extrabold text-left"
-          >
-            Bienvenido a la <br /> Iglesia Cristiana <br /> Evangélica Pilar
-          </h2>
+        <h2 class="text-3xl md:text-4xl font-sans font-extrabold text-left">
+          Bienvenido a la <br /> Iglesia Cristiana <br /> Evangélica Pilar
+        </h2>
       </div>
     </section>
 
     <section class="w-screen h-full sm:h-screen overflow-hidden">
       <div class="relative h-screen sm:h-full">
         <Image
-          src={PG01}
+          src={Foto1}
           alt="Imagen de personas"
           class="w-full h-full object-cover drop-shadow-3xl brightness-50"
         />
@@ -41,17 +39,14 @@ export const prerender = true;
       </div>
     </section>
 
-
-
-<section class="py-16">
-  <NextEvent  client:idle/>
-</section>
-
+    <section class="py-16">
+      <NextEvent client:idle />
+    </section>
 
     <section class="w-full h-full sm:h-screen overflow-hidden">
       <div class="relative h-screen sm:h-full">
         <Image
-          src={PG02}
+          src={Foto2}
           alt="Imagen de personas"
           class="w-full h-full object-cover drop-shadow-3xl brightness-50"
         />
@@ -67,14 +62,12 @@ export const prerender = true;
       </div>
     </section>
     <section class="py-16">
-
-    <Services client:idle/>
-
+      <Services client:idle />
     </section>
     <section class="w-full h-full sm:h-screen overflow-hidden">
       <div class="relative h-screen sm:h-full">
         <Image
-          src={PG03}
+          src={Foto3}
           alt="Imagen de personas"
           class="w-full h-full object-cover drop-shadow-3xl brightness-50"
         />
@@ -91,7 +84,7 @@ export const prerender = true;
                   Contactanos
                 </h2>
                 <p
-                  class="text-lg sm:text-xl text-gray-400 font-serif text-center sm:text-right"
+                  class="text-lg sm:text-xl text-zinc-300 font-serif text-center sm:text-right"
                 >
                   Estamos para responder tus preguntas
                 </p>

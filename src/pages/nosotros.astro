@@ -2,8 +2,8 @@
 import BeliefsDropdown from "../components/Beliefs.js";
 import Layout from "../layouts/Layout.astro";
 import Values from "../components/Values.js";
-import AB02 from "../assets/AB02.webp";
-import AB03 from "../assets/AB03.webp";
+import Foto1 from "../assets/PG04.webp";
+import Foto2 from "../assets/PG06.webp";
 import { Image } from "astro:assets";
 export const prerender = true;
 ---
@@ -23,7 +23,7 @@ export const prerender = true;
             >
               <section class="slider-section w-[calc(100%/3)] h-full">
                 <Image
-                  src={AB02}
+                  src={Foto1}
                   alt="Imagen de personas"
                   class="w-full h-auto aspect-square object-cover rounded-2xl drop-shadow-3xl"
                 />
@@ -84,7 +84,7 @@ export const prerender = true;
           >
             <section class="slider-section w-[calc(100%/3)] h-full">
               <Image
-                src={AB03}
+                src={Foto2}
                 alt="Imagen de personas"
                 class="w-full h-auto aspect-square object-cover rounded-2xl drop-shadow-3xl"
               />

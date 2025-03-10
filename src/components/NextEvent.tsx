@@ -45,7 +45,7 @@ export default function NextEvent() {
         ${item.type === "ENCUENTRO DE MUJERES" ? "ring-rose-500 shadow-rose-500/60" : ""}
         ${item.type === "ENCUENTRO DE MATRIMONIOS" ? "ring-red-500 shadow-red-500/60" : ""}
         ${!["ACTIVADOS", "REUNIÓN DE ENSEÑANZA", "ENCUENTRO DE ORACIÓN", "ENCUENTRO DE JÓVENES", "ENCUENTRO DE MUJERES", "ENCUENTRO DE MATRIMONIOS"].includes(item.type) ? "ring-custom-blue shadow-custom-blue/60" : ""}
-        shadow-xl rounded-xl md:p-2 my-6
+        shadow-lg rounded-xl md:p-2 my-6
       `}
             >
               <a href={item.pageLink}>
