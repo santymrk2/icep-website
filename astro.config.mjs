@@ -4,10 +4,14 @@ import { defineConfig, envField } from 'astro/config';
 import preact from '@astrojs/preact';
 import tailwindcss from "@tailwindcss/vite";
 import vercel from '@astrojs/vercel';
+import sitemap from '@astrojs/sitemap';
+
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [preact()],
+  integrations: [preact(), sitemap()],
+  site: 'https://www.icepilar.org',
+
   vite: {
     plugins: [tailwindcss()],
   },
