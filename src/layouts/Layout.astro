@@ -1,9 +1,9 @@
 ---
 import "../styles/global.css";
-import '@fontsource/merriweather';
-import '@fontsource-variable/noto-sans';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Navbar.js';
+import "@fontsource/merriweather";
+import "@fontsource-variable/noto-sans";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Navbar.js";
 import { ClientRouter } from "astro:transitions";
 
 interface Props {
@@ -11,7 +11,10 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Iglesia Cristiana Evangélica en Pilar - Sitio Oficial" } = Astro.props;
+const {
+  title,
+  description = "Iglesia Cristiana Evangélica en Pilar - Sitio Oficial",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -21,12 +24,24 @@ const { title, description = "Iglesia Cristiana Evangélica en Pilar - Sitio Ofi
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href="/LogoPrincipal.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/LogoPrincipal.svg">
-    <meta name="google-site-verification" content="epf1TCiUkH1ziDJD7Ua3r-4Vp7CsFbhMI-466NC4zB8" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/LogoPrincipal.svg" />
     <meta name="generator" content={Astro.generator} />
+
     <title>{title}</title>
     <ClientRouter />
-  </head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YZ4DX7X5N0"
+    ></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-YZ4DX7X5N0");
+    </script></head
+  >
+  <!-- Google tag (gtag.js) -->
+
   <body class="min-h-screen bg-zinc-800 text-white">
     <Header client:idle />
     <slot />
