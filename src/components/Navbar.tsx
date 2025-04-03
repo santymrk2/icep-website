@@ -125,13 +125,13 @@ const Navbar = () => {
                         </a>
                     </div>
 
-                    <div class="hidden lg:flex space-x-8 justify-center items-center m-2">
+                    <div class="hidden xl:flex space-x-8 justify-center items-center m-2">
                         <nav>
                             <ul class="flex space-x-4 g-4">
                                 {menuItems.map((item) => (
                                     <li
                                         key={item.text}
-                                        class="relative"
+                                        class="relative select-none"
                                         onClick={() => setOpenDropdown(item.text)}
                                     >
                                         {!item.subitems ? (
@@ -197,7 +197,7 @@ const Navbar = () => {
                     </div>
                     <button
                         id="mobile-menu-button"
-                        class="lg:hidden m-2 sm:m-1 rounded-full group transition-all ease-in-out inline-flex w-12 h-12 text-slate-800 text-center items-center justify-center"
+                        class="xl:hidden m-2 sm:m-1 rounded-full group transition-all ease-in-out inline-flex w-12 h-12 text-slate-800 text-center items-center justify-center"
                         aria-pressed={isMenuOpen}
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
@@ -236,7 +236,7 @@ const Navbar = () => {
             </div>
 
             {isMenuOpen && (
-                <div class="lg:hidden text-white flex flex-col justify-center my-10">
+                <div class="xl:hidden text-white flex flex-col justify-center my-10">
                     <div class="flex flex-col items-center gap-2">
                         {menuItems.map((item) => (
                             <div key={item.text} class="w-8/12 m-0">
