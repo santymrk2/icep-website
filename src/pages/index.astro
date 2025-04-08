@@ -12,7 +12,7 @@ export const prerender = true;
 
 <Layout title="ICEP | Iglesia Complejo Evangélico Pilar" showLoading={true}>
   <main>
-    <section class="w-screen h-120 flex flex-col justify-center items-left">
+    <section class="w-full h-120 flex flex-col justify-center items-left">
       <div class="mx-8 sm:mx-20 md:mx-24 lg:mx-64 mb-10">
         <h1 class="text-3xl md:text-4xl font-sans font-extrabold text-left">
           Bienvenido a la <br /> Iglesia Cristiana <br /> Evangélica Pilar
@@ -20,13 +20,15 @@ export const prerender = true;
       </div>
     </section>
 
-    <section class="w-screen h-full sm:h-screen overflow-hidden">
+    <section class="w-full h-full sm:h-screen overflow-hidden">
       <div class="relative h-screen sm:h-full">
         <Image
           src={Foto1}
           alt="Fachada de la iglesia con los integrantes de la misma"
-          class="w-full h-full object-cover drop-shadow-3xl brightness-50"
+          class="w-full h-full object-cover drop-shadow-3xl brightness-50 transition-all duration-500 ease-in-out"
           priority={true}
+          width={1920}
+          height={1080}
         />
         <div class="absolute top-1/2 right-10 sm:right-32 md:right-64">
           <div class="text-center">
@@ -49,7 +51,9 @@ export const prerender = true;
         <Image
           src={Foto2}
           alt="Grupo de integrantes de la iglesia en un campamento desde una sierra"
-          class="w-full h-full object-cover drop-shadow-3xl brightness-50"
+          class="w-full h-full object-cover drop-shadow-3xl brightness-50 transition-all duration-500 ease-in-out"
+          width={1920}
+          height={1080}
           loading="lazy"
         />
         <div class="absolute top-1/2 left-10 sm:left-32 md:left-64">
@@ -71,7 +75,7 @@ export const prerender = true;
         <Image
           src={Foto3}
           alt="Personas caminando en el campamento de tandil 2025"
-          class="w-full h-full object-cover drop-shadow-3xl brightness-50"
+          class="w-full h-full object-cover drop-shadow-3xl brightness-50 transition-all duration-500 ease-in-out"
           loading="lazy"
         />
         <div
