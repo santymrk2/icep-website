@@ -10,7 +10,7 @@ import Foto3 from "../assets/PG03.webp";
 export const prerender = true;
 ---
 
-<Layout title="ICEP | Iglesia Complejo Evangélico Pilar">
+<Layout title="ICEP | Iglesia Complejo Evangélico Pilar" showLoading={true}>
   <main>
     <section class="w-screen h-120 flex flex-col justify-center items-left">
       <div class="mx-8 sm:mx-20 md:mx-24 lg:mx-64 mb-10">
@@ -26,6 +26,7 @@ export const prerender = true;
           src={Foto1}
           alt="Fachada de la iglesia con los integrantes de la misma"
           class="w-full h-full object-cover drop-shadow-3xl brightness-50"
+          priority={true}
         />
         <div class="absolute top-1/2 right-10 sm:right-32 md:right-64">
           <div class="text-center">
@@ -49,6 +50,7 @@ export const prerender = true;
           src={Foto2}
           alt="Grupo de integrantes de la iglesia en un campamento desde una sierra"
           class="w-full h-full object-cover drop-shadow-3xl brightness-50"
+          loading="lazy"
         />
         <div class="absolute top-1/2 left-10 sm:left-32 md:left-64">
           <div class="text-center">
@@ -70,6 +72,7 @@ export const prerender = true;
           src={Foto3}
           alt="Personas caminando en el campamento de tandil 2025"
           class="w-full h-full object-cover drop-shadow-3xl brightness-50"
+          loading="lazy"
         />
         <div
           class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
