@@ -26,10 +26,7 @@ export default function NextEvent() {
     return (
       <div class="my-28 p-8 m-8 flex justify-center items-center">
         <div class="relative h-16 w-16">
-          {/* Background circle (light gray) */}
-          <div class="absolute inset-0 rounded-full border-4 border-gray-500"></div>
-          {/* Spinner (blue circle segment) */}
-          <div class="absolute inset-0 rounded-full border-4 border-transparent border-t-[#2a38b2] animate-spin"></div>
+        <div class=" w-12 h-12 border-5 border-white border-b-transparent rounded-full inline-block box-border animate-spin mx-auto"></div>
         </div>
       </div>
 

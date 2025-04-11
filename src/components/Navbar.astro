@@ -1,0 +1,412 @@
+---
+// Navbar.astro
+import "preact/compat";
+import Paths from "../data/paths.json";
+import Logo from "./Logo.astro";
+
+interface SubItem {
+    text: string;
+    href: string;
+}
+
+interface MenuItem {
+    text: string;
+    href: string;
+    icon?: string;
+    active: boolean;
+    subitems?: SubItem[] | null; // Permitir null en subitems
+}
+
+type Paths = MenuItem[];
+
+const menuItems: Paths = Paths as MenuItem[];
+const currentPath = Astro.url.pathname;
+
+const buttonClasses = `
+motion-preset-expand 
+text-white
+no-underline
+rounded-full
+py-2
+px-4
+items-center
+text-center
+font-extrabold
+relative
+z-10
+transition-all
+duration-500
+ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+tracking-wide
+font-sans
+overflow-hidden
+before:content-['']
+before:absolute
+before:top-0
+before:right-0
+before:w-0
+before:h-full
+before:bg-zinc-700
+before:-z-10
+before:transition-all
+before:duration-500
+before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+hover:before:w-full
+hover:before:left-0
+hover:before:right-auto
+`;
+
+const buttonSelectClasses = `
+motion-preset-expand 
+bg-white
+text-black
+no-underline
+rounded-full
+py-2
+px-4
+items-center
+text-center
+font-extrabold
+relative
+z-10
+transition-all
+duration-500
+ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+tracking-wide
+font-sans
+overflow-hidden
+before:content-['']
+before:absolute
+before:top-0
+before:right-0
+before:w-0
+before:h-full
+before:-z-10
+before:transition-all
+before:duration-500
+before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+hover:before:w-full
+hover:before:left-0
+hover:before:right-auto
+`;
+---
+
+<header
+    class="text-white m-4 sm:m-10 rounded-full z-50 h-24 transition-all duration-300"
+    id="back-menu"
+>
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-2 flex text-base font-normal">
+        <div class="flex justify-between items-center w-full">
+
+<div class="flex items-center m-2">
+    <a href="/" class="flex items-center">
+        <Logo 
+            className="hover:scale-104 transition-all duration-400 easy-out" 
+            size="size-18" 
+            transition:persist 
+            transition:name="logo" 
+        />
+    </a>
+</div>
+            <div class="hidden xl:flex space-x-8 justify-center items-center m-2">
+                <nav>
+                    <ul class="flex space-x-4 g-4">
+                        {menuItems.map((item) => (
+                            <li
+                                class="relative select-none"
+                                data-item={item.text}
+                            >
+                                {!item.subitems ? (
+                                    <a
+                                        href={item.href}
+                                        class={`${currentPath === item.href ? buttonSelectClasses : buttonClasses} inline-flex ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"} `}
+                                    >
+                                        {item.text}
+                                    </a>
+                                ) : (
+                                    <div class={`relative group ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}>
+                                        <a
+                                            href="#"
+                                            class={buttonClasses + "inline-flex"}
+                                            data-dropdown-trigger={item.text}
+                                        >
+                                            <span>{item.text}</span>
+                                            <svg
+                                                class={`size-5 transform transition-transform duration-200 ${item.active ? "" : "pointer-events-none cursor-not-allowed"}`}
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M19 9l-7 7-7-7"
+                                                />
+                                            </svg>
+                                        </a>
+
+                                        <!-- Reemplazamos el componente Transition con divs con clases para las animaciones -->
+                                        <div 
+                                            class="hidden transform opacity-0 scale-95 transition ease-out duration-200"
+                                            data-dropdown-content={item.text}
+                                        >
+                                            <div class="flex flex-col items-center space-y-2 bg-zinc-800">
+                                                {item.subitems.map((subitem) => (
+                                                    <a
+                                                        href={subitem.href}
+                                                        class={buttonClasses + "block w-full"}
+                                                    >
+                                                        {subitem.text}
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+            </div>
+
+            <button
+                id="mobile-menu-button"
+                class="xl:hidden m-2 sm:m-1 rounded-full group transition-all ease-in-out inline-flex w-12 h-12 text-slate-800 text-center items-center justify-center"
+                aria-pressed="false"
+            >
+                <span class="sr-only">Menu</span>
+                <svg
+                    class="w-8 h-8 fill-white pointer-events-none"
+                    viewBox="0 0 16 16"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <rect
+                        class="origin-center -translate-y-[5px] translate-x-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-x-0 group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:rotate-[315deg]"
+                        y="7"
+                        width="9"
+                        height="2"
+                        rx="1"
+                    />
+                    <rect
+                        class="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-[[aria-pressed=true]]:rotate-45"
+                        y="7"
+                        width="16"
+                        height="2"
+                        rx="1"
+                    />
+                    <rect
+                        class="origin-center translate-y-[5px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:-rotate-[225deg]"
+                        y="7"
+                        width="9"
+                        height="2"
+                        rx="1"
+                    />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="xl:hidden text-white flex-col justify-center my-10 hidden">
+        <div class="flex flex-col items-center gap-2">
+            {menuItems.map((item) => (
+                <div class="w-8/12 m-0">
+                    {!item.subitems ? (
+                        <a
+                            href={item.href}
+                            class={`inline-flex justify-center w-full ${currentPath === item.href ? buttonSelectClasses : buttonClasses} ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}
+                        >
+                            {item.text}
+                        </a>
+                    ) : (
+                        <div class={`relative ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}>
+                            <button
+                                class={`inline-flex justify-center w-full ${currentPath === item.href ? buttonSelectClasses : buttonClasses} ${item.active ? "" : "pointer-events-none cursor-not-allowed"}`}
+                                data-mobile-dropdown-trigger={item.text}
+                            >
+                                <span>{item.text}</span>
+                                <svg
+                                    class="size-5 transform transition-transform duration-200"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M19 9l-7 7-7-7"
+                                    />
+                                </svg>
+                            </button>
+
+                            <!-- Reemplazamos Transition con divs para animaciones -->
+                            <div 
+                                class="hidden transform opacity-0 scale-95 transition ease-in duration-150"
+                                data-mobile-dropdown-content={item.text}
+                            >
+                                {item.subitems.map((subitem) => (
+                                    <a
+                                        href={subitem.href}
+                                        class={`${buttonClasses} block w-full`}
+                                    >
+                                        {subitem.text}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            ))}
+        </div>
+    </div>
+</header>
+
+<script>
+    // Estado para el menú móvil
+    let isMenuOpen = false;
+    // Estado para los dropdowns
+    let openDropdown: string | null = null;
+
+    // Elementos DOM
+    const header = document.getElementById('back-menu');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    // Manejadores para dropdowns en versión desktop
+    document.querySelectorAll('[data-dropdown-trigger]').forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            const itemName = trigger.getAttribute('data-dropdown-trigger');
+            
+            // Cerrar el dropdown si ya está abierto
+            if (openDropdown === itemName) {
+                closeDropdown(itemName);
+                openDropdown = null;
+            } else {
+                // Cerrar cualquier otro dropdown abierto
+                if (openDropdown) {
+                    closeDropdown(openDropdown);
+                }
+                
+                // Abrir el nuevo dropdown
+                openDropdown = itemName;
+                openDesktopDropdown(itemName);
+            }
+        });
+    });
+
+    // Manejadores para dropdowns en versión móvil
+    document.querySelectorAll('[data-mobile-dropdown-trigger]').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const itemName = trigger.getAttribute('data-mobile-dropdown-trigger');
+            
+            // Cerrar el dropdown si ya está abierto
+            if (openDropdown === itemName) {
+                closeMobileDropdown(itemName);
+                openDropdown = null;
+            } else {
+                // Cerrar cualquier otro dropdown abierto
+                if (openDropdown) {
+                    closeMobileDropdown(openDropdown);
+                }
+                
+                // Abrir el nuevo dropdown
+                openDropdown = itemName;
+                openMobileDropdown(itemName);
+            }
+        });
+    });
+
+    // Toggle para el menú móvil
+    mobileMenuButton?.addEventListener('click', () => {
+        isMenuOpen = !isMenuOpen;
+        mobileMenuButton.setAttribute('aria-pressed', isMenuOpen);
+        
+        if (isMenuOpen) {
+            mobileMenu?.classList.remove('hidden');
+            mobileMenu?.classList.add('flex');
+            // Cambiar el header para que se vea como en el diseño original
+            header?.classList.remove('h-24');
+            header?.classList.add('rounded-xl', 'h-auto');
+            
+            // Dar tiempo para que se vea la transición
+            setTimeout(() => {
+                mobileMenu?.classList.remove('opacity-0');
+                mobileMenu?.classList.add('opacity-100');
+            }, 50);
+        } else {
+            mobileMenu?.classList.remove('opacity-100');
+            mobileMenu?.classList.add('opacity-0');
+            
+            // Esperar a que termine la transición antes de ocultar
+            setTimeout(() => {
+                mobileMenu?.classList.remove('flex');
+                mobileMenu?.classList.add('hidden');
+                header?.classList.remove('rounded-xl', 'h-auto');
+                header?.classList.add('h-24');
+            }, 300);
+        }
+    });
+
+    // Funciones para manejar dropdowns
+    function openDesktopDropdown(itemName: string | null) {
+        const dropdown = document.querySelector(`[data-dropdown-content="${itemName}"]`);
+        dropdown?.classList.remove('hidden');
+        // Aplicamos las clases para la animación de entrada
+        dropdown?.classList.add('block', 'transform', 'transition', 'ease-out', 'duration-200');
+        
+        // Forzamos un reflow antes de aplicar las clases que hacen visible el dropdown
+        dropdown?.offsetHeight;
+        
+        dropdown?.classList.remove('opacity-0', 'scale-95');
+        dropdown?.classList.add('opacity-100', 'scale-100');
+    }
+
+    function closeDropdown(itemName: string | null) {
+        const dropdown = document.querySelector(`[data-dropdown-content="${itemName}"]`);
+        // Aplicamos las clases para la animación de salida
+        dropdown?.classList.remove('opacity-100', 'scale-100');
+        dropdown?.classList.add('opacity-0', 'scale-95');
+        
+        // Esperamos a que termine la transición antes de ocultar completamente
+        setTimeout(() => {
+            dropdown?.classList.remove('block');
+            dropdown?.classList.add('hidden');
+        }, 200);
+    }
+
+    function openMobileDropdown(itemName: string | null) {
+        const dropdown = document.querySelector(`[data-mobile-dropdown-content="${itemName}"]`);
+        dropdown?.classList.remove('hidden');
+        dropdown?.classList.add('block', 'transform', 'transition', 'ease-out', 'duration-200');
+        
+        // Forzamos un reflow
+        dropdown?.offsetHeight;
+        
+        dropdown?.classList.remove('opacity-0', 'scale-95');
+        dropdown?.classList.add('opacity-100', 'scale-100');
+    }
+
+    function closeMobileDropdown(itemName: string | null) {
+        const dropdown = document.querySelector(`[data-mobile-dropdown-content="${itemName}"]`);
+        dropdown?.classList.remove('opacity-100', 'scale-100');
+        dropdown?.classList.add('opacity-0', 'scale-95');
+        
+        setTimeout(() => {
+            dropdown?.classList.remove('block');
+            dropdown?.classList.add('hidden');
+        }, 150);
+    }
+
+    // Actualizar la ruta actual cuando cambia la navegación
+    document.addEventListener('astro:after-swap', () => {
+        const currentPath = window.location.pathname;
+        // Lógica adicional si necesitas actualizar algo basado en la ruta
+    });
+
+    document.addEventListener('popstate', () => {
+        const currentPath = window.location.pathname;
+        // Lógica adicional si necesitas actualizar algo basado en la ruta
+    });
+</script>
