@@ -6,6 +6,7 @@ const Navbar = () => {
     interface SubItem {
         text: string;
         href: string;
+        active: boolean;
     }
 
     interface MenuItem {
@@ -144,9 +145,13 @@ const Navbar = () => {
                                             </a>
                                         ) : (
                                             <div class={`relative group ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}>
-                                                <a
-                                                    href="#"
+                                                <button
                                                     class={buttonClasses + "inline-flex"}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setOpenDropdown(openDropdown === item.text ? null : item.text)}
+
+                                                }
                                                 >
                                                     <span>{item.text}</span>
                                                     <svg
@@ -162,7 +167,7 @@ const Navbar = () => {
                                                             d="M19 9l-7 7-7-7"
                                                         />
                                                     </svg>
-                                                </a>
+                                                </button>
 
                                                 <Transition
                                                     show={item.active && openDropdown === item.text}
@@ -175,18 +180,21 @@ const Navbar = () => {
                                                     leaveTo="transform opacity-0 scale-95"
 
                                                 >
+                                                      <div class="absolute top-full left-0 mt-2 w-full bg-zinc-800 rounded-lg shadow-lg z-20">
+
                                                     <div class="flex flex-col items-center space-y-2 bg-zinc-800">
                                                         {item.subitems.map((subitem) => (
                                                             <a
                                                                 key={subitem.text}
                                                                 href={subitem.href}
-                                                                class={buttonClasses + "block w-full"}
+                                                                class={` ${subitem.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"} ${buttonClasses} block w-full`}
                                                             >
                                                                 {subitem.text}
                                                             </a>
                                                         ))}
                                                     </div>
-                                                </Transition>
+                                                    </div>
+                                                    </Transition>
                                             </div>
                                         )}
                                     </li>
@@ -287,7 +295,7 @@ const Navbar = () => {
                                                     <a
                                                         key={subitem.text}
                                                         href={subitem.href}
-                                                        class={`${buttonClasses} block w-full`}
+                                                        class={`${buttonClasses} block w-full ${subitem.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}
                                                     >
                                                         {subitem.text}
                                                     </a>

@@ -4,31 +4,26 @@ export const prerender = true;
 ---
 
 <Layout title="Contacto | ICEP">
-
-  <div class="h-[calc(100vh-18rem)] flex justify-center items-center">
-    <h1 class="text-4xl sm:text-5xl font-black font-sans text-center uppercase p-8 tranition-all">
+  <div class="h-[calc(100vh-18rem)] flex flex-col justify-center items-center">
+    <h1
+      class="text-4xl sm:text-5xl font-black font-sans text-center uppercase p-4 tranition-all"
+    >
       ¿Cómo puedo comunicarme?
     </h1>
+    <p class="text-white opacity-50 font-serif text-center">Desliza para ver más ↓</p>
   </div>
-  
+
   <!-- Seccion Direcccion -->
   <section
     class="py-16 mx-4 my-16 sm:mx-10 rounded-xl flex flex-col justify-center animation-appear"
   >
-
-
-
     <div
       class="flex flex-col md:flex-row gap-6 lg:gap-24 m-2 md:items-center max-w-screen mx-auto"
     >
-
-
       <!-- Contenedor del texto (Aparece arriba en móviles, a la derecha en desktop) -->
       <div
         class="flex flex-col justify-center items-start max-w-8xl mx-auto order-2 md:order-1 text-left md:text-right"
       >
-
-
         <div class="text-left mb-12 mx-4">
           <h1 class="text-4xl font-bold font-sans md:text-right">
             Visitanos en nuestra iglesia
@@ -44,13 +39,15 @@ export const prerender = true;
                 >
                   Dirección
                 </h3>
-                <p class="text-gray-400 font-serif text-left md:text-right prose">
+                <p
+                  class="text-gray-400 font-serif text-left md:text-right prose"
+                >
                   Av. Honorio Pueyrredón 2775, <br />
                   Pilar, Buenos Aires
                 </p>
               </div>
 
-              <div class="order-1 md:order-2 ">
+              <div class="order-1 md:order-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -69,7 +66,7 @@ export const prerender = true;
 
       <!-- Contenedor del mapa (Aparece abajo en móviles, a la izquierda en desktop) -->
       <div
-        class="order-2 md:order-2 py-2 flex justify-center items-center w-full animate-float relative "
+        class="order-2 md:order-2 py-2 flex justify-center items-center w-full animate-float relative"
       >
         <!-- Esqueleto de carga -->
         <div
@@ -79,15 +76,15 @@ export const prerender = true;
         </div>
 
         <!-- Mapa -->
-          <iframe
-            id="mapIframe"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3290.8116776545207!2d-58.9129872!3d-34.4587799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bc9d0a8b6bea3b%3A0x8f6a1a0b5f8c0a0e!2sAv.%20Dr.%20Honorio%20Pueyrred%C3%B3n%202775%2C%20B1631FZJ%20Pilar%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1625147200000!5m2!1ses!2sar"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-            class="sm:skew-y-4 h-75 w-full max-w-xl mx-auto rounded-lg shadow-lg opacity-0 transition-opacity duration-300"
-            onload="this.classList.remove('opacity-0'); document.getElementById('skeleton').remove()"
-          ></iframe>
+        <iframe
+          id="mapIframe"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3290.8116776545207!2d-58.9129872!3d-34.4587799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bc9d0a8b6bea3b%3A0x8f6a1a0b5f8c0a0e!2sAv.%20Dr.%20Honorio%20Pueyrred%C3%B3n%202775%2C%20B1631FZJ%20Pilar%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1625147200000!5m2!1ses!2sar"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          class="sm:skew-y-4 h-75 w-full max-w-xl mx-auto rounded-lg shadow-lg opacity-0 transition-opacity duration-300"
+          onload="this.classList.remove('opacity-0'); document.getElementById('skeleton').remove()"
+        ></iframe>
       </div>
     </div>
   </section>
@@ -144,18 +141,18 @@ export const prerender = true;
         </div>
 
         <!-- Video de YouTube -->
-          <iframe
-            id="youtubeIframe"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-            class="sm:-skew-y-4 h-75 w-full  mx-auto rounded-lg shadow-lg opacity-0 transition-opacity duration-300"
-            src="https://www.youtube.com/embed/b2eudGDe5J8?si=ZOhH9lo7IFMduJAJ"
-            title="YouTube video player"
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            onload="this.classList.remove('opacity-0'); document.getElementById('youtube-skeleton').remove()"
-          ></iframe>
+        <iframe
+          id="youtubeIframe"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          class="sm:-skew-y-4 h-75 w-full mx-auto rounded-lg shadow-lg opacity-0 transition-opacity duration-300"
+          src="https://www.youtube.com/embed/b2eudGDe5J8?si=ZOhH9lo7IFMduJAJ"
+          title="YouTube video player"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          onload="this.classList.remove('opacity-0'); document.getElementById('youtube-skeleton').remove()"
+        ></iframe>
       </div>
     </div>
   </section>
@@ -175,15 +172,18 @@ export const prerender = true;
             Escribinos en nuestras redes
           </h1>
           <p class="text-gray-400 font-serif mt-3 md:text-right prose">
-            Nos podés enviar un email o un mensaje directo para que podamos ayudarte
+            Nos podés enviar un email o un mensaje directo para que podamos
+            ayudarte
           </p>
         </div>
       </div>
 
-      <div class="order-2 md:order-2 flex justify-center w-full animate-float ">
+      <div class="order-2 md:order-2 flex justify-center w-full animate-float">
         <div class="aspect-w-16 aspect-h-9 w-full max-w-xl mx-auto">
           <div class="">
-            <div class="shadow-lg rounded-xl p-12 ring ring-1 ring-white sm:skew-y-4 ">
+            <div
+              class="shadow-lg rounded-xl p-12 ring ring-1 ring-white sm:skew-y-4"
+            >
               <div
                 class="grid grid-cols-1 sm:grid-cols-2 justify-items-center items-content-center gap-8"
               >
@@ -250,7 +250,6 @@ export const prerender = true;
                   </div>
                 </a>
 
-
                 <a
                   href="https://www.instagram.com/ice_pilar?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                   class="m-4 group hover:text-white hover:scale-105 transform transition-all duration-300 ease-in-out"
@@ -288,4 +287,3 @@ export const prerender = true;
     </div>
   </section>
 </Layout>
-

@@ -17,26 +17,31 @@
     "subitems": [
       {
         "text": "Niños",
-        "href": "/ninios"
+        "href": "/ninios",
+        "active": false
       },
       {
         "text": "Adolescentes",
-        "href": "/adolescentes"
+        "href": "/adolescentes",
+        "active": false
       },
       {
         "text": "Jóvenes",
-        "href": "/jovenes"
+        "href": "/jovenes",
+        "active": false
       },
       {
         "text": "Mujeres",
-        "href": "/mujeres"
+        "href": "/mujeres",
+        "active": false
       },
       {
         "text": "Matrimonios",
-        "href": "/matrimonios"
+        "href": "/matrimonios",
+        "active": false
       }
     ],
-    "active": false
+    "active": true
   },
   {
     "text": "Calendario",

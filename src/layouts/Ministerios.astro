@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
-import '@fontsource/merriweather';
-import '@fontsource-variable/noto-sans';
+import "@fontsource/merriweather";
+import "@fontsource-variable/noto-sans";
 import Header from "../components/Navbar.js";
 import Footer from "../components/Footer.astro";
 import { ClientRouter } from "astro:transitions";
@@ -10,8 +10,6 @@ interface Props {
   title: string;
   description?: string;
 }
-
-
 
 const {
   title,
@@ -63,63 +61,68 @@ export const prerender = true;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico" />
-    <meta name="google-site-verification" content="epf1TCiUkH1ziDJD7Ua3r-4Vp7CsFbhMI-466NC4zB8" />
+    <meta
+      name="google-site-verification"
+      content="epf1TCiUkH1ziDJD7Ua3r-4Vp7CsFbhMI-466NC4zB8"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    {/*
+    {
+      /*
     <ClientRouter />
-    */}    
+    */
+    }
   </head>
   <body class="min-h-screen bg-zinc-800 text-white">
     <Header transition:persist client:visible />
-    <main
-      class="flex flex-col shadow-lg rounded-xl ring ring-2 ring-white m-5 sm:m-10"
-      transition:animate="slide"
+    <div
+    class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-white p-2 sm:p-4 rounded-full z-50 flex flex-row justify-center items-center"
     >
-      <div class="flex justify-between items-center w-full p-6">
-        <div
-          class="flex justify-center items-center w-10 h-10"
+      <div class="flex justify-center items-center w-10 h-10">
+        <a href=`/${backSite}`>
+          <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="1 1 24 24"
+          fill="none"
+          stroke="currentColor"
+          class="size-4 sm:size-6 w-10 stroke-gray-800 stroke-2 transition-all ease-in-out"
         >
-          <a href=`/${backSite}`>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="1 1 24 24"
-              fill="white"
-              class="size-6 w-10 fill-white transition-all easy-in-out"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </a>
-        </div>
-
-        <div class="flex flex-row justify-center items-center">
-          <slot name="title" />
-        </div>
-
-        <div
-          class="flex justify-center items-center w-10 h-10"
-        >
-          <a href=`/${nextSite}`>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="-1 0 24 24"
-              fill="white"
-              class="size-6 w-10 fill-white"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </a>
-        </div>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z"
+          />
+        </svg>
+        
+        </a>
       </div>
 
-      <slot name="content" class="w-full" />
-    </main>
+      <div class="text-center text-zinc-800 text-xl sm:text-3xl font-bold mx-4">
+        <slot name="title" /> 
+      </div>
+
+      <div class="flex justify-center items-center w-10 h-10">
+        <a href=`/${nextSite}`>
+          <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="-1 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          class="size-4 sm:size-6 w-10 stroke-gray-800 stroke-2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
+          />
+        </svg>
+        
+        </a>
+      </div>
+    </div>
+
+    <slot class="w-full" />
+
     <Footer />
   </body>
 </html>
