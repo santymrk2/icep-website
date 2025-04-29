@@ -1,0 +1,13 @@
+---
+import Ministerios from "../layouts/Layout.astro";
+export const prerender = false;
+---
+
+<Ministerios title="ICEP | Mujeres">
+  <meta http-equiv="refresh" content={`0;url=/`} />
+
+  <h1 slot="title" class="text-3xl font-bold ">Mujeres</h1>
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" slot="content">
+    <div class="flex flex-col justify-center items-center space-y-8"></div>
+</section>
+</Ministerios>
