@@ -137,17 +137,17 @@ const Navbar = () => {
 
                     <div class="hidden xl:flex space-x-8 justify-center items-center m-2">
                         <nav>
-                            <ul class="flex space-x-4 g-4">
+                            <ul class="flex px-2 g-4">
                                 {menuItems.map((item) => (
                                     <li
                                         key={item.text}
-                                        class="relative select-none"
+                                        class={`relative select-none ${item.active ? "px-2" : "px-0"}`}
                                         onClick={() => setOpenDropdown(item.text)}
                                     >
                                         {!item.subitems ? (
                                             <a
                                                 href={item.href}
-                                                class={`${item.active ? "inline-flex" : "hidden m-0 w-0"} ${currentPath === item.href ? buttonSelectClasses : buttonClasses}`}
+                                                class={`${item.active ? "inline-flex  " : "hidden"} ${currentPath === item.href ? buttonSelectClasses : buttonClasses}`}
                                             >
                                                 {item.text}
                                             </a>
