@@ -253,7 +253,7 @@ const Navbar = () => {
 
             {/* Menú móvil */}
             <div
-                class={`fixed top-0 left-0 w-full h-full bg-zinc-800 z-40 flex flex-col justify-center p-8 transition-all duration-500 transform ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+                class={`fixed top-0 left-0 w-full h-full bg-zinc-900 z-40 flex flex-col justify-center p-8 transition-all duration-500 transform ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
                     }`}
             >
                 <ul class="list-none">
