@@ -1,0 +1,37 @@
+[
+    {
+      "title": "Activados",
+      "desc": "Nuestro espacio para adolescentes",
+      "logo": "/assets/ministerios/activados/Imagotipo_white.svg",
+      "href": "/adolescentes",
+      "bg": "from-[#7cd604] to-[#7cd604]/50"
+    },
+    {
+      "title": "Pontifex",
+      "desc": "Creando puentes entre nuestros jóvenes",
+      "logo": "/assets/ministerios/jovenes/Imagotipo_white.svg",
+      "href": "/jovenes",
+      "bg": "from-[#f84b00] to-[#f84b00]/50"
+    },
+    {
+      "title": "Matrimonios",
+      "desc": "Un espacio para los matrimonios",
+      "logo": null,
+      "href": "/matrimonios",
+      "bg": "from-zinc-800 to-zinc-800/50 "
+    },
+    {
+      "title": "Mujeres",
+      "desc": "Un espacio para las mujeres",
+      "logo": null,
+      "href": "/mujeres",
+      "bg": "from-zinc-800 to-zinc-800/50 "
+    },
+    {
+      "title": "Niños",
+      "desc": "Un espacio para conocer a Dios",
+      "logo": null,
+      "href": "/ninios",
+      "bg": "from-zinc-800 to-zinc-800/50"
+    }
+  ]

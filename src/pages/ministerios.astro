@@ -1,127 +1,37 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Paths from "../data/paths.json";
+import CardMin from "../components/CardMin.astro";
+import stories from "../data/ministerios.json";
 
-const minItems = Paths.filter((x) => x.text == "Ministerios")[0].subitems;
-
-const stories = [
-  {
-    title: "Activados",
-    desc: "Nuestro espacio para adolescentes",
-    logo: "/assets/ministerios/activados/Imagotipo_white.svg",
-    href: "/adolescentes",
-    bg: "from-[#7cd604] to-[#7cd604]/50",
-  },
-  {
-    title: "Pontifex",
-    desc: "Creando puentes entre nuestros jóvenes",
-    logo: "/assets/ministerios/jovenes/Imagotipo_white.svg",
-    href: "/jovenes",
-    bg: "from-[#F84B00] to-[#F84B00]/50",
-  },
-  {
-    title: "Matrimonios",
-    desc: "Un espacio para los matrimonios",
-    logo: null,
-    href: "/matrimonios",
-    bg: "from-zinc-900 to-zinc-900/50 ",
-  },
-  {
-    title: "Mujeres",
-    desc: "Un lugar para las mujeres",
-    logo: null,
-    href: "/mujeres",
-    bg: "from-zinc-900 to-zinc-900/50 ",
-  },
-  {
-    title: "Niños",
-    desc: "Espacios para conocer a Dios",
-    logo: null,
-    href: "/ninios",
-    bg: "from-zinc-900 to-zinc-900/50",
-  },
-];
 
 export const prerender = false;
 ---
 
 <Layout title="ICEP | Ministerios">
-<!--
-  <meta http-equiv="refresh" content={`0;url=/`} />
--->
-<section class=" flex flex-col justify-center items-center  py-16">
+  <section class="flex flex-col justify-center items-center py-16">
+    <div
+      class="flex flex-col justify-center items-center text-center mb-8 py-16"
+    >
+      <h1 class="text-5xl sm:text-6xl font-black">Nuestros Ministerios</h1>
+      <p class="p-8">
+        Conoce nuestros espacios en donde nos desarrollamos como iglesia.
+      </p>
+    </div>
 
-  <div  class="flex flex-col justify-center items-center text-center mb-8 py-16">
-    <h1 class="text-5xl sm:text-6xl font-black ">Nuestros Ministerios</h1>
-    <p class="p-8">Conoce nuestros espacios en donde nos desarrollamos como iglesia.</p>
-    
-  </div>
-  <div class="container mx-auto px-10 sm:px-20 lg:px-32 xl:px-64 grid gap-8 grid-cols-1 md:grid-cols-2">
-    {stories.map((story) => (
-      <a
-        href={story.href}
-        class={`
-          relative rounded-2xl overflow-hidden bg-gradient-to-b ${story.bg}
-          group
-        `}
-      >
-        <div class="relative w-full pt-[66%]">
-          {story.logo ? (
-            <img
-              src={story.logo}
-              alt={story.title}
-              class={`
-                absolute inset-0 w-full h-full object-full p-8
-                transition-all duration-300
-                group-hover:opacity-0
-                group-hover:scale-75
-              `}
+    <div
+      class="container mx-auto px-10 sm:px-20 lg:px-32 xl:px-64 grid gap-8 grid-cols-1 md:grid-cols-2"
+    >
+      {
+        stories.map((story) => (
+          <CardMin
+            bg={story.bg}
+            title={story.title}
+            desc={story.desc}
+            logo={story.logo}
+            href={story.href}
             />
-          ) : (
-            <div
-              class={`
-                absolute inset-0 flex items-center justify-center
-                transition-all duration-300
-                group-hover:opacity-0
-                group-hover:scale-75
-              `}
-            >
-              <h2 class="text-white text-2xl sm:text-4xl font-bold text-center">
-                {story.title}
-              </h2>
-            </div>
-          )}
-
-          <!-- Solo el h3 con slide+fade -->
-          <div class="absolute inset-0 flex flex-col items-start justify-end p-8 pointer-events-none">
-  <h3
-    class="
-      mb-4 text-3xl font-bold text-white align-text-bottom
-      opacity-0 transform translate-y-4
-      transition-all duration-300
-      group-hover:opacity-100
-      group-hover:translate-y-0
-    "
-  >
-    {story.desc}
-  </h3>
-  <div class="flex flex-row px-2 bg-white
-              opacity-0 transform translate-y-4
-              transition-all duration-300
-              group-hover:opacity-100
-              group-hover:translate-y-0
-              ">
-    <p class="text-left text-lg font-bold text-black align-middle">Leer mas</p>
-    <svg class="size-8 pl-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-      <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12h12m0 0-5-5m5 5-5 5"/>
-    </svg>
-  </div>
-</div>
-        </div>
-      </a>
-    ))}
-  </div>
-</section>
-
+        ))
+      }
+    </div>
+  </section>
 </Layout>
-

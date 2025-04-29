@@ -1,0 +1,79 @@
+---
+const { href, bg, logo, title, desc, touchDisabled } = Astro.props;
+---
+
+<div
+    class={`relative rounded-2xl overflow-hidden bg-gradient-to-b ${bg} group`}
+>
+    <a href={href} class={`${touchDisabled ? "pointer-events-none" : ""}`}>
+        <div class="relative w-full aspect-[3/2]">
+            {
+                logo ? (
+                    <img
+                        src={logo}
+                        alt={title}
+                        class={`
+                            absolute top-1/2 left-1/2 transform 
+                            -translate-x-1/2 -translate-y-1/2 w-2/3
+                            transition-all duration-300 easy-out
+                            ${touchDisabled ? "" : "group-hover:opacity-0 group-hover:scale-75"}
+                        `}
+                    />
+                ) : (
+                    <div
+                        class={`
+                        absolute inset-0 flex items-center justify-center
+                        transition-all duration-300 easy-out
+                        ${touchDisabled ? "" : "group-hover:opacity-0 group-hover:scale-75"}
+                        `}
+                    >
+                        <div class="text-center">
+                            <h2 class="text-white text-2xl sm:text-3xl md:text-2xl lg:text-2xl xl:text-2xl font-bold text-center">
+                                {title}
+                            </h2>
+                        </div>
+                    </div>
+                )
+            }
+
+            <div
+                class={`absolute inset-0 flex flex-col items-start justify-end p-8 pointer-events-none ${touchDisabled ? "hidden" : ""}`}
+            >
+                <h3
+                    class={`mb-4 text-3xl sm:text-2xl md:text-2xl lg:text-3xl font-bold text-white align-text-bottom
+                    opacity-0 transform translate-y-4
+                    transition-all duration-300 easy-in
+                    
+                    group-hover:opacity-100
+                    group-hover:translate-y-0`}
+                >
+                    {desc}
+                </h3>
+                <div
+                    class="flex flex-row px-2 mt-2 bg-white
+                    opacity-0 transform translate-y-4
+                    transition-all duration-300
+                    group-hover:opacity-100
+                    group-hover:translate-y-0"
+                >
+                    <p class="text-left text-md font-bold text-black">
+                        Leer mas
+                    </p>
+                    <svg
+                        class="size-6 pl-1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke="#000"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 12h12m0 0-5-5m5 5-5 5"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
