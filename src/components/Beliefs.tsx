@@ -13,7 +13,7 @@ const Beliefs = () => {
     <section className="w-full max-w-lg mx-auto py-24 px-6 m-10 flex flex-col ">
       <div className="container mx-auto mb-16">
         <h1 className="text-3xl text-center font-extrabold font-sans mb-6 uppercase">Nuestras creencias</h1>
-        <p className="text-gray-400 mb-6 text-center font-serif ">
+        <p className="text-gray-400 mb-6 text-center font-sans ">
           Esto es en lo que nosotros creemos.
         </p>
       </div>
