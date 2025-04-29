@@ -68,8 +68,8 @@ export default function ServiceCarousel() {
       {/* Service Card */}
       <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
         <h2 className="text-xl sm:text-3xl font-bold mb-2 text-center font-sans">{currentService.name}</h2>
-        <p className="text-lg mb-1 font-serif text-gray-400">{currentService.time}</p>
-        <p className="text-md font-serif text-gray-400">{currentService.day}</p>
+        <p className="text-lg mb-1 font-sans text-gray-400">{currentService.time}</p>
+        <p className="text-md font-sans text-gray-400">{currentService.day}</p>
       </div>
 
       {/* Navigation Arrows */}

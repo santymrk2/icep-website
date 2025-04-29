@@ -72,7 +72,7 @@ export default function NextEvent() {
                 </h1>
               </a>
             </div>
-            <p class="text-center font-serif text-gray-400 mt-4">{item.date}</p>
+            <p class="text-center font-sans text-gray-400 mt-4">{item.date}</p>
 
             {index < pages.length - 1 && (
               <div class="h-px w-full bg-white/30 my-4 mt-8" />
