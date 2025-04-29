@@ -2,7 +2,7 @@
 import Logo from './Logo.astro'
 ---
 
-<div id="loading-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-800 transition-opacity duration-500">
+<div id="loading-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900 transition-opacity duration-500">
   <div class="text-center">
     <div class="w-32 h-32 mx-auto mb-4">
       <Logo 
@@ -10,14 +10,8 @@ import Logo from './Logo.astro'
         transition:name="logo"
         className="animate-pulse transition-all duration-400 ease-out"
       />
-
     </div>
-
-    <div class=" w-12 h-12 border-5 border-white border-b-transparent rounded-full inline-block box-border animate-spin mx-auto"></div>
-
-
   </div>
-  
 </div>
 
 <script>
