@@ -1,0 +1,78 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Paths from "../data/paths.json";
+
+const minItems = Paths.filter((x) => x.text == "Ministerios")[0].subitems;
+
+const stories = [
+  {
+    title: "Activados",
+    desc: "Un espacio para los jóvenes de ICEP, donde se busca conectar con Dios y entre nosotros.",
+    logo: "src/assets/ministerios/activados/Imagotipo_white.svg",
+    href: "/adolescentes",
+    bg: "from-[#7cd604] to-[#7cd604]/50",
+  },
+  {
+    title: "Pontifex",
+    desc: "Un espacio para los jóvenes de ICEP, donde se busca conectar con Dios y entre nosotros.",
+    logo: "src/assets/ministerios/jovenes/Imagotipo_white.svg",
+    href: "/jovenes",
+    bg: "from-[#F84B00] to-[#F84B00]/50",
+  },
+  {
+    title: "Matrimonios",
+    desc: "Un espacio para las mujeres de ICEP, donde se busca conectar con Dios y entre nosotros.",
+    logo: null,
+    href: "/matrimonios",
+    bg: "from-zinc-900 to-zinc-900/50 ",
+  },
+  {
+    title: "Mujeres",
+    desc: "Un espacio para las mujeres de ICEP, donde se busca conectar con Dios y entre nosotros.",
+    logo: null,
+    href: "/mujeres",
+    bg: "from-zinc-900 to-zinc-900/50 ",
+  },
+  {
+    title: "Niños",
+    desc: "Un espacio para los niños de ICEP, donde se busca conectar con Dios y entre nosotros.",
+    logo: null,
+    href: "/ninios",
+    bg: "from-zinc-900 to-zinc-900/50",
+  },
+];
+
+export const prerender = false;
+---
+
+<Layout title="ICEP | Ministerios">
+<!--
+  <meta http-equiv="refresh" content={`0;url=/`} />
+-->
+<section class="py-16 ">
+  <h2 class="sr-only">Customer Stories</h2>
+  <div class="container mx-auto px-4 grid gap-8 grid-cols-1 sm:grid-cols-2">
+    {stories.map((story) => (
+      <a href={story.href} class={`relative rounded-2xl overflow-hidden bg-gradient-to-b ${story.bg} group transform transition-transform hover:-translate-y-1`}>
+        <div class="relative w-full pt-[66%]">
+          {story.logo ? (
+            <img 
+              src={story.logo} 
+              alt={story.title} 
+              class="absolute inset-0 w-full h-full object-full transition-opacity duration-300 group-hover:opacity-0 p-8"
+            />
+          ) : (
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <h2 class="text-white text-4xl font-bold text-center">{story.title}</h2>
+            </div>
+          )}
+          <div class="absolute inset-0 flex items-center justify-center text-center bg-white bg-opacity-90 opacity-0 transition-opacity duration-300 group-hover:opacity-100 p-4">
+            <h3 class="text-lg font-semibold text-gray-800">{story.desc}</h3>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+</Layout>
+

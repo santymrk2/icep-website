@@ -14,34 +14,8 @@
   {
     "text": "Ministerios",
     "href": "",
-    "subitems": [
-      {
-        "text": "Niños",
-        "href": "/ninios",
-        "active": false
-      },
-      {
-        "text": "Adolescentes",
-        "href": "/adolescentes",
-        "active": false
-      },
-      {
-        "text": "Jóvenes",
-        "href": "/jovenes",
-        "active": false
-      },
-      {
-        "text": "Mujeres",
-        "href": "/mujeres",
-        "active": false
-      },
-      {
-        "text": "Matrimonios",
-        "href": "/matrimonios",
-        "active": false
-      }
-    ],
-    "active": true
+    "subitems": null,
+    "active": false
   },
   {
     "text": "Calendario",

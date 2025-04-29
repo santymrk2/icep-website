@@ -44,6 +44,15 @@ const Navbar = () => {
         };
     }, []); // El array de dependencias vacío asegura que esto solo se ejecute una vez en el montaje
 
+    useEffect(() => {
+        // Control del scroll cuando el menú está abierto
+        if (isMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }, [isMenuOpen]);
+
     const buttonClasses = `
     motion-preset-expand 
     text-white
@@ -68,11 +77,11 @@ const Navbar = () => {
     before:right-0
     before:w-0
     before:h-full
-    before:bg-zinc-700
     before:-z-10
     before:transition-all
     before:duration-500
     before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
+    hover:text-blue-500
     hover:before:w-full
     hover:before:left-0
     hover:before:right-auto
@@ -138,20 +147,20 @@ const Navbar = () => {
                                         {!item.subitems ? (
                                             <a
                                                 href={item.href}
-                                                class={`${currentPath === item.href ? buttonSelectClasses : buttonClasses} inline-flex ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"} `}
+                                                class={`${item.active ? "inline-flex" : "hidden m-0 w-0"} ${currentPath === item.href ? buttonSelectClasses : buttonClasses}`}
                                             >
-
                                                 {item.text}
                                             </a>
                                         ) : (
-                                            <div class={`relative group ${item.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"}`}>
+                                            <div class={`relative group ${item.active ? "inline-flex" : "hidden"}`}>
                                                 <button
                                                     class={buttonClasses + "inline-flex"}
                                                     onClick={(e) => {
                                                         e.stopPropagation();
-                                                        setOpenDropdown(openDropdown === item.text ? null : item.text)}
+                                                        setOpenDropdown(openDropdown === item.text ? null : item.text)
+                                                    }
 
-                                                }
+                                                    }
                                                 >
                                                     <span>{item.text}</span>
                                                     <svg
@@ -180,21 +189,21 @@ const Navbar = () => {
                                                     leaveTo="transform opacity-0 scale-95"
 
                                                 >
-                                                      <div class="absolute top-full left-0 mt-2 w-full bg-zinc-800 rounded-lg shadow-lg z-20">
+                                                    <div class="absolute top-full left-0 mt-2 w-full bg-zinc-800 rounded-lg shadow-lg z-20">
 
-                                                    <div class="flex flex-col items-center space-y-2 bg-zinc-800">
-                                                        {item.subitems.map((subitem) => (
-                                                            <a
-                                                                key={subitem.text}
-                                                                href={subitem.href}
-                                                                class={` ${subitem.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"} ${buttonClasses} block w-full`}
-                                                            >
-                                                                {subitem.text}
-                                                            </a>
-                                                        ))}
+                                                        <div class="flex flex-col items-center space-y-2 bg-zinc-800">
+                                                            {item.subitems.map((subitem) => (
+                                                                <a
+                                                                    key={subitem.text}
+                                                                    href={subitem.href}
+                                                                    class={` ${subitem.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"} ${buttonClasses} block w-full`}
+                                                                >
+                                                                    {subitem.text}
+                                                                </a>
+                                                            ))}
+                                                        </div>
                                                     </div>
-                                                    </div>
-                                                    </Transition>
+                                                </Transition>
                                             </div>
                                         )}
                                     </li>
@@ -205,7 +214,7 @@ const Navbar = () => {
                     </div>
                     <button
                         id="mobile-menu-button"
-                        class="xl:hidden m-2 sm:m-1 rounded-full group transition-all ease-in-out inline-flex w-12 h-12 text-slate-800 text-center items-center justify-center"
+                        class="z-52 xl:hidden m-2 sm:m-1 rounded-full group transition-all ease-in-out inline-flex w-12 h-12 text-slate-800 text-center items-center justify-center"
                         aria-pressed={isMenuOpen}
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
@@ -243,6 +252,37 @@ const Navbar = () => {
                 </div>
             </div>
 
+            {/* Menú móvil */}
+            <div 
+                class={`fixed top-0 left-0 w-full h-full bg-zinc-800 z-40 flex flex-col justify-center p-8 transition-all duration-500 transform ${
+                isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+                }`}
+            >                
+                <ul class="list-none">
+                    {menuItems.map((item) => (
+                        <li class="mb-5">
+                            <a 
+                                href={item.href}
+                                class={`text-white text-4xl font-bold no-underline  py-2 hover:text-blue-500 transition-colors duration-300 ${item.active ? "block" : "hidden"}`}
+                            >
+                                {item.text}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+                
+                <div class=" mt-20 text-gray-500 text-sm">
+                    <p>© 2025 Iglesia Complejo Evangélico Pilar. Todos los derechos reservados.</p>
+                    <div class="flex mt-5">
+                        <a href="https://www.youtube.com/@icepilar" class="text-white mr-5 no-underline">YouTube</a>
+                        <a href="https://www.instagram.com/ice_pilar?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-white mr-5 no-underline">Instagram</a>
+                        <a href="https://www.facebook.com/profile.php?id=61574986704374" class="text-white no-underline">Facebook</a>
+                    </div>
+                </div>
+            </div>
+
+
+            {/* Mobile menu 
             {isMenuOpen && (
                 <div class="xl:hidden text-white flex flex-col justify-center my-10">
                     <div class="flex flex-col items-center gap-2">
@@ -309,6 +349,7 @@ const Navbar = () => {
                     </div>
                 </div>
             )}
+                */}
         </header>
     );
 };
