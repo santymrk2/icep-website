@@ -22,13 +22,14 @@ const { href, bg, logo, title, desc, touchDisabled } = Astro.props;
                 ) : (
                     <div
                         class={`
-                        absolute inset-0 flex items-center justify-center
+                        
+                        absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2/3
                         transition-all duration-300 easy-out
                         ${touchDisabled ? "" : "group-hover:opacity-0 group-hover:scale-75"}
                         `}
                     >
-                        <div class="text-center">
-                            <h2 class="text-white text-2xl sm:text-3xl md:text-2xl lg:text-2xl xl:text-2xl font-bold text-center">
+                        <div class="text-center w-full">
+                            <h2 class="text-white font-bold text-center w-full" style="font-size: clamp(1rem, 6vw, 3rem)">
                                 {title}
                             </h2>
                         </div>
@@ -37,10 +38,10 @@ const { href, bg, logo, title, desc, touchDisabled } = Astro.props;
             }
 
             <div
-                class={`absolute inset-0 flex flex-col items-start justify-end p-8 pointer-events-none ${touchDisabled ? "hidden" : ""}`}
+                class={`absolute inset-0 flex flex-col items-start justify-end p-4 sm:p-8 pointer-events-none ${touchDisabled ? "hidden" : ""}`}
             >
                 <h3
-                    class={`mb-4 text-2xl sm:text-2xl md:text-2xl lg:text-3xl font-bold text-white align-text-bottom
+                    class={`mb-2 sm:mb-4 text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold text-white align-text-bottom
                     opacity-0 transform translate-y-4
                     transition-all duration-300 easy-in
                     
@@ -56,11 +57,11 @@ const { href, bg, logo, title, desc, touchDisabled } = Astro.props;
                     group-hover:opacity-100
                     group-hover:translate-y-0"
                 >
-                    <p class="text-left text-md font-bold text-black">
+                    <p class="text-left text-sm sm:text-md font-bold text-black">
                         Leer mas
                     </p>
                     <svg
-                        class="size-6 pl-1"
+                        class="size-5 sm:size-6 pl-1"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
