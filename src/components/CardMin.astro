@@ -23,13 +23,13 @@ const { href, bg, logo, title, desc, touchDisabled } = Astro.props;
                     <div
                         class={`
                         
-                        absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2/3
+                        absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
                         transition-all duration-300 easy-out
                         ${touchDisabled ? "" : "group-hover:opacity-0 group-hover:scale-75"}
                         `}
                     >
                         <div class="text-center w-full">
-                            <h2 class="text-white font-bold text-center w-full" style="font-size: clamp(1rem, 6vw, 3rem)">
+                            <h2 class="text-[clamp(2rem,5cqw,1.5rem)] text-white font-bold text-center w-full" >
                                 {title}
                             </h2>
                         </div>
