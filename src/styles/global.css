@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 .animation-appear {
     animation: appear linear;
     animation-timeline: view();

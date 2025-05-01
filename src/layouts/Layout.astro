@@ -21,7 +21,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="es">
+<html class="dark" lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -43,7 +43,7 @@ const {
     </script>
   </head>
 
-  <body class="min-h-screen bg-zinc-900 text-white">
+  <body class="min-h-screen bg-white dark:bg-zinc-900 text-black dark:text-white">
     {showLoading && <Loading />}
     <Header client:idle />
     <slot />
