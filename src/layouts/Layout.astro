@@ -3,6 +3,7 @@ import "../styles/global.css";
 import "@fontsource/merriweather";
 import "@fontsource-variable/noto-sans";
 import Footer from "../components/Footer.astro";
+import Analytics from '@vercel/analytics/astro'
 import Header from "../components/Navbar.tsx";
 import Loading from "../components/Loading.astro";
 import { ClientRouter } from "astro:transitions";
@@ -18,6 +19,8 @@ const {
   description = "Iglesia Cristiana Evangélica en Pilar - Sitio Oficial",
   showLoading = false, 
 } = Astro.props;
+
+
 ---
 
 <!doctype html>
@@ -29,18 +32,9 @@ const {
     <link rel="icon" sizes="96x96" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
+    <Analytics />
     <ClientRouter />
     <title>{title}</title>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YZ4DX7X5N0"
-    ></script><script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-YZ4DX7X5N0");
-    </script>
   </head>
 
   <body class="min-h-screen bg-white dark:bg-zinc-900 text-black dark:text-white">
