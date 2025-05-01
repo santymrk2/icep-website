@@ -1,11 +1,11 @@
 ---
-import Ministerios from "../layouts/Layout.astro";
-import CardMin from "../components/CardMin.astro";
-import stories from "../data/ministerios.json";
+import Ministerios from "../../layouts/Layout.astro";
+import CardMin from "../../components/CardMin.astro";
+import stories from "../../data/ministerios.json";
 
 export const prerender = true;
 
-const story = stories.find((x) => x.title === "Matrimonios");
+const story = stories.find((x) => x.title === "Mujeres");
 
 const images = [
   { url: "/assets/ministerios/jovenes/PP05.jpg", alt: "Imagen 5" },
@@ -49,10 +49,10 @@ const images = [
     </div>
 
     <h1 class="text-5xl font-bold leading-15">
-      Un encuentro para el crecimiento de los matrimonios
+      Un encuentro para el crecimiento de las mujeres
     </h1>
     <p class="text-lg text-zinc-400 py-12">
-      Un encuentro para que nuestros matrimonios crezcan juntos y puedan seguir el modelo de Dios para formar una familia. 
+      Un encuentro para las mujeres. 
     </p>
 
     <div

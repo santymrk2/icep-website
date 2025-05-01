@@ -1,11 +1,11 @@
 ---
-import Ministerios from "../layouts/Layout.astro";
-import CardMin from "../components/CardMin.astro";
-import stories from "../data/ministerios.json";
+import Ministerios from "../../layouts/Layout.astro";
+import CardMin from "../../components/CardMin.astro";
+import stories from "../../data/ministerios.json";
 
 export const prerender = true;
 
-const story = stories.find((x) => x.title === "Mujeres");
+const story = stories.find((x) => x.title === "Niños");
 
 const images = [
   { url: "/assets/ministerios/jovenes/PP05.jpg", alt: "Imagen 5" },
@@ -23,7 +23,7 @@ const images = [
 ];
 ---
 
-<Ministerios title="ICEP | Matrimonios">
+<Ministerios title="ICEP | Pontifex">
   <section class="my-32 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
     {/* Volver a la página principal */}
     <div class="mb-12 hover:scale-102 transition-all easy-out">
@@ -49,10 +49,10 @@ const images = [
     </div>
 
     <h1 class="text-5xl font-bold leading-15">
-      Un encuentro para el crecimiento de las mujeres
+      Un encuentro para el crecimiento de los niños
     </h1>
     <p class="text-lg text-zinc-400 py-12">
-      Un encuentro para las mujeres. 
+      Existen distintos lugares en donde los niños pueden aprender y crecer. Jesus dijo "dejen a los ninos venid a mi"...
     </p>
 
     <div
