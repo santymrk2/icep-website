@@ -1,4 +1,5 @@
 import { useState, useEffect } from "preact/hooks";
+import Card from "./Card.tsx";
 
 
 export default function NextEvent() {
@@ -38,9 +39,9 @@ export default function NextEvent() {
       {
         pages && pages.length > 0 ? (
           pages.length === 1 ? (
-            <h2 class="text-3xl font-sans font-extrabold text-center mb-8">Próximo evento</h2>
+            <h2 class="text-3xl font-sans font-bold text-center mb-8">Próximo evento</h2>
           ) : (
-            <h2 class="text-3xl font-sans font-extrabold text-center mb-8">Próximos eventos</h2>
+            <h2 class="text-3xl font-sans font-bold text-center mb-8">Próximos eventos</h2>
           )
         ) : (
           <p class="text-center">No hay eventos próximos.</p>
@@ -50,28 +51,41 @@ export default function NextEvent() {
       {
         pages && pages.length > 0 &&
         pages.map((item, index) => (
-          <div class="flex flex-col justify-center items-center">
+          <div key={item.id} class="flex flex-col justify-center items-center">
+      <div class="container mx-auto text-white w-44 sm:w-68 hover:scale-105 transition-transform duration-500 ease-out">
+            <Card
+              href={item.pageLink}
+              title={item.type}
+              desc={``}
+              touchDisabled={false}
+            />
+</div>
+
+{/* 
             <div
               class={`
                                 animate-[float3d_6s_ease-in-out_infinite]
                                 hover:scale-103 transition-transform duration-500 ease-out
-                                ring ring-1
-                                ${item.type === "ACTIVADOS" ? "ring-green-500 shadow-green-500/60" : ""}
-                                ${item.type === "REUNIÓN DE ENSEÑANZA" ? "ring-blue-500 shadow-blue-500/60" : ""}
-                                ${item.type === "ENCUENTRO DE ORACIÓN" ? "ring-orange-500 shadow-orange-500/60" : ""}
-                                ${item.type === "ENCUENTRO DE JÓVENES" ? "ring-purple-500 shadow-purple-500/60" : ""}
-                                ${item.type === "ENCUENTRO DE MUJERES" ? "ring-rose-500 shadow-rose-500/60" : ""}
-                                ${item.type === "ENCUENTRO DE MATRIMONIOS" ? "ring-red-500 shadow-red-500/60" : ""}
-                                ${!["ACTIVADOS", "REUNIÓN DE ENSEÑANZA", "ENCUENTRO DE ORACIÓN", "ENCUENTRO DE JÓVENES", "ENCUENTRO DE MUJERES", "ENCUENTRO DE MATRIMONIOS"].includes(item.type) ? "ring-custom-blue shadow-custom-blue/60" : ""}
-                                shadow-lg rounded-xl md:p-2 my-6
+                                ring-2 ring-white/20
+                                ${item.type === "ACTIVADOS" ? "bg-green-500/10 text-green-500" : ""}
+                                ${item.type === "REUNIÓN DE ENSEÑANZA" ? "bg-blue-500/10 text-blue-500" : ""}
+                                ${item.type === "ENCUENTRO DE ORACIÓN" ? "bg-orange-500/10 text-orange-500" : ""}
+                                ${item.type === "ENCUENTRO DE JÓVENES" ? "bg-purple-500/10 text-purple-500" : ""}
+                                ${item.type === "ENCUENTRO DE MUJERES" ? "bg-rose-500/10 text-rose-500" : ""}
+                                ${item.type === "ENCUENTRO DE MATRIMONIOS" ? "bg-red-500/10 text-red-500" : ""}
+                                ${!["ACTIVADOS", "REUNIÓN DE ENSEÑANZA", "ENCUENTRO DE ORACIÓN", "ENCUENTRO DE JÓVENES", "ENCUENTRO DE MUJERES", "ENCUENTRO DE MATRIMONIOS"].includes(item.type) ? "bg-custom-blue/10 text-custom-blue" : ""}
+                                rounded-xl md:p-4 my-4
                             `}
             >
               <a href={item.pageLink}>
-                <h1 class="text-4xl p-6 sm:text-6xl font-black text-center">
+                <h1 class="text-3xl p-6 font-bold text-center">
                   {item.type}
                 </h1>
               </a>
             </div>
+
+*/}
+
             <p class="text-center font-sans text-gray-400 mt-4">{item.date}</p>
 
             {index < pages.length - 1 && (

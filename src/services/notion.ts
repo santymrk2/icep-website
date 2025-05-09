@@ -40,12 +40,12 @@ function formatearFecha(fechaStr: string | null | undefined) { // Make fechaStr 
 
   if (esHoy) {
     const matchHora = fechaStr.match(/(\d{2}):(\d{2})/);
-    if (matchHora) {
-      const [, hora, minuto] = matchHora;
-      return `Hoy a las ${hora}:${minuto}hs`;
-    } else {
-      return "ES HOY!";
-    }
+
+      if (matchHora) {
+        const [, hora, minuto] = matchHora;
+        return `Hoy a las ${hora}:${minuto}hs`;
+      }
+
   }
 
   const formatter = new Intl.DateTimeFormat("es-AR", {
@@ -107,6 +107,7 @@ const getPages = async () => {
         type: firstPage.properties["Tipo de Reunión"].select?.name?.toUpperCase(), // Optional chaining
         pageLink: firstPage.public_url,
         youtubeLink: firstPage.properties["Mensaje en YouTube"]?.url, // Optional chaining
+        startDate: firstPage.properties.Fecha.date?.start,
       });
 
       if (secondPage && // Check if secondPage exists
@@ -119,6 +120,7 @@ const getPages = async () => {
           type: secondPage.properties["Tipo de Reunión"].select?.name?.toUpperCase(), // Optional chaining
           pageLink: secondPage.url,
           youtubeLink: secondPage.properties["Mensaje en YouTube"]?.url, // Optional chaining
+          startDate: secondPage.properties.Fecha.date?.start,
         });
       }
     } else {

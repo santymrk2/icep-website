@@ -34,7 +34,7 @@ const ValuesCarousel = () => {
   return (
     <section className="container flex-grow w-full py-24 mx-auto overflow-hidden relative">
       <div className="container mx-auto mb-16">
-        <h1 className="text-3xl text-center font-sans font-extrabold mb-6 uppercase">Nuestros valores</h1>
+        <h1 className="text-3xl text-center font-sans font-bold mb-6 uppercase">Nuestros valores</h1>
         <p className="text-gray-400 mb-6 text-center font-sans">
           Estos son los valores que abrazamos como iglesia.
         </p>
@@ -80,7 +80,7 @@ const ValuesCarousel = () => {
                 ref={index === 0 ? firstCardRef : null}
                 className="flex-none h-10/12 w-80 mr-8 md:p-4 bg-zinc-700 p-5 rounded-lg shadow-lg"
               >
-                <p class="text-sm text-gray-400 font-semibold">
+                <p class="text-sm text-gray-400 font-normal">
                 </p>
                 <h3 class="text-xl font-bold mb-2">{value.title}</h3>
                 <p class="text-gray-300">{value.content}</p>

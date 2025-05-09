@@ -61,7 +61,7 @@ const Navbar = () => {
     px-4
     items-center
     text-center
-    font-semibold
+    font-normal
     relative
     z-10
     transition-all
@@ -80,7 +80,7 @@ const Navbar = () => {
     before:transition-all
     before:duration-500
     before:ease-[cubic-bezier(0.785,0.135,0.15,0.86)]
-    hover:text-blue-500
+    hover:opacity-70
     hover:before:w-full
     hover:before:left-0
     hover:before:right-auto
@@ -96,7 +96,7 @@ const Navbar = () => {
     px-4
     items-center
     text-center
-    font-semibold
+    font-normal
     relative
     z-10
     transition-all
@@ -261,7 +261,7 @@ const Navbar = () => {
                         <li class="mb-5">
                             <a
                                 href={item.href}
-                                class={`text-white text-4xl font-bold no-underline  py-2 hover:text-blue-500 transition-colors duration-300 ${item.active ? "block" : "hidden"}`}
+                                class={`text-white text-3xl font-bold no-underline  py-2 hover:text-blue-500 transition-colors duration-300 ${item.active ? "block" : "hidden"}`}
                             >
                                 {item.text}
                             </a>
