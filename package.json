@@ -25,7 +25,6 @@
     "tailwindcss": "^4.0.9"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
     "@tailwindcss/typography": "^0.5.16",
     "node-fetch": "^3.3.2",
     "sharp": "^0.33.5",
@@ -33,7 +32,6 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "@biomejs/biome",
       "esbuild",
       "sharp"
     ]
