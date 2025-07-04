@@ -1,0 +1,16 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Calendar from "../components/Calendar.tsx";
+
+export const prerender = false;
+---
+
+<Layout title="ICEP | Calendario de Eventos">
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold mb-6 text-center">Calendario de Eventos</h1>
+      <p class="text-gray-400 mb-10 text-center">Visualiza todos nuestros eventos programados.</p>
+      <Calendar client:visible />
+    </div>
+  </section>
+</Layout> 
