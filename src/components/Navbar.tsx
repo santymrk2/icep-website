@@ -1,4 +1,4 @@
-import { useState, useEffect } from "preact/compat";
+import { useState, useEffect, useRef } from "preact/compat";
 import Transition from "../components/Transition";
 import Paths from "../data/paths.json";
 
@@ -20,9 +20,11 @@ const Navbar = () => {
     type Paths = MenuItem[];
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [hasInteracted, setHasInteracted] = useState(false); // Para controlar la animación solo después de la primera interacción
     const menuItems: Paths = Paths as MenuItem[];
     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
     const [currentPath, setCurrentPath] = useState<string | null>(null);
+    const firstRender = useRef(true);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -51,6 +53,18 @@ const Navbar = () => {
             document.body.style.overflow = 'auto';
         }
     }, [isMenuOpen]);
+
+    // Evitar animación en el primer render
+    useEffect(() => {
+        if (firstRender.current) {
+            firstRender.current = false;
+        }
+    }, []);
+
+    const handleMobileMenu = () => {
+        setIsMenuOpen((prev) => !prev);
+        setHasInteracted(true);
+    };
 
     const buttonClasses = `
     motion-preset-expand 
@@ -215,7 +229,7 @@ const Navbar = () => {
                         id="mobile-menu-button"
                         class="z-52 xl:hidden m-2 sm:m-1 rounded-full group transition-all ease-in-out inline-flex w-12 h-12 text-slate-800 text-center items-center justify-center"
                         aria-pressed={isMenuOpen}
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        onClick={handleMobileMenu}
                     >
                         <span class="sr-only">Menu</span>
                         <svg
@@ -252,32 +266,39 @@ const Navbar = () => {
             </div>
 
             {/* Menú móvil */}
-            <div
-                class={`fixed top-0 left-0 w-full h-full bg-zinc-900 z-40 flex flex-col justify-center p-8 transition-all duration-500 transform ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-                    }`}
-            >
-                <ul class="list-none">
-                    {menuItems.map((item) => (
-                        <li class="mb-5">
-                            <a
-                                href={item.href}
-                                class={`text-white text-3xl font-bold no-underline  py-2 hover:text-blue-500 transition-colors duration-300 ${item.active ? "block" : "hidden"}`}
-                            >
-                                {item.text}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
+            {(isMenuOpen || hasInteracted) && (
+                <div
+                    class={`fixed top-0 left-0 w-full h-full bg-zinc-900 z-40 flex flex-col justify-center p-8
+                        transition-all duration-500
+                        ${hasInteracted ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
+                        ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'}
+                        ${!hasInteracted && !isMenuOpen ? 'hidden' : ''}
+                    `}
+                    style={{ transitionProperty: 'opacity, transform', willChange: 'opacity, transform' }}
+                >
+                    <ul class="list-none">
+                        {menuItems.map((item) => (
+                            <li class="mb-5">
+                                <a
+                                    href={item.href}
+                                    class={`text-white text-3xl font-bold no-underline  py-2 hover:text-blue-500 transition-colors duration-300 ${item.active ? "block" : "hidden"}`}
+                                >
+                                    {item.text}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
 
-                <div class=" mt-20 text-gray-500 text-sm">
-                    <p>© 2025 Iglesia Complejo Evangélico Pilar. Todos los derechos reservados.</p>
-                    <div class="flex mt-5">
-                        <a href="https://www.youtube.com/@icepilar" class="text-white mr-5 no-underline">YouTube</a>
-                        <a href="https://www.instagram.com/ice_pilar?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-white mr-5 no-underline">Instagram</a>
-                        <a href="https://www.facebook.com/profile.php?id=61574986704374" class="text-white no-underline">Facebook</a>
+                    <div class=" mt-20 text-gray-500 text-sm">
+                        <p>© 2025 Iglesia Complejo Evangélico Pilar. Todos los derechos reservados.</p>
+                        <div class="flex mt-5">
+                            <a href="https://www.youtube.com/@icepilar" class="text-white mr-5 no-underline">YouTube</a>
+                            <a href="https://www.instagram.com/ice_pilar?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-white mr-5 no-underline">Instagram</a>
+                            <a href="https://www.facebook.com/profile.php?id=61574986704374" class="text-white no-underline">Facebook</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
         </header>
     );
 };

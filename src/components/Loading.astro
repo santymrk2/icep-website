@@ -5,6 +5,7 @@ import Logo from "./Logo.astro";
 <div
   id="loading-screen"
   class="fixed inset-0 z-55 flex items-center justify-center bg-zinc-900 transition-opacity duration-500"
+  style="display: none; opacity: 0;"
 >
   <div class="text-center">
     <div class="w-32 h-32 mx-auto mb-4">
@@ -18,18 +19,10 @@ import Logo from "./Logo.astro";
 </div>
 
 <script>
-  // Capturar eventos de navegación de Astro
-  document.addEventListener("astro:before-preparation", () => {
-    showLoadingScreen();
-  });
-
-  document.addEventListener("astro:page-load", () => {
-    hideLoadingScreen();
-  });
-
+  // Mostrar pantalla de carga solo si la página no está lista
   function showLoadingScreen() {
     const loadingScreen = document.getElementById("loading-screen");
-    if (loadingScreen) {
+    if (loadingScreen && loadingScreen.style.display !== "flex") {
       loadingScreen.style.display = "flex";
       setTimeout(() => {
         loadingScreen.style.opacity = "1";
@@ -39,7 +32,7 @@ import Logo from "./Logo.astro";
 
   function hideLoadingScreen() {
     const loadingScreen = document.getElementById("loading-screen");
-    if (loadingScreen) {
+    if (loadingScreen && loadingScreen.style.display === "flex") {
       loadingScreen.style.opacity = "0";
       setTimeout(() => {
         loadingScreen.style.display = "none";
@@ -47,6 +40,19 @@ import Logo from "./Logo.astro";
     }
   }
 
+  // Capturar eventos de navegación de Astro
+  document.addEventListener("astro:before-preparation", () => {
+    showLoadingScreen();
+  });
+
+  document.addEventListener("astro:page-load", () => {
+    hideLoadingScreen();
+  });
+
   // También manejar la carga inicial de la página
-  window.addEventListener("load", hideLoadingScreen);
+  if (document.readyState === "complete") {
+    hideLoadingScreen();
+  } else {
+    window.addEventListener("load", hideLoadingScreen);
+  }
 </script>
