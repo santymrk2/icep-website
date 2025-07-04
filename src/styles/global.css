@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+@layer base {
+  :root {
+    --color-primary: #3b82f6;
+  }
+}
+
+@theme {
+  extend: {
+    colors: {
+      primary: '#3b82f6',
+    },
+  },
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 .animation-appear {

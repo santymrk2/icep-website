@@ -139,4 +139,62 @@ const getPages = async () => {
   }
 };
 
+/**
+ * Trae todos los eventos del mes indicado (mes 0-indexado)
+ * @param {number} year - Año (ej: 2024)
+ * @param {number} month - Mes (0=enero, 11=diciembre)
+ * @returns {Promise<any[]>}
+ */
+export const getMonthEvents = async (year: number, month: number) => {
+  // Calcular primer y último día del mes
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const startISO = firstDay.toISOString().split("T")[0];
+  const endISO = lastDay.toISOString().split("T")[0];
+
+  const notion = new Client({ auth: NOTION_API_KEY });
+  try {
+    const notionPages = await notion.databases.query({
+      database_id: DATABASE_ID,
+      filter: {
+        and: [
+          {
+            property: "Fecha",
+            date: {
+              on_or_after: startISO,
+            },
+          },
+          {
+            property: "Fecha",
+            date: {
+              on_or_before: endISO,
+            },
+          },
+        ],
+      },
+      sorts: [
+        {
+          property: "Fecha",
+          direction: "ascending",
+        },
+      ],
+    });
+    // Mapear resultados igual que getPages
+    return notionPages.results.map((page: any) => {
+      const p = page as NotionPage;
+      return {
+        id: p.id,
+        date: formatearFecha(p.properties.Fecha.date?.start),
+        type: p.properties["Tipo de Reunión"].select?.name?.toUpperCase(),
+        pageLink: p.public_url,
+        youtubeLink: p.properties["Mensaje en YouTube"]?.url,
+        startDate: p.properties.Fecha.date?.start,
+      };
+    });
+  } catch (error: any) {
+    console.log("Error al consultar eventos del mes en Notion:", error.message);
+    return [];
+  }
+};
+
 export default getPages;
