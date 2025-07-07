@@ -1,5 +1,6 @@
 // components/Transition.tsx
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
 
 interface TransitionProps {
   show: boolean;
@@ -10,7 +11,7 @@ interface TransitionProps {
   leaveFrom: string;
   leaveTo: string;
   duration?: number;
-  children: preact.ComponentChildren;
+  children: ReactNode;
 }
 
 export default function Transition({ 

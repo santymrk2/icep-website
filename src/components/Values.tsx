@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'preact/compat';
+import { useRef, useEffect } from 'react';
 import listValues from '../data/values.json';
 
 const ValuesCarousel = () => {
@@ -71,10 +71,6 @@ const ValuesCarousel = () => {
             className="flex overflow-x-scroll scrolling-touch items-start p-10 no-scrollbar "
           >
             {listValues.map((value, index) => (
-
-
-
-
               <div
                 key={value.title}
                 ref={index === 0 ? firstCardRef : null}
@@ -84,8 +80,6 @@ const ValuesCarousel = () => {
                 </p>
                 <h3 class="text-xl font-bold mb-2">{value.title}</h3>
                 <p class="text-gray-300">{value.content}</p>
-
-
               </div>
             ))}
           </div>

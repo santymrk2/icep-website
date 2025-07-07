@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
 
-import preact from '@astrojs/preact';
+import react from '@astrojs/react';
 import tailwindcss from "@tailwindcss/vite";
 import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
@@ -9,7 +9,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [preact(), sitemap()],
+  integrations: [react(), sitemap()],
   site: 'https://www.icepilar.org',
 
   vite: {

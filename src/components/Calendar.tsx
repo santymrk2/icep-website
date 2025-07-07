@@ -1,4 +1,4 @@
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect } from "react";
 
 function getMonthDays(year: number, month: number) {
   // month: 0-indexed
@@ -90,46 +90,46 @@ export default function CustomCalendar() {
   const isPrevDisabled = currentMonth === today.getMonth() && currentYear === today.getFullYear();
 
   return (
-    <div class="w-full max-w-2xl mx-auto bg-zinc-800 rounded-xl shadow-lg p-6">
-      <div class="flex justify-between items-center mb-4">
+    <div className="w-fit mx-auto bg-zinc-800 rounded-xl shadow-lg p-6">
+      <div className="flex justify-between items-center mb-4">
         <button
           onClick={handlePrevMonth}
-          class={`px-2 py-1 rounded font-bold transition-all flex items-center justify-center ${isPrevDisabled ? 'bg-zinc-700 text-zinc-400 cursor-not-allowed' : 'bg-[#3b82f6] text-white hover:bg-[#2563eb]'}`}
+          className={`p-2 rounded-full m-1 font-bold transition-all flex items-center justify-center ${isPrevDisabled ? 'bg-zinc-700 text-zinc-400 cursor-not-allowed' : 'bg-[#3b82f6] text-white hover:bg-[#2563eb]'}`}
           disabled={isPrevDisabled}
           aria-label="Mes anterior"
         >
           <PrevIcon />
         </button>
-        <h2 class="text-xl font-bold text-center text-white">
+        <h2 className="mx-8 text-xl font-bold text-center text-white">
           {monthNames[currentMonth]} {currentYear}
         </h2>
         <button
           onClick={handleNextMonth}
-          class="px-2 py-1 rounded font-bold bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-all flex items-center justify-center"
+          className="p-2 rounded-full m-1 font-bold bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-all flex items-center justify-center"
           aria-label="Mes siguiente"
         >
           <NextIcon />
         </button>
       </div>
       {loading ? (
-        <div class="flex justify-center items-center py-12">
-          <span class="relative flex items-center justify-center h-6 w-6">
-            <span class="absolute inset-0 flex items-center justify-center">
-              <span class="animate-ping inline-flex h-4 w-4 rounded-full bg-[#3b82f6] opacity-60"></span>
+        <div className="flex justify-center items-center py-12">
+          <span className="relative flex items-center justify-center h-6 w-6">
+            <span className="absolute inset-0 flex items-center justify-center">
+              <span className="animate-ping inline-flex h-4 w-4 rounded-full bg-[#3b82f6] opacity-60"></span>
             </span>
-            <span class="relative inline-flex rounded-full h-4 w-4 bg-[#3b82f6] animate-pulse"></span>
+            <span className="relative inline-flex rounded-full h-4 w-4 bg-[#3b82f6] animate-pulse"></span>
           </span>
         </div>
       ) : (
         <>
-          <div class="grid grid-cols-7 gap-1 mb-2">
+          <div className="grid grid-cols-7 gap-3 mb-3">
             {weekDays.map((d) => (
-              <div class="text-center text-gray-400 font-bold">{d}</div>
+              <div className="text-center text-gray-400 font-bold h-8 flex items-center justify-center text-sm">{d}</div>
             ))}
           </div>
-          <div class="grid grid-cols-7 gap-1">
+          <div className="grid grid-cols-7 gap-3 place-items-center">
             {blanks.map((_, i) => (
-              <div key={"b" + i}></div>
+              <div key={"b" + i} className="h-8 w-8"></div>
             ))}
             {days.map((date) => {
               const key = date.toISOString().slice(0, 10);
@@ -139,30 +139,29 @@ export default function CustomCalendar() {
               return (
                 <button
                   key={key}
-                  class={`rounded-lg h-12 w-full flex flex-col items-center justify-center border transition-all
-                    ${isSelected ? "bg-[#3b82f6] text-white border-[#3b82f6]" : hasEvent ? "bg-blue-100/10 text-[#3b82f6] border-[#3b82f6] hover:bg-[#3b82f6] hover:text-white" : "bg-zinc-900 text-gray-200 border-zinc-700 hover:bg-zinc-700"}
-                    ${isToday ? "ring-2 ring-blue-400" : ""}
+                  className={`rounded-full size-8 p-6 flex flex-col items-center justify-center transition-all
+                    ${isSelected ? "bg-primary text-white" : hasEvent ? "border border-gray-200 hover:text-primary hover:bg-white" : "hover:bg-zinc-700"}
+                    ${isToday ? "text-primary" : ""}
                   `}
                   onClick={() => hasEvent ? setSelectedDate(date) : setSelectedDate(null)}
                 >
-                  <span class="font-bold">{date.getDate()}</span>
-                  {hasEvent && <span class="w-2 h-2 mt-1 rounded-full bg-[#3b82f6]"></span>}
+                  <span className="font-bold">{date.getDate()}</span>
                 </button>
               );
             })}
           </div>
           {selectedDate && (
-            <div class="mt-8 bg-zinc-900 rounded-lg p-4">
-              <h3 class="text-lg font-bold mb-2 text-white">Eventos para el {selectedDate.toLocaleDateString("es-AR")}</h3>
+            <div className="mt-8  p-4">
+              <h3 className="text-lg font-bold mb-2 text-white">Eventos para el {selectedDate.toLocaleDateString("es-AR")}</h3>
               {eventsByDate[selectedDate.toISOString().slice(0, 10)]?.map((event) => (
-                <div key={event.id} class="mb-4 p-4 bg-zinc-800 rounded-lg border border-zinc-700">
-                  <h4 class="text-md font-bold text-primary">{event.type}</h4>
-                  <p class="text-gray-300">{event.date}</p>
+                <div key={event.id} className="mb-4 p-4 bg-zinc-800 rounded-lg border border-zinc-700">
+                  <h4 className="text-md font-bold text-primary">{event.type}</h4>
+                  <p className="text-gray-300">{event.date}</p>
                   {event.youtubeLink && (
-                    <a href={event.youtubeLink} target="_blank" class="text-primary block mb-2">Ver mensaje en YouTube</a>
+                    <a href={event.youtubeLink} target="_blank" className="text-primary block mb-2">Ver mensaje en YouTube</a>
                   )}
                   {event.pageLink && (
-                    <a href={event.pageLink} target="_blank" class="text-primary block text-left">Ver detalles</a>
+                    <a href={event.pageLink} target="_blank" className="text-primary block text-left">Ver detalles</a>
                   )}
                 </div>
               ))}

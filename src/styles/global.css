@@ -2,10 +2,12 @@
 
 @layer base {
   :root {
-    --color-primary: #3b82f6;
     --font-sans: "Noto Sans Variable", "sans-serif";
     --font-serif: "Merriweather", "serif";
   }
+}
+@theme {
+  --color-primary: #3b82f6;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

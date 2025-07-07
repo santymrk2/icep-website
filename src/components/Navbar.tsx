@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "preact/compat";
+import { useState, useEffect, useRef } from "react";
 import Transition from "../components/Transition";
 import Paths from "../data/paths.json";
 
