@@ -104,7 +104,7 @@ const Home: React.FC = () => {
       >
         <div className="relative h-screen sm:h-full">
           <motion.img
-            src="/src/assets/PG08.webp"
+            src="/assets/PG08.webp"
             alt="Fachada de la iglesia con los integrantes de la misma"
             className="w-full h-full object-cover drop-shadow-3xl brightness-50"
             width={1920}
@@ -158,7 +158,7 @@ const Home: React.FC = () => {
       >
         <div className="relative h-screen sm:h-full">
           <motion.img
-            src="/src/assets/PG09.webp"
+            src="/assets/PG09.webp"
             alt="Grupo de integrantes de la iglesia en un campamento desde una sierra"
             className="w-full h-full object-cover drop-shadow-3xl brightness-50"
             width={1920}
@@ -212,7 +212,7 @@ const Home: React.FC = () => {
       >
         <div className="relative h-screen sm:h-full">
           <motion.img
-            src="/src/assets/PG03.webp"
+            src="/assets/PG03.webp"
             alt="Personas caminando en el campamento de tandil 2025"
             className="w-full h-full object-cover drop-shadow-3xl brightness-50"
             initial={{ scale: 1.1 }}
@@ -226,7 +226,7 @@ const Home: React.FC = () => {
 
       {/* Contact Section */}
       <motion.section 
-        className="py-64 bg-zinc-900"
+        className="py-64 bg-neutral-900"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -250,7 +250,7 @@ const Home: React.FC = () => {
               Contactanos
             </motion.h2>
             <motion.p
-              className="text-lg sm:text-xl text-zinc-300 font-sans mb-6"
+              className="text-lg sm:text-xl text-neutral-300 font-sans mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
@@ -270,7 +270,7 @@ const Home: React.FC = () => {
                         <motion.a
               href="/contacto"
               className={` 
-                    text-zinc-900
+                    text-neutral-900
                     hover:scale-103
                     transition-all
                     uppercase
