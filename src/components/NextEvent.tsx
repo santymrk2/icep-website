@@ -74,12 +74,12 @@ export default function NextEvent({ onLoaded }: { onLoaded?: () => void } = {}) 
             {
               pages && pages.length > 0 ? (
                 pages.length === 1 ? (
-                  <h2 className="text-5xl font-sans font-bold">Próximo evento</h2>
+                  <h2 className="text-3xl md:text-5xl font-sans font-bold">Próximo evento</h2>
                 ) : (
-                  <h2 className="text-5xl font-sans font-bold">Próximos eventos</h2>
+                  <h2 className="text-3xl md:text-5xl font-sans font-bold">Próximos eventos</h2>
                 )
               ) : (
-                <p className="text-5xl font-sans font-bold">No hay eventos próximos.</p>
+                <p className="text-3xl md:text-5xl font-sans font-bold">No hay eventos próximos.</p>
               )
             }
           </div>
