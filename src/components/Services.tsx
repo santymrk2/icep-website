@@ -113,7 +113,7 @@ export default function Services({ onLoaded }: { onLoaded?: () => void } = {}) {
 
       {/* Sábados - animado */}
       <div ref={dayRefs.Sábados} className="w-full max-w-5xl flex flex-col md:flex-row-reverse items-center justify-center md:justify-between min-h-screen py-24 px-4 md:px-0">
-        <h2 className="day-title text-5xl font-bold text-white w-full md:w-1/3 text-right mb-4 md:mb-0 py-24 md:py-0">Sábados</h2>
+        <h2 className="day-title text-5xl font-bold text-white w-full md:w-1/3 text-left md:text-right mb-4 md:mb-0 py-24 md:py-0">Sábados</h2>
         <div className="flex flex-col gap-12 w-full md:w-3/4 md:ml-auto items-start md:items-start">
           {servicesByDay.Sábados.map((service) => (
             <div key={service.name} className="service-item flex flex-col items-start md:items-start text-left md:text-left">
