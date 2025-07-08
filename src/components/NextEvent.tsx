@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Card from "./Card.tsx";
 
 
-export default function NextEvent() {
+export default function NextEvent({ onLoaded }: { onLoaded?: () => void } = {}) {
   const [pages, setPages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,10 +18,11 @@ export default function NextEvent() {
         console.error("Error fetching events:", error);
       } finally {
         setLoading(false);
+        if (onLoaded) onLoaded();
       }
     };
     fetchData();
-  }, []);
+  }, [onLoaded]);
 
   if (loading) {
     return (
