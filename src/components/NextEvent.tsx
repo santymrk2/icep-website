@@ -25,9 +25,9 @@ export default function NextEvent() {
 
   if (loading) {
     return (
-      <div class="my-28 p-8 m-8 flex justify-center items-center">
-        <div class="relative h-16 w-16">
-        <div class=" w-12 h-12 border-5 border-white border-b-transparent rounded-full inline-block box-border animate-spin mx-auto"></div>
+      <div className="my-28 p-8 m-8 flex justify-center items-center">
+        <div className="relative h-16 w-16">
+        <div className=" w-12 h-12 border-5 border-white border-b-transparent rounded-full inline-block box-border animate-spin mx-auto"></div>
         </div>
       </div>
 
@@ -35,24 +35,24 @@ export default function NextEvent() {
   }
 
   return (
-    <div class="my-28 p-8 m-8 gap-6 mx-4 sm:mx-10 text-white">
+    <div className="my-28 p-8 m-8 gap-6 mx-4 sm:mx-10 text-white">
       {
         pages && pages.length > 0 ? (
           pages.length === 1 ? (
-            <h2 class="text-3xl font-sans font-bold text-center mb-8">Próximo evento</h2>
+            <h2 className="text-3xl font-sans font-bold text-center mb-8">Próximo evento</h2>
           ) : (
-            <h2 class="text-3xl font-sans font-bold text-center mb-8">Próximos eventos</h2>
+            <h2 className="text-3xl font-sans font-bold text-center mb-8">Próximos eventos</h2>
           )
         ) : (
-          <p class="text-center">No hay eventos próximos.</p>
+          <p className="text-center">No hay eventos próximos.</p>
         )
       }
 
       {
         pages && pages.length > 0 &&
         pages.map((item, index) => (
-          <div key={item.id} class="flex flex-col justify-center items-center">
-      <div class="container mx-auto text-white w-44 sm:w-68 hover:scale-105 transition-transform duration-500 ease-out">
+          <div key={item.id} className="flex flex-col justify-center items-center">
+      <div className="container mx-auto text-white w-44 sm:w-68 hover:scale-105 transition-transform duration-500 ease-out">
             <Card
               href={item.pageLink}
               title={item.type}
@@ -63,7 +63,7 @@ export default function NextEvent() {
 
 {/* 
             <div
-              class={`
+              className={`
                                 animate-[float3d_6s_ease-in-out_infinite]
                                 hover:scale-103 transition-transform duration-500 ease-out
                                 ring-2 ring-white/20
@@ -78,7 +78,7 @@ export default function NextEvent() {
                             `}
             >
               <a href={item.pageLink}>
-                <h1 class="text-3xl p-6 font-bold text-center">
+                <h1 className="text-3xl p-6 font-bold text-center">
                   {item.type}
                 </h1>
               </a>
@@ -86,10 +86,10 @@ export default function NextEvent() {
 
 */}
 
-            <p class="text-center font-sans text-gray-400 mt-4">{item.date}</p>
+            <p className="text-center font-sans text-gray-400 mt-4">{item.date}</p>
 
             {index < pages.length - 1 && (
-              <div class="h-px w-full bg-white/30 my-4 mt-8" />
+              <div className="h-px w-full bg-white/30 my-4 mt-8" />
             )}
           </div>
         ))

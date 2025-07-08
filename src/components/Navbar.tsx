@@ -67,7 +67,7 @@ const Navbar = () => {
         setHasInteracted(true);
     };
 
-    const buttonClasses = `
+    const buttonclassNamees = `
     text-white
     no-underline
     rounded-full
@@ -86,7 +86,7 @@ const Navbar = () => {
     hover:opacity-80
   `;
 
-    const buttonSelectClasses = `
+    const buttonSelectclassNamees = `
     text-white
     no-underline
     rounded-full
@@ -106,14 +106,14 @@ const Navbar = () => {
 
     return (
         <header
-            class={`text-white m-0 sm:m-0 rounded-none z-50 h-20 transition-all duration-300 w-full`}
+            className={`text-white m-0 sm:m-0 rounded-none z-50 h-20 transition-all duration-300 w-full`}
             id="back-menu"
         >
-            <div class="w-full max-w-full flex flex-row items-center justify-between h-20 gap-4 px-6 m-0 overflow-hidden scrollbar-hide relative">
+            <div className="w-full max-w-full flex flex-row items-center justify-between h-20 gap-4 px-6 m-0 overflow-hidden scrollbar-hide relative">
                 {/* Logo: esquina izq en mobile, centrado en desktop */}
-                <div class="flex items-center h-full">
-                    <a href="/" id="site-logo" class="flex items-center h-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700" class="w-9 h-9 sm:w-10 sm:h-10 hover:scale-104 transition-all duration-400 easy-out" fill="none">
+                <div className="flex items-center h-full">
+                    <a href="/" id="site-logo" className="flex items-center h-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700" className="w-9 h-9 sm:w-10 sm:h-10 hover:scale-104 transition-all duration-400 easy-out" fill="none">
                           <g>
                             <path d="M-776.155-31.123h964.486v736.828h-964.486z" fill="none" transform="matrix(.72577 0 0 .95002 563.314 29.567)"/>
                             <path d="M0-17.794c0-6 .286-11.932.818-17.794-61.748-28.462-106.042-88.298-112.457-159.079-66.861 30.819-113.275 98.421-113.275 176.873 0 107.511 87.156 194.667 194.667 194.667 41.895 0 80.697-13.237 112.457-35.754C32.467 105.854 0 47.823 0-17.794" fill="#2a38b2" fillRule="evenodd" transform="translate(267.786 465.127)"/>
@@ -128,25 +128,25 @@ const Navbar = () => {
                     </a>
                 </div>
                 {/* Menú centrado solo en desktop */}
-                <nav class="hidden xl:flex flex-1 justify-center items-center h-full w-full">
-                    <ul class="flex space-x-8 px-2 h-20 items-center justify-center w-full">
+                <nav className="hidden xl:flex flex-1 justify-center items-center h-full w-full">
+                    <ul className="flex space-x-8 px-2 h-20 items-center justify-center w-full">
                         {menuItems.filter(item => item.active && item.main).map((item) => (
-                            <li key={item.text} class="relative select-none flex flex-col items-center justify-center h-full">
+                            <li key={item.text} className="relative select-none flex flex-col items-center justify-center h-full">
                                 {!item.subitems ? (
                                     <a
                                         href={item.href}
-                                        class={`${currentPath === item.href ? 'nav-active' : 'nav-link'} nav-link-dot-container`}
+                                        className={`${currentPath === item.href ? 'nav-active' : 'nav-link'} nav-link-dot-container`}
                                     >
-                                        <span class="relative block">
-                                            <span class="z-10 relative">{item.text}</span>
+                                        <span className="relative block">
+                                            <span className="z-10 relative">{item.text}</span>
                                             {/* Puntito para la página actual */}
-                                            <span class={`nav-dot ${currentPath === item.href ? 'opacity-100 animate-fade-in' : 'opacity-0'}`}></span>
+                                            <span className={`nav-dot ${currentPath === item.href ? 'opacity-100 animate-fade-in' : 'opacity-0'}`}></span>
                                         </span>
                                     </a>
                                 ) : (
-                                    <div class="relative group">
+                                    <div className="relative group">
                                         <button
-                                            class="nav-link inline-flex"
+                                            className="nav-link inline-flex"
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 setOpenDropdown(openDropdown === item.text ? null : item.text)
@@ -154,7 +154,7 @@ const Navbar = () => {
                                         >
                                             <span>{item.text}</span>
                                             <svg
-                                                class="size-5 transform transition-transform duration-200"
+                                                className="size-5 transform transition-transform duration-200"
                                                 fill="none"
                                                 viewBox="0 0 24 24"
                                                 stroke="currentColor"
@@ -177,13 +177,13 @@ const Navbar = () => {
                                             leaveFrom="transform opacity-100 scale-100"
                                             leaveTo="transform opacity-0 scale-95"
                                         >
-                                            <div class="absolute top-full left-0 mt-2 w-full bg-zinc-800 rounded-lg shadow-lg z-20">
-                                                <div class="flex flex-col items-center space-y-2 bg-zinc-800">
+                                            <div className="absolute top-full left-0 mt-2 w-full bg-zinc-800 rounded-lg shadow-lg z-20">
+                                                <div className="flex flex-col items-center space-y-2 bg-zinc-800">
                                                     {item.subitems.map((subitem) => (
                                                         <a
                                                             key={subitem.text}
                                                             href={subitem.href}
-                                                            class={` ${subitem.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"} nav-link block w-full`}
+                                                            className={` ${subitem.active ? "" : "opacity-30 pointer-events-none cursor-not-allowed"} nav-link block w-full`}
                                                         >
                                                             {subitem.text}
                                                         </a>
@@ -198,35 +198,35 @@ const Navbar = () => {
                     </ul>
                 </nav>
                 {/* Botón menú móvil: esquina der en mobile, centrado en desktop */}
-                <div class="flex items-center h-full">
+                <div className="flex items-center h-full">
                     <button
                         id="mobile-menu-button"
-                        class="z-52 rounded-full group transition-all ease-in-out inline-flex w-9 h-9 text-slate-800 text-center items-center justify-center"
+                        className="z-52 rounded-full group transition-all ease-in-out inline-flex w-9 h-9 text-slate-800 text-center items-center justify-center"
                         aria-pressed={isMenuOpen}
                         onClick={handleMobileMenu}
                     >
-                        <span class="sr-only">Menu</span>
+                        <span className="sr-only">Menu</span>
                         <svg
-                            class="size-6 fill-white pointer-events-none"
+                            className="size-6 fill-white pointer-events-none"
                             viewBox="0 0 16 16"
                             xmlns="http://www.w3.org/2000/svg"
                         >
                             <rect
-                                class="origin-center -translate-y-[5px] translate-x-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-x-0 group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:rotate-[315deg]"
+                                className="origin-center -translate-y-[5px] translate-x-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-x-0 group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:rotate-[315deg]"
                                 y="7"
                                 width="9"
                                 height="2"
                                 rx="1"
                             />
                             <rect
-                                class="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-[[aria-pressed=true]]:rotate-45"
+                                className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-[[aria-pressed=true]]:rotate-45"
                                 y="7"
                                 width="16"
                                 height="2"
                                 rx="1"
                             />
                             <rect
-                                class="origin-center translate-y-[5px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:-rotate-[225deg]"
+                                className="origin-center translate-y-[5px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-[[aria-pressed=true]]:translate-y-0 group-[[aria-pressed=true]]:-rotate-[225deg]"
                                 y="7"
                                 width="9"
                                 height="2"
@@ -239,7 +239,7 @@ const Navbar = () => {
             {/* Menú móvil igual que antes */}
             {(isMenuOpen || hasInteracted) && (
                 <div
-                    class={`fixed top-0 left-0 w-full h-full bg-zinc-900 z-40 flex flex-col items-start justify-end pb-8 p-8
+                    className={`fixed top-0 left-0 w-full h-full bg-zinc-900 z-40 flex flex-col items-start justify-end pb-8 p-8
                         transition-all duration-500
                         overflow-hidden scrollbar-hide
                         ${hasInteracted ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
@@ -247,12 +247,12 @@ const Navbar = () => {
                         ${!hasInteracted && !isMenuOpen ? 'hidden' : ''}
                     `}
                 >
-                    <ul class="list-none">
+                    <ul className="list-none">
                         {menuItems.filter(item => item.active).map((item) => (
-                            <li class="mb-5">
+                            <li className="mb-5">
                                 <a
                                     href={item.href}
-                                    class={`text-white text-3xl font-bold no-underline  py-2 hover:text-blue-500 transition-colors duration-300 block`}
+                                    className={`text-white text-3xl font-bold no-underline  py-2 hover:text-blue-500 transition-colors duration-300 block`}
                                 >
                                     {item.text}
                                 </a>
@@ -260,12 +260,12 @@ const Navbar = () => {
                         ))}
                     </ul>
 
-                    <div class=" mt-20 text-gray-500 text-sm">
+                    <div className=" mt-20 text-gray-500 text-sm">
                         <p>© 2025 Iglesia Complejo Evangélico Pilar. Todos los derechos reservados.</p>
-                        <div class="flex mt-5">
-                            <a href="https://www.youtube.com/@icepilar" class="text-white mr-5 no-underline">YouTube</a>
-                            <a href="https://www.instagram.com/ice_pilar?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-white mr-5 no-underline">Instagram</a>
-                            <a href="https://www.facebook.com/profile.php?id=61574986704374" class="text-white no-underline">Facebook</a>
+                        <div className="flex mt-5">
+                            <a href="https://www.youtube.com/@icepilar" className="text-white mr-5 no-underline">YouTube</a>
+                            <a href="https://www.instagram.com/ice_pilar?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" className="text-white mr-5 no-underline">Instagram</a>
+                            <a href="https://www.facebook.com/profile.php?id=61574986704374" className="text-white no-underline">Facebook</a>
                         </div>
                     </div>
                 </div>

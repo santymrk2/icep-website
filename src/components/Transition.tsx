@@ -62,5 +62,5 @@ export default function Transition({
     };
   }, [show]);
 
-  return isShowing ? <div class={classes}>{children}</div> : null;
+  return isShowing ? <div className={classes}>{children}</div> : null;
 }
