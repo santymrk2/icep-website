@@ -96,11 +96,11 @@ export default function Services() {
   return (
     <div className="w-full min-h-screen bg-neutral-900 flex flex-col items-center">
       {/* Domingos - animado */}
-      <div ref={dayRefs.Domingos} className="w-full max-w-5xl flex flex-row items-center justify-between min-h-screen py-24">
-        <h2 className="day-title text-5xl font-bold text-white w-1/3 text-left">Domingos</h2>
-        <div className="flex flex-col gap-12 w-3/4 ml-auto pr-20 items-end">
+      <div ref={dayRefs.Domingos} className="w-full max-w-5xl flex flex-col md:flex-row items-center justify-center md:justify-between min-h-screen py-24 px-4 md:px-0">
+        <h2 className="day-title text-5xl font-bold text-white w-full md:w-1/3 text-left mb-4 md:mb-0 py-24 md:py-0">Domingos</h2>
+        <div className="flex flex-col gap-12 w-full md:w-3/4 md:ml-auto md:pr-20 items-start md:items-end">
           {servicesByDay.Domingos.map((service) => (
-            <div key={service.name} className="service-item flex flex-col items-end text-right">
+            <div key={service.name} className="service-item flex flex-col items-start md:items-end text-left md:text-right">
               <span className="text-2xl font-bold text-white">{service.name}</span>
               <span className="text-lg text-gray-200">{service.time}</span>
             </div>
@@ -109,11 +109,11 @@ export default function Services() {
       </div>
 
       {/* Sábados - animado */}
-      <div ref={dayRefs.Sábados} className="w-full max-w-5xl flex flex-row items-center justify-between min-h-screen py-24">
-        <h2 className="day-title text-5xl font-bold text-white w-1/3 text-left">Sábados</h2>
-        <div className="flex flex-col gap-12 w-3/4 ml-auto pr-20 items-end">
+      <div ref={dayRefs.Sábados} className="w-full max-w-5xl flex flex-col md:flex-row items-center justify-center md:justify-between min-h-screen py-24 px-4 md:px-0">
+        <h2 className="day-title text-5xl font-bold text-white w-full md:w-1/3 text-left mb-4 md:mb-0 py-24 md:py-0">Sábados</h2>
+        <div className="flex flex-col gap-12 w-full md:w-3/4 md:ml-auto md:pr-20 items-start md:items-end">
           {servicesByDay.Sábados.map((service) => (
-            <div key={service.name} className="service-item flex flex-col items-end text-right">
+            <div key={service.name} className="service-item flex flex-col items-start md:items-end text-left md:text-right">
               <span className="text-2xl font-bold text-white">{service.name}</span>
               <span className="text-lg text-gray-200">{service.time}</span>
               {service.note && (
@@ -125,11 +125,11 @@ export default function Services() {
       </div>
 
       {/* Miércoles - animado */}
-      <div ref={dayRefs.Miércoles} className="w-full max-w-5xl flex flex-row items-center justify-between min-h-screen py-24">
-        <h2 className="day-title text-5xl font-bold text-white w-1/3 text-left">Miércoles</h2>
-        <div className="flex flex-col gap-12 w-3/4 ml-auto pr-20 items-end">
+      <div ref={dayRefs.Miércoles} className="w-full max-w-5xl flex flex-col md:flex-row items-center justify-center md:justify-between min-h-screen py-24 px-4 md:px-0">
+        <h2 className="day-title text-5xl font-bold text-white w-full md:w-1/3 text-left mb-4 md:mb-0 py-24 md:py-0">Miércoles</h2>
+        <div className="flex flex-col gap-12 w-full md:w-3/4 md:ml-auto md:pr-20 items-start md:items-end">
           {servicesByDay.Miércoles.map((service) => (
-            <div key={service.name} className="service-item flex flex-col items-end text-right">
+            <div key={service.name} className="service-item flex flex-col items-start md:items-end text-left md:text-right">
               <span className="text-2xl font-bold text-white">{service.name}</span>
               <span className="text-lg text-gray-200">{service.time}</span>
             </div>
