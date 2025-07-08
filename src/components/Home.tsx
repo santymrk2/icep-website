@@ -89,7 +89,7 @@ const Home: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
           >
-            Bienvenido a la <br /> Iglesia Cristiana <br /> Evangélica en Pilar
+            Bienvenidos a la <br /> Iglesia Cristiana <br /> Evangélica Pilar
           </motion.h1>
         </div>
       </motion.section>
@@ -116,7 +116,7 @@ const Home: React.FC = () => {
             style={{ scale: image1Scale }}
           />
           <motion.div 
-            className="absolute top-1/2 right-10 sm:right-32 md:right-64"
+            className="absolute top-1/2 right-10 sm:right-32 md:right-100"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -124,20 +124,20 @@ const Home: React.FC = () => {
           >
             <div className="text-center">
               <motion.h2
-                className="text-3xl sm:text-3xl md:text-3xl font-sans font-bold text-center sm:text-right"
+                className="text-3xl sm:text-3xl md:text-4xl font-sans font-bold text-center sm:text-right"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
                 viewport={{ once: true }}
               >
-                No temas <br /> solo cree
+                No temas solo cree
               </motion.h2>
             </div>
           </motion.div>
         </div>
       </motion.section>
 
-      {/* Next Event Section */}
+      {/* Services Section */}
       <motion.section 
         className="py-16"
         initial={{ opacity: 0, y: 50 }}
@@ -145,7 +145,7 @@ const Home: React.FC = () => {
         transition={{ duration: 0.8 }}
         viewport={{ once: true, margin: "-50px" }}
       >
-        <NextEvent />
+        <Services />
       </motion.section>
 
       {/* Second Image Section */}
@@ -170,7 +170,7 @@ const Home: React.FC = () => {
             style={{ scale: image2Scale }}
           />
           <motion.div 
-            className="absolute top-1/2 left-10 sm:left-32 md:left-64"
+            className="absolute top-1/2 left-10 sm:left-32 md:left-100"
             initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -178,7 +178,7 @@ const Home: React.FC = () => {
           >
             <div className="text-center">
               <motion.h2
-                className="text-3xl sm:text-3xl md:text-3xl font-sans font-bold text-center sm:text-left"
+                className="text-3xl sm:text-3xl md:text-4xl font-sans font-bold text-center sm:text-left"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
@@ -191,15 +191,17 @@ const Home: React.FC = () => {
         </div>
       </motion.section>
 
-      {/* Services Section */}
-      <motion.section 
+
+
+            {/* Next Event Section */}
+            <motion.section 
         className="py-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true, margin: "-50px" }}
       >
-        <Services />
+        <NextEvent />
       </motion.section>
 
       {/* Third Image Section */}
