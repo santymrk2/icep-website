@@ -156,7 +156,7 @@ const Home: React.FC = () => {
       <section ref={imgRefs[0]} className="w-full h-full sm:h-screen overflow-hidden">
         <div className="relative h-screen sm:h-full">
           <motion.img
-            src="/src/assets/PG08.webp"
+            src="/assets/PG08.webp"
             alt="Fachada de la iglesia con los integrantes de la misma"
             className="w-full h-full object-cover drop-shadow-3xl brightness-50"
             width={1920}
@@ -202,7 +202,7 @@ const Home: React.FC = () => {
       <section ref={imgRefs[1]} className="w-full h-full sm:h-screen overflow-hidden">
         <div className="relative h-screen sm:h-full">
           <motion.img
-            src="/src/assets/PG09.webp"
+            src="/assets/PG09.webp"
             alt="Grupo de integrantes de la iglesia en un campamento desde una sierra"
             className="w-full h-full object-cover drop-shadow-3xl brightness-50"
             width={1920}
@@ -251,7 +251,7 @@ const Home: React.FC = () => {
       <section ref={imgRefs[2]} className="w-full h-full sm:h-screen overflow-hidden">
         <div className="relative h-screen sm:h-full">
           <motion.img
-            src="/src/assets/PG03.webp"
+            src="/assets/PG03.webp"
             alt="Personas caminando en el campamento de tandil 2025"
             className="w-full h-full object-cover drop-shadow-3xl brightness-50"
             initial={{ scale: 1.1 }}
