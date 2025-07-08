@@ -58,39 +58,38 @@ export default function Services({ onLoaded }: { onLoaded?: () => void } = {}) {
           const title = section.querySelector('.day-title');
           const services = section.querySelectorAll('.service-item');
 
-          // Entrada: fade+slide del día, luego servicios uno a uno
+          // Entrada: fade+slide del día y servicios, sincronizada con el scroll (scrub)
           gsap.set([title, services], { opacity: 0, y: 40 });
 
           gsap.timeline({
             scrollTrigger: {
               trigger: section,
               start: 'top 80%',
-              end: 'bottom 20%',
-              toggleActions: 'play none none reverse',
+              end: 'center center', // Termina de aparecer en el centro de la pantalla
+              scrub: true,
             }
           })
-            .to(title, { opacity: 1, y: 0, duration: 0.5 })
-            .to(services, {
+            .to([title, services], {
               opacity: 1,
               y: 0,
-              duration: 0.5,
               stagger: 0.25,
-            }, '-=0.1');
+              ease: 'none',
+            });
 
-          // Salida: fade+slide up de todo el bloque
+          // Salida: fade+slide up de todo el bloque, comienza cuando el centro del bloque pasa el centro de la pantalla
           gsap.timeline({
             scrollTrigger: {
               trigger: section,
-              start: 'bottom 60%',
-              end: 'bottom top',
-              toggleActions: 'play none none reverse',
+              start: 'center center', // Empieza la salida justo después del centro
+              end: 'bottom 40%', // Termina la salida antes de que el bloque salga completamente
+              scrub: true,
             }
           })
             .to([title, services], {
               opacity: 0,
               y: -40,
-              duration: 0.5,
               stagger: 0.1,
+              ease: 'none',
             });
         });
       });
@@ -114,7 +113,7 @@ export default function Services({ onLoaded }: { onLoaded?: () => void } = {}) {
 
       {/* Sábados - animado */}
       <div ref={dayRefs.Sábados} className="w-full max-w-5xl flex flex-col md:flex-row-reverse items-center justify-center md:justify-between min-h-screen py-24 px-4 md:px-0">
-        <h2 className="day-title text-5xl font-bold text-white w-full md:w-1/3 text-left mb-4 md:mb-0 py-24 md:py-0">Sábados</h2>
+        <h2 className="day-title text-5xl font-bold text-white w-full md:w-1/3 text-right mb-4 md:mb-0 py-24 md:py-0">Sábados</h2>
         <div className="flex flex-col gap-12 w-full md:w-3/4 md:ml-auto items-start md:items-start">
           {servicesByDay.Sábados.map((service) => (
             <div key={service.name} className="service-item flex flex-col items-start md:items-start text-left md:text-left">

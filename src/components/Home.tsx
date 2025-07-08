@@ -5,17 +5,47 @@ import Services from './Services';
 import NextEvent from './NextEvent';
 
 const Home: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
+  // Hero parallax
+  const heroRef = useRef<HTMLDivElement>(null);
+  // Hero scroll animation (sube, achica y se desvanece)
+  const { scrollYProgress: heroScrollY } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const heroScale = useTransform(heroScrollY, [0, 0.6], [1, 0.6]);
+  const heroYMove = useTransform(heroScrollY, [0, 0.6], [0, -120]);
+  const heroOpacity = useTransform(heroScrollY, [0, 0.6], [1, 0]);
+  const heroY = useTransform(heroScrollY, [0, 1], [0, -100]);
 
-  // Parallax effects
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const image1Scale = useTransform(scrollYProgress, [0, 0.3], [1, 1.1]);
-  const image2Scale = useTransform(scrollYProgress, [0.3, 0.6], [1, 1.1]);
-  const image3Scale = useTransform(scrollYProgress, [0.6, 1], [1, 1.1]);
+  // Imagen 1 parallax
+  const image1Ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: image1ScrollY } = useScroll({
+    target: image1Ref,
+    offset: ["start start", "end start"]
+  });
+  const image1Scale = useTransform(image1ScrollY, [0, 1], [1, 1.1]);
+
+  // Imagen 2 parallax
+  const image2Ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: image2ScrollY } = useScroll({
+    target: image2Ref,
+    offset: ["start start", "end start"]
+  });
+  const image2Scale = useTransform(image2ScrollY, [0, 1], [1, 1.1]);
+
+  // Imagen 3 parallax
+  const image3Ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: image3ScrollY } = useScroll({
+    target: image3Ref,
+    offset: ["start start", "end start"]
+  });
+  const image3Scale = useTransform(image3ScrollY, [0, 1], [1, 1.1]);
+
+  // Contact section scroll-based animation
+  const contactRef = useRef<HTMLDivElement>(null);
+  const contactScroll = useScroll({
+    target: contactRef,
+    offset: ["start 80%", "end 60%"]
+  });
+  const contactY = useTransform(contactScroll.scrollYProgress, [0, 1], [100, 0]);
+  const contactOpacity = useTransform(contactScroll.scrollYProgress, [0, 1], [0, 1]);
 
   // Initialize Lenis smooth scrolling
   useEffect(() => {
@@ -73,29 +103,28 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <main ref={containerRef}>
+    <main>
       {/* Hero Section */}
       <motion.section 
-        className="w-full h-120 flex flex-col justify-center items-left"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        style={{ y: heroY }}
+        ref={heroRef}
+        className="w-full flex flex-col justify-center items-center bg-transparent relative p-0 m-0"
+        style={{ height: 'calc(100vh - 100px)' }}
       >
-        <div className="mx-8 sm:mx-20 md:mx-24 lg:mx-64 mb-10">
-          <motion.h1 
-            className="text-3xl md:text-3xl font-sans font-bold text-left"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-          >
-            Bienvenidos a la <br /> Iglesia Cristiana <br /> Evangélica Pilar
-          </motion.h1>
-        </div>
+        <motion.h1 
+          className="text-4xl md:text-7xl font-sans font-bold text-center m-0 p-0"
+          style={{
+            scale: heroScale,
+            y: heroYMove,
+            opacity: heroOpacity,
+          }}
+        >
+          Bienvenidos a la <br /> Iglesia Cristiana <br /> Evangélica en Pilar
+        </motion.h1>
       </motion.section>
 
       {/* First Image Section */}
       <motion.section 
+        ref={image1Ref}
         className="w-full h-full sm:h-screen overflow-hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -150,6 +179,7 @@ const Home: React.FC = () => {
 
       {/* Second Image Section */}
       <motion.section 
+        ref={image2Ref}
         className="w-full h-full sm:h-screen overflow-hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -206,6 +236,7 @@ const Home: React.FC = () => {
 
       {/* Third Image Section */}
       <motion.section 
+        ref={image3Ref}
         className="w-full h-full sm:h-screen overflow-hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -228,48 +259,45 @@ const Home: React.FC = () => {
 
       {/* Contact Section */}
       <motion.section 
+        ref={contactRef}
         className="py-64 bg-neutral-900"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true, margin: "-50px" }}
+        style={{
+          y: contactY,
+          opacity: contactOpacity
+        }}
       >
         <div className="max-w-2xl mx-auto px-8 text-center">
           <motion.div 
             className="mb-6"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
+            initial={false}
+            animate={false}
+            style={{ y: 0, opacity: 1 }}
           >
             <motion.h2
               className="text-3xl sm:text-4xl font-sans font-bold text-white mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
+              initial={false}
+              animate={false}
+              style={{ y: 0, opacity: 1 }}
             >
               Contactanos
             </motion.h2>
             <motion.p
               className="text-lg sm:text-xl text-neutral-300 font-sans mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              viewport={{ once: true }}
+              initial={false}
+              animate={false}
+              style={{ y: 0, opacity: 1 }}
             >
               Estamos para responder tus preguntas
             </motion.p>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            viewport={{ once: true }}
+            initial={false}
+            animate={false}
+            style={{ y: 0, opacity: 1 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-                        <motion.a
+            <motion.a
               href="/contacto"
               className={` 
                     text-neutral-900
@@ -290,7 +318,6 @@ const Home: React.FC = () => {
                     z-10
                     font-sans
                     overflow-hidden
- 
                     inline-flex`}
             >
               Quiero contactarme
