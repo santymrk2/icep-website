@@ -10,7 +10,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({
     href,
-    bg = "from-zinc-800 to-zinc-800/50",
+    bg = "from-neutral-800 to-neutral-800/50",
     logo,
     title,
     desc,

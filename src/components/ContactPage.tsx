@@ -40,9 +40,9 @@ const ContactPage: React.FC = () => {
           ¿Cómo puedo comunicarme?
         </motion.h1>
         <motion.p 
-          className="text-white opacity-50 font-sans text-center"
+          className="text-white font-sans text-center"
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 0.3, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           Desliza para ver más ↓
@@ -124,7 +124,7 @@ const ContactPage: React.FC = () => {
             {/* Esqueleto de carga */}
             <div
               id="skeleton"
-              className="absolute inset-0 bg-zinc-400 dark:bg-zinc-700 rounded-lg animate-pulse"
+              className="absolute inset-0 bg-neutral-400 dark:bg-neutral-700 rounded-lg animate-pulse"
             ></div>
 
             {/* Mapa */}
@@ -221,7 +221,7 @@ const ContactPage: React.FC = () => {
             {/* Esqueleto de carga */}
             <div
               id="youtube-skeleton"
-              className="absolute inset-0 bg-zinc-400 dark:bg-zinc-700 rounded-lg animate-pulse"
+              className="absolute inset-0 bg-neutral-400 dark:bg-neutral-700 rounded-lg animate-pulse"
             ></div>
 
             {/* Video de YouTube */}
@@ -293,7 +293,7 @@ const ContactPage: React.FC = () => {
           >
             <div className="aspect-w-16 aspect-h-9 w-full max-w-xl mx-auto">
               <div className="">
-                <div className="shadow-2xl rounded-xl p-12">
+                <div className=" rounded-xl p-12">
                   <div className="grid grid-cols-1 sm:grid-cols-2 justify-items-center items-content-center gap-8">
                     <motion.a
                       href="mailto:info@icepilar.org"

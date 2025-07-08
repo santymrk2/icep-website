@@ -21,7 +21,7 @@ const Beliefs = () => {
 
       <div className="space-y-4">
         {items.map((item, index) => (
-          <div key={index} className="p-4 bg-zinc-700 rounded-xl">
+          <div key={index} className="p-4 bg-neutral-700 rounded-xl">
             <button
               className="w-full flex justify-between items-center text-white text-left font-sans font-bold py-2 px-4 focus:outline-none"
               onClick={() => toggleAccordion(index)}

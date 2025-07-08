@@ -18,20 +18,20 @@
       "desc": "Un espacio para los matrimonios",
       "logo": null,
       "href": "/matrimonios",
-      "bg": "from-zinc-800 to-zinc-800/50 "
+      "bg": "from-neutral-800 to-neutral-800/50 "
     },
     {
       "title": "Mujeres",
       "desc": "Un espacio para las mujeres",
       "logo": null,
       "href": "/mujeres",
-      "bg": "from-zinc-800 to-zinc-800/50 "
+      "bg": "from-neutral-800 to-neutral-800/50 "
     },
     {
       "title": "Niños",
       "desc": "Un espacio para conocer a Dios",
       "logo": null,
       "href": "/ninios",
-      "bg": "from-zinc-800 to-zinc-800/50"
+      "bg": "from-neutral-800 to-neutral-800/50"
     }
   ]

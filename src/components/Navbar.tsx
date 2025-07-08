@@ -177,8 +177,8 @@ const Navbar = () => {
                                             leaveFrom="transform opacity-100 scale-100"
                                             leaveTo="transform opacity-0 scale-95"
                                         >
-                                            <div className="absolute top-full left-0 mt-2 w-full bg-zinc-800 rounded-lg shadow-lg z-20">
-                                                <div className="flex flex-col items-center space-y-2 bg-zinc-800">
+                                            <div className="absolute top-full left-0 mt-2 w-full bg-neutral-800 rounded-lg shadow-lg z-20">
+                                                <div className="flex flex-col items-center space-y-2 bg-neutral-800">
                                                     {item.subitems.map((subitem) => (
                                                         <a
                                                             key={subitem.text}
@@ -239,7 +239,7 @@ const Navbar = () => {
             {/* Menú móvil igual que antes */}
             {(isMenuOpen || hasInteracted) && (
                 <div
-                    className={`fixed top-0 left-0 w-full h-full bg-zinc-900 z-40 flex flex-col items-start justify-end pb-8 p-8
+                    className={`fixed top-0 left-0 w-full h-full bg-neutral-900 z-40 flex flex-col items-start justify-end pb-8 p-8
                         transition-all duration-500
                         overflow-hidden scrollbar-hide
                         ${hasInteracted ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
@@ -294,7 +294,7 @@ const Navbar = () => {
                     content: '';
                     position: absolute;
                     left: 50%;
-                    bottom: 0.2rem;
+                    bottom: 0.1rem;
                     width: 0;
                     height: 2px;
                     background: #3b82f6;
@@ -319,7 +319,7 @@ const Navbar = () => {
                     position: absolute;
                     left: 50%;
                     transform: translateX(-50%);
-                    bottom: -0.75rem;
+                    bottom: -0.45rem;
                     width: 0.33rem;
                     height: 0.33rem;
                     background: #3b82f6;
@@ -331,8 +331,8 @@ const Navbar = () => {
                     animation: fadeInDot 0.4s cubic-bezier(.4,0,.2,1);
                 }
                 @keyframes fadeInDot {
-                    from { opacity: 0; transform: translateY(8px) translateX(-50%); }
-                    to { opacity: 1; transform: translateY(0) translateX(-50%); }
+                    from { opacity: 0 }
+                    to { opacity: 1 }
                 }
                 /* Ocultar scrollbar en todos los navegadores */
                 .scrollbar-hide {

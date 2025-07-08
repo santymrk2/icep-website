@@ -90,11 +90,11 @@ export default function CustomCalendar() {
   const isPrevDisabled = currentMonth === today.getMonth() && currentYear === today.getFullYear();
 
   return (
-    <div className="w-fit mx-auto bg-zinc-800 rounded-xl shadow-lg p-6">
+    <div className="w-fit mx-auto bg-neutral-800 rounded-xl shadow-lg p-6">
       <div className="flex justify-between items-center mb-4">
         <button
           onClick={handlePrevMonth}
-          className={`p-2 rounded-full m-1 font-bold transition-all flex items-center justify-center ${isPrevDisabled ? 'bg-zinc-700 text-zinc-400 cursor-not-allowed' : 'bg-[#3b82f6] text-white hover:bg-[#2563eb]'}`}
+          className={`p-2 rounded-full m-1 font-bold transition-all flex items-center justify-center ${isPrevDisabled ? 'bg-neutral-700 text-neutral-400 cursor-not-allowed' : 'bg-[#3b82f6] text-white hover:bg-[#2563eb]'}`}
           disabled={isPrevDisabled}
           aria-label="Mes anterior"
         >
@@ -140,7 +140,7 @@ export default function CustomCalendar() {
                 <button
                   key={key}
                   className={`rounded-full size-8 p-6 flex flex-col items-center justify-center transition-all
-                    ${isSelected ? "bg-primary text-white" : hasEvent ? "border border-gray-200 hover:text-primary hover:bg-white" : "hover:bg-zinc-700"}
+                    ${isSelected ? "bg-primary text-white" : hasEvent ? "border border-gray-200 hover:text-primary hover:bg-white" : "hover:bg-neutral-700"}
                     ${isToday ? "text-primary" : ""}
                   `}
                   onClick={() => hasEvent ? setSelectedDate(date) : setSelectedDate(null)}
@@ -154,7 +154,7 @@ export default function CustomCalendar() {
             <div className="mt-8  p-4">
               <h3 className="text-lg font-bold mb-2 text-white">Eventos para el {selectedDate.toLocaleDateString("es-AR")}</h3>
               {eventsByDate[selectedDate.toISOString().slice(0, 10)]?.map((event) => (
-                <div key={event.id} className="mb-4 p-4 bg-zinc-800 rounded-lg border border-zinc-700">
+                <div key={event.id} className="mb-4 p-4 bg-neutral-800 rounded-lg border border-neutral-700">
                   <h4 className="text-md font-bold text-primary">{event.type}</h4>
                   <p className="text-gray-300">{event.date}</p>
                   {event.youtubeLink && (

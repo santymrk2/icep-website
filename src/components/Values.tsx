@@ -45,7 +45,7 @@ const ValuesCarousel = () => {
           {/* Flechas de navegación */}
           <button
             onClick={() => handleScroll('left')}
-            className="absolute left-4 top-1/2 -translate-y-1/2 p-2 z-10 rounded-full bg-zinc-800/70"
+            className="absolute left-4 top-1/2 -translate-y-1/2 p-2 z-10 rounded-full bg-neutral-800/70"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -54,7 +54,7 @@ const ValuesCarousel = () => {
 
           <button
             onClick={() => handleScroll('right')}
-            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 z-10 rounded-full bg-zinc-900/70"
+            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 z-10 rounded-full bg-neutral-900/70"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -62,8 +62,8 @@ const ValuesCarousel = () => {
           </button>
 
           {/* Fondos degradados */}
-          <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-zinc-900 to-transparent pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-zinc-900 to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-neutral-900 to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-neutral-900 to-transparent pointer-events-none" />
 
           {/* Contenedor scrollable */}
           <div
@@ -74,7 +74,7 @@ const ValuesCarousel = () => {
               <div
                 key={value.title}
                 ref={index === 0 ? firstCardRef : null}
-                className="flex-none h-10/12 w-80 mr-8 md:p-4 bg-zinc-700 p-5 rounded-lg shadow-lg"
+                className="flex-none h-10/12 w-80 mr-8 md:p-4 bg-neutral-700 p-5 rounded-lg shadow-lg"
               >
                 <p class="text-sm text-gray-400 font-normal">
                 </p>

@@ -1,0 +1,10 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HomeCop from "../components/Home copy.tsx";
+
+export const prerender = true;
+---
+
+<Layout title="ICEP | Iglesia Complejo Evangélico Pilar" showLoading={true}>
+  <HomeCop client:load />
+</Layout>
