@@ -12,19 +12,45 @@ function getMonthDays(year: number, month: number) {
 }
 
 function sameDay(a: Date, b: Date) {
-  return a.getFullYear() === b.getFullYear() &&
+  return (
+    a.getFullYear() === b.getFullYear() &&
     a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate();
+    a.getDate() === b.getDate()
+  );
 }
 
 const PrevIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-    <path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 12H7m0 0 4 4m-4-4 4-4" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke="#fff"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M17 12H7m0 0 4 4m-4-4 4-4"
+    />
   </svg>
 );
 const NextIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-    <path stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 12h10m0 0-4-4m4 4-4 4" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke="#fff"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M7 12h10m0 0-4-4m4 4-4 4"
+    />
   </svg>
 );
 
@@ -62,7 +88,11 @@ export default function CustomCalendar() {
 
   function handlePrevMonth() {
     // Bloquear navegación hacia atrás si es el mes actual y año actual
-    if (currentMonth === today.getMonth() && currentYear === today.getFullYear()) return;
+    if (
+      currentMonth === today.getMonth() &&
+      currentYear === today.getFullYear()
+    )
+      return;
     if (currentMonth === 0) {
       setCurrentMonth(11);
       setCurrentYear(currentYear - 1);
@@ -82,19 +112,30 @@ export default function CustomCalendar() {
   }
 
   const monthNames = [
-    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
   ];
 
   // Determinar si el botón de mes anterior debe estar deshabilitado
-  const isPrevDisabled = currentMonth === today.getMonth() && currentYear === today.getFullYear();
+  const isPrevDisabled =
+    currentMonth === today.getMonth() && currentYear === today.getFullYear();
 
   return (
-    <div className="w-fit mx-auto bg-neutral-800 rounded-xl shadow-lg p-6">
+    <div className="w-fit mx-auto rounded-xl shadow-lg p-6">
       <div className="flex justify-between items-center mb-4">
         <button
           onClick={handlePrevMonth}
-          className={`p-2 rounded-full m-1 font-bold transition-all flex items-center justify-center ${isPrevDisabled ? 'bg-neutral-700 text-neutral-400 cursor-not-allowed' : 'bg-[#3b82f6] text-white hover:bg-[#2563eb]'}`}
+          className={`p-2 rounded-full m-1 font-bold transition-all flex items-center justify-center ${isPrevDisabled ? "bg-neutral-700 text-neutral-400 cursor-not-allowed" : "bg-[#3b82f6] text-white hover:bg-[#2563eb]"}`}
           disabled={isPrevDisabled}
           aria-label="Mes anterior"
         >
@@ -124,7 +165,9 @@ export default function CustomCalendar() {
         <>
           <div className="grid grid-cols-7 gap-3 mb-3">
             {weekDays.map((d) => (
-              <div className="text-center text-gray-400 font-bold h-8 flex items-center justify-center text-sm">{d}</div>
+              <div className="text-center font-bold h-8 flex items-center justify-center text-sm">
+                {d}
+              </div>
             ))}
           </div>
           <div className="grid grid-cols-7 gap-3 place-items-center">
@@ -143,7 +186,9 @@ export default function CustomCalendar() {
                     ${isSelected ? "bg-primary text-white" : hasEvent ? "border border-gray-200 hover:text-primary hover:bg-white" : "hover:bg-neutral-700"}
                     ${isToday ? "text-primary" : ""}
                   `}
-                  onClick={() => hasEvent ? setSelectedDate(date) : setSelectedDate(null)}
+                  onClick={() =>
+                    hasEvent ? setSelectedDate(date) : setSelectedDate(null)
+                  }
                 >
                   <span className="font-bold">{date.getDate()}</span>
                 </button>
@@ -152,23 +197,44 @@ export default function CustomCalendar() {
           </div>
           {selectedDate && (
             <div className="mt-8  p-4">
-              <h3 className="text-lg font-bold mb-2 text-white">Eventos para el {selectedDate.toLocaleDateString("es-AR")}</h3>
-              {eventsByDate[selectedDate.toISOString().slice(0, 10)]?.map((event) => (
-                <div key={event.id} className="mb-4 p-4 bg-neutral-800 rounded-lg border border-neutral-700">
-                  <h4 className="text-md font-bold text-primary">{event.type}</h4>
-                  <p className="text-gray-300">{event.date}</p>
-                  {event.youtubeLink && (
-                    <a href={event.youtubeLink} target="_blank" className="text-primary block mb-2">Ver mensaje en YouTube</a>
-                  )}
-                  {event.pageLink && (
-                    <a href={event.pageLink} target="_blank" className="text-primary block text-left">Ver detalles</a>
-                  )}
-                </div>
-              ))}
+              <h3 className="text-lg font-bold mb-2 text-white">
+                Eventos para el {selectedDate.toLocaleDateString("es-AR")}
+              </h3>
+              {eventsByDate[selectedDate.toISOString().slice(0, 10)]?.map(
+                (event) => (
+                  <div
+                    key={event.id}
+                    className="mb-4 p-4 bg-neutral-800 rounded-lg border border-neutral-700"
+                  >
+                    <h4 className="text-md font-bold text-primary">
+                      {event.type}
+                    </h4>
+                    <p className="text-gray-300">{event.date}</p>
+                    {event.youtubeLink && (
+                      <a
+                        href={event.youtubeLink}
+                        target="_blank"
+                        className="text-primary block mb-2"
+                      >
+                        Ver mensaje en YouTube
+                      </a>
+                    )}
+                    {event.pageLink && (
+                      <a
+                        href={event.pageLink}
+                        target="_blank"
+                        className="text-primary block text-left"
+                      >
+                        Ver detalles
+                      </a>
+                    )}
+                  </div>
+                ),
+              )}
             </div>
           )}
         </>
       )}
     </div>
   );
-} 
+}
