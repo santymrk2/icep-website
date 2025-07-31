@@ -131,7 +131,7 @@ export default function CustomCalendar() {
     currentMonth === today.getMonth() && currentYear === today.getFullYear();
 
   return (
-    <div className="w-fit mx-auto rounded-xl shadow-lg p-6">
+    <div className="w-fit mx-auto rounded-xl p-6">
       <div className="flex justify-between items-center mb-4">
         <button
           onClick={handlePrevMonth}
@@ -204,7 +204,7 @@ export default function CustomCalendar() {
                 (event) => (
                   <div
                     key={event.id}
-                    className="mb-4 p-4 bg-neutral-800 rounded-lg border border-neutral-700"
+                    className="mb-4 p-4 bg-neutral-800 rounded-lg"
                   >
                     <h4 className="text-md font-bold text-primary">
                       {event.type}
