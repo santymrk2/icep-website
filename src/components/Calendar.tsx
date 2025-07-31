@@ -393,12 +393,17 @@ export default function CustomCalendar() {
                     <h4 className="text-md font-bold text-white">
                       {event.type}
                     </h4>
-                    <p className="text-gray-300">{event.date}</p>
-                    {event.youtubeLink && (
-                      <p className="text-gray-300 block mb-2 underline">
-                        Ver mensaje en YouTube
-                      </p>
-                    )}
+                    <p className="text-gray-300">
+                      {new Date(modalEvent.startDate).toLocaleTimeString(
+                        "es-AR",
+                        {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        },
+                      )}{" "}
+                      hs
+                    </p>
                   </div>
                 ),
               )}
