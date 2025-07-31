@@ -394,14 +394,11 @@ export default function CustomCalendar() {
                       {event.type}
                     </h4>
                     <p className="text-gray-300">
-                      {new Date(modalEvent.startDate).toLocaleTimeString(
-                        "es-AR",
-                        {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          hour12: false,
-                        },
-                      )}{" "}
+                      {new Date(event.startDate).toLocaleTimeString("es-AR", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false,
+                      })}{" "}
                       hs
                     </p>
                   </div>
