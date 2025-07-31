@@ -13,7 +13,8 @@ interface NotionPageProperties {
       name: string;
     } | null;
   };
-  "Mensaje en YouTube"?: { // Make this optional with a question mark
+  "Mensaje en YouTube"?: {
+    // Make this optional with a question mark
     url: string;
   } | null;
   // Add other properties as needed
@@ -27,8 +28,8 @@ interface NotionPage {
   url: string; // Add the 'url' property here
 }
 
-
-function formatearFecha(fechaStr: string | null | undefined) { // Make fechaStr accept undefined
+function formatearFecha(fechaStr: string | null | undefined) {
+  // Make fechaStr accept undefined
   if (!fechaStr) return null;
 
   const fecha = new Date(fechaStr);
@@ -41,11 +42,10 @@ function formatearFecha(fechaStr: string | null | undefined) { // Make fechaStr 
   if (esHoy) {
     const matchHora = fechaStr.match(/(\d{2}):(\d{2})/);
 
-      if (matchHora) {
-        const [, hora, minuto] = matchHora;
-        return `Hoy a las ${hora}:${minuto}hs`;
-      }
-
+    if (matchHora) {
+      const [, hora, minuto] = matchHora;
+      return `Hoy a las ${hora}:${minuto}hs`;
+    }
   }
 
   const formatter = new Intl.DateTimeFormat("es-AR", {
@@ -104,20 +104,25 @@ const getPages = async () => {
       pages.push({
         id: firstPage.id,
         date: formatearFecha(firstPage.properties.Fecha.date?.start),
-        type: firstPage.properties["Tipo de Reunión"].select?.name?.toUpperCase(), // Optional chaining
+        type: firstPage.properties[
+          "Tipo de Reunión"
+        ].select?.name?.toUpperCase(), // Optional chaining
         pageLink: firstPage.public_url,
         youtubeLink: firstPage.properties["Mensaje en YouTube"]?.url, // Optional chaining
         startDate: firstPage.properties.Fecha.date?.start,
       });
 
-      if (secondPage && // Check if secondPage exists
+      if (
+        secondPage && // Check if secondPage exists
         firstPage.properties.Fecha.date?.start?.slice(0, 10) ===
-        secondPage.properties.Fecha.date?.start?.slice(0, 10)
+          secondPage.properties.Fecha.date?.start?.slice(0, 10)
       ) {
         pages.push({
           id: secondPage.id,
           date: formatearFecha(secondPage.properties.Fecha.date?.start),
-          type: secondPage.properties["Tipo de Reunión"].select?.name?.toUpperCase(), // Optional chaining
+          type: secondPage.properties[
+            "Tipo de Reunión"
+          ].select?.name?.toUpperCase(), // Optional chaining
           pageLink: secondPage.url,
           youtubeLink: secondPage.properties["Mensaje en YouTube"]?.url, // Optional chaining
           startDate: secondPage.properties.Fecha.date?.start,
@@ -127,15 +132,15 @@ const getPages = async () => {
       console.log("No se encontraron datos.");
     }
     return pages;
-  } catch (error:any) {
-  // Maneja el error aquí.
-  if (error.code === "unauthorized") {
-    console.log(
-      "Error: No tienes acceso al recurso especificado. Revisa tus credenciales y permisos.",
-    );
-  } else {
-    console.log("Error al consultar Notion:", error.message);
-  }
+  } catch (error: any) {
+    // Maneja el error aquí.
+    if (error.code === "unauthorized") {
+      console.log(
+        "Error: No tienes acceso al recurso especificado. Revisa tus credenciales y permisos.",
+      );
+    } else {
+      console.log("Error al consultar Notion:", error.message);
+    }
   }
 };
 
@@ -180,15 +185,29 @@ export const getMonthEvents = async (year: number, month: number) => {
       ],
     });
     // Mapear resultados igual que getPages
+
     return notionPages.results.map((page: any) => {
       const p = page as NotionPage;
       return {
         id: p.id,
         date: formatearFecha(p.properties.Fecha.date?.start),
-        type: p.properties["Tipo de Reunión"].select?.name?.toUpperCase(),
+        type: p.properties["Tipo de Reunión"]?.select?.name?.toUpperCase(),
         pageLink: p.public_url,
         youtubeLink: p.properties["Mensaje en YouTube"]?.url,
         startDate: p.properties.Fecha.date?.start,
+        tema: p.properties["Tema"]?.rich_text?.[0]?.plain_text ?? "",
+        enseñanza: p.properties["Enseñanza"]?.rich_text?.[0]?.plain_text ?? "",
+        presidencia:
+          p.properties["Presidencia"]?.rich_text?.[0]?.plain_text ?? "",
+        alabanza: p.properties["Alabanza"]?.rich_text?.[0]?.plain_text ?? "",
+        predicacion:
+          p.properties["Predicación"]?.rich_text?.[0]?.plain_text ?? "",
+        participacionMusical:
+          p.properties["Participación Musical"]?.rich_text?.[0]?.plain_text ??
+          "",
+
+        subtema: p.properties["Subtema"]?.rich_text?.[0]?.plain_text ?? "",
+        contenido: p.properties["Contenido"]?.rich_text?.[0]?.plain_text ?? "",
       };
     });
   } catch (error: any) {
@@ -198,3 +217,4 @@ export const getMonthEvents = async (year: number, month: number) => {
 };
 
 export default getPages;
+
