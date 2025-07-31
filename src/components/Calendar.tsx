@@ -202,33 +202,26 @@ export default function CustomCalendar() {
               </h3>
               {eventsByDate[selectedDate.toISOString().slice(0, 10)]?.map(
                 (event) => (
-                  <div
-                    key={event.id}
-                    className="mb-4 p-4 bg-neutral-800 rounded-lg"
-                  >
-                    <h4 className="text-md font-bold text-primary">
-                      {event.type}
-                    </h4>
-                    <p className="text-gray-300">{event.date}</p>
-                    {event.youtubeLink && (
-                      <a
-                        href={event.youtubeLink}
-                        target="_blank"
-                        className="text-primary block mb-2"
-                      >
-                        Ver mensaje en YouTube
-                      </a>
-                    )}
-                    {event.pageLink && (
-                      <a
-                        href={event.pageLink}
-                        target="_blank"
-                        className="text-primary block text-left"
-                      >
-                        Ver detalles
-                      </a>
-                    )}
-                  </div>
+                  <a href={event.pageLink} target="_blank">
+                    <div
+                      key={event.id}
+                      className="mb-4 p-4 bg-neutral-800 rounded-lg"
+                    >
+                      <h4 className="text-md font-bold text-white">
+                        {event.type}
+                      </h4>
+                      <p className="text-gray-300">{event.date}</p>
+                      {event.youtubeLink && (
+                        <a
+                          href={event.youtubeLink}
+                          target="_blank"
+                          className="text-gray-300 block mb-2"
+                        >
+                          Ver mensaje en YouTube
+                        </a>
+                      )}
+                    </div>
+                  </a>
                 ),
               )}
             </div>
