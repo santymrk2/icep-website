@@ -1,14 +1,6 @@
 import { useState, useEffect } from "react";
-import {
-  X,
-  Calendar,
-  Clock,
-  User,
-  Music,
-  BookOpen,
-  Mic,
-  Play,
-} from "lucide-react";
+import EventDetails from "./EventDetails";
+import Card from "./Card.tsx";
 
 function getMonthDays(year: number, month: number) {
   // month: 0-indexed
@@ -64,181 +56,6 @@ const NextIcon = () => (
   </svg>
 );
 
-// Modal Component Mejorado
-const ImprovedModal = ({ modalEvent, setModalEvent }) => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    if (modalEvent) {
-      setIsVisible(true);
-    }
-  }, [modalEvent]);
-
-  const handleClose = () => {
-    setIsVisible(false);
-    setTimeout(() => setModalEvent(null), 300);
-  };
-
-  if (!modalEvent) return null;
-
-  const eventDetails = [
-    { icon: BookOpen, label: "Enseñanza", value: modalEvent.enseñanza },
-    { icon: User, label: "Presidencia", value: modalEvent.presidencia },
-    { icon: Music, label: "Alabanza", value: modalEvent.alabanza },
-    { icon: Mic, label: "Predicación", value: modalEvent.predicacion },
-    {
-      icon: Music,
-      label: "Participación Musical",
-      value: modalEvent.participacionMusical,
-    },
-  ].filter((item) => item.value);
-
-  return (
-    <div
-      className={`fixed inset-0 bg-black/70 backdrop-blur-md flex justify-center items-center z-50 px-4 transition-all duration-300 ease-out ${
-        isVisible ? "opacity-100" : "opacity-0"
-      }`}
-      onClick={handleClose}
-    >
-      <div
-        className={`bg-gradient-to-br from-neutral-900 to-neutral-900 p-0 rounded-lg max-w-2xl w-full text-white relative transform transition-all duration-300 ease-out ${
-          isVisible ? "scale-100 translate-y-0" : "scale-95 translate-y-4"
-        }`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header con gradiente */}
-        <div className=" rounded-t-lg p-6 relative overflow-hidden">
-          <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
-          <div className="relative z-10">
-            <button
-              onClick={handleClose}
-              className="absolute top-0 right-0 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm inline-flex items-center justify-center text-white transition-all duration-200 hover:scale-110"
-              aria-label="Cerrar"
-            >
-              <X size={20} />
-            </button>
-
-            <div className="pr-12">
-              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium mb-4">
-                <Calendar size={16} />
-                Evento
-              </div>
-
-              <h2 className="text-2xl md:text-3xl font-bold mb-3 leading-tight">
-                {modalEvent.type || "REUNIÓN"}
-              </h2>
-
-              {modalEvent.startDate && (
-                <div className="flex items-center gap-4 text-white/90 flex-wrap">
-                  <div className="flex items-center gap-2">
-                    <Calendar size={18} />
-                    <span className="font-medium">
-                      {new Date(modalEvent.startDate).toLocaleDateString(
-                        "es-AR",
-                        {
-                          weekday: "long",
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                        },
-                      )}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock size={18} />
-                    <span className="font-medium">
-                      {new Date(modalEvent.startDate).toLocaleTimeString(
-                        "es-AR",
-                        {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          hour12: false,
-                        },
-                      )}{" "}
-                      hs
-                    </span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Contenido principal */}
-        <div className="p-6 max-h-96 overflow-y-auto">
-          {/* Subtema destacado */}
-          {modalEvent.subtema && (
-            <div className="bg-gradient-to-r from-blue-500/10 to-blue-500/10 border-l-4 border-blue-500 p-4 rounded-r-lg mb-6">
-              <h3 className="text-lg font-semibold text-white leading-relaxed">
-                {modalEvent.subtema}
-              </h3>
-            </div>
-          )}
-
-          {/* Detalles con íconos */}
-          {eventDetails.length > 0 && (
-            <div className="mb-6">
-              <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-4">
-                Participantes
-              </h4>
-              <div className="grid gap-3">
-                {eventDetails.map((detail, index) => {
-                  const IconComponent = detail.icon;
-                  return (
-                    <div
-                      key={index}
-                      className="flex items-center gap-3 p-3 bg-neutral-800/50 rounded-xl hover:bg-neutral-800/70 transition-colors"
-                    >
-                      <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <IconComponent size={18} className="text-blue-500" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="text-sm text-gray-400 font-medium">
-                          {detail.label}
-                        </p>
-                        <p className="text-white font-medium truncate">
-                          {detail.value}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* Contenido */}
-          {modalEvent.contenido && (
-            <div className="mb-6">
-              <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-4">
-                Contenido
-              </h4>
-              <div className="bg-neutral-800/30 rounded-xl p-4 text-gray-300 leading-relaxed whitespace-pre-wrap">
-                {modalEvent.contenido}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Footer con acciones */}
-        {modalEvent.youtubeLink && (
-          <div className="border-t border-neutral-700 p-6">
-            <a
-              href={modalEvent.youtubeLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 hover:shadow-lg hover:scale-105"
-            >
-              <Play size={20} />
-              Ver mensaje en YouTube
-            </a>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
 export default function CustomCalendar() {
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
@@ -246,8 +63,8 @@ export default function CustomCalendar() {
   const [events, setEvents] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [modalEvent, setModalEvent] = useState(null);
-
+  //const [modalEvent, setModalEvent] = useState(null);
+  const [modalEvents, setModalEvents] = useState<any[]>([]);
   // Cargar eventos del mes actual al montar y cuando cambian mes/año
   useEffect(() => {
     setLoading(true);
@@ -372,44 +189,50 @@ export default function CustomCalendar() {
                     ${isSelected ? "bg-primary text-white" : hasEvent ? "border border-gray-200 hover:text-primary hover:bg-white" : "hover:bg-neutral-700"}
                     ${isToday ? "text-primary" : ""}
                   `}
-                  onClick={() =>
-                    hasEvent ? setSelectedDate(date) : setSelectedDate(null)
-                  }
+                  onClick={() => {
+                    const key = date.toISOString().slice(0, 10);
+                    const dayEvents = eventsByDate[key] || [];
+                    if (dayEvents.length) setModalEvents(dayEvents);
+                  }}
                 >
+                  {/*
+                    onClick={() => hasEvent ? setSelectedDate(date) : setSelectedDate(null)}
+                  */}
                   <span className="font-bold">{date.getDate()}</span>
                 </button>
               );
             })}
           </div>
-          {selectedDate && (
+
+          {/*selectedDate && (
             <div className="mt-8 p-4">
               <h3 className="text-lg font-bold mb-2 text-white">Eventos:</h3>
               {eventsByDate[selectedDate.toISOString().slice(0, 10)]?.map(
-                (event) => (
+                (event: any) => (
                   <div
-                    onClick={() => setModalEvent(event)}
-                    className="cursor-pointer mb-4 p-4 bg-gradient-to-b from-neutral-800 to-neutral-800/50 rounded-lg"
+                    key={event.id || event.startDate} // asegurate que cada evento tenga un id único o usa otra prop
+                    className=" mb-4"
                   >
-                    <h4 className="text-md font-bold text-white">
-                      {event.type}
-                    </h4>
-                    <p className="text-gray-300">
-                      {new Date(event.startDate).toLocaleTimeString("es-AR", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: false,
-                      })}{" "}
-                      hs
-                    </p>
+                    <Card
+                      href={event.pageLink || "#"} // ajustá según los datos que tengas
+                      title={event.type}
+                      desc={event.description || ""} // suponiendo que el evento tiene descripción
+                      touchDisabled={true}
+                      onClick={() => setModalEvent(event)}
+                    />
                   </div>
                 ),
               )}
             </div>
-          )}
+          )*/}
         </>
       )}
-
-      <ImprovedModal modalEvent={modalEvent} setModalEvent={setModalEvent} />
+      {modalEvents.length > 0 && (
+        <EventDetails
+          events={modalEvents} // ← array con 1 o varios eventos
+          onClose={() => setModalEvents([])}
+        />
+      )}
     </div>
   );
 }
