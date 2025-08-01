@@ -25,7 +25,7 @@ const CalendarPage: React.FC = () => {
 
   return (
     <motion.section
-      className="py-16"
+      className="py-16 mb-36"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
@@ -60,4 +60,3 @@ const CalendarPage: React.FC = () => {
 };
 
 export default CalendarPage;
-

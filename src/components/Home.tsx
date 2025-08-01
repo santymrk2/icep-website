@@ -1,14 +1,17 @@
-import React, { useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import Lenis from 'lenis';
-import Services from './Services';
-import NextEvent from './NextEvent';
+import React, { useEffect, useRef } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import Lenis from "lenis";
+import Services from "./Services";
+import NextEvent from "./NextEvent";
 
 const Home: React.FC = () => {
   // Hero parallax
   const heroRef = useRef<HTMLDivElement>(null);
   // Hero scroll animation (sube, achica y se desvanece)
-  const { scrollYProgress: heroScrollY } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const { scrollYProgress: heroScrollY } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
   const heroScale = useTransform(heroScrollY, [0, 0.6], [1, 0.6]);
   const heroYMove = useTransform(heroScrollY, [0, 0.6], [0, -120]);
   const heroOpacity = useTransform(heroScrollY, [0, 0.6], [1, 0]);
@@ -18,7 +21,7 @@ const Home: React.FC = () => {
   const image1Ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress: image1ScrollY } = useScroll({
     target: image1Ref,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
   const image1Scale = useTransform(image1ScrollY, [0, 1], [1, 1.1]);
 
@@ -26,7 +29,7 @@ const Home: React.FC = () => {
   const image2Ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress: image2ScrollY } = useScroll({
     target: image2Ref,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
   const image2Scale = useTransform(image2ScrollY, [0, 1], [1, 1.1]);
 
@@ -34,7 +37,7 @@ const Home: React.FC = () => {
   const image3Ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress: image3ScrollY } = useScroll({
     target: image3Ref,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
   const image3Scale = useTransform(image3ScrollY, [0, 1], [1, 1.1]);
 
@@ -42,10 +45,18 @@ const Home: React.FC = () => {
   const contactRef = useRef<HTMLDivElement>(null);
   const contactScroll = useScroll({
     target: contactRef,
-    offset: ["start 80%", "end 60%"]
+    offset: ["start center", "center center"],
   });
-  const contactY = useTransform(contactScroll.scrollYProgress, [0, 1], [100, 0]);
-  const contactOpacity = useTransform(contactScroll.scrollYProgress, [0, 1], [0, 1]);
+  const contactY = useTransform(
+    contactScroll.scrollYProgress,
+    [0, 1],
+    [100, 0],
+  );
+  const contactOpacity = useTransform(
+    contactScroll.scrollYProgress,
+    [0, 1],
+    [0, 1],
+  );
 
   // Initialize Lenis smooth scrolling
   useEffect(() => {
@@ -105,12 +116,12 @@ const Home: React.FC = () => {
   return (
     <main>
       {/* Hero Section */}
-      <motion.section 
+      <motion.section
         ref={heroRef}
         className="w-full flex flex-col justify-center items-center bg-transparent relative p-0 m-0"
-        style={{ height: 'calc(100vh - 100px)' }}
+        style={{ height: "calc(100vh - 100px)" }}
       >
-        <motion.h1 
+        <motion.h1
           className="text-4xl md:text-7xl font-sans font-bold text-center m-0 p-0"
           style={{
             scale: heroScale,
@@ -123,7 +134,7 @@ const Home: React.FC = () => {
       </motion.section>
 
       {/* First Image Section */}
-      <motion.section 
+      <motion.section
         ref={image1Ref}
         className="w-full h-full sm:h-screen overflow-hidden"
         initial={{ opacity: 0 }}
@@ -144,7 +155,7 @@ const Home: React.FC = () => {
             viewport={{ once: true }}
             style={{ scale: image1Scale }}
           />
-          <motion.div 
+          <motion.div
             className="absolute top-1/2 right-10 sm:right-32 md:right-100"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -167,7 +178,7 @@ const Home: React.FC = () => {
       </motion.section>
 
       {/* Services Section */}
-      <motion.section 
+      <motion.section
         className="py-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -178,7 +189,7 @@ const Home: React.FC = () => {
       </motion.section>
 
       {/* Second Image Section */}
-      <motion.section 
+      <motion.section
         ref={image2Ref}
         className="w-full h-full sm:h-screen overflow-hidden"
         initial={{ opacity: 0 }}
@@ -199,7 +210,7 @@ const Home: React.FC = () => {
             viewport={{ once: true }}
             style={{ scale: image2Scale }}
           />
-          <motion.div 
+          <motion.div
             className="absolute top-1/2 left-10 sm:left-32 md:left-100"
             initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -221,10 +232,8 @@ const Home: React.FC = () => {
         </div>
       </motion.section>
 
-
-
-            {/* Next Event Section */}
-            <motion.section 
+      {/* Next Event Section */}
+      <motion.section
         className="py-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -235,7 +244,7 @@ const Home: React.FC = () => {
       </motion.section>
 
       {/* Third Image Section */}
-      <motion.section 
+      <motion.section
         ref={image3Ref}
         className="w-full h-full sm:h-screen overflow-hidden"
         initial={{ opacity: 0 }}
@@ -258,16 +267,16 @@ const Home: React.FC = () => {
       </motion.section>
 
       {/* Contact Section */}
-      <motion.section 
+      <motion.section
         ref={contactRef}
         className="py-64 bg-neutral-900"
         style={{
           y: contactY,
-          opacity: contactOpacity
+          opacity: contactOpacity,
         }}
       >
         <div className="max-w-2xl mx-auto px-8 text-center">
-          <motion.div 
+          <motion.div
             className="mb-6"
             initial={false}
             animate={false}
@@ -325,9 +334,9 @@ const Home: React.FC = () => {
           </motion.div>
         </div>
       </motion.section>
-
     </main>
   );
 };
 
-export default Home; 
+export default Home;
+
