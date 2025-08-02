@@ -1,5 +1,5 @@
 // components/EventDetails.tsx
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
   Calendar,
@@ -12,14 +12,14 @@ import {
 } from "lucide-react";
 
 interface EventDetailsProps {
-  events: any[]; // ← ahora recibe uno o varios
-  onClose: () => void; // ← único botón de cierre
+  events: any[];
+  onClose: () => void;
 }
 
 export default function EventDetails({ events, onClose }: EventDetailsProps) {
-  if (!events || events.length === 0) return null;
+  if (!events.length) return null;
 
-  const renderEvent = (ev: any) => {
+  const renderOne = (ev: any) => {
     const details = [
       { icon: BookOpen, label: "Enseñanza", value: ev.enseñanza },
       { icon: User, label: "Presidencia", value: ev.presidencia },
@@ -33,9 +33,9 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
     ].filter((d) => d.value);
 
     return (
-      <div key={ev.id || ev.startDate} className="mb-10 last:mb-0">
-        {/* Header del evento */}
-        <div className="relative rounded-t-lg p-6">
+      <div className="bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-xl max-w-5xl w-full max-h-[80vh] overflow-y-auto shadow-2xl">
+        {/* Header */}
+        <div className="relative p-6">
           <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-t-xl" />
           <div className="relative z-10">
             <div className="inline-flex items-center gap-2 bg-white/20 px-3 py-1 rounded-full text-sm font-medium mb-4">
@@ -87,20 +87,20 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
               <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-4">
                 Participantes
               </h4>
-              <div className="grid gap-3">
-                {details.map((detail, j) => {
-                  const Icon = detail.icon;
+              <div className="grid gap-3 md:grid-cols-2">
+                {details.map((d, i) => {
+                  const Icon = d.icon;
                   return (
                     <div
-                      key={j}
+                      key={i}
                       className="flex items-center gap-3 p-3 bg-neutral-800/50 rounded-xl"
                     >
                       <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
                         <Icon size={18} className="text-blue-500" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-400">{detail.label}</p>
-                        <p className="text-white font-medium">{detail.value}</p>
+                        <p className="text-sm text-gray-400">{d.label}</p>
+                        <p className="text-white font-medium">{d.value}</p>
                       </div>
                     </div>
                   );
@@ -121,7 +121,7 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
           )}
 
           {ev.youtubeLink && (
-            <div className="border-t border-neutral-700 pt-6">
+            <div className="pt-4">
               <a
                 href={ev.youtubeLink}
                 target="_blank"
@@ -134,17 +134,15 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
             </div>
           )}
         </div>
-
-        {/* Separador cuando hay más de un evento */}
-        {events.length > 1 && <hr className="border-neutral-700 mx-6" />}
       </div>
     );
   };
 
   return (
-    <>
-      {/* Fondo con blur */}
+    <AnimatePresence>
+      {/* FONDO único con blur */}
       <motion.div
+        key="backdrop"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -153,33 +151,33 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
         onClick={onClose}
       />
 
-      {/* Contenedor centrado */}
-      <div
-        className="fixed inset-0 flex items-center justify-center p-4 z-50"
+      {/* BOTÓN DE CIERRE único, centrado arriba */}
+      <button
+        key="close-btn"
         onClick={onClose}
+        className="fixed top-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full
+                   bg-white/20 hover:bg-white/30 text-white flex items-center
+                   justify-center z-[9999] transition-transform hover:scale-110"
+        aria-label="Cerrar todos"
       >
-        {/* Único botón de cierre centrado arriba */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30
-                     text-white flex items-center justify-center transition-transform hover:scale-110 z-[60]"
-          aria-label="Cerrar"
-        >
-          <X size={20} />
-        </button>
+        <X size={20} />
+      </button>
 
-        {/* Modal */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {events.map(renderEvent)}
-        </motion.div>
+      {/* CONTENEDOR de modales apilados */}
+      <div className="fixed inset-0 flex flex-col items-center justify-center gap-6 z-50 p-4 pointer-events-none">
+        {events.map((ev, idx) => (
+          <motion.div
+            key={ev.id || idx}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
+            transition={{ duration: 0.3, delay: idx * 0.1 }}
+            className="pointer-events-auto"
+          >
+            {renderOne(ev)}
+          </motion.div>
+        ))}
       </div>
-    </>
+    </AnimatePresence>
   );
 }
