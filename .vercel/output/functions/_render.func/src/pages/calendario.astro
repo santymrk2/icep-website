@@ -1,0 +1,10 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CalendarPage from "../components/CalendarPage.tsx";
+
+export const prerender = false;
+---
+
+<Layout title="ICEP | Calendario de Eventos">
+  <CalendarPage client:load  />
+</Layout> 

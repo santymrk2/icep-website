@@ -254,7 +254,7 @@ const Navbar = () => {
         <div className="flex items-center h-full">
           <button
             id="mobile-menu-button"
-            className="z-52 rounded-full group transition-all ease-in-out inline-flex w-9 h-9 text-slate-800 text-center items-center justify-center"
+            className="z-40 rounded-full group transition-all ease-in-out inline-flex w-9 h-9 text-slate-800 text-center items-center justify-center"
             aria-pressed={isMenuOpen}
             onClick={handleMobileMenu}
           >
