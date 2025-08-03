@@ -292,7 +292,7 @@ const Navbar = () => {
       {/* Menú móvil igual que antes */}
       {(isMenuOpen || hasInteracted) && (
         <div
-          className={`fixed top-0 left-0 w-full h-full bg-neutral-900 z-40 flex flex-col items-start justify-end pb-8 p-8
+          className={`fixed top-0 left-0 w-full h-full bg-neutral-900 z-30 flex flex-col items-start justify-end pb-8 p-8
                         transition-all duration-500
                         overflow-hidden scrollbar-hide
                         ${hasInteracted ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
