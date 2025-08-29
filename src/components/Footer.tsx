@@ -87,6 +87,7 @@ const Footer: React.FC = () => {
                   Contacto
                 </a>
               </li>
+              {/*
               <li>
                 <a
                   href="https://camp.icepilar.org"
@@ -95,6 +96,7 @@ const Footer: React.FC = () => {
                   Camp 2025
                 </a>
               </li>
+              */}
             </ul>
           </div>
         </div>

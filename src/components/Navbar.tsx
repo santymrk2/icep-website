@@ -106,74 +106,19 @@ const Navbar = () => {
 
   return (
     <header
-      className={`text-white m-0 sm:m-0 rounded-none z-50 h-20 transition-all duration-300 w-full`}
+      className={`text-white m-0 sm:m-0 rounded-none z-50 h-20 transition-all duration-300 w-full md:pt-8 md:px-20`}
       id="back-menu"
     >
       <div className="w-full max-w-full flex flex-row items-center justify-between h-20 gap-4 px-6 m-0 overflow-hidden scrollbar-hide relative">
         {/* Logo: esquina izq en mobile, centrado en desktop */}
         <div className="flex items-center h-full">
           <a href="/" id="site-logo" className="flex items-center h-full">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 700 700"
-              className="w-9 h-9 sm:w-10 sm:h-10 hover:scale-104 transition-all duration-400 easy-out"
-              fill="none"
-            >
-              <g>
-                <path
-                  d="M-776.155-31.123h964.486v736.828h-964.486z"
-                  fill="none"
-                  transform="matrix(.72577 0 0 .95002 563.314 29.567)"
-                />
-                <path
-                  d="M0-17.794c0-6 .286-11.932.818-17.794-61.748-28.462-106.042-88.298-112.457-159.079-66.861 30.819-113.275 98.421-113.275 176.873 0 107.511 87.156 194.667 194.667 194.667 41.895 0 80.697-13.237 112.457-35.754C32.467 105.854 0 47.823 0-17.794"
-                  fill="#2a38b2"
-                  fillRule="evenodd"
-                  transform="translate(267.786 465.127)"
-                />
-                <path
-                  d="M0-371.54c-6.415 70.781-50.71 130.617-112.457 159.079.531 5.862.818 11.794.818 17.794 0 65.617-32.467 123.648-82.21 158.913C-162.089-13.237-123.287 0-81.392 0 26.119 0 113.274-87.156 113.274-194.667c0-78.452-46.413-146.054-113.274-176.873"
-                  fill="#2a38b2"
-                  fillRule="evenodd"
-                  transform="translate(543.847 642)"
-                />
-                <path
-                  d="M0-141.119c0-6-.286-11.932-.818-17.794-24.766 11.416-52.332 17.794-81.392 17.794-29.059 0-56.626-6.378-81.392-17.794a197.134 197.134 0 0 0-.818 17.794c0 65.617 32.467 123.648 82.21 158.913C-32.467-17.471 0-75.502 0-141.119"
-                  fill="#0080f0"
-                  fillRule="evenodd"
-                  transform="translate(432.206 588.452)"
-                />
-                <path
-                  d="M0 230.42c31.76-22.516 70.562-35.753 112.457-35.753 29.059 0 56.626 6.378 81.392 17.793.531-5.861.818-11.793.818-17.793C194.667 87.155 107.511 0 0 0s-194.667 87.155-194.667 194.667c0 6 .287 11.932.818 17.793 24.766-11.415 52.333-17.793 81.392-17.793 41.895 0 80.697 13.237 112.457 35.753"
-                  fill="#2a38b2"
-                  fillRule="evenodd"
-                  transform="translate(349.997 58)"
-                />
-                <path
-                  d="M-15.532-1.354C-.258 55.096 38.988 99.819 89.044 123.559c-27.386 27.671-63.313 47.42-104.576 54.668-28.621 5.026-56.876 3.513-83.244-3.446-5.924-70.823 27.351-137.42 83.244-176.135"
-                  fill="#0080f0"
-                  fillRule="evenodd"
-                  transform="scale(1 -1) rotate(9.962 2583.127 1414.688)"
-                />
-                <path
-                  d="M35.524-144.334c36.074 42.046 89.546 68.142 148.027 68.026-22.644 64.109-78.14 113.735-148.027 126.653C21.873 26.738 12.979-.124 10.298-29.059c-3.865-41.716 5.736-81.574 25.226-115.275"
-                  fill="#0080f0"
-                  fillRule="evenodd"
-                  transform="scale(1 -1) rotate(-84.707 113.734 -388.854)"
-                />
-                <path
-                  d="M0-158.913c45.195 32.041 76.113 82.878 81.392 141.12C56.626-6.377 29.059 0 0 0c-29.059 0-56.626-6.377-81.392-17.793C-76.113-76.035-45.195-126.872 0-158.913"
-                  fill="#fff"
-                  fillRule="evenodd"
-                  transform="matrix(-1 0 0 1 349.997 447.332)"
-                />
-              </g>
-            </svg>
+            <img className="size-12 lg:size-16" src="/public/ICEPLogo.png" />
           </a>
         </div>
         {/* Menú centrado solo en desktop */}
-        <nav className="hidden xl:flex flex-1 justify-center items-center h-full w-full">
-          <ul className="flex space-x-8 px-2 h-20 items-center justify-center w-full">
+        <nav className="hidden lg:flex flex-1 justify-end items-center h-full w-full">
+          <ul className="flex space-x-8 px-2 h-20 items-center justify-end w-full">
             {menuItems
               .filter((item) => item.active && item.main)
               .map((item) => (
@@ -251,7 +196,7 @@ const Navbar = () => {
           </ul>
         </nav>
         {/* Botón menú móvil: esquina der en mobile, centrado en desktop */}
-        <div className="flex items-center h-full">
+        <div className="flex items-center h-full lg:hidden">
           <button
             id="mobile-menu-button"
             className="z-40 rounded-full group transition-all ease-in-out inline-flex w-9 h-9 text-slate-800 text-center items-center justify-center"

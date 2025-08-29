@@ -5,7 +5,6 @@
     "subitems": null,
     "active": true,
     "main": true
-
   },
   {
     "text": "Nosotros",
@@ -18,12 +17,12 @@
     "text": "Ministerios",
     "href": "",
     "subitems": null,
-    "active": false, 
+    "active": false,
     "main": true
   },
   {
     "text": "Calendario",
-    "href": "/calendario",    
+    "href": "/calendario",
     "subitems": null,
     "active": true,
     "main": true
@@ -34,14 +33,13 @@
     "subitems": null,
     "active": true,
     "main": true
-
   },
   {
     "text": "Camp 2025",
     "href": "https://camp.icepilar.org",
     "subitems": null,
-    "active": true,
+    "active": false,
     "main": false
-
   }
 ]
+
