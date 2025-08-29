@@ -113,7 +113,7 @@ const Navbar = () => {
         {/* Logo: esquina izq en mobile, centrado en desktop */}
         <div className="flex items-center h-full">
           <a href="/" id="site-logo" className="flex items-center h-full">
-            <img className="size-12 lg:size-16" src="/public/ICEPLogo.png" />
+            <img className="size-12 lg:size-16" src="/ICEPLogo.png" />
           </a>
         </div>
         {/* Menú centrado solo en desktop */}
