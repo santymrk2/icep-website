@@ -118,19 +118,39 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <motion.section
         ref={heroRef}
-        className="w-full flex flex-col justify-center items-center bg-transparent relative p-0 m-0"
+        className="relative flex w-full items-center justify-start overflow-hidden"
         style={{ height: "calc(100vh - 100px)" }}
       >
-        <motion.h1
-          className="text-4xl md:text-7xl font-sans font-bold text-center m-0 p-0"
-          style={{
-            scale: heroScale,
-            y: heroYMove,
-            opacity: heroOpacity,
-          }}
+        <motion.img
+          src="/assets/PG09.webp"
+          alt="Interior de la iglesia durante una reunión"
+          className="absolute inset-0 h-full w-full object-cover"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          style={{ scale: heroScale, y: heroY }}
+        />
+        <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
+        <motion.div
+          className="relative z-10 mx-auto max-w-6xl px-6 sm:px-12"
+          style={{ y: heroYMove, opacity: heroOpacity }}
         >
-          Bienvenidos a la <br /> Iglesia Cristiana <br /> Evangélica en Pilar
-        </motion.h1>
+          <div className="max-w-xl rounded-2xl bg-white/10 p-8 backdrop-blur-sm shadow-lg">
+            <p className="text-lg font-medium text-white">Bienvenidos a la Iglesia Cristiana Evangélica Pilar</p>
+            <h1 className="mt-4 text-4xl font-extrabold leading-tight text-white sm:text-5xl md:text-6xl">
+              Un lugar de fe, comunidad y propósito
+            </h1>
+            <p className="mt-6 text-base text-gray-200 sm:text-lg">
+              "Porque donde están dos o tres congregados en mi nombre, allí estoy yo en medio de ellos." - Mateo 18:20
+            </p>
+            <a
+              href="#actividades"
+              className="mt-8 inline-flex items-center rounded-full bg-primary px-6 py-3 text-base font-semibold text-white shadow-md transition hover:bg-blue-600"
+            >
+              Únete a nuestras actividades
+            </a>
+          </div>
+        </motion.div>
       </motion.section>
 
       {/* First Image Section */}
