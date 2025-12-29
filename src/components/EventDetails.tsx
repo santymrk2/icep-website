@@ -32,75 +32,82 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
       },
     ].filter((d) => d.value);
 
+    const hasBodyContent =
+      Boolean(ev.subtema) ||
+      details.length > 0 ||
+      Boolean(ev.contenido) ||
+      Boolean(ev.youtubeLink);
+
     return (
-      <div className="bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-xl max-w-5xl w-full max-h-[80vh] overflow-y-auto shadow-2xl">
-        {/* Header */}
-        <div className="relative p-6">
-          <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-t-xl" />
-          <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 bg-white/20 px-3 py-1 rounded-full text-sm font-medium mb-4">
-              <Calendar size={16} />
-              Evento
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold mb-3">
-              {ev.type || "REUNIÓN"}
-            </h2>
-            {ev.startDate && (
-              <div className="flex items-center gap-4 text-white/90 flex-wrap">
-                <div className="flex items-center gap-2">
-                  <Calendar size={18} />
-                  <span>
-                    {new Date(ev.startDate).toLocaleDateString("es-AR", {
-                      weekday: "long",
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    })}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock size={18} />
-                  <span>
-                    {new Date(ev.startDate).toLocaleTimeString("es-AR", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: false,
-                    })}{" "}
-                    hs
-                  </span>
-                </div>
-              </div>
-            )}
+      <div className="w-full max-w-3xl rounded-2xl border border-white/10 bg-neutral-900 shadow-2xl md:max-w-4xl max-h-[85vh] overflow-y-auto">
+        <div className={`p-6 ${hasBodyContent ? "border-b border-white/10" : ""}`}>
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm font-medium text-white/80">
+            <Calendar size={16} />
+            Evento
           </div>
+          <h2 className="text-2xl font-bold text-white md:text-3xl">
+            {ev.type || "REUNIÓN"}
+          </h2>
+          {ev.startDate && (
+            <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-white/80">
+              <div className="flex items-center gap-2">
+                <Calendar size={18} />
+                <span>
+                  {new Date(ev.startDate).toLocaleDateString("es-AR", {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock size={18} />
+                <span>
+                  {new Date(ev.startDate).toLocaleTimeString("es-AR", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                  })}{" "}
+                  hs
+                </span>
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Body */}
-        <div className="p-6">
+        <div className="space-y-6 p-6">
           {ev.subtema && (
-            <div className="bg-blue-500/10 border-l-4 border-blue-500 p-4 rounded-r-lg mb-6">
-              <h3 className="text-lg font-semibold">{ev.subtema}</h3>
+            <div className="rounded-xl border border-blue-500/30 bg-blue-500/10 p-5">
+              <h3 className="text-base font-semibold text-white">
+                {ev.subtema}
+              </h3>
             </div>
           )}
 
           {details.length > 0 && (
-            <div className="mb-6">
-              <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-4">
+            <div>
+              <h4 className="text-xs font-semibold uppercase tracking-[0.3em] text-white/50">
                 Participantes
               </h4>
-              <div className="grid gap-3 md:grid-cols-2">
+              <div className="mt-4 grid gap-3 md:grid-cols-2">
                 {details.map((d, i) => {
                   const Icon = d.icon;
                   return (
                     <div
                       key={i}
-                      className="flex items-center gap-3 p-3 bg-neutral-800/50 rounded-xl"
+                      className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3"
                     >
-                      <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                        <Icon size={18} className="text-blue-500" />
+                      <div className="flex size-10 items-center justify-center rounded-lg bg-white/10">
+                        <Icon size={18} className="text-white" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-400">{d.label}</p>
-                        <p className="text-white font-medium">{d.value}</p>
+                        <p className="text-xs uppercase tracking-wide text-white/50">
+                          {d.label}
+                        </p>
+                        <p className="text-sm font-semibold text-white">
+                          {d.value}
+                        </p>
                       </div>
                     </div>
                   );
@@ -110,25 +117,25 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
           )}
 
           {ev.contenido && (
-            <div className="mb-6">
-              <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-4">
+            <div className="rounded-xl border border-white/10 bg-white/5 p-5">
+              <h4 className="text-xs font-semibold uppercase tracking-[0.3em] text-white/50">
                 Contenido
               </h4>
-              <div className="bg-neutral-800/30 rounded-xl p-4 text-gray-300 whitespace-pre-wrap">
+              <p className="mt-3 whitespace-pre-wrap text-sm text-white/75">
                 {ev.contenido}
-              </div>
+              </p>
             </div>
           )}
 
           {ev.youtubeLink && (
-            <div className="pt-4">
+            <div className="flex">
               <a
                 href={ev.youtubeLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-xl transition"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-500"
               >
-                <Play size={20} />
+                <Play size={18} />
                 Ver mensaje en YouTube
               </a>
             </div>
@@ -151,20 +158,8 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
         onClick={onClose}
       />
 
-      {/* BOTÓN DE CIERRE único, centrado arriba */}
-      <button
-        key="close-btn"
-        onClick={onClose}
-        className="fixed top-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full
-                   bg-white/20 hover:bg-white/30 text-white flex items-center
-                   justify-center z-[9999] transition-transform hover:scale-110"
-        aria-label="Cerrar todos"
-      >
-        <X size={20} />
-      </button>
-
       {/* CONTENEDOR de modales apilados */}
-      <div className="fixed inset-0 flex flex-col items-center justify-center gap-6 z-50 p-4 pointer-events-none">
+      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 overflow-y-auto p-4 pointer-events-none">
         {events.map((ev, idx) => (
           <motion.div
             key={ev.id || idx}
@@ -172,8 +167,15 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -40 }}
             transition={{ duration: 0.3, delay: idx * 0.1 }}
-            className="pointer-events-auto"
+            className="pointer-events-auto relative"
           >
+            <button
+              onClick={onClose}
+              className="absolute -top-3 -right-3 flex size-9 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+              aria-label="Cerrar"
+            >
+              <X size={18} />
+            </button>
             {renderOne(ev)}
           </motion.div>
         ))}

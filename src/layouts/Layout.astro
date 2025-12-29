@@ -43,7 +43,7 @@ const {
   </head>
 
   <body class="min-h-screen bg-white dark:bg-neutral-900 text-black dark:text-white">
-    <Header client:idle />
+    <Header client:idle initialPath={Astro.url.pathname} />
     <slot />
     <Footer />  
   </body>

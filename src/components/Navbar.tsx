@@ -2,7 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import Transition from "../components/Transition";
 import Paths from "../data/paths.json";
 
-const Navbar = () => {
+interface NavbarProps {
+  initialPath?: string;
+}
+
+const Navbar = ({ initialPath }: NavbarProps) => {
   interface SubItem {
     text: string;
     href: string;
@@ -24,8 +28,11 @@ const Navbar = () => {
   const [hasInteracted, setHasInteracted] = useState(false); // Para controlar la animación solo después de la primera interacción
   const menuItems: Paths = Paths as MenuItem[];
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [currentPath, setCurrentPath] = useState<string | null>(null);
+  const [currentPath, setCurrentPath] = useState<string | null>(
+    initialPath ?? (typeof window !== "undefined" ? window.location.pathname : null),
+  );
   const firstRender = useRef(true);
+  const scrollPositionRef = useRef(0);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -48,11 +55,39 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const html = document.documentElement;
+    const body = document.body;
+
     if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
+      scrollPositionRef.current = window.scrollY;
+      body.style.position = "fixed";
+      body.style.top = `-${scrollPositionRef.current}px`;
+      body.style.left = "0";
+      body.style.right = "0";
+      body.style.width = "100%";
+      html.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "auto";
+      const storedScroll = scrollPositionRef.current;
+      body.style.position = "";
+      body.style.top = "";
+      body.style.left = "";
+      body.style.right = "";
+      body.style.width = "";
+      html.style.overflow = "";
+      window.scrollTo(0, storedScroll);
     }
+
+    return () => {
+      body.style.position = "";
+      body.style.top = "";
+      body.style.left = "";
+      body.style.right = "";
+      body.style.width = "";
+      html.style.overflow = "";
+      window.scrollTo(0, scrollPositionRef.current);
+    };
   }, [isMenuOpen]);
 
   // Evitar animación en el primer render
@@ -104,16 +139,24 @@ const Navbar = () => {
     underline
     `;
 
+  const isHomePage = currentPath === "/";
+  const headerPositionClass = isHomePage ? "absolute left-0 top-0" : "relative";
+  const headerBackgroundClass = isMenuOpen
+    ? "bg-neutral-900"
+    : isHomePage
+      ? "bg-transparent"
+      : "bg-neutral-900/60 backdrop-blur-lg";
+
   return (
     <header
-      className={`text-white m-0 sm:m-0 rounded-none z-50 h-20 transition-all duration-300 w-full md:pt-8 md:px-20`}
+      className={`${headerPositionClass} z-50 m-0 h-20 w-full rounded-none text-white transition-all duration-300 md:px-20 ${headerBackgroundClass}`}
       id="back-menu"
     >
       <div className="w-full max-w-full flex flex-row items-center justify-between h-20 gap-4 px-6 m-0 overflow-hidden scrollbar-hide relative">
         {/* Logo: esquina izq en mobile, centrado en desktop */}
         <div className="flex items-center h-full">
           <a href="/" id="site-logo" className="flex items-center h-full">
-            <img className="size-12 lg:size-16" src="/ICEPLogo.png" />
+            <img className="h-10 w-10 lg:h-12 lg:w-12" src="/ICEPLogo.png" />
           </a>
         </div>
         {/* Menú centrado solo en desktop */}
@@ -199,7 +242,7 @@ const Navbar = () => {
         <div className="flex items-center h-full lg:hidden">
           <button
             id="mobile-menu-button"
-            className="z-40 rounded-full group transition-all ease-in-out inline-flex w-9 h-9 text-slate-800 text-center items-center justify-center"
+            className="z-50 rounded-full group transition-all ease-in-out inline-flex w-9 h-9 text-slate-800 text-center items-center justify-center"
             aria-pressed={isMenuOpen}
             onClick={handleMobileMenu}
           >
@@ -237,19 +280,19 @@ const Navbar = () => {
       {/* Menú móvil igual que antes */}
       {(isMenuOpen || hasInteracted) && (
         <div
-          className={`fixed top-0 left-0 w-full h-full bg-neutral-900 z-30 flex flex-col items-start justify-end pb-8 p-8
+          className={`fixed inset-0 z-40 flex h-screen w-screen flex-col items-start justify-between bg-neutral-900 px-8 pb-8 pt-24 lg:hidden
                         transition-all duration-500
-                        overflow-hidden scrollbar-hide
+                        overflow-y-auto overscroll-contain scrollbar-hide
                         ${hasInteracted ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
                         ${isMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"}
                         ${!hasInteracted && !isMenuOpen ? "hidden" : ""}
                     `}
         >
-          <ul className="list-none">
+          <ul className="list-none space-y-5">
             {menuItems
               .filter((item) => item.active)
               .map((item) => (
-                <li className="mb-5">
+                <li key={item.text}>
                   <a
                     href={item.href}
                     className={`text-white text-3xl font-bold no-underline  py-2 hover:text-blue-500 transition-colors duration-300 block`}
@@ -260,7 +303,7 @@ const Navbar = () => {
               ))}
           </ul>
 
-          <div className=" mt-20 text-gray-500 text-sm">
+          <div className="mt-20 text-gray-500 text-sm">
             <p>
               © 2025 Iglesia Complejo Evangélico Pilar. Todos los derechos
               reservados.

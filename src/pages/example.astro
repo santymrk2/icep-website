@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../layouts/Layout.astro";
+
+
+// Milestones data
+const milestones: { year: number; title: string; items: string[]; img?: string }[] = [
+{ year: 2011, title: "We opened our first shop", items: ["Lucciano’s is born in Mar del Plata","Family company focused on premium artisan gelato"], img: "/history/2011.jpg" },
+{ year: 2013, title: "Buenos Aires landing", items: ["First store in Martínez","Tonio icepop is born"], img: "/history/2013.jpg" },
+{ year: 2015, title: "Inspiration Lab", items: ["We opened our factory","R&D and product development in Italy"], img: "/history/2015.jpg" },
+{ year: 2016, title: "New cities & character pops", items: ["Minion icepop","First shop outside Buenos Aires (Rosario)"], img: "/history/2016.jpg" },
+{ year: 2017, title: "Awards", items: ["Best Ice Cream in CABA"], img: "/history/2017.jpg" },
+{ year: 2019, title: "Lucciano’s US", items: ["Brand lands in the United States"], img: "/history/2019.jpg" },
+{ year: 2020, title: "Expansion & collabs", items: ["10-year anniversary","Uruguay opens","Lucciano's Market","Special gelato inspired in \"Money Heist\"","Inspiration Lab works"], img: "/history/2020.jpg" },
+{ year: 2021, title: "Europe & new lines", items: ["RAW vegan line","We landed in Rome & Barcelona","Hi Málaga","Mini Icepops & Gluten Free line","Liberty icepop"], img: "/history/2021.jpg" },
+{ year: 2022, title: "Valencia & Central", items: ["We landed in Valencia","Welcome to Lucciano’s Central"], img: "/history/2022.jpg" },
+{ year: 2023, title: "Recognition", items: ["Entrepreneur of the Year – Christian & Daniel Otero"], img: "/history/2023.jpg" },
+{ year: 2024, title: "…and counting", items: ["New shops and products"], img: "/history/2024.jpg" },
+];
+---
+
+
+<BaseLayout title="Lucciano’s — History (Astro)">
+<!-- Topbar -->
+<header class="sticky top-0 z-40 border-b border-neutral-200/60 bg-white/75 backdrop-blur-xl">
+<div class="mx-auto max-w-[1200px] px-5 h-16 flex items-center justify-between">
+<a href="/" class="font-semibold tracking-tight">Lucciano’s</a>
+<nav class="hidden md:flex items-center gap-7 text-[0.95rem]">
+<a href="#story" class="hover:opacity-70">History</a>
+<a href="#products" class="hover:opacity-70">Products</a>
+<a href="#shops" class="hover:opacity-70">Shops</a>
+<a href="#contact" class="hover:opacity-70">Contact</a>
+</nav>
+</div>
+</header>
+
+
+<!-- Hero with serif display and subtle texture -->
+<section id="hero" class="relative overflow-hidden bg-[url('/noise.png')] bg-[length:600px_600px]">
+<div class="mx-auto max-w-[1200px] px-5 py-20 lg:py-28">
+<p data-hero-fade class="uppercase tracking-[0.25em] text-[11px] text-neutral-500">Know us</p>
+<h1 data-hero-fade class="display mt-3 text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+Get to know our <span class="bg-gradient-to-br from-fuchsia-500 to-rose-500 bg-clip-text text-transparent">story</span>
+</h1>
+<p data-hero-fade class="mt-5 max-w-3xl text-[17px] leading-relaxed text-neutral-700">
+Lucciano’s is a family-owned company, born out of a desire to satisfy the most demanding segment of gelato consumers. We brought back the latest Italian technology and masters, combining the best national and Italian raw materials with Belgian chocolate to craft a premium product.
+</p>
+</div>
+
+
+<!-- Decorative mini-cards row -->
+<div class="pointer-events-none select-none absolute inset-x-0 bottom-0 translate-y-1/3 opacity-90">
+<div class="mx-auto max-w-[1200px] px-5">
+<div class="grid grid-cols-3 sm:grid-cols-6 gap-3">
+{Array.from({ length: 12 }).map(() => (
+<div class="aspect-[4/3] rounded-xl bg-neutral-200 shadow-[inset_0_1px_0_rgba(255,255,255,.6)]"></div>
+))}
+</div>
+</div>
+</div>
+</section>
+
+
+<!-- Timeline with sticky years & vertical rail -->
+<section id="story" class="mx-auto max-w-[1200px] px-5 py-16 lg:py-24">
+<div class="grid lg:grid-cols-[240px_1fr] gap-10 lg:gap-16">
+<!-- Years sidebar -->
+<aside class="hidden lg:block">
+<div class="sticky top-28">
+<ul id="years" class="space-y-1 font-semibold text-neutral-400">
+{milestones.map((m) => (
+<li class="transition-colors data-[active=true]:text-neutral-900" data-year={m.year}>{m.year}</li>
+))}
+</ul>
+</div>
+</aside>
+
+
+</BaseLayout>
