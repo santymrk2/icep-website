@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Transition from "../components/Transition";
 import Paths from "../data/paths.json";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   interface SubItem {
@@ -21,7 +22,7 @@ const Navbar = () => {
   type Paths = MenuItem[];
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false); // Para controlar la animación solo después de la primera interacción
+
   const menuItems: Paths = Paths as MenuItem[];
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [currentPath, setCurrentPath] = useState<string | null>(null);
@@ -64,7 +65,6 @@ const Navbar = () => {
 
   const handleMobileMenu = () => {
     setIsMenuOpen((prev) => !prev);
-    setHasInteracted(true);
   };
 
   const buttonclassNamees = `
@@ -106,7 +106,7 @@ const Navbar = () => {
 
   return (
     <header
-      className={`text-white m-0 sm:m-0 rounded-none z-50 h-20 transition-all duration-300 w-full md:pt-8 md:px-20`}
+      className={`text-neutral-900 dark:text-white light:text-neutral-900 m-0 sm:m-0 rounded-none z-50 h-20 transition-all duration-300 w-full md:pt-8 md:px-20 absolute top-0`}
       id="back-menu"
     >
       <div className="w-full max-w-full flex flex-row items-center justify-between h-20 gap-4 px-6 m-0 overflow-hidden scrollbar-hide relative">
@@ -116,8 +116,8 @@ const Navbar = () => {
             <img className="size-12 lg:size-16" src="/ICEPLogo.png" />
           </a>
         </div>
-        {/* Menú centrado solo en desktop */}
-        <nav className="hidden lg:flex flex-1 justify-end items-center h-full w-full">
+        {/* Menú de escritorio oculto permanentemente por solicitud del usuario */}
+        <nav className="hidden flex-1 justify-end items-center h-full w-full">
           <ul className="flex space-x-8 px-2 h-20 items-center justify-end w-full">
             {menuItems
               .filter((item) => item.active && item.main)
@@ -175,8 +175,8 @@ const Navbar = () => {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <div className="absolute top-full left-0 mt-2 w-full bg-neutral-800 rounded-lg shadow-lg z-20">
-                          <div className="flex flex-col items-center space-y-2 bg-neutral-800">
+                        <div className="absolute top-full left-0 mt-2 w-full bg-neutral-800 dark:bg-neutral-800 light:bg-white rounded-lg shadow-lg z-20">
+                          <div className="flex flex-col items-center space-y-2 bg-neutral-800 dark:bg-neutral-800 light:bg-white">
                             {item.subitems.map((subitem) => (
                               <a
                                 key={subitem.text}
@@ -193,19 +193,23 @@ const Navbar = () => {
                   )}
                 </li>
               ))}
+            {/* Theme Toggle Button */}
+            <li className="flex items-center justify-center">
+              <ThemeToggle />
+            </li>
           </ul>
         </nav>
-        {/* Botón menú móvil: esquina der en mobile, centrado en desktop */}
-        <div className="flex items-center h-full lg:hidden">
+        {/* Botón menú móvil: siempre visible */}
+        <div className="flex items-center h-full relative z-[60]">
           <button
             id="mobile-menu-button"
-            className="z-40 rounded-full group transition-all ease-in-out inline-flex w-9 h-9 text-slate-800 text-center items-center justify-center"
+            className="rounded-full group transition-all ease-in-out inline-flex w-9 h-9 text-slate-800 dark:text-white text-center items-center justify-center p-2 hover:bg-neutral-700/10 dark:hover:bg-neutral-700/50"
             aria-pressed={isMenuOpen}
             onClick={handleMobileMenu}
           >
             <span className="sr-only">Menu</span>
             <svg
-              className="size-6 fill-white pointer-events-none"
+              className="size-5 fill-neutral-900 dark:fill-white light:fill-neutral-900 pointer-events-none"
               viewBox="0 0 16 16"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -234,25 +238,51 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-      {/* Menú móvil igual que antes */}
-      {(isMenuOpen || hasInteracted) && (
+
+      {/* Backdrop (Fondo oscuro) */}
+      <Transition
+        show={isMenuOpen}
+        enter="transition-opacity duration-500"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-500"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
         <div
-          className={`fixed top-0 left-0 w-full h-full bg-neutral-900 z-30 flex flex-col items-start justify-end pb-8 p-8
-                        transition-all duration-500
-                        overflow-hidden scrollbar-hide
-                        ${hasInteracted ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
-                        ${isMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"}
-                        ${!hasInteracted && !isMenuOpen ? "hidden" : ""}
-                    `}
+          className="fixed inset-0 bg-black/60 z-[55] backdrop-blur-sm"
+          onClick={() => setIsMenuOpen(false)}
+        />
+      </Transition>
+
+      {/* Menú Drawer Lateral */}
+      {/* Menú Drawer Lateral */}
+      <Transition
+        show={isMenuOpen}
+        enter="transform transition duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
+        enterFrom="translate-x-full"
+        enterTo="translate-x-0"
+        leave="transform transition duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
+        leaveFrom="translate-x-0"
+        leaveTo="translate-x-full"
+        className="fixed top-0 right-0 h-full z-[58] w-full md:w-96"
+      >
+        <div
+          className="bg-white dark:bg-neutral-900 light:bg-white flex flex-col items-start justify-start px-12 pb-8 pt-0 md:pt-8 w-full h-full shadow-2xl overflow-y-auto scrollbar-hide"
         >
-          <ul className="list-none">
+          {/* Theme Toggle (Top Left) - Aligned with Menu Button (h-20) */}
+          <div className="w-full h-20 flex items-center justify-start mb-6">
+            <ThemeToggle />
+          </div>
+
+          <ul className="list-none space-y-6 w-full mt-24">
             {menuItems
               .filter((item) => item.active)
               .map((item) => (
-                <li className="mb-5">
+                <li key={item.text}>
                   <a
                     href={item.href}
-                    className={`text-white text-3xl font-bold no-underline  py-2 hover:text-blue-500 transition-colors duration-300 block`}
+                    className={`text-neutral-900 dark:text-white light:text-neutral-900 text-3xl font-bold no-underline hover:text-blue-500 transition-colors duration-300 block`}
                   >
                     {item.text}
                   </a>
@@ -260,108 +290,38 @@ const Navbar = () => {
               ))}
           </ul>
 
-          <div className=" mt-20 text-gray-500 text-sm">
-            <p>
-              © 2025 Iglesia Complejo Evangélico Pilar. Todos los derechos
-              reservados.
+          <div className="mt-auto w-full">
+            {/* Separator Line */}
+            <hr className="w-full border-t border-neutral-200 dark:border-neutral-800 mb-6" />
+
+            <p className="mb-6 leading-relaxed text-gray-500 text-sm">
+              © 2025 Iglesia Complejo Evangélico Pilar.<br />Todos los derechos reservados.
             </p>
-            <div className="flex mt-5">
+            <div className="flex flex-col gap-3 text-sm">
               <a
                 href="https://www.youtube.com/@icepilar"
-                className="text-white mr-5 no-underline"
+                className="text-neutral-600 dark:text-neutral-400 hover:text-primary transition-colors no-underline flex items-center gap-2"
               >
                 YouTube
               </a>
               <a
                 href="https://www.instagram.com/ice_pilar?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                className="text-white mr-5 no-underline"
+                className="text-neutral-600 dark:text-neutral-400 hover:text-primary transition-colors no-underline flex items-center gap-2"
               >
                 Instagram
               </a>
               <a
                 href="https://www.facebook.com/profile.php?id=61574986704374"
-                className="text-white no-underline"
+                className="text-neutral-600 dark:text-neutral-400 hover:text-primary transition-colors no-underline flex items-center gap-2"
               >
                 Facebook
               </a>
             </div>
           </div>
         </div>
-      )}
+      </Transition>
       {/* Estilos para animación de subrayado y puntito */}
-      <style>{`
-                .nav-link {
-                    position: relative;
-                    color: white;
-                    text-decoration: none;
-                    padding: 0.5rem 1.25rem;
-                    transition: color 0.2s;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                }
-                .nav-link-dot-container {
-                    min-height: 2.5rem;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                }
-                .nav-link::after {
-                    content: '';
-                    position: absolute;
-                    left: 50%;
-                    bottom: 0.1rem;
-                    width: 0;
-                    height: 2px;
-                    background: #3b82f6;
-                    border-radius: 2px;
-                    transition: width 0.3s cubic-bezier(.4,0,.2,1), left 0.3s cubic-bezier(.4,0,.2,1);
-                }
-                .nav-link:hover::after {
-                    width: 100%;
-                    left: 0;
-                }
-                .nav-active {
-                    position: relative;
-                    color: white;
-                    text-decoration: none;
-                    padding: 0.5rem 1.25rem;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                }
-                .nav-dot {
-                    position: absolute;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    bottom: -0.45rem;
-                    width: 0.33rem;
-                    height: 0.33rem;
-                    background: #3b82f6;
-                    border-radius: 9999px;
-                    transition: opacity 0.2s;
-                    pointer-events: none;
-                }
-                .animate-fade-in {
-                    animation: fadeInDot 0.4s cubic-bezier(.4,0,.2,1);
-                }
-                @keyframes fadeInDot {
-                    from { opacity: 0 }
-                    to { opacity: 1 }
-                }
-                /* Ocultar scrollbar en todos los navegadores */
-                .scrollbar-hide {
-                  -ms-overflow-style: none;  /* IE and Edge */
-                  scrollbar-width: none;  /* Firefox */
-                }
-                .scrollbar-hide::-webkit-scrollbar {
-                  display: none;  /* Chrome, Safari, Opera */
-                }
-            `}</style>
-    </header>
+    </header >
   );
 };
 

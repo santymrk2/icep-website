@@ -3,7 +3,7 @@ import "../styles/global.css";
 import "@fontsource/merriweather";
 import "@fontsource-variable/noto-sans";
 import Footer from "../components/Footer.tsx";
-import Analytics from '@vercel/analytics/astro'
+import Analytics from "@vercel/analytics/astro";
 import Header from "../components/Navbar.tsx";
 
 interface Props {
@@ -16,24 +16,36 @@ const {
   title,
   description = "Iglesia Cristiana Evangélica en Pilar - Sitio Oficial",
 } = Astro.props;
-
-
 ---
 
 <!doctype html>
-<html class="dark" lang="es">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
 
+    <!-- Theme initialization script - runs before render to prevent flash -->
+    <script is:inline>
+      (function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "light") {
+          document.documentElement.classList.add("light");
+          document.documentElement.classList.remove("dark");
+        } else {
+          // Default to dark theme
+          document.documentElement.classList.add("dark");
+          document.documentElement.classList.remove("light");
+        }
+      })();
+    </script>
 
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="MyWebSite" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="MyWebSite" />
     <link rel="manifest" href="/site.webmanifest" />
 
     <meta name="generator" content={Astro.generator} />
@@ -42,9 +54,11 @@ const {
     <Analytics />
   </head>
 
-  <body class="min-h-screen bg-white dark:bg-neutral-900 text-black dark:text-white">
+  <body
+    class="min-h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white transition-colors duration-300"
+  >
     <Header client:idle />
     <slot />
-    <Footer />  
+    <Footer />
   </body>
 </html>

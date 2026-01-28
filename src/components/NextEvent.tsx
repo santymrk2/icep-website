@@ -31,7 +31,7 @@ export default function NextEvent({
     return (
       <div className="my-28 p-8 m-8 flex justify-center items-center">
         <div className="relative h-16 w-16">
-          <div className=" w-12 h-12 border-5 border-white border-b-transparent rounded-full inline-block box-border animate-spin mx-auto"></div>
+          <div className="w-12 h-12 border-5 border-neutral-900 dark:border-white light:border-neutral-900 border-b-transparent rounded-full inline-block box-border animate-spin mx-auto"></div>
         </div>
       </div>
     );
@@ -47,7 +47,7 @@ export default function NextEvent({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 40 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mx-8 my-28 px-4 md:px-0 w-full flex flex-col-reverse md:flex-row items-center justify-center max-w-5xl mx-auto gap-8 text-white"
+            className="mx-8 my-28 px-4 md:px-0 w-full flex flex-col-reverse md:flex-row items-center justify-center max-w-5xl mx-auto gap-8 text-neutral-900 dark:text-white light:text-neutral-900"
           >
             {/* Columna de eventos (izquierda) */}
             <div className="w-full md:w-3/4 mx-8 flex flex-col gap-6 items-center md:items-start">
@@ -58,7 +58,7 @@ export default function NextEvent({
                     key={item.id}
                     className="flex flex-col justify-center items-center md:items-start w-full "
                   >
-                    <div className="container text-white w-44 sm:w-80 hover:scale-105 transition-transform duration-500 ease-out">
+                    <div className="container text-neutral-900 dark:text-white light:text-neutral-900 w-44 sm:w-80 hover:scale-105 transition-transform duration-500 ease-out">
                       <Card
                         href={item.pageLink}
                         title={item.type}
@@ -69,7 +69,7 @@ export default function NextEvent({
                     </div>
 
                     {index < pages.length - 1 && (
-                      <div className="h-px w-full bg-white/30 my-4 mt-8" />
+                      <div className="h-px w-full bg-neutral-300 dark:bg-white/30 light:bg-neutral-300 my-4 mt-8" />
                     )}
                   </div>
                 ))}
@@ -107,3 +107,4 @@ export default function NextEvent({
     </>
   );
 }
+

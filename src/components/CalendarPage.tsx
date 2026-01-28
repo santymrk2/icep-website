@@ -25,28 +25,43 @@ const CalendarPage: React.FC = () => {
 
   return (
     <motion.section
-      className="py-16 mb-36"
+      className="py-8 sm:py-16 mb-24 sm:mb-36"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.h1
-          className="text-3xl font-bold mb-6 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          Calendario de Eventos
-        </motion.h1>
-        <motion.p
-          className="mb-10 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          Visualiza todos nuestros eventos programados.
-        </motion.p>
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header Section */}
+        <header className="text-center mb-8 sm:mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-3"
+          >
+            Descubrí lo que está pasando
+          </motion.div>
+
+          <motion.h1
+            className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-neutral-900 dark:text-white"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Explorá el Calendario
+          </motion.h1>
+
+          <motion.p
+            className="text-sm sm:text-base leading-relaxed text-neutral-500 dark:text-neutral-400 px-2 max-w-xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            Unite a nuestros servicios semanales, reuniones, eventos especiales y otros encuentros.
+          </motion.p>
+        </header>
+
+        {/* Calendar Component */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}

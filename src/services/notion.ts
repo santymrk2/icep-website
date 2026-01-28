@@ -115,7 +115,7 @@ const getPages = async () => {
       if (
         secondPage && // Check if secondPage exists
         firstPage.properties.Fecha.date?.start?.slice(0, 10) ===
-          secondPage.properties.Fecha.date?.start?.slice(0, 10)
+        secondPage.properties.Fecha.date?.start?.slice(0, 10)
       ) {
         pages.push({
           id: secondPage.id,
@@ -150,13 +150,7 @@ const getPages = async () => {
  * @param {number} month - Mes (0=enero, 11=diciembre)
  * @returns {Promise<any[]>}
  */
-export const getMonthEvents = async (year: number, month: number) => {
-  // Calcular primer y último día del mes
-  const firstDay = new Date(year, month, 1);
-  const lastDay = new Date(year, month + 1, 0);
-  const startISO = firstDay.toISOString().split("T")[0];
-  const endISO = lastDay.toISOString().split("T")[0];
-
+export const getEventsByDateRange = async (startISO: string, endISO: string) => {
   const notion = new Client({ auth: NOTION_API_KEY });
   try {
     const notionPages = await notion.databases.query({
@@ -184,7 +178,6 @@ export const getMonthEvents = async (year: number, month: number) => {
         },
       ],
     });
-    // Mapear resultados igual que getPages
 
     return notionPages.results.map((page: any) => {
       const p = page as NotionPage;
@@ -211,9 +204,36 @@ export const getMonthEvents = async (year: number, month: number) => {
       };
     });
   } catch (error: any) {
-    console.log("Error al consultar eventos del mes en Notion:", error.message);
+    console.log("Error al consultar eventos en Notion por rango:", error.message);
     return [];
   }
+};
+
+/**
+ * Trae todos los eventos del mes indicado (mes 0-indexado)
+ */
+export const getMonthEvents = async (year: number, month: number) => {
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  // Ajuste de zona horaria: usar UTC o local strings adecuadamente.
+  // toISOString usa UTC. Si queremos asegurarnos que busca el dia completo local,
+  // deberiamos formatear "YYYY-MM-DD".
+  // La implementacion anterior usaba toISOString().split("T")[0], lo cual es correcto si las fechas en Notion son date only.
+  // Pero cuidado con el timezone offset. new Date(year, month, 1) crea local time 00:00.
+  // Si estoy en GMT-3, toISOString() puede dar el día anterior.
+  // Para ser seguros, construiremos el string YYYY-MM-DD manualmente.
+
+  const formatDateISO = (d: Date) => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  };
+
+  const startISO = formatDateISO(firstDay);
+  const endISO = formatDateISO(lastDay);
+
+  return await getEventsByDateRange(startISO, endISO);
 };
 
 export default getPages;

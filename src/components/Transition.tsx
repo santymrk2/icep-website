@@ -12,22 +12,24 @@ interface TransitionProps {
   leaveTo: string;
   duration?: number;
   children: ReactNode;
+  className?: string;
 }
 
-export default function Transition({ 
-  show, 
-  enter, 
-  enterFrom, 
-  enterTo, 
-  leave, 
-  leaveFrom, 
-  leaveTo, 
+export default function Transition({
+  show,
+  enter,
+  enterFrom,
+  enterTo,
+  leave,
+  leaveFrom,
+  leaveTo,
   duration = 150,
-  children 
+  children,
+  className = ""
 }: TransitionProps) {
   const [isShowing, setIsShowing] = useState(show);
   const [classes, setClasses] = useState("");
-  
+
   // Referencias para los timeouts para poder limpiarlos
   const [enterTimeout, setEnterTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
   const [leaveTimeout, setLeaveTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
@@ -38,7 +40,7 @@ export default function Transition({
     if (enterTimeout) clearTimeout(enterTimeout);
     if (leaveTimeout) clearTimeout(leaveTimeout);
     if (hideTimeout) clearTimeout(hideTimeout);
-    
+
     if (show) {
       setIsShowing(true);
       setClasses(`${enter} ${enterFrom}`);
@@ -53,7 +55,7 @@ export default function Transition({
       }, 20);
       setLeaveTimeout(timeout1);
     }
-    
+
     // Limpiar timeouts cuando el componente se desmonte
     return () => {
       if (enterTimeout) clearTimeout(enterTimeout);
@@ -62,5 +64,5 @@ export default function Transition({
     };
   }, [show]);
 
-  return isShowing ? <div className={classes}>{children}</div> : null;
+  return isShowing ? <div className={`${className} ${classes}`}>{children}</div> : null;
 }

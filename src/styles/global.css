@@ -6,11 +6,35 @@
     --font-serif: "Merriweather", "serif";
   }
 }
+
 @theme {
   --color-primary: #3b82f6;
 }
 
+/* Dark mode variant - default */
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* Light mode variant */
+@custom-variant light (&:where(.light, .light *));
+
+/* Theme transition for smooth changes */
+html {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
+/* Smooth transitions for theme changes */
+body,
+header,
+footer,
+main,
+section,
+div {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
 
 .animation-appear {
   animation: appear linear;
@@ -52,5 +76,6 @@
 
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-motion";
+
 
 
