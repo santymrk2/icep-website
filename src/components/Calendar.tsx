@@ -216,13 +216,6 @@ export default function Calendar() {
         </div>
       </div>
 
-      {/* Title */}
-      <div className="px-4 mb-4">
-        <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">
-          {getHeaderTitle()}
-        </h2>
-      </div>
-
       {/* Events List */}
       <div className="px-4 pb-8">
         {loading ? (
@@ -378,13 +371,14 @@ export default function Calendar() {
                               </div>
                             )}
 
-                            {/* Add to Calendar Button */}
+                            {/* Add to Calendar Button - Disabled for now
                             <button
                               className="w-10 h-10 bg-neutral-200 dark:bg-neutral-700 rounded-xl flex items-center justify-center transition-colors mt-4"
                               aria-label="Agregar al calendario"
                             >
                               <CalendarIcon size={20} className="text-neutral-600 dark:text-neutral-300" />
                             </button>
+                            */}
                           </div>
                         </motion.div>
                       )}

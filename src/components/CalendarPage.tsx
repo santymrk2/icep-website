@@ -25,7 +25,7 @@ const CalendarPage: React.FC = () => {
 
   return (
     <motion.section
-      className="py-8 sm:py-16 mb-24 sm:mb-36"
+      className="pt-28 pb-8 sm:pt-36 sm:pb-16 mb-24 sm:mb-36"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
