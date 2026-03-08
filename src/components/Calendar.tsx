@@ -56,7 +56,7 @@ export default function Calendar() {
   const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [expandedEventId, setExpandedEventId] = useState<string | null>(null);
-  const [viewMode, setViewMode] = useState<"month" | "week" | "year">("month");
+  const [viewMode, setViewMode] = useState<"month" | "week" | "year">("week");
 
   // Calcular rango de fechas según la vista
   const getDateRange = () => {
