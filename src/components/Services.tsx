@@ -30,7 +30,7 @@ const activities: ActivityCard[] = [
     title: "Reunión de Enseñanza",
     schedule: "10:00 hs – 11:00 hs",
     startTime: "10:00",
-    image: "/assets/Ensenianza.png",
+    image: "/assets/Ensenianza.webp",
     alt: "Reunión de enseñanza dominical",
   },
   {
@@ -59,7 +59,7 @@ const activities: ActivityCard[] = [
     schedule: "19:00 hs",
     frequency: "2º y 4º sábados",
     startTime: "19:00",
-    image: "/assets/Jovenes.jpg",
+    image: "/assets/Jovenes.webp",
     alt: "Encuentro de jóvenes en ICE Pilar",
   },
   {
@@ -69,7 +69,7 @@ const activities: ActivityCard[] = [
     schedule: "17:00 hs",
     frequency: "4º sábados",
     startTime: "17:00",
-    image: "/assets/Mujeres.jpg",
+    image: "/assets/Mujeres.webp",
     alt: "Encuentro de mujeres de ICE Pilar",
   },
   {
@@ -86,7 +86,7 @@ const activities: ActivityCard[] = [
     title: "Encuentro de Oración",
     schedule: "20:00 hs",
     startTime: "20:00",
-    image: "/assets/Oracion.png",
+    image: "/assets/Oracion.webp",
     alt: "Encuentro de oración entre semana",
   },
 ];
@@ -149,10 +149,10 @@ const Services: FC = () => {
             start.getHours() !== 0 || start.getMinutes() !== 0;
           const notionTimeLabel = hasCustomTime
             ? `${start.toLocaleTimeString("es-AR", {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: false,
-            })} hs`
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+              })} hs`
             : undefined;
 
           const badgeBase = dayBadgeMap[start.getDay()];

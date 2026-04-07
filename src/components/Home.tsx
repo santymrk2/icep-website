@@ -139,7 +139,7 @@ const Home: React.FC = () => {
         }}
       >
         <motion.img
-          src="/assets/General.JPG"
+          src="/assets/General.webp"
           alt="Interior de la Iglesia Cristiana Evangélica en Pilar"
           className="absolute inset-0 h-full w-full object-cover"
           style={{ y: heroY, scale: heroScale }}
