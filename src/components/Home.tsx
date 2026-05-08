@@ -1,38 +1,23 @@
 import React, { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import Services from "./Services";
+import { useSiteLoaded } from "../hooks/useSiteLoaded";
 
 const Home: React.FC = () => {
-  // Hero parallax
+  const isLoaded = useSiteLoaded();
+  
+  // Section refs
   const heroRef = useRef<HTMLDivElement>(null);
-  // Hero scroll animation (sube y se desvanece)
-  const { scrollYProgress: heroScrollY } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const heroScale = useTransform(heroScrollY, [0, 1], [1.22, 1.04]);
-  const heroYMove = useTransform(heroScrollY, [0, 0.6], [0, -40]);
-  const heroOpacity = useTransform(heroScrollY, [0, 0.6], [1, 0]);
-  const heroY = useTransform(heroScrollY, [0, 1], [0, -30]);
-
-  // Imagen 1 parallax (antes segunda sección)
+  const heroImgRef = useRef<HTMLImageElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
+  const storyRef = useRef<HTMLDivElement>(null);
   const image2Ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: image2ScrollY } = useScroll({
-    target: image2Ref,
-    offset: ["start start", "end start"],
-  });
-  const image2Scale = useTransform(image2ScrollY, [0, 1], [1.18, 1.04]);
-  const image2Y = useTransform(image2ScrollY, [0, 1], [0, -50]);
-
-  // Imagen 3 parallax
+  const image2ImgRef = useRef<HTMLImageElement>(null);
+  const activitiesRef = useRef<HTMLDivElement>(null);
   const image3Ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: image3ScrollY } = useScroll({
-    target: image3Ref,
-    offset: ["start start", "end start"],
-  });
-  const image3Scale = useTransform(image3ScrollY, [0, 1], [1.18, 1.04]);
-  const image3Y = useTransform(image3ScrollY, [0, 1], [0, -50]);
+  const image3ImgRef = useRef<HTMLImageElement>(null);
 
   const yearsOfService = (() => {
     const foundingYear = 1980;
@@ -54,48 +39,136 @@ const Home: React.FC = () => {
     return years;
   })();
 
-  // Contact section scroll-based animation
-  const contactRef = useRef<HTMLDivElement>(null);
-  const contactScroll = useScroll({
-    target: contactRef,
-    offset: ["start center", "center center"],
-  });
-  const contactY = useTransform(
-    contactScroll.scrollYProgress,
-    [0, 1],
-    [100, 0],
-  );
-  const contactOpacity = useTransform(
-    contactScroll.scrollYProgress,
-    [0, 1],
-    [0, 1],
-  );
-
-  // Initialize Lenis smooth scrolling
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ── Lenis smooth scrolling + GSAP ScrollTrigger sync ────────────
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    lenis.on("scroll", ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    // ── Hero parallax on scroll ─────────────────────────────────────
+    const heroImg = heroImgRef.current;
+    if (heroRef.current && heroImg) {
+      gsap.to(heroImg, {
+        scale: 1.04,
+        y: -30,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+      // Set initial scale
+      gsap.set(heroImg, { scale: 1.22 });
     }
 
-    requestAnimationFrame(raf);
+    // ── Hero content fade-out on scroll ─────────────────────────────
+    const heroContent = heroContentRef.current;
+    if (heroRef.current && heroContent) {
+      gsap.to(heroContent, {
+        y: -40,
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "60% top",
+          scrub: true,
+        },
+      });
+    }
 
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
+    // ── Story section reveal ────────────────────────────────────────
+    if (storyRef.current) {
+      gsap.from(storyRef.current, {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: storyRef.current,
+          start: "top 85%",
+          toggleActions: "play none none none",
+        },
+      });
+    }
 
-  // Slider functionality
-  useEffect(() => {
-    const btnLeft = document.getElementById("btn-left"),
-      btnRight = document.getElementById("btn-right"),
-      slider = document.getElementById("slider"),
-      sliderSections = document.querySelectorAll(".slider-section");
+    // ── Image 2 parallax ────────────────────────────────────────────
+    if (image2Ref.current && image2ImgRef.current) {
+      gsap.set(image2ImgRef.current, { scale: 1.18 });
+
+      // Fade in
+      gsap.from(image2ImgRef.current, {
+        opacity: 0,
+        duration: 1.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: image2Ref.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      // Parallax scrub
+      gsap.to(image2ImgRef.current, {
+        scale: 1.04,
+        y: -50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: image2Ref.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }
+
+    // ── Image 3 parallax ────────────────────────────────────────────
+    if (image3Ref.current && image3ImgRef.current) {
+      gsap.set(image3ImgRef.current, { scale: 1.18 });
+
+      // Fade in
+      gsap.from(image3ImgRef.current, {
+        opacity: 0,
+        duration: 1.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: image3Ref.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      // Parallax scrub
+      gsap.to(image3ImgRef.current, {
+        scale: 1.04,
+        y: -50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: image3Ref.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }
+
+    // ── Slider auto-play ────────────────────────────────────────────
+    const btnLeft = document.getElementById("btn-left");
+    const btnRight = document.getElementById("btn-right");
+    const slider = document.getElementById("slider");
+    const sliderSections = document.querySelectorAll(".slider-section");
 
     let counter = 0;
     const widthImg = 100 / sliderSections.length;
@@ -119,17 +192,53 @@ const Home: React.FC = () => {
 
     const interval = setInterval(moveToRight, 4000);
 
+    // ── Cleanup ─────────────────────────────────────────────────────
     return () => {
+      lenis.destroy();
+      gsap.ticker.remove(lenis.raf as any);
+      ScrollTrigger.getAll().forEach((st) => st.kill());
       btnLeft?.removeEventListener("click", moveToLeft);
       btnRight?.removeEventListener("click", moveToRight);
       clearInterval(interval);
     };
   }, []);
 
+  // ── Hero entrance animation (depends on isLoaded) ────────────────
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    const heroImg = heroImgRef.current;
+    const heroContent = heroContentRef.current;
+
+    if (heroImg) {
+      gsap.fromTo(
+        heroImg,
+        { opacity: 0 },
+        { opacity: 1, duration: 1.2, ease: "power2.out" },
+      );
+    }
+
+    if (heroContent) {
+      const elements = heroContent.querySelectorAll(".hero-animate");
+      gsap.fromTo(
+        elements,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.2,
+          ease: "power3.out",
+          delay: 0.2,
+        },
+      );
+    }
+  }, [isLoaded]);
+
   return (
-    <main>
+    <div>
       {/* Hero Section */}
-      <motion.section
+      <section
         ref={heroRef}
         className="relative flex w-full items-end justify-start overflow-hidden bg-white dark:bg-neutral-900"
         style={{
@@ -138,75 +247,51 @@ const Home: React.FC = () => {
           paddingBottom: "4rem",
         }}
       >
-        <motion.img
+        <img
+          ref={heroImgRef}
           src="/assets/General.webp"
           alt="Interior de la Iglesia Cristiana Evangélica en Pilar"
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ y: heroY, scale: heroScale }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="absolute inset-0 h-full w-full object-cover will-change-transform"
+          style={{ opacity: 0 }}
         />
         <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/40 to-transparent"
           aria-hidden="true"
         />
-        <motion.div
+        <div
+          ref={heroContentRef}
           className="relative z-10 w-full max-w-4xl flex flex-col items-start justify-end gap-6 px-6 text-left text-white sm:px-12"
-          style={{
-            y: heroYMove,
-            opacity: heroOpacity,
-          }}
         >
-          <motion.p
-            className="text-lg font-sans uppercase tracking-widest text-white/80"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <p className="hero-animate text-lg font-sans uppercase tracking-widest text-white/80 opacity-0">
             Bienvenidos a la Iglesia Cristiana Evangélica Pilar
-          </motion.p>
-          <motion.h1
-            className="text-4xl font-sans font-bold leading-tight sm:text-5xl md:text-6xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
+          </p>
+          <h1 className="hero-animate text-4xl font-sans font-bold leading-tight sm:text-5xl md:text-6xl opacity-0">
             Un lugar para crecer en fe, comunidad y servicio
-          </motion.h1>
-          <motion.div
-            className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <motion.a
+          </h1>
+          <div className="hero-animate flex flex-col sm:flex-row items-start gap-3 sm:gap-4 opacity-0">
+            <a
               href="#actividades"
-              className="rounded-full bg-white text-slate-900 font-semibold px-8 py-3 text-sm sm:text-base shadow-lg  hover:bg-gray-200/90 transition"
-              whileTap={{ scale: 0.98 }}
+              className="rounded-full bg-white text-slate-900 font-semibold px-8 py-3 text-sm sm:text-base shadow-lg hover:bg-gray-200/90 transition active:scale-[0.98]"
             >
               Unirme a las actividades
-            </motion.a>
+            </a>
 
-            <motion.a
+            <a
               href="/contacto"
               className="rounded-full border border-white/40 px-8 py-3 text-sm sm:text-base text-white/90 hover:border-white hover:text-white transition"
             >
               Quiero contactarme
-            </motion.a>
-          </motion.div>
-        </motion.div>
-      </motion.section>
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* Story Section */}
-      <motion.section
+      <section
+        ref={storyRef}
         id="historia"
         className="bg-neutral-100 px-6 py-36 dark:bg-neutral-900 sm:py-48"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true, margin: "-50px" }}
       >
         <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-2">
           <div className="space-y-6 text-neutral-900 dark:text-neutral-100">
@@ -247,76 +332,48 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Second Image Section */}
-      <motion.section
+      <section
         ref={image2Ref}
         className="w-full h-full sm:h-screen overflow-hidden"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1.2 }}
-        viewport={{ once: true, margin: "-100px" }}
       >
         <div className="relative h-screen sm:h-full">
-          <motion.img
+          <img
+            ref={image2ImgRef}
             src="/assets/PG09.webp"
             alt="Grupo de integrantes de la iglesia en un campamento desde una sierra"
-            className="w-full h-full object-cover drop-shadow-3xl brightness-50"
+            className="w-full h-full object-cover drop-shadow-3xl brightness-50 will-change-transform"
             width={1920}
             height={1080}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            viewport={{ once: true }}
-            style={{ scale: image2Scale, y: image2Y }}
           />
         </div>
-      </motion.section>
+      </section>
 
       {/* Activities Section */}
-      <motion.section
-        className="py-16"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true, margin: "-50px" }}
-      >
+      <section ref={activitiesRef} className="py-16">
         <Services />
-      </motion.section>
+      </section>
 
       {/* Third Image Section */}
-      <motion.section
+      <section
         ref={image3Ref}
         className="w-full h-full sm:h-screen overflow-hidden"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1.2 }}
-        viewport={{ once: true, margin: "-100px" }}
       >
         <div className="relative h-screen sm:h-full">
-          <motion.img
+          <img
+            ref={image3ImgRef}
             src="/assets/PG03.webp"
             alt="Personas caminando en el campamento de tandil 2025"
-            className="w-full h-full object-cover drop-shadow-3xl brightness-50"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            viewport={{ once: true }}
-            style={{ scale: image3Scale, y: image3Y }}
+            className="w-full h-full object-cover drop-shadow-3xl brightness-50 will-change-transform"
           />
         </div>
-      </motion.section>
+      </section>
 
-      <motion.section
-        ref={contactRef}
-        className="py-64 bg-neutral-900"
-        style={{
-          y: contactY,
-          opacity: contactOpacity,
-        }}
-      ></motion.section>
-    </main>
+      {/* Contact spacer section */}
+      <section className="py-64 bg-neutral-900" />
+    </div>
   );
 };
 

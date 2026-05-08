@@ -1,5 +1,6 @@
 // components/EventDetails.tsx
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import {
   X,
   Calendar,
@@ -17,9 +18,42 @@ interface EventDetailsProps {
 }
 
 export default function EventDetails({ events, onClose }: EventDetailsProps) {
+  const [isClosing, setIsClosing] = useState(false);
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (events.length > 0 && !isClosing) {
+      // Entry Animation
+      const tl = gsap.timeline();
+      tl.to(backdropRef.current, { opacity: 1, duration: 0.3 })
+        .to(closeBtnRef.current, { opacity: 1, scale: 1, duration: 0.3 }, "-=0.2")
+        .fromTo(
+          ".event-modal-item",
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, ease: "power2.out" },
+          "-=0.2"
+        );
+    }
+  }, [events, isClosing]);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    const tl = gsap.timeline({
+      onComplete: () => {
+        onClose();
+        setIsClosing(false);
+      },
+    });
+    tl.to(".event-modal-item", { opacity: 0, y: -40, duration: 0.3, stagger: 0.05 })
+      .to(closeBtnRef.current, { opacity: 0, scale: 0.8, duration: 0.2 }, "-=0.2")
+      .to(backdropRef.current, { opacity: 0, duration: 0.3 }, "-=0.2");
+  };
+
   if (!events.length) return null;
 
-  const renderOne = (ev: any) => {
+  const renderOne = (ev: any, idx: number) => {
     const details = [
       { icon: BookOpen, label: "Enseñanza", value: ev.enseñanza },
       { icon: User, label: "Presidencia", value: ev.presidencia },
@@ -33,7 +67,10 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
     ].filter((d) => d.value);
 
     return (
-      <div className="bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-xl max-w-5xl w-full max-h-[80vh] overflow-y-auto shadow-2xl">
+      <div 
+        key={ev.id || idx}
+        className="event-modal-item bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-xl max-w-5xl w-full max-h-[80vh] overflow-y-auto shadow-2xl pointer-events-auto"
+      >
         {/* Header */}
         <div className="relative p-6">
           <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-t-xl" />
@@ -75,7 +112,7 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
         </div>
 
         {/* Body */}
-        <div className="p-6">
+        <div className="p-6 text-white">
           {ev.subtema && (
             <div className="bg-blue-500/10 border-l-4 border-blue-500 p-4 rounded-r-lg mb-6">
               <h3 className="text-lg font-semibold">{ev.subtema}</h3>
@@ -139,22 +176,20 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
   };
 
   return (
-    <AnimatePresence>
+    <>
       {/* FONDO único con blur */}
-      <motion.div
-        key="backdrop"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
+      <div
+        ref={backdropRef}
+        style={{ opacity: 0 }}
         className="fixed inset-0 bg-black/60 backdrop-blur-md z-40"
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       {/* BOTÓN DE CIERRE único, centrado arriba */}
       <button
-        key="close-btn"
-        onClick={onClose}
+        ref={closeBtnRef}
+        onClick={handleClose}
+        style={{ opacity: 0, transform: "translateX(-50%) scale(0.8)" }}
         className="fixed top-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full
                    bg-white/20 hover:bg-white/30 text-white flex items-center
                    justify-center z-[9999] transition-transform hover:scale-110"
@@ -164,20 +199,12 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
       </button>
 
       {/* CONTENEDOR de modales apilados */}
-      <div className="fixed inset-0 flex flex-col items-center justify-center gap-6 z-50 p-4 pointer-events-none">
-        {events.map((ev, idx) => (
-          <motion.div
-            key={ev.id || idx}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -40 }}
-            transition={{ duration: 0.3, delay: idx * 0.1 }}
-            className="pointer-events-auto"
-          >
-            {renderOne(ev)}
-          </motion.div>
-        ))}
+      <div 
+        ref={containerRef}
+        className="fixed inset-0 flex flex-col items-center justify-center gap-6 z-50 p-4 pointer-events-none"
+      >
+        {events.map((ev, idx) => renderOne(ev, idx))}
       </div>
-    </AnimatePresence>
+    </>
   );
 }

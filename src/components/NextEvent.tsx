@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
 import Card from "./Card.tsx";
-import { motion, AnimatePresence } from "framer-motion";
 import EventDetails from "../components/EventDetails"; // ruta según tu proyecto
 
 export default function NextEvent({
@@ -9,6 +9,7 @@ export default function NextEvent({
   const [pages, setPages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalEvent, setModalEvent] = useState<any | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +28,15 @@ export default function NextEvent({
     fetchData();
   }, [onLoaded]);
 
+  useEffect(() => {
+    if (!loading && pages.length > 0 && containerRef.current) {
+      gsap.fromTo(containerRef.current, 
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }
+      );
+    }
+  }, [loading, pages]);
+
   if (loading) {
     return (
       <div className="my-28 p-8 m-8 flex justify-center items-center">
@@ -39,63 +49,56 @@ export default function NextEvent({
 
   return (
     <>
-      <AnimatePresence>
-        {!loading && (
-          <motion.div
-            key="next-event-block"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 40 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mx-8 my-28 px-4 md:px-0 w-full flex flex-col-reverse md:flex-row items-center justify-center max-w-5xl mx-auto gap-8 text-neutral-900 dark:text-white light:text-neutral-900"
-          >
-            {/* Columna de eventos (izquierda) */}
-            <div className="w-full md:w-3/4 mx-8 flex flex-col gap-6 items-center md:items-start">
-              {pages &&
-                pages.length > 0 &&
-                pages.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className="flex flex-col justify-center items-center md:items-start w-full "
-                  >
-                    <div className="container text-neutral-900 dark:text-white light:text-neutral-900 w-44 sm:w-80 hover:scale-105 transition-transform duration-500 ease-out">
-                      <Card
-                        href={item.pageLink}
-                        title={item.type}
-                        desc={``}
-                        touchDisabled={true}
-                        onClick={() => setModalEvent(item)}
-                      />
-                    </div>
+      <div
+        ref={containerRef}
+        style={{ opacity: 0 }}
+        className="mx-8 my-28 px-4 md:px-0 w-full flex flex-col-reverse md:flex-row items-center justify-center max-w-5xl mx-auto gap-8 text-neutral-900 dark:text-white light:text-neutral-900"
+      >
+        {/* Columna de eventos (izquierda) */}
+        <div className="w-full md:w-3/4 mx-8 flex flex-col gap-6 items-center md:items-start">
+          {pages &&
+            pages.length > 0 &&
+            pages.map((item, index) => (
+              <div
+                key={item.id}
+                className="flex flex-col justify-center items-center md:items-start w-full "
+              >
+                <div className="container text-neutral-900 dark:text-white light:text-neutral-900 w-44 sm:w-80 hover:scale-105 transition-transform duration-500 ease-out">
+                  <Card
+                    href={item.pageLink}
+                    title={item.type}
+                    desc={``}
+                    touchDisabled={true}
+                    onClick={() => setModalEvent(item)}
+                  />
+                </div>
 
-                    {index < pages.length - 1 && (
-                      <div className="h-px w-full bg-neutral-300 dark:bg-white/30 light:bg-neutral-300 my-4 mt-8" />
-                    )}
-                  </div>
-                ))}
-            </div>
+                {index < pages.length - 1 && (
+                  <div className="h-px w-full bg-neutral-300 dark:bg-white/30 light:bg-neutral-300 my-4 mt-8" />
+                )}
+              </div>
+            ))}
+        </div>
 
-            {/* Columna de título (derecha/arriba en mobile) */}
-            <div className="w-full md:w-1/3 mx-8 flex flex-col justify-center items-center md:items-end text-center md:text-right">
-              {pages && pages.length > 0 ? (
-                pages.length === 1 ? (
-                  <h2 className="text-3xl md:text-5xl font-sans font-bold">
-                    Próximo evento
-                  </h2>
-                ) : (
-                  <h2 className="text-3xl md:text-5xl font-sans font-bold">
-                    Próximos eventos
-                  </h2>
-                )
-              ) : (
-                <p className="text-3xl md:text-5xl font-sans font-bold">
-                  No hay eventos próximos.
-                </p>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* Columna de título (derecha/arriba en mobile) */}
+        <div className="w-full md:w-1/3 mx-8 flex flex-col justify-center items-center md:items-end text-center md:text-right">
+          {pages && pages.length > 0 ? (
+            pages.length === 1 ? (
+              <h2 className="text-3xl md:text-5xl font-sans font-bold">
+                Próximo evento
+              </h2>
+            ) : (
+              <h2 className="text-3xl md:text-5xl font-sans font-bold">
+                Próximos eventos
+              </h2>
+            )
+          ) : (
+            <p className="text-3xl md:text-5xl font-sans font-bold">
+              No hay eventos próximos.
+            </p>
+          )}
+        </div>
+      </div>
 
       {/* Aquí mostramos el modal de detalles */}
       {modalEvent && (
@@ -107,4 +110,3 @@ export default function NextEvent({
     </>
   );
 }
-

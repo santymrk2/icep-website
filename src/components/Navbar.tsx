@@ -1,7 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Transition from "../components/Transition";
 import Paths from "../data/paths.json";
 import ThemeToggle from "./ThemeToggle";
+import { socialLinks } from "../data/footer";
+import gsap from "gsap";
 
 const Navbar = () => {
   interface SubItem {
@@ -28,6 +30,13 @@ const Navbar = () => {
   const [currentPath, setCurrentPath] = useState<string | null>(null);
   const firstRender = useRef(true);
 
+  // GSAP refs
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const menuLinksRef = useRef<HTMLUListElement>(null);
+  const drawerBottomRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       setCurrentPath(window.location.pathname);
@@ -48,14 +57,6 @@ const Navbar = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [isMenuOpen]);
-
   // Evitar animación en el primer render
   useEffect(() => {
     if (firstRender.current) {
@@ -63,8 +64,127 @@ const Navbar = () => {
     }
   }, []);
 
+  // ── GSAP drawer animation ────────────────────────────────────────
+  const openMenu = useCallback(() => {
+    const drawer = drawerRef.current;
+    const backdrop = backdropRef.current;
+    const links = menuLinksRef.current;
+    const bottom = drawerBottomRef.current;
+    if (!drawer || !backdrop) return;
+
+    // Kill any existing timeline
+    if (timelineRef.current) {
+      timelineRef.current.kill();
+    }
+
+    document.body.style.overflow = "hidden";
+
+    // Make elements visible before animating
+    gsap.set(drawer, { display: "flex" });
+    gsap.set(backdrop, { display: "block" });
+
+    const tl = gsap.timeline({
+      defaults: { ease: "power4.out" },
+    });
+
+    // Page content shifts left + drawer slides in from right
+    const pageContent = document.querySelector("main") || document.querySelector("#main-content");
+    
+    tl.to(backdrop, {
+      opacity: 1,
+      duration: 0.4,
+    })
+    .fromTo(
+      drawer,
+      { x: "100%" },
+      { x: "0%", duration: 0.6, ease: "power3.out" },
+      0
+    );
+
+    // Shift the page content to the left
+    if (pageContent) {
+      tl.to(
+        pageContent,
+        { x: -80, duration: 0.6, ease: "power3.out" },
+        0
+      );
+    }
+
+    // Stagger menu links
+    if (links) {
+      const items = links.querySelectorAll("li");
+      tl.from(
+        items,
+        {
+          x: 40,
+          opacity: 0,
+          duration: 0.4,
+          stagger: 0.06,
+          ease: "power3.out",
+        },
+        0.2
+      );
+    }
+
+    // Bottom section fade in
+    if (bottom) {
+      tl.from(
+        bottom,
+        { y: 20, opacity: 0, duration: 0.4, ease: "power2.out" },
+        0.4
+      );
+    }
+
+    timelineRef.current = tl;
+    setIsMenuOpen(true);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    const drawer = drawerRef.current;
+    const backdrop = backdropRef.current;
+    if (!drawer || !backdrop) return;
+
+    if (timelineRef.current) {
+      timelineRef.current.kill();
+    }
+
+    const tl = gsap.timeline({
+      defaults: { ease: "power3.inOut" },
+      onComplete: () => {
+        gsap.set(drawer, { display: "none" });
+        gsap.set(backdrop, { display: "none" });
+        document.body.style.overflow = "auto";
+      },
+    });
+
+    const pageContent = document.querySelector("main") || document.querySelector("#main-content");
+
+    tl.to(drawer, {
+      x: "100%",
+      duration: 0.5,
+      ease: "power3.inOut",
+    })
+    .to(backdrop, { opacity: 0, duration: 0.35 }, 0);
+
+    // Bring page content back
+    if (pageContent) {
+      tl.to(
+        pageContent,
+        { x: 0, duration: 0.5, ease: "power3.inOut" },
+        0
+      );
+    }
+
+    timelineRef.current = tl;
+    setIsMenuOpen(false);
+  }, []);
+
   const handleMobileMenu = () => {
-    setIsMenuOpen((prev) => !prev);
+    if (isMenuOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   };
 
   const buttonclassNamees = `
@@ -239,33 +359,19 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Backdrop (Fondo oscuro) */}
-      <Transition
-        show={isMenuOpen}
-        enter="transition-opacity duration-500"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity duration-500"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-      >
-        <div
-          className="fixed inset-0 bg-black/60 z-[55] backdrop-blur-sm"
-          onClick={() => setIsMenuOpen(false)}
-        />
-      </Transition>
+      {/* Backdrop (Fondo oscuro) — controlled by GSAP */}
+      <div
+        ref={backdropRef}
+        className="fixed inset-0 bg-black/60 z-[55] backdrop-blur-sm"
+        style={{ display: "none", opacity: 0 }}
+        onClick={closeMenu}
+      />
 
-      {/* Menú Drawer Lateral */}
-      {/* Menú Drawer Lateral */}
-      <Transition
-        show={isMenuOpen}
-        enter="transform transition duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
-        enterFrom="translate-x-full"
-        enterTo="translate-x-0"
-        leave="transform transition duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
-        leaveFrom="translate-x-0"
-        leaveTo="translate-x-full"
+      {/* Menú Drawer Lateral — controlled by GSAP */}
+      <div
+        ref={drawerRef}
         className="fixed top-0 right-0 h-full z-[58] w-full md:w-96"
+        style={{ display: "none", transform: "translateX(100%)" }}
       >
         <div
           className="bg-white dark:bg-neutral-900 light:bg-white flex flex-col items-start justify-start px-12 pb-8 pt-0 md:pt-8 w-full h-full shadow-2xl overflow-y-auto scrollbar-hide"
@@ -275,14 +381,14 @@ const Navbar = () => {
             <ThemeToggle />
           </div>
 
-          <ul className="list-none space-y-6 w-full mt-24">
+          <ul ref={menuLinksRef} className="list-none space-y-6 w-full mt-24">
             {menuItems
               .filter((item) => item.active)
               .map((item) => (
                 <li key={item.text}>
                   <a
                     href={item.href}
-                    className={`text-neutral-900 dark:text-white light:text-neutral-900 text-3xl font-bold no-underline hover:text-blue-500 transition-colors duration-300 block`}
+                    className={`text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white text-3xl font-bold no-underline transition-colors duration-300 block`}
                   >
                     {item.text}
                   </a>
@@ -290,36 +396,37 @@ const Navbar = () => {
               ))}
           </ul>
 
-          <div className="mt-auto w-full">
+          <div ref={drawerBottomRef} className="mt-auto w-full">
             {/* Separator Line */}
             <hr className="w-full border-t border-neutral-200 dark:border-neutral-800 mb-6" />
 
             <p className="mb-6 leading-relaxed text-gray-500 text-sm">
               © 2025 Iglesia Complejo Evangélico Pilar.<br />Todos los derechos reservados.
             </p>
-            <div className="flex flex-col gap-3 text-sm">
-              <a
-                href="https://www.youtube.com/@icepilar"
-                className="text-neutral-600 dark:text-neutral-400 hover:text-primary transition-colors no-underline flex items-center gap-2"
-              >
-                YouTube
-              </a>
-              <a
-                href="https://www.instagram.com/ice_pilar?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                className="text-neutral-600 dark:text-neutral-400 hover:text-primary transition-colors no-underline flex items-center gap-2"
-              >
-                Instagram
-              </a>
-              <a
-                href="https://www.facebook.com/profile.php?id=61574986704374"
-                className="text-neutral-600 dark:text-neutral-400 hover:text-primary transition-colors no-underline flex items-center gap-2"
-              >
-                Facebook
-              </a>
+            <div className="flex items-center gap-4">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.name}
+                  className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200"
+                >
+                  <svg
+                    className="size-5"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d={social.iconPath} />
+                  </svg>
+                </a>
+              ))}
             </div>
           </div>
         </div>
-      </Transition>
+      </div>
       {/* Estilos para animación de subrayado y puntito */}
     </header >
   );

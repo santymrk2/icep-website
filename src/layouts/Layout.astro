@@ -56,11 +56,13 @@ const {
   </head>
 
   <body
-    class="min-h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white transition-colors duration-300"
+    class="min-h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white transition-colors duration-300 overflow-x-hidden"
   >
     <LoadingScreen client:load />
     <Header client:idle />
-    <slot />
-    <Footer />
+    <main>
+      <slot />
+      <Footer client:visible />
+    </main>
   </body>
 </html>

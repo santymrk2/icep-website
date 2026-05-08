@@ -1,116 +1,268 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import {
+  socialLinks,
+  footerSections,
+  type SocialLink,
+  type FooterSection,
+  type FooterLink,
+} from "../data/footer";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// ── Reusable sub-components ─────────────────────────────────────────────────
+
+/** Single social icon rendered as an <a> with an inline SVG */
+const SocialIcon: React.FC<SocialLink> = ({ name, href, iconPath }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={name}
+    className="social-icon text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200"
+  >
+    <svg
+      className="size-5"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d={iconPath} />
+    </svg>
+  </a>
+);
+
+/** Single footer link — disabled links show a "Próximamente" tooltip */
+const FooterLinkItem: React.FC<FooterLink> = ({
+  text,
+  href,
+  disabled,
+  external,
+}) => {
+  if (disabled) {
+    return (
+      <span
+        className="group/tip relative text-sm text-neutral-400/50 dark:text-neutral-600 cursor-default select-none inline-block"
+        title="Próximamente"
+      >
+        {text}
+        {/* Tooltip */}
+        <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-neutral-800 dark:bg-neutral-700 px-2.5 py-1 text-xs text-white opacity-0 transition-opacity duration-200 group-hover/tip:opacity-100 z-10">
+          Próximamente
+        </span>
+      </span>
+    );
+  }
+
+  return (
+    <a
+      href={href}
+      {...(external
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : {})}
+      className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200"
+    >
+      {text}
+    </a>
+  );
+};
+
+/** A column of links under a title */
+const FooterColumn: React.FC<FooterSection> = ({ title, links }) => {
+  const visibleLinks = links.filter((l) => l.visible);
+  if (visibleLinks.length === 0) return null;
+
+  return (
+    <div className="footer-column">
+      <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-900 dark:text-white mb-4">
+        {title}
+      </h3>
+      <ul className="space-y-3">
+        {visibleLinks.map((link) => (
+          <li key={link.href} className="footer-link-item">
+            <FooterLinkItem {...link} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+// ── Main Footer ─────────────────────────────────────────────────────────────
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
+  const footerRef = useRef<HTMLElement>(null);
+  const brandRef = useRef<HTMLDivElement>(null);
+  const columnsRef = useRef<HTMLDivElement>(null);
+  const bottomBarRef = useRef<HTMLDivElement>(null);
+  const bigTextRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const footer = footerRef.current;
+    if (!footer) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      // ── Brand section fade-in from left ──────────────────────────
+      if (brandRef.current) {
+        gsap.from(brandRef.current, {
+          x: -30,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: brandRef.current,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+
+      // ── Columns stagger fade-in ──────────────────────────────────
+      const columns = footer.querySelectorAll(".footer-column");
+      if (columns.length) {
+        gsap.from(columns, {
+          y: 25,
+          opacity: 0,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: columnsRef.current,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+
+      // ── Link items stagger within each column ────────────────────
+      const linkItems = footer.querySelectorAll(".footer-link-item");
+      if (linkItems.length) {
+        gsap.from(linkItems, {
+          y: 10,
+          opacity: 0,
+          duration: 0.4,
+          stagger: 0.05,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: columnsRef.current,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+
+      // ── Bottom bar — fade up with divider ────────────────────────
+      if (bottomBarRef.current) {
+        gsap.from(bottomBarRef.current, {
+          y: 15,
+          opacity: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: bottomBarRef.current,
+            start: "top 95%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+
+      // ── Social icons stagger ─────────────────────────────────────
+      const socialIcons = footer.querySelectorAll(".social-icon");
+      if (socialIcons.length) {
+        gsap.from(socialIcons, {
+          scale: 0,
+          opacity: 0,
+          duration: 0.4,
+          stagger: 0.08,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: bottomBarRef.current,
+            start: "top 95%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+
+      // ── Big ICEPILAR text — slide up with parallax ───────────────
+      if (bigTextRef.current) {
+        gsap.from(bigTextRef.current, {
+          y: 60,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: bigTextRef.current,
+            start: "top 100%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+    }, footer);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <footer className="text-neutral-900 dark:text-white light:text-neutral-900 bg-neutral-100 dark:bg-neutral-900 light:bg-neutral-100">
-      <div className="max-w-7xl mx-auto px-8 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-3 md:justify-items-center gap-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4">ICEP</h3>
-            <p className="text-neutral-600 dark:text-gray-300 light:text-neutral-600">
-              Iglesia Cristiana Evangélica en Pilar
+    <footer
+      ref={footerRef}
+      className="bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-white"
+    >
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-14">
+        {/* ── Top section: brand left + link columns right ──────────── */}
+        <div className="flex flex-col md:flex-row md:justify-between gap-10">
+          {/* Brand — left side */}
+          <div ref={brandRef} className="shrink-0">
+            <a href="/" className="inline-block mb-4">
+              <img className="size-16" src="/ICEPLogo.png" alt="ICEP Logo" />
+            </a>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Iglesia Cristiana
+              <br />
+              Evangélica en Pilar
             </p>
           </div>
 
-          <div>
-            <h3 className="text-xl font-bold mb-4">Seguinos</h3>
-            <ul className="items-left text-left items-center space-x-4">
-              <li>
-                <a
-                  href="https://www.youtube.com/@icepilar"
-                  className="text-neutral-600 dark:text-gray-300 light:text-neutral-600 text-left hover:text-blue-500 transition-all"
-                >
-                  YouTube
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.instagram.com/ice_pilar?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                  className="text-neutral-600 dark:text-gray-300 light:text-neutral-600 hover:text-blue-500 transition-all"
-                >
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://x.com/pilar_ice"
-                  className="text-neutral-600 dark:text-gray-300 light:text-neutral-600 hover:text-blue-500 transition-all"
-                >
-                  X
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://tiktok.com/@ice_pilar"
-                  className="text-neutral-600 dark:text-gray-300 light:text-neutral-600 hover:text-blue-500 transition-all"
-                >
-                  TikTok
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.facebook.com/profile.php?id=61574986704374"
-                  className="text-neutral-600 dark:text-gray-300 light:text-neutral-600 hover:text-blue-500 transition-all"
-                >
-                  Facebook
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-xl font-bold mb-4">Enlaces Rápidos</h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="/nosotros"
-                  className="text-neutral-600 dark:text-gray-300 light:text-neutral-600 hover:text-blue-500 hidden transition-all"
-                >
-                  Nosotros
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://iglesia-pilar.notion.site/b19a403082ee49238154f16433dd7925?v=7851ff6a1d2c403da600451c9e99c129&pvs=74"
-                  className="text-neutral-600 dark:text-gray-300 light:text-neutral-600 hover:text-blue-500 transition-all"
-                >
-                  Calendario
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/contacto"
-                  className="text-neutral-600 dark:text-gray-300 light:text-neutral-600 hover:text-blue-500 transition-all"
-                >
-                  Contacto
-                </a>
-              </li>
-              {/*
-              <li>
-                <a
-                  href="https://camp.icepilar.org"
-                  className="text-neutral-600 dark:text-gray-300 light:text-neutral-600 hover:text-blue-500 transition-all"
-                >
-                  Camp 2025
-                </a>
-              </li>
-              */}
-            </ul>
+          {/* Link columns — right side */}
+          <div ref={columnsRef} className="grid grid-cols-2 gap-10 sm:gap-16">
+            {footerSections.map((section) => (
+              <FooterColumn key={section.title} {...section} />
+            ))}
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-neutral-300 dark:border-white/10 light:border-neutral-300">
-          <p className="text-sm text-center text-neutral-600 dark:text-gray-300 light:text-neutral-600">
+        {/* ── Bottom bar ────────────────────────────────────────────── */}
+        <div
+          ref={bottomBarRef}
+          className="mt-12 pt-8 border-t border-neutral-300 dark:border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4"
+        >
+          <p className="text-xs text-neutral-500 dark:text-neutral-500">
             © {currentYear} Iglesia Complejo Evangélico Pilar. Todos los
             derechos reservados.
           </p>
+
+          {/* Social icons row */}
+          <div className="flex items-center gap-4">
+            {socialLinks.map((social) => (
+              <SocialIcon key={social.name} {...social} />
+            ))}
+          </div>
         </div>
+      </div>
+
+      {/* ── Big brand text — scales with viewport width ───────────── */}
+      <div className="w-full overflow-hidden px-2">
+        <p
+          ref={bigTextRef}
+          className="text-center font-bold leading-none select-none whitespace-nowrap"
+          style={{ fontSize: "clamp(3rem, 18vw, 21rem)" }}
+        >
+          ICEPILAR
+        </p>
       </div>
     </footer>
   );
 };
 
 export default Footer;
-
