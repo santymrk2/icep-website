@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import gsap from "gsap";
+import gsap from "gsap/dist/gsap";
 import {
   ChevronLeft,
   ChevronRight,

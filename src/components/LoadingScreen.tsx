@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import gsap from "gsap";
+import gsap from "gsap/dist/gsap";
 
 const LoadingScreen: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);

@@ -3,7 +3,7 @@ import Transition from "../components/Transition";
 import Paths from "../data/paths.json";
 import ThemeToggle from "./ThemeToggle";
 import { socialLinks } from "../data/footer";
-import gsap from "gsap";
+import gsap from "gsap/dist/gsap";
 
 const Navbar = () => {
   interface SubItem {

@@ -6,7 +6,7 @@ import {
   type FooterSection,
   type FooterLink,
 } from "../data/footer";
-import gsap from "gsap";
+import gsap from "gsap/dist/gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 // ── Reusable sub-components ─────────────────────────────────────────────────

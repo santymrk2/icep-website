@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import gsap from "gsap";
+import gsap from "gsap/dist/gsap";
 import Card from "./Card.tsx";
 import EventDetails from "../components/EventDetails"; // ruta según tu proyecto
 

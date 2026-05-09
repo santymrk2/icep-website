@@ -1,6 +1,6 @@
 // components/EventDetails.tsx
 import React, { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
+import gsap from "gsap/dist/gsap";
 import {
   X,
   Calendar,

@@ -13,6 +13,9 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      noExternal: ["gsap", "lenis"],
+    },
   },
   output: "server",
   adapter: vercel(),
