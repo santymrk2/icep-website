@@ -110,6 +110,7 @@ const Services: FC = () => {
   const [upcoming, setUpcoming] = useState<Record<string, UpcomingMatch>>({});
   const containerRef = useRef<HTMLDivElement>(null);
   const leftColRef = useRef<HTMLDivElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchUpcoming = async () => {
@@ -171,51 +172,65 @@ const Services: FC = () => {
       gsap.registerPlugin(ScrollTrigger);
       
       ctx = gsap.context(() => {
-          if (typeof window !== "undefined" && window.innerWidth < 1024) return;
-
+        const isMobile = window.innerWidth < 1024;
         const cards = gsap.utils.toArray(".activity-card") as HTMLElement[];
         
-        // --- THE MASTER TIMELINE ---
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top top",
-                end: () => `+=${(cards.length + 2) * 80}%`, // Added duration for entrance and exit
-                pin: true,
-                scrub: 1,
-                anticipatePin: 1,
-            }
-        });
-
-        // 1. TITLE ENTRANCE (Occurs first, before cards arrive)
-        tl.fromTo(".title-reveal", 
+        // 1. TITLE REVEAL (Independent of pinning)
+        gsap.fromTo(".title-reveal", 
           { opacity: 0, y: 50 },
           {
             opacity: 1,
             y: 0,
             duration: 1,
             stagger: 0.2,
-            ease: "power3.out"
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            }
           }
         );
 
-        // 2. CARDS STACKING SEQUENCE
+        // 2. CARDS STACKING (Pinned)
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: isMobile ? cardsContainerRef.current : containerRef.current,
+                start: isMobile ? "top 5%" : "top top",
+                end: () => isMobile ? `+=${(cards.length + 1) * 60}%` : `+=${(cards.length + 2) * 80}%`,
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+            }
+        });
+
+        // 2.1 Initial state and entrance
         cards.forEach((card, i) => {
             gsap.set(card, { y: "100vh", opacity: 0 });
 
+            // Animate card arrival
             tl.to(card, {
                 y: i * 30,
                 opacity: 1,
                 duration: 1,
                 ease: "power2.out"
-            }, `+=${i === 0 ? 0.2 : 0}`); // Tiny gap after title finishes
+            }, `+=${i === 0 ? 0.2 : 0}`);
+
+            // Shift the entire stack up slightly to keep the newest card centered
+            if (i > 0) {
+              tl.to(".activity-stack-wrapper", {
+                  y: -(i * 20), // Compensate for the stagger offset
+                  duration: 1,
+                  ease: "power2.out"
+              }, "<");
+            }
         });
 
         // Add a small pause for the final stack
         tl.to({}, { duration: 0.5 });
 
-        // 3. COMPLETE EXIT (Title and Stack disappear together)
-        tl.to([".title-reveal", ".activity-card"], {
+        // 3. COMPLETE EXIT (Only animate cards on mobile, or whole section on desktop)
+        tl.to(isMobile ? ".activity-card" : [".title-reveal", ".activity-card"], {
             opacity: 0,
             y: -80,
             duration: 1,
@@ -223,7 +238,7 @@ const Services: FC = () => {
             ease: "power3.in"
         });
 
-    }, containerRef);
+      }, containerRef);
 
     };
     run();
@@ -239,7 +254,7 @@ const Services: FC = () => {
       <div className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center min-h-screen">
         
         {/* Left Column: Fixed Centered Header */}
-        <div ref={leftColRef} className="flex flex-col justify-center items-start space-y-6 py-12 lg:py-0">
+        <div ref={leftColRef} className="flex flex-col justify-start lg:justify-center items-start space-y-4 py-8 pt-20 lg:py-0">
             <div className="title-reveal lg:opacity-0 inline-flex items-center gap-3 px-3 py-1 rounded-full bg-white dark:bg-neutral-800 shadow-sm border border-neutral-200 dark:border-neutral-700">
                <div className="size-1.5 rounded-full bg-blue-600" />
                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500">
@@ -258,55 +273,60 @@ const Services: FC = () => {
         </div>
 
         {/* Right Column: Stacking Cards */}
-        <div className="flex flex-col gap-8 lg:block lg:relative lg:h-[80vh] w-full max-w-md mx-auto py-12 lg:py-0">
-          {sortedActivities.map((activity, i) => {
-            const highlight = upcoming[activity.title];
-            const dayLabel = activity.frequency ?? activity.day;
-            const displaySchedule = highlight?.scheduleOverride ?? activity.schedule;
-            
-            return (
-              <article
-                key={activity.title}
-                className="activity-card relative lg:absolute lg:inset-0 group aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-neutral-200 dark:bg-neutral-800 shadow-xl border border-neutral-300 dark:border-white/10 lg:opacity-0"
-              >
-                <img
-                  src={activity.image}
-                  alt={activity.alt}
-                  className="h-full w-full object-cover transition duration-1000 group-hover:scale-110"
-                  loading="lazy"
-                />
-                
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-85" />
-                
-                <div className="absolute inset-x-0 bottom-0 p-8 sm:p-12 space-y-6 text-white">
-                  <div className="flex flex-wrap gap-3">
-                    {highlight ? (
-                      <span className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-1.5 text-[9px] font-black uppercase tracking-widest text-white shadow-lg">
-                        {highlight.badge}
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center rounded-lg bg-white/10 backdrop-blur-md px-4 py-1.5 text-[9px] font-black uppercase tracking-widest text-white/90">
-                        {dayLabel}
-                      </span>
+        <div 
+          ref={cardsContainerRef}
+          className="relative w-full max-w-md mx-auto aspect-square lg:block lg:relative py-12 lg:py-0"
+        >
+          <div className="activity-stack-wrapper relative w-full h-full">
+            {sortedActivities.map((activity, i) => {
+              const highlight = upcoming[activity.title];
+              const dayLabel = activity.frequency ?? activity.day;
+              const displaySchedule = highlight?.scheduleOverride ?? activity.schedule;
+              
+              return (
+                <article
+                  key={activity.title}
+                  className="activity-card absolute inset-0 group overflow-hidden rounded-[2.5rem] bg-neutral-200 dark:bg-neutral-800 shadow-xl border border-neutral-300 dark:border-white/10 opacity-0 aspect-square"
+                >
+                  <img
+                    src={activity.image}
+                    alt={activity.alt}
+                    className="h-full w-full object-cover transition duration-1000 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-85" />
+                  
+                  <div className="absolute inset-x-0 bottom-0 p-8 sm:p-12 space-y-6 text-white">
+                    <div className="flex flex-wrap gap-3">
+                      {highlight ? (
+                        <span className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-1.5 text-[9px] font-black uppercase tracking-widest text-white shadow-lg">
+                          {highlight.badge}
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center rounded-lg bg-white/10 backdrop-blur-md px-4 py-1.5 text-[9px] font-black uppercase tracking-widest text-white/90">
+                          {dayLabel}
+                        </span>
+                      )}
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h3 className="text-2xl sm:text-4xl font-bold leading-tight tracking-tight">
+                        {activity.title}
+                      </h3>
+                      <p className="text-blue-400 font-bold text-sm sm:text-lg">{displaySchedule}</p>
+                    </div>
+
+                    {activity.note && (
+                      <p className="text-xs sm:text-sm text-white/50 italic max-w-xs line-clamp-2">
+                         {activity.note}
+                      </p>
                     )}
                   </div>
-                  
-                  <div className="space-y-2">
-                    <h3 className="text-2xl sm:text-4xl font-bold leading-tight tracking-tight">
-                      {activity.title}
-                    </h3>
-                    <p className="text-blue-400 font-bold text-sm sm:text-lg">{displaySchedule}</p>
-                  </div>
-
-                  {activity.note && (
-                    <p className="text-xs sm:text-sm text-white/50 italic max-w-xs line-clamp-2">
-                       {activity.note}
-                    </p>
-                  )}
-                </div>
-              </article>
-            );
-          })}
+                </article>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
