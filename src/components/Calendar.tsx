@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import gsap from "gsap/dist/gsap";
 import {
   ChevronLeft,
   ChevronRight,
@@ -97,10 +96,14 @@ export default function Calendar() {
   // Animation for list items
   useEffect(() => {
     if (!loading && events.length > 0) {
-      gsap.fromTo(".calendar-event-item", 
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power2.out" }
-      );
+      const run = async () => {
+        const { default: gsap } = await import("gsap");
+        gsap.fromTo(".calendar-event-item", 
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power2.out" }
+        );
+      };
+      run();
     }
   }, [loading, events]);
 
@@ -108,19 +111,23 @@ export default function Calendar() {
   useEffect(() => {
     if (loading) return;
 
-    // Use GSAP to handle all height transitions
-    const items = containerRef.current?.querySelectorAll(".calendar-event-item");
-    items?.forEach(item => {
-      const id = item.getAttribute("data-id");
-      const content = item.querySelector(".event-details-content");
-      if (!content) return;
+    const run = async () => {
+      const { default: gsap } = await import("gsap");
+      // Use GSAP to handle all height transitions
+      const items = containerRef.current?.querySelectorAll(".calendar-event-item");
+      items?.forEach(item => {
+        const id = item.getAttribute("data-id");
+        const content = item.querySelector(".event-details-content");
+        if (!content) return;
 
-      if (id === expandedEventId) {
-        gsap.to(content, { height: "auto", opacity: 1, duration: 0.4, ease: "power2.inOut" });
-      } else {
-        gsap.to(content, { height: 0, opacity: 0, duration: 0.3, ease: "power2.inOut" });
-      }
-    });
+        if (id === expandedEventId) {
+          gsap.to(content, { height: "auto", opacity: 1, duration: 0.4, ease: "power2.inOut" });
+        } else {
+          gsap.to(content, { height: 0, opacity: 0, duration: 0.3, ease: "power2.inOut" });
+        }
+      });
+    };
+    run();
   }, [expandedEventId, loading]);
 
   function handlePrev() {

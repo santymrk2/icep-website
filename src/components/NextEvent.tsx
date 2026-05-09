@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import gsap from "gsap/dist/gsap";
 import Card from "./Card.tsx";
 import EventDetails from "../components/EventDetails"; // ruta según tu proyecto
 
@@ -30,10 +29,14 @@ export default function NextEvent({
 
   useEffect(() => {
     if (!loading && pages.length > 0 && containerRef.current) {
-      gsap.fromTo(containerRef.current, 
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }
-      );
+      const run = async () => {
+        const { default: gsap } = await import("gsap");
+        gsap.fromTo(containerRef.current, 
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }
+        );
+      };
+      run();
     }
   }, [loading, pages]);
 

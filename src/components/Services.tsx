@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import type { FC } from "react";
-import gsap from "gsap/dist/gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 interface ActivityCard {
   type: string;
@@ -166,10 +164,14 @@ const Services: FC = () => {
   }, [upcoming]);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    
-    const ctx = gsap.context(() => {
-        if (window.innerWidth < 1024) return;
+    let ctx: any;
+    const run = async () => {
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+      
+      ctx = gsap.context(() => {
+          if (typeof window !== "undefined" && window.innerWidth < 1024) return;
 
         const cards = gsap.utils.toArray(".activity-card") as HTMLElement[];
         
@@ -223,7 +225,9 @@ const Services: FC = () => {
 
     }, containerRef);
 
-    return () => ctx.revert();
+    };
+    run();
+    return () => ctx && ctx.revert();
   }, [sortedActivities]);
 
   return (
@@ -236,25 +240,25 @@ const Services: FC = () => {
         
         {/* Left Column: Fixed Centered Header */}
         <div ref={leftColRef} className="flex flex-col justify-center items-start space-y-6 py-12 lg:py-0">
-            <div className="title-reveal opacity-0 inline-flex items-center gap-3 px-3 py-1 rounded-full bg-white dark:bg-neutral-800 shadow-sm border border-neutral-200 dark:border-neutral-700">
+            <div className="title-reveal lg:opacity-0 inline-flex items-center gap-3 px-3 py-1 rounded-full bg-white dark:bg-neutral-800 shadow-sm border border-neutral-200 dark:border-neutral-700">
                <div className="size-1.5 rounded-full bg-blue-600" />
                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500">
                  Participá
                </p>
             </div>
             
-            <h2 className="title-reveal opacity-0 text-4xl lg:text-7xl font-bold text-neutral-900 dark:text-white leading-[1.1] tracking-tighter">
+            <h2 className="title-reveal lg:opacity-0 text-4xl lg:text-7xl font-bold text-neutral-900 dark:text-white leading-[1.1] tracking-tighter">
               Nuestras <br />
               <span className="text-blue-600 dark:text-blue-500">Actividades</span>
             </h2>
             
-            <p className="title-reveal opacity-0 max-w-xs text-neutral-600 dark:text-neutral-400 text-sm sm:text-lg leading-relaxed">
+            <p className="title-reveal lg:opacity-0 max-w-xs text-neutral-600 dark:text-neutral-400 text-sm sm:text-lg leading-relaxed">
                 Descubrí los horarios y propuestas que tenemos para compartir cada semana en nuestra comunidad.
             </p>
         </div>
 
         {/* Right Column: Stacking Cards */}
-        <div className="relative h-[60vh] lg:h-[80vh] w-full max-w-md mx-auto">
+        <div className="flex flex-col gap-8 lg:block lg:relative lg:h-[80vh] w-full max-w-md mx-auto py-12 lg:py-0">
           {sortedActivities.map((activity, i) => {
             const highlight = upcoming[activity.title];
             const dayLabel = activity.frequency ?? activity.day;
@@ -263,7 +267,7 @@ const Services: FC = () => {
             return (
               <article
                 key={activity.title}
-                className="activity-card absolute inset-0 group aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-neutral-200 dark:bg-neutral-800 shadow-xl border border-neutral-300 dark:border-white/10 lg:opacity-0"
+                className="activity-card relative lg:absolute lg:inset-0 group aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-neutral-200 dark:bg-neutral-800 shadow-xl border border-neutral-300 dark:border-white/10 lg:opacity-0"
               >
                 <img
                   src={activity.image}

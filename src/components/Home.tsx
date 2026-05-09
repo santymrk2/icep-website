@@ -1,7 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import gsap from "gsap/dist/gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import Lenis from "lenis";
 import Services from "./Services";
 import { useSiteLoaded } from "../hooks/useSiteLoaded";
 
@@ -40,166 +37,179 @@ const Home: React.FC = () => {
   })();
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    let lenis: any;
+    const run = async () => {
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      const { default: Lenis } = await import("lenis");
+      
+      gsap.registerPlugin(ScrollTrigger);
 
-    // ── Lenis smooth scrolling + GSAP ScrollTrigger sync ────────────
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
-
-    lenis.on("scroll", ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
-
-    // ── Hero parallax on scroll ─────────────────────────────────────
-    const heroImg = heroImgRef.current;
-    if (heroRef.current && heroImg) {
-      gsap.to(heroImg, {
-        scale: 1.04,
-        y: -30,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-      // Set initial scale
-      gsap.set(heroImg, { scale: 1.22 });
-    }
-
-    // ── Hero content fade-out on scroll ─────────────────────────────
-    const heroContent = heroContentRef.current;
-    if (heroRef.current && heroContent) {
-      gsap.to(heroContent, {
-        y: -40,
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "60% top",
-          scrub: true,
-        },
-      });
-    }
-
-    // ── Story section reveal ────────────────────────────────────────
-    if (storyRef.current) {
-      gsap.from(storyRef.current, {
-        opacity: 0,
-        y: 50,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: storyRef.current,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
-      });
-    }
-
-    // ── Image 2 parallax ────────────────────────────────────────────
-    if (image2Ref.current && image2ImgRef.current) {
-      gsap.set(image2ImgRef.current, { scale: 1.18 });
-
-      // Fade in
-      gsap.from(image2ImgRef.current, {
-        opacity: 0,
+      // ── Lenis smooth scrolling + GSAP ScrollTrigger sync ────────────
+      lenis = new Lenis({
         duration: 1.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: image2Ref.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       });
 
-      // Parallax scrub
-      gsap.to(image2ImgRef.current, {
-        scale: 1.04,
-        y: -50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: image2Ref.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
+      lenis.on("scroll", ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
       });
-    }
+      gsap.ticker.lagSmoothing(0);
 
-    // ── Image 3 parallax ────────────────────────────────────────────
-    if (image3Ref.current && image3ImgRef.current) {
-      gsap.set(image3ImgRef.current, { scale: 1.18 });
-
-      // Fade in
-      gsap.from(image3ImgRef.current, {
-        opacity: 0,
-        duration: 1.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: image3Ref.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      });
-
-      // Parallax scrub
-      gsap.to(image3ImgRef.current, {
-        scale: 1.04,
-        y: -50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: image3Ref.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    }
-
-    // ── Slider auto-play ────────────────────────────────────────────
-    const btnLeft = document.getElementById("btn-left");
-    const btnRight = document.getElementById("btn-right");
-    const slider = document.getElementById("slider");
-    const sliderSections = document.querySelectorAll(".slider-section");
-
-    let counter = 0;
-    const widthImg = 100 / sliderSections.length;
-
-    function moveToRight() {
-      counter = (counter + 1) % sliderSections.length;
-      if (slider) {
-        slider.style.transform = `translateX(-${counter * widthImg}%)`;
+      // ── Hero parallax on scroll ─────────────────────────────────────
+      const heroImg = heroImgRef.current;
+      if (heroRef.current && heroImg) {
+        gsap.to(heroImg, {
+          scale: 1.04,
+          y: -30,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+        // Set initial scale
+        gsap.set(heroImg, { scale: 1.22 });
       }
-    }
 
-    function moveToLeft() {
-      counter = (counter - 1 + sliderSections.length) % sliderSections.length;
-      if (slider) {
-        slider.style.transform = `translateX(-${counter * widthImg}%)`;
+      // ── Hero content fade-out on scroll ─────────────────────────────
+      const heroContent = heroContentRef.current;
+      if (heroRef.current && heroContent) {
+        gsap.to(heroContent, {
+          y: -40,
+          opacity: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "60% top",
+            scrub: true,
+          },
+        });
       }
-    }
 
-    btnLeft?.addEventListener("click", moveToLeft);
-    btnRight?.addEventListener("click", moveToRight);
+      // ── Story section reveal ────────────────────────────────────────
+      if (storyRef.current) {
+        gsap.from(storyRef.current, {
+          opacity: 0,
+          y: 50,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: storyRef.current,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
 
-    const interval = setInterval(moveToRight, 4000);
+      // ── Image 2 parallax ────────────────────────────────────────────
+      if (image2Ref.current && image2ImgRef.current) {
+        gsap.set(image2ImgRef.current, { scale: 1.18 });
+
+        // Fade in
+        gsap.from(image2ImgRef.current, {
+          opacity: 0,
+          duration: 1.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: image2Ref.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        // Parallax scrub
+        gsap.to(image2ImgRef.current, {
+          scale: 1.04,
+          y: -50,
+          ease: "none",
+          scrollTrigger: {
+            trigger: image2Ref.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
+
+      // ── Image 3 parallax ────────────────────────────────────────────
+      if (image3Ref.current && image3ImgRef.current) {
+        gsap.set(image3ImgRef.current, { scale: 1.18 });
+
+        // Fade in
+        gsap.from(image3ImgRef.current, {
+          opacity: 0,
+          duration: 1.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: image3Ref.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        // Parallax scrub
+        gsap.to(image3ImgRef.current, {
+          scale: 1.04,
+          y: -50,
+          ease: "none",
+          scrollTrigger: {
+            trigger: image3Ref.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
+
+      // ── Slider auto-play ────────────────────────────────────────────
+      const btnLeft = document.getElementById("btn-left");
+      const btnRight = document.getElementById("btn-right");
+      const slider = document.getElementById("slider");
+      const sliderSections = document.querySelectorAll(".slider-section");
+
+      let counter = 0;
+      const widthImg = 100 / sliderSections.length;
+
+      function moveToRight() {
+        counter = (counter + 1) % sliderSections.length;
+        if (slider) {
+          slider.style.transform = `translateX(-${counter * widthImg}%)`;
+        }
+      }
+
+      function moveToLeft() {
+        counter = (counter - 1 + sliderSections.length) % sliderSections.length;
+        if (slider) {
+          slider.style.transform = `translateX(-${counter * widthImg}%)`;
+        }
+      }
+
+      btnLeft?.addEventListener("click", moveToLeft);
+      btnRight?.addEventListener("click", moveToRight);
+
+      const interval = setInterval(moveToRight, 4000);
+
+      // Save for cleanup
+      (run as any)._cleanup = () => {
+        lenis?.destroy();
+        gsap.ticker.remove(lenis?.raf as any);
+        ScrollTrigger.getAll().forEach((st) => st.kill());
+        btnLeft?.removeEventListener("click", moveToLeft);
+        btnRight?.removeEventListener("click", moveToRight);
+        clearInterval(interval);
+      };
+    };
+    run();
 
     // ── Cleanup ─────────────────────────────────────────────────────
     return () => {
-      lenis.destroy();
-      gsap.ticker.remove(lenis.raf as any);
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-      btnLeft?.removeEventListener("click", moveToLeft);
-      btnRight?.removeEventListener("click", moveToRight);
-      clearInterval(interval);
+      if ((run as any)._cleanup) (run as any)._cleanup();
     };
   }, []);
 
@@ -207,32 +217,37 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (!isLoaded) return;
 
-    const heroImg = heroImgRef.current;
-    const heroContent = heroContentRef.current;
+    const run = async () => {
+      const { default: gsap } = await import("gsap");
+      
+      const heroImg = heroImgRef.current;
+      const heroContent = heroContentRef.current;
 
-    if (heroImg) {
-      gsap.fromTo(
-        heroImg,
-        { opacity: 0 },
-        { opacity: 1, duration: 1.2, ease: "power2.out" },
-      );
-    }
+      if (heroImg) {
+        gsap.fromTo(
+          heroImg,
+          { opacity: 0 },
+          { opacity: 1, duration: 1.2, ease: "power2.out" },
+        );
+      }
 
-    if (heroContent) {
-      const elements = heroContent.querySelectorAll(".hero-animate");
-      gsap.fromTo(
-        elements,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.2,
-          ease: "power3.out",
-          delay: 0.2,
-        },
-      );
-    }
+      if (heroContent) {
+        const elements = heroContent.querySelectorAll(".hero-animate");
+        gsap.fromTo(
+          elements,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.2,
+            ease: "power3.out",
+            delay: 0.2,
+          },
+        );
+      }
+    };
+    run();
   }, [isLoaded]);
 
   return (

@@ -1,6 +1,5 @@
 // components/EventDetails.tsx
 import React, { useEffect, useRef, useState } from "react";
-import gsap from "gsap/dist/gsap";
 import {
   X,
   Calendar,
@@ -25,21 +24,26 @@ export default function EventDetails({ events, onClose }: EventDetailsProps) {
 
   useEffect(() => {
     if (events.length > 0 && !isClosing) {
-      // Entry Animation
-      const tl = gsap.timeline();
-      tl.to(backdropRef.current, { opacity: 1, duration: 0.3 })
-        .to(closeBtnRef.current, { opacity: 1, scale: 1, duration: 0.3 }, "-=0.2")
-        .fromTo(
-          ".event-modal-item",
-          { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, ease: "power2.out" },
-          "-=0.2"
-        );
+      const run = async () => {
+        const { default: gsap } = await import("gsap");
+        // Entry Animation
+        const tl = gsap.timeline();
+        tl.to(backdropRef.current, { opacity: 1, duration: 0.3 })
+          .to(closeBtnRef.current, { opacity: 1, scale: 1, duration: 0.3 }, "-=0.2")
+          .fromTo(
+            ".event-modal-item",
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, ease: "power2.out" },
+            "-=0.2"
+          );
+      };
+      run();
     }
   }, [events, isClosing]);
 
-  const handleClose = () => {
+  const handleClose = async () => {
     setIsClosing(true);
+    const { default: gsap } = await import("gsap");
     const tl = gsap.timeline({
       onComplete: () => {
         onClose();

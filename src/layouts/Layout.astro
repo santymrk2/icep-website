@@ -58,11 +58,11 @@ const {
   <body
     class="min-h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white transition-colors duration-300 overflow-x-hidden"
   >
-    <LoadingScreen client:load />
-    <Header client:idle />
+    <LoadingScreen client:only="react" />
+    <Header client:only="react" />
     <main>
       <slot />
-      <Footer client:visible />
+      <Footer client:only="react" />
     </main>
   </body>
 </html>

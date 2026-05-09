@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import gsap from "gsap/dist/gsap";
 
 const LoadingScreen: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -9,63 +8,73 @@ const LoadingScreen: React.FC = () => {
     const textRef = useRef<HTMLParagraphElement>(null);
 
     useEffect(() => {
+        if (typeof window === "undefined") return;
+
         // Set global loading state immediately on mount
         (window as any).isSiteLoading = true;
         document.body.classList.add("is-loading");
 
-        const handleLoad = () => {
-            // Small delay to ensure smooth transition
-            setTimeout(() => {
-                const tl = gsap.timeline({
-                    onComplete: () => {
-                        setIsLoading(false);
-                        (window as any).isSiteLoading = false;
-                        document.body.classList.remove("is-loading");
-                        document.body.classList.add("loading-done");
-                        // Dispatch event for any listeners
-                        window.dispatchEvent(new CustomEvent("siteLoaded"));
-                    }
-                });
-                tl.to(containerRef.current, {
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "power2.inOut"
-                });
-            }, 500);
+        let handleLoad: () => void;
+        let fallbackTimeout: any;
+
+        const run = async () => {
+            const { default: gsap } = await import("gsap");
+
+            handleLoad = () => {
+                // Small delay to ensure smooth transition
+                setTimeout(() => {
+                    const tl = gsap.timeline({
+                        onComplete: () => {
+                            setIsLoading(false);
+                            (window as any).isSiteLoading = false;
+                            document.body.classList.remove("is-loading");
+                            document.body.classList.add("loading-done");
+                            // Dispatch event for any listeners
+                            window.dispatchEvent(new CustomEvent("siteLoaded"));
+                        }
+                    });
+                    tl.to(containerRef.current, {
+                        opacity: 0,
+                        duration: 0.5,
+                        ease: "power2.inOut"
+                    });
+                }, 500);
+            };
+
+            // Inner animations
+            gsap.to(spinnerRef.current, {
+                rotate: 360,
+                duration: 1,
+                repeat: -1,
+                ease: "none"
+            });
+
+            gsap.to(dotRef.current, {
+                opacity: 0.4,
+                duration: 0.75,
+                repeat: -1,
+                yoyo: true,
+                ease: "power1.inOut"
+            });
+
+            gsap.fromTo(textRef.current, 
+                { opacity: 0, y: 10 },
+                { opacity: 1, y: 0, duration: 0.6, delay: 0.2, ease: "power2.out" }
+            );
+
+            if (document.readyState === "complete") {
+                handleLoad();
+            } else {
+                window.addEventListener("load", handleLoad);
+            }
+
+            fallbackTimeout = setTimeout(handleLoad, 5000);
         };
-
-        // Inner animations
-        gsap.to(spinnerRef.current, {
-            rotate: 360,
-            duration: 1,
-            repeat: -1,
-            ease: "none"
-        });
-
-        gsap.to(dotRef.current, {
-            opacity: 0.4,
-            duration: 0.75,
-            repeat: -1,
-            yoyo: true,
-            ease: "power1.inOut"
-        });
-
-        gsap.fromTo(textRef.current, 
-            { opacity: 0, y: 10 },
-            { opacity: 1, y: 0, duration: 0.6, delay: 0.2, ease: "power2.out" }
-        );
-
-        if (document.readyState === "complete") {
-            handleLoad();
-        } else {
-            window.addEventListener("load", handleLoad);
-        }
-
-        const fallbackTimeout = setTimeout(handleLoad, 5000);
+        run();
 
         return () => {
-            window.removeEventListener("load", handleLoad);
-            clearTimeout(fallbackTimeout);
+            if (handleLoad) window.removeEventListener("load", handleLoad);
+            if (fallbackTimeout) clearTimeout(fallbackTimeout);
         };
     }, []);
 

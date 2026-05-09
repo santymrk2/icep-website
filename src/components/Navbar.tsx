@@ -3,7 +3,6 @@ import Transition from "../components/Transition";
 import Paths from "../data/paths.json";
 import ThemeToggle from "./ThemeToggle";
 import { socialLinks } from "../data/footer";
-import gsap from "gsap/dist/gsap";
 
 const Navbar = () => {
   interface SubItem {
@@ -35,7 +34,16 @@ const Navbar = () => {
   const backdropRef = useRef<HTMLDivElement>(null);
   const menuLinksRef = useRef<HTMLUListElement>(null);
   const drawerBottomRef = useRef<HTMLDivElement>(null);
-  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const timelineRef = useRef<any>(null);
+  const gsapRef = useRef<any>(null);
+
+  useEffect(() => {
+    const loadGSAP = async () => {
+      const { default: gsap } = await import("gsap");
+      gsapRef.current = gsap;
+    };
+    loadGSAP();
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -70,7 +78,8 @@ const Navbar = () => {
     const backdrop = backdropRef.current;
     const links = menuLinksRef.current;
     const bottom = drawerBottomRef.current;
-    if (!drawer || !backdrop) return;
+    const gsap = gsapRef.current;
+    if (!drawer || !backdrop || !gsap) return;
 
     // Kill any existing timeline
     if (timelineRef.current) {
@@ -142,7 +151,8 @@ const Navbar = () => {
   const closeMenu = useCallback(() => {
     const drawer = drawerRef.current;
     const backdrop = backdropRef.current;
-    if (!drawer || !backdrop) return;
+    const gsap = gsapRef.current;
+    if (!drawer || !backdrop || !gsap) return;
 
     if (timelineRef.current) {
       timelineRef.current.kill();

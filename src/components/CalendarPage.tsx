@@ -1,6 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import gsap from "gsap/dist/gsap";
-import Lenis from "lenis";
 import Calendar from "./Calendar";
 import { useSiteLoaded } from "../hooks/useSiteLoaded";
 
@@ -9,35 +7,43 @@ const CalendarPage: React.FC = () => {
   const isLoaded = useSiteLoaded();
 
   useEffect(() => {
-    // Lenis Setup
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
+    let ctx: any;
+    let lenis: any;
+    
+    const run = async () => {
+      const { default: gsap } = await import("gsap");
+      const { default: Lenis } = await import("lenis");
+      
+      // Lenis Setup
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
 
-    function raf(time: number) {
-      lenis.raf(time);
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
       requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
 
-    // GSAP Animations (wait for isLoaded)
-    let ctx: gsap.Context;
-    if (isLoaded) {
-      ctx = gsap.context(() => {
-        const tl = gsap.timeline();
-        // Target the section directly via class within the div scope
-        tl.to(".calendar-section", { opacity: 1, duration: 0.8 })
-          .to(".header-hint", { opacity: 1, y: 0, duration: 0.5 }, "-=0.6")
-          .to(".header-title", { opacity: 1, y: 0, duration: 0.6 }, "-=0.4")
-          .to(".header-desc", { opacity: 1, y: 0, duration: 0.6 }, "-=0.4")
-          .to(".calendar-container", { opacity: 1, y: 0, duration: 0.8 }, "-=0.2");
-      }, scopeRef);
-    }
+      // GSAP Animations (wait for isLoaded)
+      if (isLoaded) {
+        ctx = gsap.context(() => {
+          const tl = gsap.timeline();
+          // Target the section directly via class within the div scope
+          tl.to(".calendar-section", { opacity: 1, duration: 0.8 })
+            .to(".header-hint", { opacity: 1, y: 0, duration: 0.5 }, "-=0.6")
+            .to(".header-title", { opacity: 1, y: 0, duration: 0.6 }, "-=0.4")
+            .to(".header-desc", { opacity: 1, y: 0, duration: 0.6 }, "-=0.4")
+            .to(".calendar-container", { opacity: 1, y: 0, duration: 0.8 }, "-=0.2");
+        }, scopeRef);
+      }
+    };
+    run();
 
     return () => {
       if (ctx) ctx.revert();
-      lenis.destroy();
+      if (lenis) lenis.destroy();
     };
   }, [isLoaded]);
 

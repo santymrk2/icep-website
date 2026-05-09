@@ -1,7 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import gsap from "gsap/dist/gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import Lenis from "lenis";
 import { useSiteLoaded } from "../hooks/useSiteLoaded";
 
 const ContactPage: React.FC = () => {
@@ -9,47 +6,56 @@ const ContactPage: React.FC = () => {
   const isLoaded = useSiteLoaded();
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    let ctx: any;
+    let lenis: any;
     
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
+    const run = async () => {
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      const { default: Lenis } = await import("lenis");
+      
+      gsap.registerPlugin(ScrollTrigger);
+      
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
 
-    function raf(time: number) {
-      lenis.raf(time);
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
       requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
 
-    let ctx: gsap.Context;
-    if (isLoaded) {
-      ctx = gsap.context(() => {
-        gsap.to(".hero-reveal", {
-          opacity: 1, y: 0, duration: 0.8, stagger: 0.2, ease: "power3.out", delay: 0.2
-        });
+      if (isLoaded) {
+        ctx = gsap.context(() => {
+          gsap.to(".hero-reveal", {
+            opacity: 1, y: 0, duration: 0.8, stagger: 0.2, ease: "power3.out", delay: 0.2
+          });
 
-        const sections = gsap.utils.toArray<HTMLElement>(".reveal-section");
-        sections.forEach((section) => {
-          gsap.fromTo(section, 
-            { opacity: 0, y: 40 },
-            { 
-              opacity: 1, y: 0, duration: 1, ease: "power3.out",
-              scrollTrigger: {
-                trigger: section,
-                start: "top 85%",
-                end: "top 40%",
-                scrub: 1,
+          const sections = gsap.utils.toArray<HTMLElement>(".reveal-section");
+          sections.forEach((section) => {
+            gsap.fromTo(section, 
+              { opacity: 0, y: 40 },
+              { 
+                opacity: 1, y: 0, duration: 1, ease: "power3.out",
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top 85%",
+                  end: "top 40%",
+                  scrub: 1,
+                }
               }
-            }
-          );
-        });
-      }, containerRef);
-    }
+            );
+          });
+        }, containerRef);
+      }
+    };
+    run();
 
     return () => {
       if (ctx) ctx.revert();
-      lenis.destroy();
+      if (lenis) lenis.destroy();
     };
   }, [isLoaded]);
 

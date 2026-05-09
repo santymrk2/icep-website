@@ -6,8 +6,6 @@ import {
   type FooterSection,
   type FooterLink,
 } from "../data/footer";
-import gsap from "gsap/dist/gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 // ── Reusable sub-components ─────────────────────────────────────────────────
 
@@ -98,110 +96,118 @@ const Footer: React.FC = () => {
   const bigTextRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    const footer = footerRef.current;
-    if (!footer) return;
+    let ctx: any;
+    
+    const run = async () => {
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      
+      const footer = footerRef.current;
+      if (!footer) return;
 
-    gsap.registerPlugin(ScrollTrigger);
+      gsap.registerPlugin(ScrollTrigger);
 
-    const ctx = gsap.context(() => {
-      // ── Brand section fade-in from left ──────────────────────────
-      if (brandRef.current) {
-        gsap.from(brandRef.current, {
-          x: -30,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: brandRef.current,
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        });
-      }
+      ctx = gsap.context(() => {
+        // ── Brand section fade-in from left ──────────────────────────
+        if (brandRef.current) {
+          gsap.from(brandRef.current, {
+            x: -30,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: brandRef.current,
+              start: "top 90%",
+              toggleActions: "play none none none",
+            },
+          });
+        }
 
-      // ── Columns stagger fade-in ──────────────────────────────────
-      const columns = footer.querySelectorAll(".footer-column");
-      if (columns.length) {
-        gsap.from(columns, {
-          y: 25,
-          opacity: 0,
-          duration: 0.6,
-          stagger: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: columnsRef.current,
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        });
-      }
+        // ── Columns stagger fade-in ──────────────────────────────────
+        const columns = footer.querySelectorAll(".footer-column");
+        if (columns.length) {
+          gsap.from(columns, {
+            y: 25,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: columnsRef.current,
+              start: "top 90%",
+              toggleActions: "play none none none",
+            },
+          });
+        }
 
-      // ── Link items stagger within each column ────────────────────
-      const linkItems = footer.querySelectorAll(".footer-link-item");
-      if (linkItems.length) {
-        gsap.from(linkItems, {
-          y: 10,
-          opacity: 0,
-          duration: 0.4,
-          stagger: 0.05,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: columnsRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-        });
-      }
+        // ── Link items stagger within each column ────────────────────
+        const linkItems = footer.querySelectorAll(".footer-link-item");
+        if (linkItems.length) {
+          gsap.from(linkItems, {
+            y: 10,
+            opacity: 0,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: columnsRef.current,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          });
+        }
 
-      // ── Bottom bar — fade up with divider ────────────────────────
-      if (bottomBarRef.current) {
-        gsap.from(bottomBarRef.current, {
-          y: 15,
-          opacity: 0,
-          duration: 0.6,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: bottomBarRef.current,
-            start: "top 95%",
-            toggleActions: "play none none none",
-          },
-        });
-      }
+        // ── Bottom bar — fade up with divider ────────────────────────
+        if (bottomBarRef.current) {
+          gsap.from(bottomBarRef.current, {
+            y: 15,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: bottomBarRef.current,
+              start: "top 95%",
+              toggleActions: "play none none none",
+            },
+          });
+        }
 
-      // ── Social icons stagger ─────────────────────────────────────
-      const socialIcons = footer.querySelectorAll(".social-icon");
-      if (socialIcons.length) {
-        gsap.from(socialIcons, {
-          scale: 0,
-          opacity: 0,
-          duration: 0.4,
-          stagger: 0.08,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: bottomBarRef.current,
-            start: "top 95%",
-            toggleActions: "play none none none",
-          },
-        });
-      }
+        // ── Social icons stagger ─────────────────────────────────────
+        const socialIcons = footer.querySelectorAll(".social-icon");
+        if (socialIcons.length) {
+          gsap.from(socialIcons, {
+            scale: 0,
+            opacity: 0,
+            duration: 0.4,
+            stagger: 0.08,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: bottomBarRef.current,
+              start: "top 95%",
+              toggleActions: "play none none none",
+            },
+          });
+        }
 
-      // ── Big ICEPILAR text — slide up with parallax ───────────────
-      if (bigTextRef.current) {
-        gsap.from(bigTextRef.current, {
-          y: 60,
-          opacity: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: bigTextRef.current,
-            start: "top 100%",
-            toggleActions: "play none none none",
-          },
-        });
-      }
-    }, footer);
+        // ── Big ICEPILAR text — slide up with parallax ───────────────
+        if (bigTextRef.current) {
+          gsap.from(bigTextRef.current, {
+            y: 60,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: bigTextRef.current,
+              start: "top 100%",
+              toggleActions: "play none none none",
+            },
+          });
+        }
+      }, footer);
+    };
+    run();
 
-    return () => ctx.revert();
+    return () => ctx && ctx.revert();
   }, []);
 
   return (
