@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Lenis from "lenis";
 import Services from "./Services";
 import { useSiteLoaded } from "../hooks/useSiteLoaded";
