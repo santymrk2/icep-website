@@ -23,19 +23,39 @@ function getMonthDays(year: number, month: number) {
 }
 
 const monthNames = [
-  "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-  "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
 ];
 
 const monthNamesShort = [
-  "Ene", "Feb", "Mar", "Abr", "May", "Jun",
-  "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"
+  "Ene",
+  "Feb",
+  "Mar",
+  "Abr",
+  "May",
+  "Jun",
+  "Jul",
+  "Ago",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dic",
 ];
 
 const formatDateISO = (d: Date) => {
   const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
   return `${y}-${m}-${day}`;
 };
 
@@ -85,7 +105,7 @@ export default function Calendar() {
           setExpandedEventId(firstId);
         }
       })
-      .catch(err => console.error("Error fetching events:", err))
+      .catch((err) => console.error("Error fetching events:", err))
       .finally(() => setLoading(false));
   }, [currentDate, viewMode]);
 
@@ -98,9 +118,16 @@ export default function Calendar() {
     if (!loading && events.length > 0) {
       const run = async () => {
         const { default: gsap } = await import("gsap");
-        gsap.fromTo(".calendar-event-item", 
+        gsap.fromTo(
+          ".calendar-event-item",
           { opacity: 0, y: 15 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power2.out" }
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "power2.out",
+          },
         );
       };
       run();
@@ -114,16 +141,28 @@ export default function Calendar() {
     const run = async () => {
       const { default: gsap } = await import("gsap");
       // Use GSAP to handle all height transitions
-      const items = containerRef.current?.querySelectorAll(".calendar-event-item");
-      items?.forEach(item => {
+      const items = containerRef.current?.querySelectorAll(
+        ".calendar-event-item",
+      );
+      items?.forEach((item) => {
         const id = item.getAttribute("data-id");
         const content = item.querySelector(".event-details-content");
         if (!content) return;
 
         if (id === expandedEventId) {
-          gsap.to(content, { height: "auto", opacity: 1, duration: 0.4, ease: "power2.inOut" });
+          gsap.to(content, {
+            height: "auto",
+            opacity: 1,
+            duration: 0.4,
+            ease: "power2.inOut",
+          });
         } else {
-          gsap.to(content, { height: 0, opacity: 0, duration: 0.3, ease: "power2.inOut" });
+          gsap.to(content, {
+            height: 0,
+            opacity: 0,
+            duration: 0.3,
+            ease: "power2.inOut",
+          });
         }
       });
     };
@@ -169,18 +208,25 @@ export default function Calendar() {
     });
   };
 
-  const getEventId = (ev: any, idx: number) => ev.id || `${ev.startDate}-${idx}`;
+  const getEventId = (ev: any, idx: number) =>
+    ev.id || `${ev.startDate}-${idx}`;
 
   const getViewLabel = () => {
     switch (viewMode) {
-      case "week": return "Semanal";
-      case "year": return "Anual";
-      default: return "Mensual";
+      case "week":
+        return "Semanal";
+      case "year":
+        return "Anual";
+      default:
+        return "Mensual";
     }
   };
 
   return (
-    <div ref={containerRef} className="w-full max-w-2xl mx-auto rounded-2xl overflow-hidden">
+    <div
+      ref={containerRef}
+      className="w-full max-w-2xl mx-auto rounded-2xl overflow-hidden"
+    >
       {/* Navigation */}
       <div className="mx-4 mb-8 rounded-2xl bg-neutral-100 dark:bg-neutral-800/80 backdrop-blur-sm p-4 flex items-center justify-between border border-neutral-200 dark:border-neutral-700/50 shadow-sm">
         <div className="flex flex-col">
@@ -199,7 +245,9 @@ export default function Calendar() {
               <option value="year">Anual</option>
             </select>
           </div>
-          <span className="text-sm font-semibold text-neutral-900 dark:text-white mt-0.5">{rangeText}</span>
+          <span className="text-sm font-semibold text-neutral-900 dark:text-white mt-0.5">
+            {rangeText}
+          </span>
         </div>
         <div className="flex gap-1.5">
           <button
@@ -234,14 +282,18 @@ export default function Calendar() {
               const eventId = getEventId(ev, idx);
               const isExpanded = expandedEventId === eventId;
               const eventDate = new Date(ev.startDate);
-              
+
               const details = [
                 { icon: BookOpen, label: "Enseñanza", value: ev.enseñanza },
                 { icon: User, label: "Presidencia", value: ev.presidencia },
                 { icon: Music, label: "Alabanza", value: ev.alabanza },
                 { icon: Mic, label: "Predicación", value: ev.predicacion },
-                { icon: Music, label: "Música", value: ev.participacionMusical },
-              ].filter(d => d.value);
+                {
+                  icon: Music,
+                  label: "Música",
+                  value: ev.participacionMusical,
+                },
+              ].filter((d) => d.value);
 
               return (
                 <div
@@ -250,7 +302,9 @@ export default function Calendar() {
                   className="calendar-event-item border-b border-neutral-100 dark:border-neutral-800/50"
                 >
                   <button
-                    onClick={() => setExpandedEventId(isExpanded ? null : eventId)}
+                    onClick={() =>
+                      setExpandedEventId(isExpanded ? null : eventId)
+                    }
                     className="w-full py-5 flex items-center justify-between text-left group"
                   >
                     <div className="flex gap-5 items-center">
@@ -263,7 +317,7 @@ export default function Calendar() {
                         </span>
                       </div>
                       <div>
-                        <h3 className="font-bold text-neutral-900 dark:text-white group-hover:text-primary transition-colors">
+                        <h3 className="font-bold text-neutral-900 dark:text-white group-hover:text-neutral-500 transition-colors">
                           {ev.type || "Evento"}
                         </h3>
                         <p className="text-xs text-neutral-500 mt-0.5">
@@ -271,14 +325,14 @@ export default function Calendar() {
                         </p>
                       </div>
                     </div>
-                    <div className={`text-neutral-300 dark:text-neutral-600 transition-transform duration-300 ${isExpanded ? 'rotate-45 text-primary' : ''}`}>
+                    <div
+                      className={`text-neutral-300 dark:text-neutral-600 transition-transform duration-300 ${isExpanded ? "rotate-45 text-primary" : ""}`}
+                    >
                       <Plus size={20} />
                     </div>
                   </button>
 
-                  <div 
-                    className="event-details-content overflow-hidden h-0 opacity-0"
-                  >
+                  <div className="event-details-content overflow-hidden h-0 opacity-0">
                     <div className="pb-8 pl-[4.25rem] pr-4 space-y-6">
                       {ev.subtema && (
                         <p className="text-base text-neutral-800 dark:text-neutral-200 leading-relaxed font-medium">
@@ -289,13 +343,20 @@ export default function Calendar() {
                       {details.length > 0 && (
                         <div className="grid gap-3 sm:grid-cols-2">
                           {details.map((d, i) => (
-                            <div key={i} className="flex items-center gap-3 p-3 bg-neutral-50 dark:bg-neutral-800/40 rounded-2xl border border-neutral-100 dark:border-neutral-700/30">
+                            <div
+                              key={i}
+                              className="flex items-center gap-3 p-3 bg-neutral-50 dark:bg-neutral-800/40 rounded-2xl border border-neutral-100 dark:border-neutral-700/30"
+                            >
                               <div className="w-8 h-8 rounded-lg bg-white dark:bg-neutral-800 flex items-center justify-center shadow-sm">
                                 <d.icon size={14} className="text-primary" />
                               </div>
                               <div>
-                                <p className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">{d.label}</p>
-                                <p className="text-sm text-neutral-900 dark:text-white font-medium">{d.value}</p>
+                                <p className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">
+                                  {d.label}
+                                </p>
+                                <p className="text-sm text-neutral-900 dark:text-white font-medium">
+                                  {d.value}
+                                </p>
                               </div>
                             </div>
                           ))}

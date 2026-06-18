@@ -338,7 +338,6 @@ const Home: React.FC = () => {
               />
             </div>
             <div className="mt-6 rounded-lg bg-white p-6 shadow-2xl dark:bg-neutral-800 sm:mt-8 md:absolute md:-bottom-8 md:right-0 md:mt-0 md:w-3/4 md:z-10">
-              <p className="text-sm font-bold text-blue-600">Desde 1985</p>
               <h3 className="mt-1 text-lg font-bold text-neutral-900 dark:text-neutral-100">
                 Creciendo en Fe y Comunidad
               </h3>
