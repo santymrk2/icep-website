@@ -4,7 +4,7 @@ import { useSiteLoaded } from "../hooks/useSiteLoaded";
 
 const Home: React.FC = () => {
   const isLoaded = useSiteLoaded();
-  
+
   // Section refs
   const heroRef = useRef<HTMLDivElement>(null);
   const heroImgRef = useRef<HTMLImageElement>(null);
@@ -42,7 +42,7 @@ const Home: React.FC = () => {
       const { default: gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       const { default: Lenis } = await import("lenis");
-      
+
       gsap.registerPlugin(ScrollTrigger);
 
       // ── Lenis smooth scrolling + GSAP ScrollTrigger sync ────────────
@@ -219,7 +219,7 @@ const Home: React.FC = () => {
 
     const run = async () => {
       const { default: gsap } = await import("gsap");
-      
+
       const heroImg = heroImgRef.current;
       const heroContent = heroContentRef.current;
 
@@ -313,13 +313,14 @@ const Home: React.FC = () => {
             <h2 className="text-4xl font-extrabold">Nuestra Historia</h2>
             <p className="text-lg text-neutral-600 dark:text-neutral-300">
               La Iglesia Cristiana Evangélica de Pilar tiene sus raíces en la
-              visión de un pequeño grupo de creyentes que en 1985 sintieron el
-              llamado de establecer una comunidad de fe en el corazón de la
-              ciudad. Con humildes comienzos en una casa particular, la
-              congregación creció gracias a la fidelidad de Dios y al testimonio
-              de sus miembros. En 1995, se adquirió el terreno actual y se
-              construyó el primer templo, un hito que marcó el inicio de una
-              nueva etapa de expansión y servicio a la comunidad.
+              visión de un pequeño grupo de creyentes que en 1980 sintieron el
+              llamado de establecer la iglesia cristiana evangélica a 2.8 km del
+              casco de la ciudad. Desde los comienzos todo se centro en en el
+              predio del Complejo Evangélico Pilar, la congregación creció
+              gracias a la fidelidad de Dios y al testimonio de sus miembros. En
+              1986, se inauguro el actual templo de reuniones y actividades, un
+              hito que marcó el inicio de una nueva etapa de expansión y
+              servicio a la comunidad.
             </p>
             <p className="text-lg text-neutral-600 dark:text-neutral-300">
               A lo largo de los años, hemos sido testigos de la mano de Dios
