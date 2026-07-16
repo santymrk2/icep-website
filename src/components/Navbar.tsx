@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Transition from "../components/Transition";
 import Paths from "../data/paths.json";
-import ThemeToggle from "./ThemeToggle";
 import { socialLinks } from "../data/footer";
 
 const Navbar = () => {
@@ -236,7 +235,7 @@ const Navbar = () => {
 
   return (
     <header
-      className={`text-neutral-900 dark:text-white light:text-neutral-900 m-0 sm:m-0 rounded-none z-50 h-20 transition-all duration-300 w-full md:pt-8 md:px-20 absolute top-0`}
+      className={`text-white m-0 sm:m-0 rounded-none z-50 h-20 transition-all duration-300 w-full md:pt-8 md:px-20 absolute top-0`}
       id="back-menu"
     >
       <div className="w-full max-w-full flex flex-row items-center justify-between h-20 gap-4 px-6 m-0 overflow-hidden scrollbar-hide relative">
@@ -305,8 +304,8 @@ const Navbar = () => {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <div className="absolute top-full left-0 mt-2 w-full bg-neutral-800 dark:bg-neutral-800 light:bg-white rounded-lg shadow-lg z-20">
-                          <div className="flex flex-col items-center space-y-2 bg-neutral-800 dark:bg-neutral-800 light:bg-white">
+                        <div className="absolute top-full left-0 mt-2 w-full bg-neutral-800 rounded-lg shadow-lg z-20">
+                          <div className="flex flex-col items-center space-y-2 bg-neutral-800">
                             {item.subitems.map((subitem) => (
                               <a
                                 key={subitem.text}
@@ -323,23 +322,19 @@ const Navbar = () => {
                   )}
                 </li>
               ))}
-            {/* Theme Toggle Button */}
-            <li className="flex items-center justify-center">
-              <ThemeToggle />
-            </li>
           </ul>
         </nav>
         {/* Botón menú móvil: siempre visible */}
         <div className="flex items-center h-full relative z-[60]">
           <button
             id="mobile-menu-button"
-            className="rounded-full group transition-all ease-in-out inline-flex w-9 h-9 text-slate-800 dark:text-white text-center items-center justify-center p-2 hover:bg-neutral-700/10 dark:hover:bg-neutral-700/50"
+            className="rounded-full group transition-all ease-in-out inline-flex w-9 h-9 text-white text-center items-center justify-center p-2 hover:bg-neutral-700/50"
             aria-pressed={isMenuOpen}
             onClick={handleMobileMenu}
           >
             <span className="sr-only">Menu</span>
             <svg
-              className="size-5 fill-neutral-900 dark:fill-white light:fill-neutral-900 pointer-events-none"
+              className="size-5 fill-white pointer-events-none"
               viewBox="0 0 16 16"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -384,12 +379,8 @@ const Navbar = () => {
         style={{ display: "none", transform: "translateX(100%)" }}
       >
         <div
-          className="bg-white dark:bg-neutral-900 light:bg-white flex flex-col items-start justify-start px-12 pb-8 pt-0 md:pt-8 w-full h-full shadow-2xl overflow-y-auto scrollbar-hide"
+          className="bg-neutral-900 flex flex-col items-start justify-start px-12 pb-8 pt-0 md:pt-8 w-full h-full shadow-2xl overflow-y-auto scrollbar-hide"
         >
-          {/* Theme Toggle (Top Left) - Aligned with Menu Button (h-20) */}
-          <div className="w-full h-20 flex items-center justify-start mb-6">
-            <ThemeToggle />
-          </div>
 
           <ul ref={menuLinksRef} className="list-none space-y-6 w-full mt-24">
             {menuItems
@@ -398,7 +389,7 @@ const Navbar = () => {
                 <li key={item.text}>
                   <a
                     href={item.href}
-                    className={`text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white text-3xl font-bold no-underline transition-colors duration-300 block`}
+                    className={`text-neutral-400 hover:text-white text-3xl font-bold no-underline transition-colors duration-300 block`}
                   >
                     {item.text}
                   </a>
@@ -408,7 +399,7 @@ const Navbar = () => {
 
           <div ref={drawerBottomRef} className="mt-auto w-full">
             {/* Separator Line */}
-            <hr className="w-full border-t border-neutral-200 dark:border-neutral-800 mb-6" />
+            <hr className="w-full border-t border-neutral-800 mb-6" />
 
             <p className="mb-6 leading-relaxed text-gray-500 text-sm">
               © 2025 Iglesia Complejo Evangélico Pilar.<br />Todos los derechos reservados.
@@ -421,7 +412,7 @@ const Navbar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200"
+                  className="text-neutral-400 hover:text-white transition-colors duration-200"
                 >
                   <svg
                     className="size-5"

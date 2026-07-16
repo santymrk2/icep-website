@@ -255,7 +255,7 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative flex w-full items-end justify-start overflow-hidden bg-white dark:bg-neutral-900"
+        className="relative flex w-full items-end justify-start overflow-hidden bg-neutral-900"
         style={{
           minHeight: "100vh",
           paddingTop: "6rem",
@@ -306,12 +306,12 @@ const Home: React.FC = () => {
       <section
         ref={storyRef}
         id="historia"
-        className="bg-neutral-100 px-6 py-36 dark:bg-neutral-900 sm:py-48"
+        className="bg-neutral-900 px-6 py-36 sm:py-48"
       >
         <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-2">
-          <div className="space-y-6 text-neutral-900 dark:text-neutral-100">
+          <div className="space-y-6 text-neutral-100">
             <h2 className="text-4xl font-extrabold">Nuestra Historia</h2>
-            <p className="text-lg text-neutral-600 dark:text-neutral-300">
+            <p className="text-lg text-neutral-300">
               La Iglesia Cristiana Evangélica de Pilar tiene sus raíces en la
               visión de un pequeño grupo de creyentes que en 1980 sintieron el
               llamado de establecer la iglesia cristiana evangélica a 2.8 km del
@@ -322,7 +322,7 @@ const Home: React.FC = () => {
               hito que marcó el inicio de una nueva etapa de expansión y
               servicio a la comunidad.
             </p>
-            <p className="text-lg text-neutral-600 dark:text-neutral-300">
+            <p className="text-lg text-neutral-300">
               A lo largo de los años, hemos sido testigos de la mano de Dios
               obrando, transformando vidas y permitiéndonos ser un faro de
               esperanza en Pilar.
@@ -337,11 +337,11 @@ const Home: React.FC = () => {
                 loading="lazy"
               />
             </div>
-            <div className="mt-6 rounded-lg bg-white p-6 shadow-2xl dark:bg-neutral-800 sm:mt-8 md:absolute md:-bottom-8 md:right-0 md:mt-0 md:w-3/4 md:z-10">
-              <h3 className="mt-1 text-lg font-bold text-neutral-900 dark:text-neutral-100">
+            <div className="mt-6 rounded-lg bg-neutral-800 p-6 shadow-2xl sm:mt-8 md:absolute md:-bottom-8 md:right-0 md:mt-0 md:w-3/4 md:z-10">
+              <h3 className="mt-1 text-lg font-bold text-neutral-100">
                 Creciendo en Fe y Comunidad
               </h3>
-              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
+              <p className="mt-2 text-sm text-neutral-300">
                 {yearsOfService} años sirviendo en Pilar.
               </p>
             </div>

@@ -14,32 +14,53 @@ const LoadingScreen: React.FC = () => {
         (window as any).isSiteLoading = true;
         document.body.classList.add("is-loading");
 
-        let handleLoad: () => void;
+        let dismissed = false;
         let fallbackTimeout: any;
+        let gsapInstance: any = null;
+
+        const dismiss = () => {
+            if (dismissed || !gsapInstance) return;
+            dismissed = true;
+            clearTimeout(fallbackTimeout);
+
+            // Small delay to ensure smooth transition
+            setTimeout(() => {
+                const tl = gsapInstance.timeline({
+                    onComplete: () => {
+                        setIsLoading(false);
+                        (window as any).isSiteLoading = false;
+                        document.body.classList.remove("is-loading");
+                        document.body.classList.add("loading-done");
+                        window.dispatchEvent(new CustomEvent("siteLoaded"));
+                    }
+                });
+                tl.to(containerRef.current, {
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "power2.inOut"
+                });
+            }, 500);
+        };
+
+        // Images to preload — hero + home sections + all Services activity cards
+        const imagesToPreload = [
+            "/assets/General.webp",
+            "/assets/PG08.webp",
+            "/assets/PG09.webp",
+            "/assets/PG03.webp",
+            "/assets/Cena.jpg",
+            "/assets/Ensenianza.webp",
+            "/assets/Escuelita.jpg",
+            "/assets/adoloscentes.jpg",
+            "/assets/Jovenes.webp",
+            "/assets/Mujeres.webp",
+            "/assets/Matrimonio.jpg",
+            "/assets/Oracion.webp",
+        ];
 
         const run = async () => {
             const { default: gsap } = await import("gsap");
-
-            handleLoad = () => {
-                // Small delay to ensure smooth transition
-                setTimeout(() => {
-                    const tl = gsap.timeline({
-                        onComplete: () => {
-                            setIsLoading(false);
-                            (window as any).isSiteLoading = false;
-                            document.body.classList.remove("is-loading");
-                            document.body.classList.add("loading-done");
-                            // Dispatch event for any listeners
-                            window.dispatchEvent(new CustomEvent("siteLoaded"));
-                        }
-                    });
-                    tl.to(containerRef.current, {
-                        opacity: 0,
-                        duration: 0.5,
-                        ease: "power2.inOut"
-                    });
-                }, 500);
-            };
+            gsapInstance = gsap;
 
             // Inner animations
             gsap.to(spinnerRef.current, {
@@ -57,24 +78,34 @@ const LoadingScreen: React.FC = () => {
                 ease: "power1.inOut"
             });
 
-            gsap.fromTo(textRef.current, 
+            gsap.fromTo(textRef.current,
                 { opacity: 0, y: 10 },
                 { opacity: 1, y: 0, duration: 0.6, delay: 0.2, ease: "power2.out" }
             );
 
-            if (document.readyState === "complete") {
-                handleLoad();
-            } else {
-                window.addEventListener("load", handleLoad);
-            }
+            // Preload all images in parallel
+            let loaded = 0;
+            const total = imagesToPreload.length;
 
-            fallbackTimeout = setTimeout(handleLoad, 5000);
+            const onImageReady = () => {
+                loaded++;
+                if (loaded >= total) dismiss();
+            };
+
+            imagesToPreload.forEach((src) => {
+                const img = new Image();
+                img.onload = onImageReady;
+                img.onerror = onImageReady; // count errors too so we don't block forever
+                img.src = src;
+            });
+
+            // Fallback: dismiss after 5s even if images are slow/broken
+            fallbackTimeout = setTimeout(dismiss, 5000);
         };
         run();
 
         return () => {
-            if (handleLoad) window.removeEventListener("load", handleLoad);
-            if (fallbackTimeout) clearTimeout(fallbackTimeout);
+            clearTimeout(fallbackTimeout);
         };
     }, []);
 
@@ -83,13 +114,13 @@ const LoadingScreen: React.FC = () => {
     return (
         <div
             ref={containerRef}
-            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white dark:bg-neutral-950 transition-colors duration-300"
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-neutral-950 transition-colors duration-300"
         >
             <div className="relative">
                 {/* Main Spinner */}
                 <div
                     ref={spinnerRef}
-                    className="w-16 h-16 rounded-full border-4 border-neutral-200 dark:border-neutral-800 border-t-primary"
+                    className="w-16 h-16 rounded-full border-4 border-neutral-800 border-t-primary"
                 />
 
                 {/* Inner Glow/Dot */}
@@ -103,7 +134,7 @@ const LoadingScreen: React.FC = () => {
 
             <p
                 ref={textRef}
-                className="mt-6 text-sm font-medium tracking-widest text-neutral-400 dark:text-neutral-500 uppercase"
+                className="mt-6 text-sm font-medium tracking-widest text-neutral-500 uppercase"
             >
                 Cargando
             </p>

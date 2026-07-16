@@ -16,7 +16,7 @@ const SocialIcon: React.FC<SocialLink> = ({ name, href, iconPath }) => (
     target="_blank"
     rel="noopener noreferrer"
     aria-label={name}
-    className="social-icon text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200"
+    className="social-icon text-neutral-400 hover:text-white transition-colors duration-200"
   >
     <svg
       className="size-5"
@@ -39,12 +39,12 @@ const FooterLinkItem: React.FC<FooterLink> = ({
   if (disabled) {
     return (
       <span
-        className="group/tip relative text-sm text-neutral-400/50 dark:text-neutral-600 cursor-default select-none inline-block"
+        className="group/tip relative text-sm text-neutral-600 cursor-default select-none inline-block"
         title="Próximamente"
       >
         {text}
         {/* Tooltip */}
-        <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-neutral-800 dark:bg-neutral-700 px-2.5 py-1 text-xs text-white opacity-0 transition-opacity duration-200 group-hover/tip:opacity-100 z-10">
+        <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-neutral-700 px-2.5 py-1 text-xs text-white opacity-0 transition-opacity duration-200 group-hover/tip:opacity-100 z-10">
           Próximamente
         </span>
       </span>
@@ -57,7 +57,7 @@ const FooterLinkItem: React.FC<FooterLink> = ({
       {...(external
         ? { target: "_blank", rel: "noopener noreferrer" }
         : {})}
-      className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200"
+      className="text-sm text-neutral-400 hover:text-white transition-colors duration-200"
     >
       {text}
     </a>
@@ -71,7 +71,7 @@ const FooterColumn: React.FC<FooterSection> = ({ title, links }) => {
 
   return (
     <div className="footer-column">
-      <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-900 dark:text-white mb-4">
+      <h3 className="text-sm font-semibold uppercase tracking-wider text-white mb-4">
         {title}
       </h3>
       <ul className="space-y-3">
@@ -213,7 +213,7 @@ const Footer: React.FC = () => {
   return (
     <footer
       ref={footerRef}
-      className="bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-white"
+      className="bg-neutral-900 text-white"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-14">
         {/* ── Top section: brand left + link columns right ──────────── */}
@@ -223,7 +223,7 @@ const Footer: React.FC = () => {
             <a href="/" className="inline-block mb-4">
               <img className="size-16" src="/ICEPLogo.png" alt="ICEP Logo" />
             </a>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            <p className="text-sm text-neutral-400 leading-relaxed">
               Iglesia Cristiana
               <br />
               Evangélica en Pilar
@@ -241,9 +241,9 @@ const Footer: React.FC = () => {
         {/* ── Bottom bar ────────────────────────────────────────────── */}
         <div
           ref={bottomBarRef}
-          className="mt-12 pt-8 border-t border-neutral-300 dark:border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4"
+          className="mt-12 pt-8 border-t border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4"
         >
-          <p className="text-xs text-neutral-500 dark:text-neutral-500">
+          <p className="text-xs text-neutral-500">
             © {currentYear} Iglesia Complejo Evangélico Pilar. Todos los
             derechos reservados.
           </p>

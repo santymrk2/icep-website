@@ -249,25 +249,25 @@ const Services: FC = () => {
     <section
       id="actividades"
       ref={containerRef}
-      className="bg-neutral-100 px-6 dark:bg-neutral-900 overflow-hidden"
+      className="bg-neutral-900 px-6 overflow-hidden"
     >
       <div className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center min-h-screen">
         
         {/* Left Column: Fixed Centered Header */}
         <div ref={leftColRef} className="flex flex-col justify-start lg:justify-center items-start space-y-4 py-8 pt-20 lg:py-0">
-            <div className="title-reveal lg:opacity-0 inline-flex items-center gap-3 px-3 py-1 rounded-full bg-white dark:bg-neutral-800 shadow-sm border border-neutral-200 dark:border-neutral-700">
+            <div className="title-reveal inline-flex items-center gap-3 px-3 py-1 rounded-full bg-neutral-800 shadow-sm border border-neutral-700">
                <div className="size-1.5 rounded-full bg-blue-600" />
                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500">
                  Participá
                </p>
             </div>
             
-            <h2 className="title-reveal lg:opacity-0 text-4xl lg:text-7xl font-bold text-neutral-900 dark:text-white leading-[1.1] tracking-tighter">
+            <h2 className="title-reveal text-4xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tighter">
               Nuestras <br />
-              <span className="text-blue-600 dark:text-blue-500">Actividades</span>
+              <span className="text-blue-500">Actividades</span>
             </h2>
             
-            <p className="title-reveal lg:opacity-0 max-w-xs text-neutral-600 dark:text-neutral-400 text-sm sm:text-lg leading-relaxed">
+            <p className="title-reveal max-w-xs text-neutral-400 text-sm sm:text-lg leading-relaxed">
                 Descubrí los horarios y propuestas que tenemos para compartir cada semana en nuestra comunidad.
             </p>
         </div>
@@ -286,7 +286,7 @@ const Services: FC = () => {
               return (
                 <article
                   key={activity.title}
-                  className="activity-card absolute inset-0 group overflow-hidden rounded-[2.5rem] bg-neutral-200 dark:bg-neutral-800 shadow-xl border border-neutral-300 dark:border-white/10 opacity-0 aspect-square"
+                  className="activity-card absolute inset-0 group overflow-hidden rounded-[2.5rem] bg-neutral-800 shadow-xl border border-white/10 aspect-square"
                 >
                   <img
                     src={activity.image}

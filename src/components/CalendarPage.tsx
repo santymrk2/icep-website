@@ -55,15 +55,15 @@ const CalendarPage: React.FC = () => {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header Section */}
           <header className="text-center mb-8 sm:mb-12">
-            <div className="header-hint text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-3 opacity-0 translate-y-[20px]">
+            <div className="header-hint text-sm font-medium text-neutral-400 mb-3 opacity-0 translate-y-[20px]">
               Descubrí lo que está pasando
             </div>
 
-            <h1 className="header-title text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-neutral-900 dark:text-white opacity-0 translate-y-[30px]">
+            <h1 className="header-title text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-white opacity-0 translate-y-[30px]">
               Explorá el Calendario
             </h1>
 
-            <p className="header-desc text-sm sm:text-base leading-relaxed text-neutral-500 dark:text-neutral-400 px-2 max-w-xl mx-auto opacity-0 translate-y-[20px]">
+            <p className="header-desc text-sm sm:text-base leading-relaxed text-neutral-400 px-2 max-w-xl mx-auto opacity-0 translate-y-[20px]">
               Unite a nuestros servicios semanales, reuniones, eventos especiales y otros encuentros.
             </p>
           </header>

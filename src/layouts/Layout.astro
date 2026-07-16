@@ -27,18 +27,12 @@ const {
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
 
-    <!-- Theme initialization script - runs before render to prevent flash -->
+    <!-- Force dark mode — clear any stale theme from localStorage -->
     <script is:inline>
       (function () {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "light") {
-          document.documentElement.classList.add("light");
-          document.documentElement.classList.remove("dark");
-        } else {
-          // Default to dark theme
-          document.documentElement.classList.add("dark");
-          document.documentElement.classList.remove("light");
-        }
+        document.documentElement.classList.add("dark");
+        document.documentElement.classList.remove("light");
+        localStorage.removeItem("theme");
       })();
     </script>
 
@@ -56,7 +50,7 @@ const {
   </head>
 
   <body
-    class="min-h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white transition-colors duration-300 overflow-x-hidden"
+    class="min-h-screen bg-neutral-900 text-white overflow-x-hidden"
   >
     <LoadingScreen client:only="react" />
     <Header client:only="react" />

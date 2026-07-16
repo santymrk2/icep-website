@@ -228,7 +228,7 @@ export default function Calendar() {
       className="w-full max-w-2xl mx-auto rounded-2xl overflow-hidden"
     >
       {/* Navigation */}
-      <div className="mx-4 mb-8 rounded-2xl bg-neutral-100 dark:bg-neutral-800/80 backdrop-blur-sm p-4 flex items-center justify-between border border-neutral-200 dark:border-neutral-700/50 shadow-sm">
+      <div className="mx-4 mb-8 rounded-2xl bg-neutral-800/80 backdrop-blur-sm p-4 flex items-center justify-between border border-neutral-700/50 shadow-sm">
         <div className="flex flex-col">
           <div className="relative group">
             <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-bold flex items-center gap-1 group-hover:text-primary transition-colors">
@@ -245,20 +245,20 @@ export default function Calendar() {
               <option value="year">Anual</option>
             </select>
           </div>
-          <span className="text-sm font-semibold text-neutral-900 dark:text-white mt-0.5">
+          <span className="text-sm font-semibold text-white mt-0.5">
             {rangeText}
           </span>
         </div>
         <div className="flex gap-1.5">
           <button
             onClick={handlePrev}
-            className="w-9 h-9 flex items-center justify-center rounded-xl border border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-xl border border-neutral-700 text-white hover:bg-neutral-700 transition-colors"
           >
             <ChevronLeft size={16} />
           </button>
           <button
             onClick={handleNext}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 hover:opacity-90 transition-opacity"
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white text-neutral-900 hover:opacity-90 transition-opacity"
           >
             <ChevronRight size={16} />
           </button>
@@ -269,11 +269,11 @@ export default function Calendar() {
       <div className="px-4 pb-12">
         {loading ? (
           <div className="flex justify-center items-center py-24">
-            <div className="w-10 h-10 rounded-full border-3 border-neutral-200 dark:border-neutral-800 border-t-primary animate-spin" />
+            <div className="w-10 h-10 rounded-full border-3 border-neutral-800 border-t-primary animate-spin" />
           </div>
         ) : sortedEvents.length === 0 ? (
           <div className="text-center py-24">
-            <CalendarIcon className="w-12 h-12 mx-auto text-neutral-300 dark:text-neutral-700 mb-4" />
+            <CalendarIcon className="w-12 h-12 mx-auto text-neutral-700 mb-4" />
             <p className="text-neutral-500">No hay eventos para mostrar</p>
           </div>
         ) : (
@@ -299,7 +299,7 @@ export default function Calendar() {
                 <div
                   key={eventId}
                   data-id={eventId}
-                  className="calendar-event-item border-b border-neutral-100 dark:border-neutral-800/50"
+                  className="calendar-event-item border-b border-neutral-800/50"
                 >
                   <button
                     onClick={() =>
@@ -308,16 +308,16 @@ export default function Calendar() {
                     className="w-full py-5 flex items-center justify-between text-left group"
                   >
                     <div className="flex gap-5 items-center">
-                      <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-neutral-100 dark:bg-neutral-800 flex flex-col items-center justify-center border border-neutral-200 dark:border-neutral-700">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-neutral-800 flex flex-col items-center justify-center border border-neutral-700">
                         <span className="text-[10px] font-bold uppercase text-neutral-400 leading-none mb-1">
                           {monthNamesShort[eventDate.getMonth()]}
                         </span>
-                        <span className="text-base font-bold text-neutral-900 dark:text-white leading-none">
+                        <span className="text-base font-bold text-white leading-none">
                           {eventDate.getDate()}
                         </span>
                       </div>
                       <div>
-                        <h3 className="font-bold text-neutral-900 dark:text-white group-hover:text-neutral-500 transition-colors">
+                        <h3 className="font-bold text-white group-hover:text-neutral-500 transition-colors">
                           {ev.type || "Evento"}
                         </h3>
                         <p className="text-xs text-neutral-500 mt-0.5">
@@ -326,7 +326,7 @@ export default function Calendar() {
                       </div>
                     </div>
                     <div
-                      className={`text-neutral-300 dark:text-neutral-600 transition-transform duration-300 ${isExpanded ? "rotate-45 text-primary" : ""}`}
+                      className={`text-neutral-600 transition-transform duration-300 ${isExpanded ? "rotate-45 text-primary" : ""}`}
                     >
                       <Plus size={20} />
                     </div>
@@ -335,7 +335,7 @@ export default function Calendar() {
                   <div className="event-details-content overflow-hidden h-0 opacity-0">
                     <div className="pb-8 pl-[4.25rem] pr-4 space-y-6">
                       {ev.subtema && (
-                        <p className="text-base text-neutral-800 dark:text-neutral-200 leading-relaxed font-medium">
+                        <p className="text-base text-neutral-200 leading-relaxed font-medium">
                           {ev.subtema}
                         </p>
                       )}
@@ -345,16 +345,16 @@ export default function Calendar() {
                           {details.map((d, i) => (
                             <div
                               key={i}
-                              className="flex items-center gap-3 p-3 bg-neutral-50 dark:bg-neutral-800/40 rounded-2xl border border-neutral-100 dark:border-neutral-700/30"
+                              className="flex items-center gap-3 p-3 bg-neutral-800/40 rounded-2xl border border-neutral-700/30"
                             >
-                              <div className="w-8 h-8 rounded-lg bg-white dark:bg-neutral-800 flex items-center justify-center shadow-sm">
+                                <div className="w-8 h-8 rounded-lg bg-neutral-800 flex items-center justify-center shadow-sm">
                                 <d.icon size={14} className="text-primary" />
                               </div>
                               <div>
                                 <p className="text-[10px] uppercase tracking-wider text-neutral-400 font-bold">
                                   {d.label}
                                 </p>
-                                <p className="text-sm text-neutral-900 dark:text-white font-medium">
+                                <p className="text-sm text-white font-medium">
                                   {d.value}
                                 </p>
                               </div>
@@ -364,8 +364,8 @@ export default function Calendar() {
                       )}
 
                       {ev.contenido && (
-                        <div className="p-4 bg-neutral-50 dark:bg-neutral-800/20 rounded-2xl border border-neutral-100 dark:border-neutral-700/30">
-                          <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed whitespace-pre-wrap">
+                        <div className="p-4 bg-neutral-800/20 rounded-2xl border border-neutral-700/30">
+                          <p className="text-sm text-neutral-400 leading-relaxed whitespace-pre-wrap">
                             {ev.contenido}
                           </p>
                         </div>
