@@ -1,5 +1,6 @@
 import { Client } from "@notionhq/client";
 import { NOTION_API_KEY, DATABASE_ID } from "astro:env/server";
+import { TZ, dateKeyAR, hasTime, parseEventDate, timeAR, todayISO } from "../lib/dates";
 
 // Define the interface for your Notion page properties
 interface NotionPageProperties {
@@ -32,26 +33,18 @@ function formatearFecha(fechaStr: string | null | undefined) {
   // Make fechaStr accept undefined
   if (!fechaStr) return null;
 
-  const fecha = new Date(fechaStr);
-  const hoy = new Date();
-  const esHoy =
-    fecha.getFullYear() === hoy.getFullYear() &&
-    fecha.getMonth() === hoy.getMonth() &&
-    fecha.getDate() === hoy.getDate();
+  const fecha = parseEventDate(fechaStr);
+  const horario = hasTime(fechaStr) ? `${timeAR(fecha)}hs` : "";
 
-  if (esHoy) {
-    const matchHora = fechaStr.match(/(\d{2}):(\d{2})/);
-
-    if (matchHora) {
-      const [, hora, minuto] = matchHora;
-      return `Hoy a las ${hora}:${minuto}hs`;
-    }
+  if (dateKeyAR(fecha) === todayISO() && horario) {
+    return `Hoy a las ${horario}`;
   }
 
   const formatter = new Intl.DateTimeFormat("es-AR", {
     weekday: "long",
     month: "long",
     day: "numeric",
+    timeZone: TZ,
   });
 
   const parts = formatter.formatToParts(fecha);
@@ -62,19 +55,12 @@ function formatearFecha(fechaStr: string | null | undefined) {
     return acc;
   }, new Array(3));
 
-  let horario = "";
-  const matchHora = fechaStr.match(/(\d{2}):(\d{2})/);
-  if (matchHora) {
-    const [, hora, minuto] = matchHora;
-    horario = ` a las ${hora}:${minuto}hs`;
-  }
-
-  return `El ${diaSemana} ${dia} de ${mes}${horario}`;
+  return `El ${diaSemana} ${dia} de ${mes}${horario ? ` a las ${horario}` : ""}`;
 }
 
 const getPages = async () => {
-  const fechaActual = new Date();
-  const fechaISO = fechaActual.toISOString().split("T")[0];
+  // Hoy en Argentina: con toISOString (UTC), desde las 21:00 "hoy" ya era mañana.
+  const fechaISO = todayISO();
   let notionPages: any; // You can keep this as 'any' or try to type the entire response structure
   let pages: any[] = []; // Type this as an array of objects
 
@@ -123,7 +109,7 @@ const getPages = async () => {
           type: secondPage.properties[
             "Tipo de Reunión"
           ].select?.name?.toUpperCase(), // Optional chaining
-          pageLink: secondPage.url,
+          pageLink: secondPage.public_url,
           youtubeLink: secondPage.properties["Mensaje en YouTube"]?.url, // Optional chaining
           startDate: secondPage.properties.Fecha.date?.start,
         });
@@ -141,6 +127,8 @@ const getPages = async () => {
     } else {
       console.log("Error al consultar Notion:", error.message);
     }
+    // Sin este return la API respondía un body vacío y el cliente fallaba al parsear.
+    return [];
   }
 };
 
@@ -153,33 +141,42 @@ const getPages = async () => {
 export const getEventsByDateRange = async (startISO: string, endISO: string) => {
   const notion = new Client({ auth: NOTION_API_KEY });
   try {
-    const notionPages = await notion.databases.query({
-      database_id: DATABASE_ID,
-      filter: {
-        and: [
+    // Notion devuelve como máximo 100 resultados por página: hay que seguir el cursor.
+    const results: any[] = [];
+    let cursor: string | undefined;
+    do {
+      const page = await notion.databases.query({
+        database_id: DATABASE_ID,
+        start_cursor: cursor,
+        page_size: 100,
+        filter: {
+          and: [
+            {
+              property: "Fecha",
+              date: {
+                on_or_after: startISO,
+              },
+            },
+            {
+              property: "Fecha",
+              date: {
+                on_or_before: endISO,
+              },
+            },
+          ],
+        },
+        sorts: [
           {
             property: "Fecha",
-            date: {
-              on_or_after: startISO,
-            },
-          },
-          {
-            property: "Fecha",
-            date: {
-              on_or_before: endISO,
-            },
+            direction: "ascending",
           },
         ],
-      },
-      sorts: [
-        {
-          property: "Fecha",
-          direction: "ascending",
-        },
-      ],
-    });
+      });
+      results.push(...page.results);
+      cursor = page.has_more ? (page.next_cursor ?? undefined) : undefined;
+    } while (cursor);
 
-    return notionPages.results.map((page: any) => {
+    return results.map((page: any) => {
       const p = page as NotionPage;
       return {
         id: p.id,

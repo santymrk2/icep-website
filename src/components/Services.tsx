@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import type { FC } from "react";
+import { dateKeyAR, hasTime, parseEventDate, timeAR, weekdayAR } from "../lib/dates";
 
 interface ActivityCard {
   type: string;
@@ -122,25 +123,25 @@ const Services: FC = () => {
         const matches: Record<string, UpcomingMatch> = {};
         const eventsByDate: Record<string, number> = {};
         events.forEach((event) => {
-          const start = event.startDate ? new Date(event.startDate) : null;
+          const start = event.startDate ? parseEventDate(event.startDate) : null;
           if (!start || !event.type) return;
-          const dateKey = start.toISOString().split("T")[0];
+          const dateKey = dateKeyAR(start);
           eventsByDate[dateKey] = (eventsByDate[dateKey] ?? 0) + 1;
         });
         const now = new Date();
         events.forEach((event) => {
           const eventType = event.type?.toUpperCase();
-          const start = event.startDate ? new Date(event.startDate) : null;
+          const start = event.startDate ? parseEventDate(event.startDate) : null;
           if (!eventType || !start || Number.isNaN(start.getTime())) return;
           if (start.getTime() <= now.getTime()) return;
           const activity = activities.find((item) => item.type === eventType);
           if (!activity) return;
-          const dateKey = start.toISOString().split("T")[0];
+          const dateKey = dateKeyAR(start);
           const multipleSameDay = (eventsByDate[dateKey] ?? 0) > 1;
-          const notionTimeLabel = start.getHours() !== 0 || start.getMinutes() !== 0
-            ? `${start.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false })} hs`
+          const notionTimeLabel = event.startDate && hasTime(event.startDate)
+            ? `${timeAR(start)} hs`
             : undefined;
-          const badgeBase = dayBadgeMap[start.getDay()];
+          const badgeBase = dayBadgeMap[weekdayAR(start)];
           const badge = multipleSameDay && (notionTimeLabel || activity.startTime)
             ? `${badgeBase} · ${notionTimeLabel ?? activity.startTime}`
             : badgeBase;

@@ -11,6 +11,7 @@ import {
   Mic,
   Play,
 } from "lucide-react";
+import { datePartsAR, hasTime, parseEventDate, timeAR } from "../lib/dates";
 
 function getMonthDays(year: number, month: number) {
   const firstDay = new Date(year, month, 1);
@@ -110,7 +111,7 @@ export default function Calendar() {
   }, [currentDate, viewMode]);
 
   const sortedEvents = [...events].sort((a, b) => {
-    return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+    return parseEventDate(a.startDate).getTime() - parseEventDate(b.startDate).getTime();
   });
 
   // Animation for list items
@@ -190,14 +191,9 @@ export default function Calendar() {
   const { start, end } = getDateRange();
   const rangeText = `${start.getDate()} ${monthNamesShort[start.getMonth()]}, ${start.getFullYear()} – ${end.getDate()} ${monthNamesShort[end.getMonth()]}, ${end.getFullYear()}`;
 
-  const formatTime = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleTimeString("es-AR", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
-  };
+  // Sin hora en Notion → no inventamos una (antes salía "09:00 p. m." por el corrimiento UTC).
+  const formatTime = (dateStr: string) =>
+    hasTime(dateStr) ? `${timeAR(parseEventDate(dateStr))} hs` : "";
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
@@ -281,7 +277,7 @@ export default function Calendar() {
             {sortedEvents.map((ev, idx) => {
               const eventId = getEventId(ev, idx);
               const isExpanded = expandedEventId === eventId;
-              const eventDate = new Date(ev.startDate);
+              const { day, month } = datePartsAR(parseEventDate(ev.startDate));
 
               const details = [
                 { icon: BookOpen, label: "Enseñanza", value: ev.enseñanza },
@@ -310,19 +306,21 @@ export default function Calendar() {
                     <div className="flex gap-5 items-center">
                       <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-neutral-800 flex flex-col items-center justify-center border border-neutral-700">
                         <span className="text-[10px] font-bold uppercase text-neutral-400 leading-none mb-1">
-                          {monthNamesShort[eventDate.getMonth()]}
+                          {monthNamesShort[month]}
                         </span>
                         <span className="text-base font-bold text-white leading-none">
-                          {eventDate.getDate()}
+                          {day}
                         </span>
                       </div>
                       <div>
                         <h3 className="font-bold text-white group-hover:text-neutral-500 transition-colors">
                           {ev.type || "Evento"}
                         </h3>
-                        <p className="text-xs text-neutral-500 mt-0.5">
-                          {formatTime(ev.startDate)} hs
-                        </p>
+                        {formatTime(ev.startDate) && (
+                          <p className="text-xs text-neutral-500 mt-0.5">
+                            {formatTime(ev.startDate)}
+                          </p>
+                        )}
                       </div>
                     </div>
                     <div
