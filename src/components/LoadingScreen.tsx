@@ -18,22 +18,25 @@ const LoadingScreen: React.FC = () => {
         let fallbackTimeout: any;
         let gsapInstance: any = null;
 
+        const finish = () => {
+            setIsLoading(false);
+            (window as any).isSiteLoading = false;
+            document.body.classList.remove("is-loading");
+            document.body.classList.add("loading-done");
+            window.dispatchEvent(new CustomEvent("siteLoaded"));
+        };
+
         const dismiss = () => {
-            if (dismissed || !gsapInstance) return;
+            if (dismissed) return;
             dismissed = true;
             clearTimeout(fallbackTimeout);
 
+            // Sin GSAP (falló la descarga) igual hay que liberar la página.
+            if (!gsapInstance) return finish();
+
             // Small delay to ensure smooth transition
             setTimeout(() => {
-                const tl = gsapInstance.timeline({
-                    onComplete: () => {
-                        setIsLoading(false);
-                        (window as any).isSiteLoading = false;
-                        document.body.classList.remove("is-loading");
-                        document.body.classList.add("loading-done");
-                        window.dispatchEvent(new CustomEvent("siteLoaded"));
-                    }
-                });
+                const tl = gsapInstance.timeline({ onComplete: finish });
                 tl.to(containerRef.current, {
                     opacity: 0,
                     duration: 0.5,
@@ -42,25 +45,21 @@ const LoadingScreen: React.FC = () => {
             }, 500);
         };
 
-        // Images to preload — hero + home sections + all Services activity cards
-        const imagesToPreload = [
-            "/assets/General.webp",
-            "/assets/PG08.webp",
-            "/assets/PG09.webp",
-            "/assets/PG03.webp",
-            "/assets/Cena.jpg",
-            "/assets/Ensenianza.webp",
-            "/assets/Escuelita.jpg",
-            "/assets/adoloscentes.jpg",
-            "/assets/Jovenes.webp",
-            "/assets/Mujeres.webp",
-            "/assets/Matrimonio.jpg",
-            "/assets/Oracion.webp",
-        ];
+        // Solo lo que se ve al entrar: el hero de la home. El resto carga lazy al scrollear.
+        // Antes se precargaban 12 fotos de la home en TODAS las páginas.
+        const imagesToPreload = window.location.pathname === "/" ? ["/assets/General.webp"] : [];
+
+        // Fallback: dismiss after 5s even if images or GSAP are slow/broken
+        fallbackTimeout = setTimeout(dismiss, 5000);
 
         const run = async () => {
-            const { default: gsap } = await import("gsap");
-            gsapInstance = gsap;
+            try {
+                const { default: gsap } = await import("gsap");
+                gsapInstance = gsap;
+            } catch {
+                return dismiss();
+            }
+            const gsap = gsapInstance;
 
             // Inner animations
             gsap.to(spinnerRef.current, {
@@ -86,6 +85,7 @@ const LoadingScreen: React.FC = () => {
             // Preload all images in parallel
             let loaded = 0;
             const total = imagesToPreload.length;
+            if (total === 0) return dismiss();
 
             const onImageReady = () => {
                 loaded++;
@@ -98,9 +98,6 @@ const LoadingScreen: React.FC = () => {
                 img.onerror = onImageReady; // count errors too so we don't block forever
                 img.src = src;
             });
-
-            // Fallback: dismiss after 5s even if images are slow/broken
-            fallbackTimeout = setTimeout(dismiss, 5000);
         };
         run();
 
