@@ -1,0 +1,56 @@
+---
+// Layout propio de /jvns. A propósito NO importa el CSS global/Tailwind de tu app:
+// esta página queda aislada (ni recibe sus estilos ni les mete los suyos).
+import '@fontsource/big-shoulders-display/500';
+import '@fontsource/big-shoulders-display/800';
+import '@fontsource/big-shoulders-display/900';
+import '@fontsource/space-grotesk/400';
+import '@fontsource/space-grotesk/500';
+import { site } from '../data/camp';
+
+// Canonical y og:image necesitan `site` en astro.config; si no está, se omiten.
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const og = site.ogImage && Astro.site ? new URL(site.ogImage, Astro.site).href : '';
+const title = `${site.name} · ${site.datesLabel}`;
+---
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={site.description} />
+    <meta name="theme-color" content="#8cc4ec" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={site.description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {og && <meta property="og:image" content={og} />}
+    <meta name="twitter:card" content={og ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={site.description} />
+    {og && <meta name="twitter:image" content={og} />}
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Event',
+        name: site.name,
+        startDate: site.targetISO,
+        endDate: '2027-03-28T17:00:00-03:00',
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        location: {
+          '@type': 'Place',
+          name: site.place,
+          address: { '@type': 'PostalAddress', addressLocality: site.city, addressCountry: 'AR' },
+        },
+        description: site.description,
+      })}
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

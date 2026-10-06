@@ -1,0 +1,441 @@
+---
+import CampLayout from '../layouts/CampLayout.astro';
+import { site } from '../data/camp';
+
+const unit = `${site.name} ✦ ${site.datesLabel} ✦ ${site.place} ✦ ${site.city} ✦ +18 ✦ `;
+const marquee = unit.repeat(8);
+---
+<CampLayout>
+  <main class="camp">
+    <header class="hero">
+      <div class="hero-l">
+        <div class="hero-top"><span>{site.place}</span><span>{site.city}</span></div>
+        <h1>Camp<br /><span>’</span>27</h1>
+        <div class="hero-tag">{site.tagline}</div>
+      </div>
+      <div class="hero-r">
+        <div class="big-date">25<br />28<br /><span>MAR</span></div>
+        <div class="cd" id="cd" data-target={site.targetISO} aria-label="Cuenta regresiva">
+          <div><b data-u="d">--</b><small>Días</small></div>
+          <div><b data-u="h">--</b><small>Horas</small></div>
+          <div><b data-u="m">--</b><small>Min</small></div>
+          <div><b data-u="s">--</b><small>Seg</small></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">{marquee}{marquee}</div>
+    </div>
+
+    <section class="pad wrap" id="espera">
+      <h2 class="h2">Qué te espera</h2>
+      <div class="cards">
+        {site.story.map((s) => (
+          <div class="card">
+            <div class="card-img">
+              {s.image ? <img src={s.image} alt={s.alt} style={{ objectPosition: s.pos }} loading="lazy" decoding="async" width="800" height="600" /> : <span>Foto: {s.alt}</span>}
+            </div>
+            <div class="card-b">
+              <div class="card-t"><span>{s.n}</span> {s.title}</div>
+              <p>{s.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="night pad" id="fechas">
+      <div class="wrap">
+        <h2 class="h2">Fechas</h2>
+        {site.program.map((p) => (
+          <div class="row"><b>{p.time}</b><span>{p.title}</span></div>
+        ))}
+        <div class="place">
+          <div>{site.place} · {site.city}</div>
+          <a class="btn-sky" href={site.mapsUrl} target="_blank" rel="noopener">Cómo llegar ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="pad" id="inscripcion">
+      <div class="rsvp">
+        <div>
+          <h2 class="h2">¿Venís?</h2>
+          <p class="lead">Asegurá tu lugar. Al enviar, tu entrada se corta y queda sellada. Los cupos son limitados.</p>
+        </div>
+        <form id="rsvp" class="ticket" novalidate data-endpoint={site.formEndpoint} data-wa={site.whatsapp} data-name={site.name}>
+          <div class="form-box">
+            <div class="f" id="fields">
+              <input class="in name" name="nombre" id="nombre" placeholder="NOMBRE Y APELLIDO" autocomplete="name" required aria-label="Nombre y apellido" />
+              <fieldset class="yn">
+                <legend class="sg" style="position:absolute;left:-9999px">¿Venís?</legend>
+                <label><input type="radio" name="asiste" value="si" /><span>Voy</span></label>
+                <label><input type="radio" name="asiste" value="no" /><span>No voy</span></label>
+              </fieldset>
+              <div class="extra" id="extra">
+                <input class="in" name="whatsapp" type="tel" placeholder="WhatsApp de contacto" autocomplete="tel" aria-label="WhatsApp de contacto" />
+                <input class="in" name="restriccion" placeholder="Restricción alimentaria (opcional)" aria-label="Restricción alimentaria" />
+              </div>
+              <input class="hp" name="web" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              <p class="err" id="err" role="alert"></p>
+            </div>
+            <div class="done" id="done" aria-live="polite">
+              <div class="tk-meta"><span>Entrada · {site.shortTitle}</span><span id="tkNo"></span></div>
+              <div class="t" id="doneT"></div>
+              <p id="doneP"></p>
+              <button type="button" class="linkbtn" id="reset">Cambiar respuesta</button>
+            </div>
+          </div>
+          <div class="stub" id="stub">
+            <button type="submit" id="submit"><span id="cta">Cortar y confirmar</span><span aria-hidden="true">✂</span></button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="cost" id="costo">
+      <div>
+        <div class="l">Costo</div>
+        <div class="p">{site.price}</div>
+      </div>
+      <div class="r">
+        <p>Por persona, del jueves 25 al domingo 28. Cupos limitados.</p>
+        <a class="btn-navy" href="#inscripcion">Confirmar asistencia ↑</a>
+      </div>
+    </section>
+
+    <dialog class="modal" id="cepModal" aria-labelledby="cepT" aria-describedby="cepP">
+      <form method="dialog" class="modal-in">
+        <div class="modal-tag">Antes de cortar tu entrada</div>
+        <h3 id="cepT">Solo {site.church}</h3>
+        <p id="cepP">Solo podés confirmar tu lugar en el {site.shortTitle} si pertenecés a la {site.church}.</p>
+        <div class="modal-act">
+          <button value="cancel" class="m-ghost">Volver</button>
+          <button value="ok" class="m-ok"><span>Soy de la {site.church}</span><span aria-hidden="true">✂</span></button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="foot">{site.name} · {site.place}, {site.city}</div>
+  </main>
+
+  <script>
+    // ---- Cuenta regresiva ----
+    const cd = document.getElementById('cd')!;
+    const target = new Date(cd.dataset.target!).getTime();
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const set = (u: string, v: string) => { const el = cd.querySelector(`[data-u="${u}"]`); if (el) el.textContent = v; };
+    const tick = () => {
+      const d = Math.max(0, target - Date.now());
+      set('d', String(Math.floor(d / 864e5)));
+      set('h', pad(Math.floor(d / 36e5) % 24));
+      set('m', pad(Math.floor(d / 6e4) % 60));
+      set('s', pad(Math.floor(d / 1e3) % 60));
+    };
+    tick();
+    setInterval(tick, 1000);
+
+    // ---- Inscripción ----
+    const form = document.getElementById('rsvp') as HTMLFormElement;
+    const fields = document.getElementById('fields')!;
+    const extra = document.getElementById('extra')!;
+    const done = document.getElementById('done')!;
+    const stub = document.getElementById('stub')!;
+    const submit = document.getElementById('submit') as HTMLButtonElement;
+    const cta = document.getElementById('cta')!;
+    const err = document.getElementById('err')!;
+    const modal = document.getElementById('cepModal') as HTMLDialogElement;
+    const { endpoint, wa, name: evName } = form.dataset as Record<string, string>;
+    const KEY = 'campamento27-rsvp';
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let sending = false;
+
+    type Rsvp = { id?: string; nombre: string; asiste: string; whatsapp: string; restriccion: string; esCep: boolean };
+
+    const val = (n: string) => (form.elements.namedItem(n) as HTMLInputElement).value.trim();
+    const att = () => (form.querySelector('input[name="asiste"]:checked') as HTMLInputElement | null)?.value ?? '';
+
+    const showErr = (m: string) => { err.textContent = m; err.classList.toggle('on', !!m); };
+    const refresh = () => {
+      extra.classList.toggle('on', att() === 'si');
+      const ready = !!val('nombre') && !!att();
+      submit.disabled = !ready || sending;
+      cta.textContent = sending ? 'Enviando…' : ready ? 'Cortar y confirmar' : 'Completá para confirmar';
+    };
+    form.addEventListener('input', () => { showErr(''); refresh(); });
+    form.addEventListener('change', refresh);
+
+    // ---- Boleto: se rompe y queda "vivo" (tilt 3D siguiendo el mouse) ----
+    const tear = (animate: boolean) => {
+      if (!animate || calm) { form.classList.add('torn', 'live'); return; }
+      form.classList.add('ripping');
+      stub.classList.add('tearing');
+      stub.addEventListener('animationend', () => {
+        form.classList.remove('ripping');
+        form.classList.add('torn', 'live');
+      }, { once: true });
+    };
+
+    const resetTilt = () => {
+      form.classList.remove('moving');
+      ['--rx', '--ry'].forEach((p) => form.style.setProperty(p, '0deg'));
+    };
+    if (matchMedia('(hover: hover)').matches && !calm) {
+      form.addEventListener('pointermove', (e) => {
+        if (!form.classList.contains('live')) return;
+        const r = form.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        form.classList.add('moving');
+        form.style.setProperty('--ry', `${((x - 0.5) * 18).toFixed(2)}deg`);
+        form.style.setProperty('--rx', `${((0.5 - y) * 14).toFixed(2)}deg`);
+        form.style.setProperty('--gx', `${(x * 100).toFixed(1)}%`);
+        form.style.setProperty('--gy', `${(y * 100).toFixed(1)}%`);
+      });
+      form.addEventListener('pointerleave', resetTilt);
+    }
+
+    const showDone = (data: Rsvp, animate: boolean) => {
+      const first = data.nombre.split(' ')[0];
+      const yes = data.asiste === 'si';
+      document.getElementById('doneT')!.textContent = yes ? `¡Nos vemos, ${first}!` : `Te vamos a extrañar, ${first}`;
+      document.getElementById('doneP')!.textContent = yes
+        ? 'Del 25 al 28 de marzo, Complejo Loma Verde, Escobar. Ingreso jueves 18:00.'
+        : 'Gracias por avisarnos.';
+      document.getElementById('tkNo')!.textContent = data.id ? `Nº ${data.id.replace(/^rec/, '').slice(0, 6).toUpperCase()}` : '';
+      fields.style.display = 'none';
+      done.classList.add('on');
+      submit.disabled = true;
+      cta.textContent = yes ? 'Entrada cortada ✓' : 'Respuesta enviada ✓';
+      if (yes) tear(animate);
+    };
+
+    const send = async (data: Rsvp) => {
+      const waFallback = () => {
+        if (!wa) return false;
+        const msg = `Hola! Quiero confirmar mi lugar en el ${evName}.\nNombre: ${data.nombre}\nAsisto: ${data.asiste === 'si' ? 'Sí' : 'No'}` +
+          (data.whatsapp ? `\nWhatsApp: ${data.whatsapp}` : '') +
+          (data.restriccion ? `\nRestricción alimentaria: ${data.restriccion}` : '');
+        window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+        return true;
+      };
+
+      sending = true; refresh();
+      let ok = false;
+      try {
+        const r = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ ...data, web: val('web') }),
+        });
+        if (r.ok) {
+          ok = true;
+          data.id = ((await r.json()) as { id?: string }).id ?? '';
+        }
+      } catch { ok = false; }
+      if (!ok) ok = waFallback();
+      sending = false;
+
+      if (ok) {
+        showErr('');
+        try { localStorage.setItem(KEY, JSON.stringify(data)); } catch {}
+        showDone(data, true);
+      } else {
+        showErr('No pudimos enviar tu respuesta. Probá de nuevo en unos minutos.');
+        refresh();
+      }
+    };
+
+    let pending: Rsvp | null = null;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (sending || submit.disabled) return;
+      if (val('web')) return; // honeypot
+      const yes = att() === 'si';
+      const data: Rsvp = {
+        nombre: val('nombre'),
+        asiste: att(),
+        whatsapp: yes ? val('whatsapp') : '',
+        restriccion: yes ? val('restriccion') : '',
+        esCep: false,
+      };
+      if (yes && !data.whatsapp) { showErr('Dejanos un WhatsApp para poder contactarte.'); return; }
+      if (!yes) { send(data); return; }
+      pending = data;
+      modal.returnValue = '';
+      modal.showModal();
+    });
+
+    modal.addEventListener('close', () => {
+      const data = pending;
+      pending = null;
+      if (data && modal.returnValue === 'ok') send({ ...data, esCep: true });
+    });
+    // Click en el fondo cierra el modal
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.close('cancel'); });
+
+    document.getElementById('reset')!.addEventListener('click', () => {
+      try { localStorage.removeItem(KEY); } catch {}
+      done.classList.remove('on');
+      fields.style.display = '';
+      form.classList.remove('ripping', 'torn', 'live');
+      stub.classList.remove('tearing');
+      resetTilt();
+      refresh();
+    });
+
+    // Recuperar respuesta previa
+    try {
+      const saved = localStorage.getItem(KEY);
+      if (saved) showDone(JSON.parse(saved), false);
+    } catch {}
+    refresh();
+  </script>
+</CampLayout>
+
+<style is:global>
+/* Todo prefijado con .camp: no afecta al resto de la app ni recibe estilos de Tailwind. */
+html:has(.camp),body:has(.camp){margin:0;padding:0;background:#f4efe6}
+.camp{--sky:#8cc4ec;--navy:#15213a;--cream:#f4efe6;--coral:#e2553b;min-height:100vh;min-height:100svh;width:100%;overflow-x:clip;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;background:var(--cream);color:var(--navy);font-family:'Space Grotesk',sans-serif;-webkit-font-smoothing:antialiased}
+.camp *,.camp *::before,.camp *::after{box-sizing:border-box}
+.camp a{color:var(--navy);text-decoration:underline;text-underline-offset:3px}
+.camp a:hover{color:var(--coral)}
+.camp input,.camp button{font:inherit;color:inherit}
+.camp ::selection{background:var(--coral);color:var(--cream)}
+.camp :focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.camp .h2{margin:0;font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:clamp(56px,9vw,120px);line-height:.85;text-transform:uppercase}
+.camp .pad{padding:clamp(56px,10vw,120px) clamp(20px,4vw,48px)}
+.camp .wrap{max-width:1280px;margin:0 auto}
+
+/* Afiche */
+.camp .hero{min-height:100vh;min-height:100svh;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.camp .hero-l{background:var(--sky);padding:clamp(20px,4vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:32px;min-height:70vh;min-height:70svh}
+.camp .hero-top{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between;font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.camp .hero h1{margin:0;font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:clamp(110px,21vw,300px);line-height:.86;text-transform:uppercase;letter-spacing:-.01em}
+.camp .hero h1 span{color:var(--coral)}
+.camp .hero-tag{font-family:'Space Grotesk',sans-serif;font-size:clamp(18px,2vw,22px);max-width:380px;line-height:1.4}
+.camp .hero-r{background:var(--navy);color:var(--cream);padding:clamp(20px,4vw,48px);display:flex;flex-direction:column;justify-content:space-between;gap:32px}
+.camp .big-date{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:clamp(90px,15vw,220px);line-height:.88;color:var(--sky)}
+.camp .big-date span{color:var(--cream)}
+.camp .cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:2px solid var(--cream);padding-top:16px}
+.camp .cd div{display:flex;flex-direction:column;gap:2px}
+.camp .cd b{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:clamp(36px,4.5vw,60px);line-height:1;font-variant-numeric:tabular-nums}
+.camp .cd small{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+
+/* Cinta */
+.camp .marquee{background:var(--coral);color:var(--cream);overflow:hidden;white-space:nowrap;padding:14px 0;border-top:2px solid var(--navy);border-bottom:2px solid var(--navy)}
+.camp .marquee-track{display:inline-block;font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:32px;text-transform:uppercase;letter-spacing:.04em;animation:camp-mq 120s linear infinite}
+@keyframes camp-mq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.camp .marquee-track{animation:none}}
+html:has(.camp){scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html:has(.camp){scroll-behavior:auto}}
+
+/* Tarjetas */
+.camp .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:24px;margin-top:40px}
+.camp .card{border:2px solid var(--navy);display:flex;flex-direction:column}
+.camp .card-img{aspect-ratio:4/3;width:100%;border-bottom:2px solid var(--navy);background:repeating-linear-gradient(45deg,#e9e2d3,#e9e2d3 12px,#f4efe6 12px,#f4efe6 24px);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:14px;opacity:.9}
+.camp .card-img{overflow:hidden}
+.camp .card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+@media (hover:hover){.camp .card:hover .card-img img{transform:scale(1.05)}}
+.camp .card-b{padding:20px;display:flex;flex-direction:column;gap:8px}
+.camp .card-t{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:40px;line-height:1;text-transform:uppercase}
+.camp .card-t span{color:var(--coral)}
+.camp .card p{margin:0;font-family:'Space Grotesk',sans-serif;font-size:17px;line-height:1.5}
+
+/* Fechas */
+.camp .night{background:var(--navy);color:var(--cream)}
+.camp .night .h2{color:var(--sky);margin-bottom:32px}
+.camp .row{display:grid;grid-template-columns:minmax(110px,220px) minmax(0,1fr);gap:20px;align-items:baseline;padding:18px 0;border-top:2px solid rgba(244,239,230,.3)}
+.camp .row b{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:clamp(48px,6vw,80px);line-height:1;color:var(--sky)}
+.camp .row span{font-family:'Big Shoulders Display',sans-serif;font-weight:500;font-size:clamp(28px,3.4vw,44px);text-transform:uppercase;line-height:1.05}
+.camp .place{margin-top:48px;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;border-top:2px solid var(--cream);padding-top:28px}
+.camp .place div{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:clamp(34px,4vw,52px);text-transform:uppercase;line-height:1}
+.camp .btn-sky{background:var(--sky);color:var(--navy);text-decoration:none;padding:16px 26px;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:15px;letter-spacing:.1em;text-transform:uppercase}
+.camp .btn-sky:hover{background:var(--cream);color:var(--navy)}
+
+/* RSVP */
+.camp .rsvp{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:40px;align-items:start}
+.camp .rsvp p.lead{margin:16px 0 0;font-family:'Space Grotesk',sans-serif;font-size:19px;line-height:1.5;max-width:420px}
+.camp .form-box{background:var(--sky);border:2px solid var(--navy);padding:clamp(20px,4vw,32px);display:flex;flex-direction:column;gap:18px}
+.camp .f{display:flex;flex-direction:column;gap:18px}
+.camp .in{background:var(--cream);border:2px solid var(--navy);padding:12px 16px;font-family:'Space Grotesk',sans-serif;font-size:17px;width:100%;border-radius:0}
+.camp .in.name{padding:14px 16px;font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:28px;text-transform:uppercase}
+.camp .yn{display:grid;grid-template-columns:1fr 1fr;gap:10px;border:0;padding:0;margin:0}
+.camp .yn label{display:block;cursor:pointer}
+.camp .yn input{position:absolute;opacity:0;pointer-events:none}
+.camp .yn span{display:block;text-align:center;padding:14px;border:2px solid var(--navy);background:var(--cream);font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:24px;text-transform:uppercase}
+.camp .yn input:checked+span{background:var(--navy);color:var(--cream)}
+.camp .yn input:focus-visible+span{outline:3px solid var(--coral);outline-offset:2px}
+.camp .extra{display:none;flex-direction:column;gap:10px}
+.camp .extra.on{display:flex}
+.camp .hp{position:absolute;left:-9999px;opacity:0}
+.camp .stub{border:2px solid var(--navy);border-top:3px dashed var(--navy);transform-origin:top left}
+.camp .stub button{width:100%;border:0;background:var(--coral);color:var(--cream);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:28px;text-transform:uppercase;text-align:left}
+.camp .stub button:disabled{cursor:default}
+.camp .done{display:none;flex-direction:column;gap:8px}
+.camp .done.on{display:flex}
+.camp .done .t{font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:clamp(40px,5vw,60px);line-height:.95;text-transform:uppercase}
+.camp .done p{margin:0;font-family:'Space Grotesk',sans-serif;font-size:18px;line-height:1.5}
+.camp .linkbtn{align-self:flex-start;background:transparent;border:0;padding:0;font-family:'Space Grotesk',sans-serif;font-size:14px;text-decoration:underline;cursor:pointer}
+.camp .tk-meta{display:flex;justify-content:space-between;gap:12px;padding-bottom:10px;margin-bottom:6px;border-bottom:2px dashed var(--navy);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.camp .err{display:none;margin:0;font-family:'Space Grotesk',sans-serif;font-size:15px;line-height:1.5;background:var(--cream);border:2px solid var(--coral);padding:10px 14px}
+.camp .err.on{display:block}
+
+/* Boleto: rotura + tilt 3D */
+.camp .ticket{--rx:0deg;--ry:0deg;--gx:50%;--gy:50%;--zz:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/24px 100%;transform:perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .5s}
+.camp .ticket.moving{transition:transform .08s linear,filter .5s}
+.camp .ticket.live{filter:drop-shadow(10px 12px 0 var(--navy))}
+.camp .form-box{position:relative}
+.camp .ticket:is(.ripping,.torn) .form-box{-webkit-mask:var(--zz);mask:var(--zz);padding-bottom:calc(clamp(20px,4vw,32px) + 12px)}
+.camp .form-box::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(circle at var(--gx) var(--gy),rgba(255,255,255,.6),transparent 55%);mix-blend-mode:soft-light}
+.camp .ticket.live:hover .form-box::after{opacity:1}
+.camp .ticket.torn .stub{display:none}
+.camp .stub.tearing{pointer-events:none;-webkit-mask:conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) 50%/24px 100%;mask:conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) 50%/24px 100%;animation:camp-tear 1.1s linear forwards}
+@keyframes camp-tear{
+  0%{transform:none}
+  10%{transform:translate(0,3px) rotate(-2deg)}
+  20%{transform:translate(2px,6px) rotate(2.5deg);animation-timing-function:cubic-bezier(.55,0,.9,.4)}
+  100%{transform:translate(70px,340px) rotate(26deg);opacity:0}
+}
+
+/* Modal */
+.camp .modal{max-width:min(520px,calc(100vw - 32px));max-height:calc(100svh - 32px);overflow-y:auto;width:100%;padding:0;border:2px solid var(--navy);background:var(--cream);color:var(--navy);box-shadow:10px 12px 0 var(--navy)}
+.camp .modal[open]{animation:camp-pop .35s cubic-bezier(.2,.9,.3,1.2)}
+.camp .modal::backdrop{background:rgba(21,33,58,.72);backdrop-filter:blur(3px)}
+@keyframes camp-pop{from{transform:translateY(24px) rotate(-1.5deg);opacity:0}}
+.camp .modal-in{display:flex;flex-direction:column;gap:16px;padding:clamp(22px,4vw,34px);border-top:14px solid var(--coral)}
+.camp .modal-tag{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.camp .modal h3{margin:0;font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:clamp(44px,8vw,68px);line-height:.88;text-transform:uppercase}
+.camp .modal p{margin:0;font-family:'Space Grotesk',sans-serif;font-size:18px;line-height:1.5}
+.camp .modal-act{display:grid;grid-template-columns:auto 1fr;gap:10px;margin-top:8px}
+@media (max-width:440px){.camp .modal-act{grid-template-columns:1fr}.camp .m-ok{order:-1}}
+.camp .modal-act button{border:2px solid var(--navy);padding:14px 18px;cursor:pointer;font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:22px;text-transform:uppercase}
+.camp .m-ghost{background:transparent}
+.camp .m-ghost:hover{background:var(--sky)}
+.camp .m-ok{background:var(--coral);color:var(--cream);display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left}
+.camp .m-ok:hover{background:var(--navy)}
+@media (prefers-reduced-motion:reduce){.camp .modal[open]{animation:none}}
+
+/* Mobile */
+@media (max-width:480px){
+  .camp .cd{gap:8px}
+  .camp .cd small{font-size:10px;letter-spacing:.08em}
+  .camp .row{grid-template-columns:1fr;gap:4px}
+  .camp .stub button{font-size:24px;padding:18px 20px}
+  .camp .in.name{font-size:24px}
+  .camp .ticket.live{filter:drop-shadow(6px 8px 0 var(--navy))}
+  .camp .marquee-track{font-size:26px}
+}
+
+/* Costo */
+.camp .cost{border-top:2px solid var(--navy);max-width:1280px;margin:0 auto;padding:clamp(48px,8vw,96px) clamp(20px,4vw,48px);display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
+.camp .cost .l{font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:clamp(44px,7vw,88px);line-height:.9;text-transform:uppercase}
+.camp .cost .p{font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:clamp(56px,9vw,120px);line-height:.9;color:var(--coral)}
+.camp .cost .r{display:flex;flex-direction:column;gap:14px;max-width:460px}
+.camp .cost .r p{margin:0;font-family:'Space Grotesk',sans-serif;font-size:18px;line-height:1.5}
+.camp .btn-navy{align-self:flex-start;background:var(--navy);color:var(--cream);text-decoration:none;border:0;padding:14px 22px;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:14px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.camp .btn-navy:hover{background:var(--coral);color:var(--cream)}
+.camp .foot{text-align:center;padding:28px 20px 40px;font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+</style>

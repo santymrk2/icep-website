@@ -25,6 +25,9 @@ export default defineConfig({
       DATABASE_ID: envField.string({ context: "server", access: "public" }),
       GOOGLE_API_KEY: envField.string({ context: "server", access: "secret" }),
       SITE: envField.string({ context: "server", access: "public" }),
+      AIRTABLE_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
+      AIRTABLE_BASE_ID: envField.string({ context: "server", access: "secret", optional: true }),
+      AIRTABLE_TABLE: envField.string({ context: "server", access: "public", default: "Inscripciones" }),
     },
   },
 });
