@@ -192,7 +192,7 @@ export const prerender = true;
         "        lineColor += col * intensity;",
         "    }",
         "",
-        "    float md = distance(uvA, u_mouse / vec2(u_resolution.y, u_resolution.y) * aspect);",
+        "    float md = distance(uvA, u_mouse / u_resolution * aspect);",
         "    float mGlow = smoothstep(0.5, 0.0, md) * 0.15;",
         "    lineColor += orange * mGlow;",
         "    totalLine += mGlow;",
@@ -237,7 +237,8 @@ export const prerender = true;
         var rect = canvas.getBoundingClientRect();
         if (rect.width && rect.height) {
           mouse.x = event.clientX - rect.left;
-          mouse.y = event.clientY - rect.top;
+          // WebGL mide Y desde abajo; el mouse, desde arriba.
+          mouse.y = rect.height - (event.clientY - rect.top);
         }
       });
 
