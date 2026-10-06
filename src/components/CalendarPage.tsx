@@ -6,44 +6,56 @@ const CalendarPage: React.FC = () => {
   const scopeRef = useRef<HTMLDivElement>(null);
   const isLoaded = useSiteLoaded();
 
+  // Lenis: una sola instancia por página (antes se creaba una nueva cada vez que cambiaba
+  // isLoaded y el requestAnimationFrame anterior nunca se cancelaba).
   useEffect(() => {
-    let ctx: any;
     let lenis: any;
-    
+    let frame = 0;
+    let cancelled = false;
+
     const run = async () => {
-      const { default: gsap } = await import("gsap");
       const { default: Lenis } = await import("lenis");
-      
-      // Lenis Setup
+      if (cancelled) return;
       lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       });
-
-      function raf(time: number) {
+      const raf = (time: number) => {
         lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
+        frame = requestAnimationFrame(raf);
+      };
+      frame = requestAnimationFrame(raf);
+    };
+    run();
 
-      // GSAP Animations (wait for isLoaded)
-      if (isLoaded) {
-        ctx = gsap.context(() => {
-          const tl = gsap.timeline();
-          // Target the section directly via class within the div scope
-          tl.to(".calendar-section", { opacity: 1, duration: 0.8 })
-            .to(".header-hint", { opacity: 1, y: 0, duration: 0.5 }, "-=0.6")
-            .to(".header-title", { opacity: 1, y: 0, duration: 0.6 }, "-=0.4")
-            .to(".header-desc", { opacity: 1, y: 0, duration: 0.6 }, "-=0.4")
-            .to(".calendar-container", { opacity: 1, y: 0, duration: 0.8 }, "-=0.2");
-        }, scopeRef);
-      }
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+      lenis?.destroy();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isLoaded) return;
+    let ctx: any;
+
+    const run = async () => {
+      const { default: gsap } = await import("gsap");
+
+      ctx = gsap.context(() => {
+        const tl = gsap.timeline();
+        // Target the section directly via class within the div scope
+        tl.to(".calendar-section", { opacity: 1, duration: 0.8 })
+          .to(".header-hint", { opacity: 1, y: 0, duration: 0.5 }, "-=0.6")
+          .to(".header-title", { opacity: 1, y: 0, duration: 0.6 }, "-=0.4")
+          .to(".header-desc", { opacity: 1, y: 0, duration: 0.6 }, "-=0.4")
+          .to(".calendar-container", { opacity: 1, y: 0, duration: 0.8 }, "-=0.2");
+      }, scopeRef);
     };
     run();
 
     return () => {
       if (ctx) ctx.revert();
-      if (lenis) lenis.destroy();
     };
   }, [isLoaded]);
 

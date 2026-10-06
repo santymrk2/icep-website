@@ -5,57 +5,74 @@ const ContactPage: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isLoaded = useSiteLoaded();
 
+  // Lenis: una sola instancia por página (antes se creaba una nueva cada vez que cambiaba
+  // isLoaded y el requestAnimationFrame anterior nunca se cancelaba).
   useEffect(() => {
-    let ctx: any;
     let lenis: any;
-    
+    let frame = 0;
+    let cancelled = false;
+
     const run = async () => {
-      const { default: gsap } = await import("gsap");
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       const { default: Lenis } = await import("lenis");
-      
-      gsap.registerPlugin(ScrollTrigger);
-      
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      if (cancelled) return;
       lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       });
-
-      function raf(time: number) {
+      // Mantiene sincronizadas las animaciones con scrub mientras Lenis suaviza el scroll.
+      lenis.on("scroll", ScrollTrigger.update);
+      const raf = (time: number) => {
         lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
+        frame = requestAnimationFrame(raf);
+      };
+      frame = requestAnimationFrame(raf);
+    };
+    run();
 
-      if (isLoaded) {
-        ctx = gsap.context(() => {
-          gsap.to(".hero-reveal", {
-            opacity: 1, y: 0, duration: 0.8, stagger: 0.2, ease: "power3.out", delay: 0.2
-          });
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+      lenis?.destroy();
+    };
+  }, []);
 
-          const sections = gsap.utils.toArray<HTMLElement>(".reveal-section");
-          sections.forEach((section) => {
-            gsap.fromTo(section, 
-              { opacity: 0, y: 40 },
-              { 
-                opacity: 1, y: 0, duration: 1, ease: "power3.out",
-                scrollTrigger: {
-                  trigger: section,
-                  start: "top 85%",
-                  end: "top 40%",
-                  scrub: 1,
-                }
+  useEffect(() => {
+    if (!isLoaded) return;
+    let ctx: any;
+
+    const run = async () => {
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      ctx = gsap.context(() => {
+        gsap.to(".hero-reveal", {
+          opacity: 1, y: 0, duration: 0.8, stagger: 0.2, ease: "power3.out", delay: 0.2
+        });
+
+        const sections = gsap.utils.toArray<HTMLElement>(".reveal-section");
+        sections.forEach((section) => {
+          gsap.fromTo(section,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1, y: 0, duration: 1, ease: "power3.out",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 85%",
+                end: "top 40%",
+                scrub: 1,
               }
-            );
-          });
-        }, containerRef);
-      }
+            }
+          );
+        });
+      }, containerRef);
     };
     run();
 
     return () => {
       if (ctx) ctx.revert();
-      if (lenis) lenis.destroy();
     };
   }, [isLoaded]);
 
