@@ -111,7 +111,7 @@ const LoadingScreen: React.FC = () => {
     return (
         <div
             ref={containerRef}
-            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-neutral-950 transition-colors duration-300"
+            className="loading-screen fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-neutral-950 transition-colors duration-300"
         >
             <div className="relative">
                 {/* Main Spinner */}

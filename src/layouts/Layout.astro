@@ -10,7 +10,6 @@ import LoadingScreen from "../components/LoadingScreen.tsx";
 interface Props {
   title: string;
   description?: string;
-  showLoading?: boolean;
 }
 
 const {
@@ -23,9 +22,9 @@ const {
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#171717" />
 
     <!-- Force dark mode — clear any stale theme from localStorage -->
     <script is:inline>
@@ -40,23 +39,30 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+    <meta name="apple-mobile-web-app-title" content="ICEP" />
     <link rel="manifest" href="/site.webmanifest" />
 
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <!-- Sin JS el loader (renderizado en el servidor) taparía la página para siempre. -->
+    <noscript><style>.loading-screen { display: none !important; }</style></noscript>
     <Analytics />
   </head>
 
   <body
     class="min-h-screen bg-neutral-900 text-white overflow-x-hidden"
   >
-    <LoadingScreen client:only="react" />
-    <Header client:only="react" />
+    <LoadingScreen client:load />
+    <Header client:load />
     <main>
       <slot />
-      <Footer client:only="react" />
     </main>
+    <Footer client:visible />
+
+    <script>
+      import { initSmoothScroll } from "../lib/smooth-scroll";
+      initSmoothScroll();
+    </script>
   </body>
 </html>

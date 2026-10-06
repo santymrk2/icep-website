@@ -6,34 +6,7 @@ const CalendarPage: React.FC = () => {
   const scopeRef = useRef<HTMLDivElement>(null);
   const isLoaded = useSiteLoaded();
 
-  // Lenis: una sola instancia por página (antes se creaba una nueva cada vez que cambiaba
-  // isLoaded y el requestAnimationFrame anterior nunca se cancelaba).
-  useEffect(() => {
-    let lenis: any;
-    let frame = 0;
-    let cancelled = false;
-
-    const run = async () => {
-      const { default: Lenis } = await import("lenis");
-      if (cancelled) return;
-      lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      });
-      const raf = (time: number) => {
-        lenis.raf(time);
-        frame = requestAnimationFrame(raf);
-      };
-      frame = requestAnimationFrame(raf);
-    };
-    run();
-
-    return () => {
-      cancelled = true;
-      cancelAnimationFrame(frame);
-      lenis?.destroy();
-    };
-  }, []);
+  // El smooth scroll (Lenis) lo maneja el Layout para todo el sitio.
 
   useEffect(() => {
     if (!isLoaded) return;

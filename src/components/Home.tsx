@@ -1,6 +1,26 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Services from "./Services";
 import { useSiteLoaded } from "../hooks/useSiteLoaded";
+
+const getYearsOfService = () => {
+  const foundingYear = 1980;
+  const anniversaryMonth = 9; // octubre (0-index)
+  const anniversaryDay = 11;
+  const today = new Date();
+
+  let years = today.getFullYear() - foundingYear;
+  const anniversaryThisYear = new Date(
+    today.getFullYear(),
+    anniversaryMonth,
+    anniversaryDay,
+  );
+
+  if (today < anniversaryThisYear) {
+    years -= 1;
+  }
+
+  return years;
+};
 
 const Home: React.FC = () => {
   const isLoaded = useSiteLoaded();
@@ -16,47 +36,21 @@ const Home: React.FC = () => {
   const image3Ref = useRef<HTMLDivElement>(null);
   const image3ImgRef = useRef<HTMLImageElement>(null);
 
-  const yearsOfService = (() => {
-    const foundingYear = 1980;
-    const anniversaryMonth = 9; // octubre (0-index)
-    const anniversaryDay = 11;
-    const today = new Date();
-
-    let years = today.getFullYear() - foundingYear;
-    const anniversaryThisYear = new Date(
-      today.getFullYear(),
-      anniversaryMonth,
-      anniversaryDay,
-    );
-
-    if (today < anniversaryThisYear) {
-      years -= 1;
-    }
-
-    return years;
-  })();
+  // La home se prerenderiza en el build: el valor del servidor puede quedar viejo,
+  // así que el cliente lo recalcula al montar.
+  const [yearsOfService, setYearsOfService] = useState(getYearsOfService);
+  useEffect(() => setYearsOfService(getYearsOfService()), []);
 
   useEffect(() => {
-    let lenis: any;
+    let cancelled = false;
+    let cleanup: (() => void) | undefined;
     const run = async () => {
       const { default: gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-      const { default: Lenis } = await import("lenis");
+      if (cancelled) return;
 
       gsap.registerPlugin(ScrollTrigger);
-
-      // ── Lenis smooth scrolling + GSAP ScrollTrigger sync ────────────
-      lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      });
-
-      lenis.on("scroll", ScrollTrigger.update);
-
-      gsap.ticker.add((time) => {
-        lenis.raf(time * 1000);
-      });
-      gsap.ticker.lagSmoothing(0);
+      // El smooth scroll (Lenis) lo maneja el Layout para todo el sitio.
 
       // ── Hero parallax on scroll ─────────────────────────────────────
       const heroImg = heroImgRef.current;
@@ -167,49 +161,14 @@ const Home: React.FC = () => {
         });
       }
 
-      // ── Slider auto-play ────────────────────────────────────────────
-      const btnLeft = document.getElementById("btn-left");
-      const btnRight = document.getElementById("btn-right");
-      const slider = document.getElementById("slider");
-      const sliderSections = document.querySelectorAll(".slider-section");
-
-      let counter = 0;
-      const widthImg = 100 / sliderSections.length;
-
-      function moveToRight() {
-        counter = (counter + 1) % sliderSections.length;
-        if (slider) {
-          slider.style.transform = `translateX(-${counter * widthImg}%)`;
-        }
-      }
-
-      function moveToLeft() {
-        counter = (counter - 1 + sliderSections.length) % sliderSections.length;
-        if (slider) {
-          slider.style.transform = `translateX(-${counter * widthImg}%)`;
-        }
-      }
-
-      btnLeft?.addEventListener("click", moveToLeft);
-      btnRight?.addEventListener("click", moveToRight);
-
-      const interval = setInterval(moveToRight, 4000);
-
-      // Save for cleanup
-      (run as any)._cleanup = () => {
-        lenis?.destroy();
-        gsap.ticker.remove(lenis?.raf as any);
-        ScrollTrigger.getAll().forEach((st) => st.kill());
-        btnLeft?.removeEventListener("click", moveToLeft);
-        btnRight?.removeEventListener("click", moveToRight);
-        clearInterval(interval);
-      };
+      cleanup = () => ScrollTrigger.getAll().forEach((st) => st.kill());
     };
     run();
 
     // ── Cleanup ─────────────────────────────────────────────────────
     return () => {
-      if ((run as any)._cleanup) (run as any)._cleanup();
+      cancelled = true;
+      cleanup?.();
     };
   }, []);
 
@@ -266,6 +225,9 @@ const Home: React.FC = () => {
           ref={heroImgRef}
           src="/assets/General.webp"
           alt="Interior de la Iglesia Cristiana Evangélica en Pilar"
+          width={2400}
+          height={1600}
+          fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover will-change-transform"
           style={{ opacity: 0 }}
         />
@@ -333,6 +295,8 @@ const Home: React.FC = () => {
               <img
                 src="/assets/PG08.webp"
                 alt="Integrantes de la iglesia frente al templo"
+                width={1600}
+                height={900}
                 className="h-full w-full object-cover"
                 loading="lazy"
               />
@@ -341,7 +305,7 @@ const Home: React.FC = () => {
               <h3 className="mt-1 text-lg font-bold text-neutral-100">
                 Creciendo en Fe y Comunidad
               </h3>
-              <p className="mt-2 text-sm text-neutral-300">
+              <p className="mt-2 text-sm text-neutral-300" suppressHydrationWarning>
                 {yearsOfService} años sirviendo en Pilar.
               </p>
             </div>
@@ -359,9 +323,10 @@ const Home: React.FC = () => {
             ref={image2ImgRef}
             src="/assets/PG09.webp"
             alt="Grupo de integrantes de la iglesia en un campamento desde una sierra"
-            className="w-full h-full object-cover drop-shadow-3xl brightness-50 will-change-transform"
-            width={1920}
-            height={1080}
+            className="w-full h-full object-cover brightness-50 will-change-transform"
+            width={2400}
+            height={1600}
+            loading="lazy"
           />
         </div>
       </section>
@@ -381,7 +346,10 @@ const Home: React.FC = () => {
             ref={image3ImgRef}
             src="/assets/PG03.webp"
             alt="Personas caminando en el campamento de tandil 2025"
-            className="w-full h-full object-cover drop-shadow-3xl brightness-50 will-change-transform"
+            className="w-full h-full object-cover brightness-50 will-change-transform"
+            width={2400}
+            height={1600}
+            loading="lazy"
           />
         </div>
       </section>

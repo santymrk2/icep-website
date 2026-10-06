@@ -1,41 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import { useSiteLoaded } from "../hooks/useSiteLoaded";
+import { socialLinks } from "../data/footer";
+
+// Una sola fuente de verdad para las redes (antes Contacto y Footer tenían links distintos).
+const socialHref = (name: string) => socialLinks.find((s) => s.name === name)?.href ?? "#";
 
 const ContactPage: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isLoaded = useSiteLoaded();
 
-  // Lenis: una sola instancia por página (antes se creaba una nueva cada vez que cambiaba
-  // isLoaded y el requestAnimationFrame anterior nunca se cancelaba).
-  useEffect(() => {
-    let lenis: any;
-    let frame = 0;
-    let cancelled = false;
-
-    const run = async () => {
-      const { default: Lenis } = await import("lenis");
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-      if (cancelled) return;
-      lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      });
-      // Mantiene sincronizadas las animaciones con scrub mientras Lenis suaviza el scroll.
-      lenis.on("scroll", ScrollTrigger.update);
-      const raf = (time: number) => {
-        lenis.raf(time);
-        frame = requestAnimationFrame(raf);
-      };
-      frame = requestAnimationFrame(raf);
-    };
-    run();
-
-    return () => {
-      cancelled = true;
-      cancelAnimationFrame(frame);
-      lenis?.destroy();
-    };
-  }, []);
+  // El smooth scroll (Lenis) lo maneja el Layout para todo el sitio.
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -107,7 +81,7 @@ const ContactPage: React.FC = () => {
               <span className="text-sm font-bold text-white border-b-2 border-neutral-800 pb-1 group-hover:border-white transition-all font-sans">info@icepilar.org</span>
            </a>
 
-           <a href="https://instagram.com/ice_pilar" className="group p-10 rounded-[2.5rem] bg-neutral-900 border border-white/10 hover:border-white transition-all text-center">
+           <a href={socialHref("Instagram")} target="_blank" rel="noopener noreferrer" className="group p-10 rounded-[2.5rem] bg-neutral-900 border border-white/10 hover:border-white transition-all text-center">
               <div className="size-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-500">
                  <svg className="size-8 fill-white" viewBox="0 0 24 24">
                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 7c-2.761 0-5 2.239-5 5s2.239 5 5 5 5-2.239 5-5-2.239-5-5-5zm0 8.2c-1.767 0-3.2-1.433-3.2-3.2s1.433-3.2 3.2-3.2 3.2 1.433 3.2 3.2-1.433 3.2-3.2 3.2zm6.406-11.845c-.642 0-1.161.52-1.161 1.162s.519 1.161 1.161 1.161 1.162-.519 1.162-1.161-.519-1.162-1.162-1.162z" />
@@ -118,7 +92,7 @@ const ContactPage: React.FC = () => {
               <span className="text-sm font-bold text-white border-b-2 border-neutral-800 pb-1 group-hover:border-white transition-all font-sans">@ice_pilar</span>
            </a>
 
-           <a href="https://facebook.com/icepilar" className="group p-10 rounded-[2.5rem] bg-neutral-900 border border-white/10 hover:border-white transition-all text-center">
+           <a href={socialHref("Facebook")} target="_blank" rel="noopener noreferrer" className="group p-10 rounded-[2.5rem] bg-neutral-900 border border-white/10 hover:border-white transition-all text-center">
               <div className="size-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-500">
                  <svg className="size-8 fill-white" viewBox="0 0 24 24">
                     <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.324v-21.35c0-.732-.593-1.325-1.325-1.325z" />
@@ -143,12 +117,12 @@ const ContactPage: React.FC = () => {
                <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-2 font-sans">Reunión Principal</p>
                <p className="text-2xl font-bold text-white font-sans">Domingos, 10:00 hs</p>
             </div>
-            <a href="https://maps.app.goo.gl/TEdvqX2pNJz34sfn8" className="inline-flex items-center gap-3 rounded-full border border-white px-8 py-3 font-bold text-white hover:bg-white hover:text-neutral-900 transition-all font-sans">
+            <a href="https://maps.app.goo.gl/TEdvqX2pNJz34sfn8" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 rounded-full border border-white px-8 py-3 font-bold text-white hover:bg-white hover:text-neutral-900 transition-all font-sans">
                Ver ubicación en Maps
             </a>
           </div>
           <div className="h-80 sm:h-[450px] overflow-hidden rounded-[2.5rem] shadow-2xl border-4 border-neutral-800">
-             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3290.8116776545207!2d-58.9129872!3d-34.4587799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bc9d0a8b6bea3b%3A0x8f6a1a0b5f8c0a0e!2sAv.%20Dr.%20Honorio%20Pueyrred%C3%B3n%202775%2C%20B1631FZJ%20Pilar%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1625147200000!5m2!1ses!2sar" style={{ border: 0 }} allowFullScreen={true} className="h-full w-full grayscale hover:grayscale-0 transition-all duration-700"></iframe>
+             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3290.8116776545207!2d-58.9129872!3d-34.4587799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bc9d0a8b6bea3b%3A0x8f6a1a0b5f8c0a0e!2sAv.%20Dr.%20Honorio%20Pueyrred%C3%B3n%202775%2C%20B1631FZJ%20Pilar%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1625147200000!5m2!1ses!2sar" title="Ubicación de la iglesia en Google Maps" loading="lazy" referrerPolicy="no-referrer-when-downgrade" style={{ border: 0 }} allowFullScreen={true} className="h-full w-full grayscale hover:grayscale-0 transition-all duration-700"></iframe>
           </div>
         </div>
       </section>
@@ -172,6 +146,7 @@ const ContactPage: React.FC = () => {
             <img 
               src="/assets/General.webp" 
               alt="ICE Pilar YouTube Preview" 
+              loading="lazy"
               className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-700 grayscale group-hover:grayscale-0"
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">

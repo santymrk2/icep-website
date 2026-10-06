@@ -8,7 +8,14 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), sitemap()],
+  integrations: [
+    react(),
+    sitemap({
+      // Páginas que hoy redirigen a /enconstruccion: no tiene sentido indexarlas.
+      filter: (page) =>
+        !/\/(nosotros|historia|ministerios|enconstruccion)(\/|$)/.test(new URL(page).pathname),
+    }),
+  ],
   site: "https://www.icepilar.org",
 
   vite: {
@@ -23,7 +30,6 @@ export default defineConfig({
     schema: {
       NOTION_API_KEY: envField.string({ context: "server", access: "secret" }),
       DATABASE_ID: envField.string({ context: "server", access: "public" }),
-      GOOGLE_API_KEY: envField.string({ context: "server", access: "secret" }),
       SITE: envField.string({ context: "server", access: "public" }),
       AIRTABLE_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
       AIRTABLE_BASE_ID: envField.string({ context: "server", access: "secret", optional: true }),

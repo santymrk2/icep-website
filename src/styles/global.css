@@ -50,6 +50,20 @@ html {
   50% { transform: perspective(1000px) translateZ(30px) rotateX(-3deg) rotateY(-3deg); }
 }
 
+/* Salvavidas del loader (viene renderizado del servidor): si el JS falla o tarda
+   demasiado, se oculta solo. El JS normalmente lo saca antes de los 5 s. */
+.loading-screen {
+  animation: loader-failsafe 0.3s ease 8s forwards;
+}
+
+@keyframes loader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
 @utility no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
