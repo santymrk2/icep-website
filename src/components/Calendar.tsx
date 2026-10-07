@@ -13,16 +13,6 @@ import {
 } from "lucide-react";
 import { datePartsAR, hasTime, parseEventDate, timeAR } from "../lib/dates";
 
-function getMonthDays(year: number, month: number) {
-  const firstDay = new Date(year, month, 1);
-  const lastDay = new Date(year, month + 1, 0);
-  const days = [];
-  for (let d = 1; d <= lastDay.getDate(); d++) {
-    days.push(new Date(year, month, d));
-  }
-  return days;
-}
-
 const monthNames = [
   "Enero",
   "Febrero",
@@ -64,7 +54,8 @@ export default function Calendar() {
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(today);
   const [events, setEvents] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+  // true de entrada: con SSR, el HTML del servidor mostraba "No hay eventos" hasta hidratar.
+  const [loading, setLoading] = useState(true);
   const [expandedEventId, setExpandedEventId] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<"month" | "week" | "year">("week");
   const containerRef = useRef<HTMLDivElement>(null);
@@ -97,17 +88,28 @@ export default function Calendar() {
     const startISO = formatDateISO(start);
     const endISO = formatDateISO(end);
 
-    fetch(`/api/events?start=${startISO}&end=${endISO}`)
+    // Si el usuario cambia de semana antes de que llegue la respuesta, cancelamos la anterior:
+    // si no, una respuesta vieja podía pisar a la nueva y mostrar eventos de otra semana.
+    const controller = new AbortController();
+
+    fetch(`/api/events?start=${startISO}&end=${endISO}`, { signal: controller.signal })
       .then((res) => res.json())
       .then((data) => {
-        setEvents(data);
-        if (data.length > 0) {
-          const firstId = data[0].id || `${data[0].startDate}-0`;
+        const list = Array.isArray(data) ? data : [];
+        setEvents(list);
+        if (list.length > 0) {
+          const firstId = list[0].id || `${list[0].startDate}-0`;
           setExpandedEventId(firstId);
         }
+        setLoading(false);
       })
-      .catch((err) => console.error("Error fetching events:", err))
-      .finally(() => setLoading(false));
+      .catch((err) => {
+        if (err.name === "AbortError") return;
+        console.error("Error fetching events:", err);
+        setLoading(false);
+      });
+
+    return () => controller.abort();
   }, [currentDate, viewMode]);
 
   const sortedEvents = [...events].sort((a, b) => {
@@ -241,7 +243,7 @@ export default function Calendar() {
               <option value="year">Anual</option>
             </select>
           </div>
-          <span className="text-sm font-semibold text-white mt-0.5">
+          <span className="text-sm font-semibold text-white mt-0.5" suppressHydrationWarning>
             {rangeText}
           </span>
         </div>
