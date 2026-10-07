@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   socialLinks,
   footerSections,
@@ -88,7 +88,9 @@ const FooterColumn: React.FC<FooterSection> = ({ title, links }) => {
 // ── Main Footer ─────────────────────────────────────────────────────────────
 
 const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
+  // Páginas prerenderizadas: el año del build puede quedar viejo, el cliente lo actualiza.
+  const [currentYear, setCurrentYear] = useState(() => new Date().getFullYear());
+  useEffect(() => setCurrentYear(new Date().getFullYear()), []);
   const footerRef = useRef<HTMLElement>(null);
   const brandRef = useRef<HTMLDivElement>(null);
   const columnsRef = useRef<HTMLDivElement>(null);
@@ -221,7 +223,7 @@ const Footer: React.FC = () => {
           {/* Brand — left side */}
           <div ref={brandRef} className="shrink-0">
             <a href="/" className="inline-block mb-4">
-              <img className="size-16" src="/ICEPLogo.png" alt="ICEP Logo" />
+              <img className="size-16" src="/ICEPLogo.png" alt="ICEP Logo" width={64} height={64} loading="lazy" />
             </a>
             <p className="text-sm text-neutral-400 leading-relaxed">
               Iglesia Cristiana
@@ -243,7 +245,7 @@ const Footer: React.FC = () => {
           ref={bottomBarRef}
           className="mt-12 pt-8 border-t border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4"
         >
-          <p className="text-xs text-neutral-500">
+          <p className="text-xs text-neutral-500" suppressHydrationWarning>
             © {currentYear} Iglesia Complejo Evangélico Pilar. Todos los
             derechos reservados.
           </p>
