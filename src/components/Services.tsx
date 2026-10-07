@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import type { FC } from "react";
-import { dateKeyAR, hasTime, parseEventDate, timeAR, weekdayAR } from "../lib/dates";
+import { datePartsAR, dateKeyAR, hasTime, parseEventDate, timeAR, todayISO, weekdayAR } from "../lib/dates";
 
 interface ActivityCard {
   type: string;
@@ -107,6 +107,21 @@ const dayBadgeMap: Record<number, string> = {
   6: "Este sábado",
 };
 
+const weekdayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+
+const DAY_MS = 86_400_000;
+
+/** "Hoy" / "Este sábado" dentro de la semana; más adelante, la fecha ("Domingo 18/10"). */
+const dayBadge = (start: Date) => {
+  const daysAway = Math.round(
+    (Date.parse(dateKeyAR(start)) - Date.parse(todayISO())) / DAY_MS,
+  );
+  if (daysAway === 0) return "Hoy";
+  if (daysAway > 0 && daysAway < 7) return dayBadgeMap[weekdayAR(start)];
+  const { day, month } = datePartsAR(start);
+  return `${weekdayNames[weekdayAR(start)]} ${day}/${month + 1}`;
+};
+
 const Services: FC = () => {
   const [upcoming, setUpcoming] = useState<Record<string, UpcomingMatch>>({});
   const containerRef = useRef<HTMLDivElement>(null);
@@ -141,7 +156,7 @@ const Services: FC = () => {
           const notionTimeLabel = event.startDate && hasTime(event.startDate)
             ? `${timeAR(start)} hs`
             : undefined;
-          const badgeBase = dayBadgeMap[weekdayAR(start)];
+          const badgeBase = dayBadge(start);
           const badge = multipleSameDay && (notionTimeLabel || activity.startTime)
             ? `${badgeBase} · ${notionTimeLabel ?? activity.startTime}`
             : badgeBase;
