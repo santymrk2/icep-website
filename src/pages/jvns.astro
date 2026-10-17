@@ -201,7 +201,7 @@ const marquee = unit.repeat(8);
       const yes = data.asiste === 'si';
       document.getElementById('doneT')!.textContent = yes ? `¡Nos vemos, ${first}!` : `Te vamos a extrañar, ${first}`;
       document.getElementById('doneP')!.textContent = yes
-        ? 'Del 25 al 28 de marzo, Complejo Loma Verde, Escobar. Ingreso jueves 18:00.'
+        ? 'Del 25 al 28 de marzo, Complejo Loma Verde, Escobar. Ingreso jueves 18:00hs.'
         : 'Gracias por avisarnos.';
       document.getElementById('tkNo')!.textContent = data.id ? `Nº ${data.id.replace(/^rec/, '').slice(0, 6).toUpperCase()}` : '';
       fields.style.display = 'none';
